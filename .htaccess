@@ -1,0 +1,159 @@
+RewriteEngine on
+
+AddType application/x-plsc .plsc
+AddType application/x-plsk .plsk
+AddType image/jpeg .jpg
+AddType image/png .png
+AddType image/gif .gif
+
+RewriteRule ^assets\/ - [L]
+RewriteRule ^uploader\/ - [L]
+
+<Files .htaccess,.svn>
+order allow,deny
+deny from all
+</Files>
+
+Options +FollowSymlinks
+
+AddOutputFilterByType DEFLATE text/plain
+AddOutputFilterByType DEFLATE text/html
+AddOutputFilterByType DEFLATE text/xml
+AddOutputFilterByType DEFLATE text/css
+AddOutputFilterByType DEFLATE application/xml
+AddOutputFilterByType DEFLATE application/xhtml+xml
+AddOutputFilterByType DEFLATE application/rss+xml
+AddOutputFilterByType DEFLATE application/javascript
+AddOutputFilterByType DEFLATE application/x-javascript
+
+# no www, please
+RewriteCond %{HTTP_HOST} ^www\.blog\.mynetx\.net$ [NC]
+RewriteRule ^(.*)$ http://blog.mynetx.net/$1 [R=301,L]
+
+# blog -> mynetx.net
+RewriteCond %{HTTP_HOST} ^www\.mynetx\.net$ [OR]
+RewriteCond %{HTTP_HOST} ^blog\.mynetx\.net$
+RewriteRule ^(\d+)$ http://wle.mx/$1 [R=302,L]
+RewriteCond %{HTTP_HOST} ^www\.mynetx\.net$ [OR]
+RewriteCond %{HTTP_HOST} ^blog\.mynetx\.net$
+#RewriteCond %{HTTP_HOST} ^www\.mynetx\.net$
+RewriteRule ^(.*)$ http://mynetx.net/$1 [R=301,L]
+
+# ar blog -> ar.mynetx
+RewriteCond %{HTTP_HOST} ^ar\.blog\.mynetx\.net$
+RewriteRule ^(\d+)$ http://wle.mx/$1 [R=302,L]
+RewriteCond %{HTTP_HOST} ^ar\.blog\.mynetx\.net$
+RewriteRule ^(.*)$ http://ar.mynetx.net/$1 [R=301,L]
+
+# de blog -> de.mynetx
+RewriteCond %{HTTP_HOST} ^de\.blog\.mynetx\.net$
+RewriteRule ^(\d+)$ http://wle.mx/$1 [R=302,L]
+RewriteCond %{HTTP_HOST} ^de\.blog\.mynetx\.net$
+RewriteRule ^(.*)$ http://de.mynetx.net/$1 [R=301,L]
+
+# es blog -> mynetx.es
+RewriteCond %{HTTP_HOST} ^www\.mynetx\.es$ [OR]
+RewriteCond %{HTTP_HOST} ^es\.blog\.mynetx\.net$
+RewriteRule ^(\d+)$ http://wle.mx/$1 [R=302,L]
+RewriteCond %{HTTP_HOST} ^www\.mynetx\.es$ [OR]
+RewriteCond %{HTTP_HOST} ^es\.blog\.mynetx\.net$ [OR]
+RewriteCond %{HTTP_HOST} ^es\.mynetx\.net$
+RewriteRule ^(.*)$ http://mynetx.es/$1 [R=301,L]
+
+# fi blog -> fi.mynetx
+RewriteCond %{HTTP_HOST} ^fi\.blog\.mynetx\.net$
+RewriteRule ^(\d+)$ http://wle.mx/$1 [R=302,L]
+RewriteCond %{HTTP_HOST} ^fi\.blog\.mynetx\.net$
+RewriteRule ^(.*)$ http://fi.mynetx.net/$1 [R=301,L]
+
+# fr blog -> fr.mynetx
+RewriteCond %{HTTP_HOST} ^fr\.blog\.mynetx\.net$
+RewriteRule ^(\d+)$ http://wle.mx/$1 [R=302,L]
+RewriteCond %{HTTP_HOST} ^fr\.blog\.mynetx\.net$
+RewriteRule ^(.*)$ http://fr.mynetx.net/$1 [R=301,L]
+
+# gr blog -> gr.mynetx
+RewriteCond %{HTTP_HOST} ^gr\.blog\.mynetx\.net$
+RewriteRule ^(\d+)$ http://wle.mx/$1 [R=302,L]
+RewriteCond %{HTTP_HOST} ^gr\.blog\.mynetx\.net$
+RewriteRule ^(.*)$ http://gr.mynetx.net/$1 [R=301,L]
+
+# it blog -> mynetx.it
+RewriteCond %{HTTP_HOST} ^www\.mynetx\.it$ [OR]
+RewriteCond %{HTTP_HOST} ^it\.blog\.mynetx\.net$
+RewriteRule ^(\d+)$ http://wle.mx/$1 [R=302,L]
+RewriteCond %{HTTP_HOST} ^www\.mynetx\.it$ [OR]
+RewriteCond %{HTTP_HOST} ^it\.blog\.mynetx\.net$ [OR]
+RewriteCond %{HTTP_HOST} ^it\.mynetx\.net$
+RewriteRule ^(.*)$ http://mynetx.it/$1 [R=301,L]
+
+# nl blog -> mynetx.nl
+RewriteCond %{HTTP_HOST} ^www\.mynetx\.nl$ [OR]
+RewriteCond %{HTTP_HOST} ^nl\.blog\.mynetx\.net$
+RewriteRule ^(\d+)$ http://wle.mx/$1 [R=302,L]
+RewriteCond %{HTTP_HOST} ^www\.mynetx\.nl$ [OR]
+RewriteCond %{HTTP_HOST} ^nl\.blog\.mynetx\.net$ [OR]
+RewriteCond %{HTTP_HOST} ^nl\.mynetx\.net$
+RewriteRule ^(.*)$ http://mynetx.nl/$1 [R=301,L]
+
+# nb.mynetx -> no.mynetx
+RewriteCond %{HTTP_HOST} ^nb\.mynetx\.net$
+RewriteRule ^(\d+)$ http://wle.mx/$1 [R=302,L]
+RewriteCond %{HTTP_HOST} ^nb\.mynetx\.net$
+RewriteRule ^(.*)$ http://no.mynetx.net/$1 [R=301,L]
+
+# pt blog -> pt.mynetx
+RewriteCond %{HTTP_HOST} ^pt\.blog\.mynetx\.net$
+RewriteRule ^(\d+)$ http://wle.mx/$1 [R=302,L]
+RewriteCond %{HTTP_HOST} ^pt\.blog\.mynetx\.net$
+RewriteRule ^(.*)$ http://pt.mynetx.net/$1 [R=301,L]
+
+# tr blog -> tr.mynetx
+RewriteCond %{HTTP_HOST} ^tr\.blog\.mynetx\.net$ [OR]
+RewriteCond %{HTTP_HOST} ^messengeryardim\.com$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.messengeryardim\.com$
+RewriteRule ^(\d+)$ http://wle.mx/$1 [R=302,L]
+RewriteCond %{HTTP_HOST} ^tr\.blog\.mynetx\.net$ [OR]
+RewriteCond %{HTTP_HOST} ^messengeryardim\.com$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.messengeryardim\.com$
+RewriteRule ^(.*)$ http://tr.mynetx.net/$1 [R=301,L]
+
+
+# change Arabic flag
+RewriteRule ^wp-content/plugins/sitepress-multilingual-cms/res/flags/ar.png$ /wp-content/plugins/sitepress-multilingual-cms/res/flags/sa.png [L]
+
+
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteBase /
+RewriteRule ^download/([^/]+)$ http://mynetx.net/wp-content/plugins/download-monitor/download.php?id=$1 [L]
+</IfModule>
+
+
+
+
+
+
+
+
+
+
+
+
+# BEGIN WordPress
+
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteBase /
+RewriteRule ^download/([^/]+)$ http://mynetx.net/wp-content/plugins/download-monitor/download.php?id=$1 [L]
+</IfModule>
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+
+# END WordPress

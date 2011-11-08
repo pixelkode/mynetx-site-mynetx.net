@@ -1,0 +1,6 @@
+RewriteEngine Off
+Options +Indexes
+IndexOptions FancyIndexing NameWidth=* HtmlTable
+AddDescription "<span style='color: #090'>32 bit</span>" x86
+AddDescription "<span style='color: #c00'>64 bit</span>" x64
+ServerSignature Off
