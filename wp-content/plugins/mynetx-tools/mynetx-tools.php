@@ -155,7 +155,7 @@ function mynetxtools_post_thumbnail_html($html, $post_id, $post_thumbnail_id, $s
 					$strContent = $strEmbed;
 				}
 			}
-			if(preg_match('/http:\/\/.+\.ak\.fbcdn\.net\/.+\/\d+_(\d+)_.+_.\.jpg/', $strContent, $arrMatch)) {
+			if(preg_match('/src="http:\/\/.+\.ak\.fbcdn\.net\/.+\/\d+_(\d+)_.+_.\.jpg/', $strContent, $arrMatch)) {
 				$objData = json_decode(file_get_contents(
 					'https://graph.facebook.com/'.$arrMatch[1].
 					'?access_token=156634014382989|18452a0b398e354512825436-551053805|NLZg3kjgZbZyRwB3zSMfqo8pzHo'));
@@ -168,7 +168,7 @@ function mynetxtools_post_thumbnail_html($html, $post_id, $post_thumbnail_id, $s
 				add_post_meta($post_id, 'stickyimage-'.$size,
 					$strImage.','.$arrImage->width.','.$arrImage->height, true);
 			}
-			elseif(preg_match('/http:\/\/fbcdn\-sphotos\-.\.akamaihd\.net\/.+\/\d+_(\d+)_.+_.\.jpg/', $strContent, $arrMatch)) {
+			elseif(preg_match('/src="http:\/\/fbcdn\-sphotos\-.\.akamaihd\.net\/.+\/\d+_(\d+)_.+_.\.jpg/', $strContent, $arrMatch)) {
 				$objData = json_decode(file_get_contents(
 					'https://graph.facebook.com/'.$arrMatch[1].
 					'?access_token=156634014382989|18452a0b398e354512825436-551053805|NLZg3kjgZbZyRwB3zSMfqo8pzHo'));
@@ -181,8 +181,8 @@ function mynetxtools_post_thumbnail_html($html, $post_id, $post_thumbnail_id, $s
 				add_post_meta($post_id, 'stickyimage-'.$size,
 					$strImage.','.$arrImage->width.','.$arrImage->height, true);
 			}
-			elseif(preg_match('/http:\/\/farm\d+\.static\.flickr\.com\/.+\.jpg/', get_the_content(), $arrMatch)) {
-				$strImage = substr($arrMatch[0], 0, -4);
+			elseif(preg_match('/src="http:\/\/farm\d+\.static\.flickr\.com\/.+\.jpg/', get_the_content(), $arrMatch)) {
+				$strImage = substr($arrMatch[0], 4, -4);
 				if(substr($strImage, -2, 1) == '_')
 					$strImage = substr($strImage, 0, -2);
 				$chrsize = $size == 'medium' ? 'm' : 't';
@@ -193,8 +193,8 @@ function mynetxtools_post_thumbnail_html($html, $post_id, $post_thumbnail_id, $s
 				add_post_meta($post_id, 'stickyimage-'.$size,
 					$strImage.','.$arrSize[0].','.$arrSize[1], true);
 			}
-			elseif(preg_match('/https?:\/\/.+\.googleusercontent\.com\/.+(\/s\d+\/).+\.(jpg|gif|png)/', get_the_content(), $arrMatch)) {
-				$strImage = substr($arrMatch[0], 0, -3);
+			elseif(preg_match('/src=\"https?:\/\/.+\.googleusercontent\.com\/.+(\/s\d+\/).+\.(jpg|gif|png)/', get_the_content(), $arrMatch)) {
+				$strImage = substr($arrMatch[0], 4, -3);
 				$strSize = $arrMatch[1];
 				$chrsize = $size == 'medium' ? '240' : '75';
 				$strImage = str_replace($strSize, '/s' . $chrsize . '/', $strImage) . 'jpg';

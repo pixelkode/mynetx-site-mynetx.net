@@ -870,8 +870,8 @@ a.share.fb {
 .sy h2 {
     font-size: 1.15em;
     background-image: url(img/sticky-transpx.png);
-    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(225, 244, 252, 0.2)), to(rgba(225, 244, 252, 1.0)));
-    background-image: -moz-linear-gradient(top center, rgba(225, 244, 252, 0.2) 0%, rgba(225, 244, 252, 1.0) 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(225, 244, 252, 0.6)), to(rgba(225, 244, 252, 1.0)));
+    background-image: -moz-linear-gradient(top center, rgba(225, 244, 252, 0.6) 0%, rgba(225, 244, 252, 1.0) 100%);
 
     position: absolute;
     bottom: 1px;
