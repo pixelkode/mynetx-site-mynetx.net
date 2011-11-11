@@ -153,16 +153,19 @@ $arrPages = get_pages('depth=1&title_li=0&sort_column=menu_order&hierarchical=0'
                                               str_replace('http://feeds.feedburner.com/', '', __('http://feeds.feedburner.com/mynetx')),
                                               str_replace('-', '_', __('en-US'))
                         ); ?>"
-                           class="pop-small"><?php _e('E-mail', 'philna'); ?></a>
+                           class="pop-small"><?php _e('Newsletter', 'philna'); ?></a>
                     </li>
                     <?php endif; ?>
-                    <?php if (in_array(__('en'), array('en', 'de'))): ?>
+                    <li>
+                        <?php echo icl_link_to_element(241, 'page'); ?>
+                    </li>
+                    <?php /* if (in_array(__('en'), array('en', 'de'))): ?>
                     <li>
                         <a href="http://eepurl.com/ca2dr" title="<?php
-    _e('Subscribe to our monthly newsletter now! &raquo;'); ?>"
+                           _e('Subscribe to our monthly newsletter now! &raquo;'); ?>"
                            class="insider pop-small"><?php _e('Newsletter'); ?></a>
                     </li>
-                    <?php endif; ?>
+                    <?php endif; */ ?>
                     <li id="languages" class="section">
                         <?php $arrLangs = icl_get_languages('skip_missing=0');
                         if (is_array($arrLangs)): ?>
