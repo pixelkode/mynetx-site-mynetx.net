@@ -48,7 +48,7 @@ $(function ()
         window.open(this.href, "pop-small", "height=500,width=630");
         return false
     });
-    $(".not-updated a").click(
+    $(".not-updated a[href=#]").click(
             function ()
             {
                 location.href = "mailto:me" + String.fromCharCode(64) + "mynetx.net?subject=Author%2FTranslator%20Application";

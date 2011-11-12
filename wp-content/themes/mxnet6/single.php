@@ -33,11 +33,11 @@ if(isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) && !isset($_SESSION['hide_language_ba
 						WHERE s.value = '$strMessage'
 						AND s.id = st.string_id
 						AND st.language = '{$arrAvailableLanguage['language_code']}'");
-				/*
-				echo '<div id="notice" class="language-bar '.($boolIsRtl ? 'rtl' : 'ltr').'">'.
+				echo '<div class="notice language-bar '.($boolIsRtl ? 'rtl' : 'ltr').'">'.
+					'<img src="'.$arrAvailableLanguage['country_flag_url'].'" '.
+					'width="18" height="12" />&nbsp; '.
 					sprintf($strMessage, $arrAvailableLanguage['url']).
 					'</div>';
-				*/
 				break;
 			}
 		}
