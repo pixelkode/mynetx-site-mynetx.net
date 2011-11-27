@@ -17,7 +17,7 @@ class IclCommentsTranslation{
     
     function init(){
         global $current_user, $sitepress_settings, $sitepress, $pagenow, $wpdb;
-        if($current_user->ID){
+        if(!empty($current_user->ID)){
             $this->enable_comments_translation = get_user_meta($current_user->data->ID,'icl_enable_comments_translation',true);
             $this->enable_replies_translation = get_user_meta($current_user->data->ID,'icl_enable_replies_translation',true);
             

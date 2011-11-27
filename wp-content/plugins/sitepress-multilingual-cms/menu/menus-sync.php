@@ -148,10 +148,10 @@
                             if(!isset($menu_item['translations'][$l['code']]) || !isset($menu_item['translations'][$l['code']]->$tr_title_field)){
                                 echo '<i class="inactive">' . __('Not translated', 'sitepress') . '</i>';
                             }else{
-                                if(!$menu_item['translations'][$l['code']]->synced) echo '<span class="icl_msync_add">';
+                                if(empty($menu_item['translations'][$l['code']]->synced)) echo '<span class="icl_msync_add">';
                                 echo $menu_item['translations'][$l['code']]->$tr_title_field; 
-                                if(!$menu_item['translations'][$l['code']]->synced) echo '</span>';
-                                if(!$menu_item['translations'][$l['code']]->synced){
+                                if(empty($menu_item['translations'][$l['code']]->synced)) echo '</span>';
+                                if(empty($menu_item['translations'][$l['code']]->synced)){
                                     if($sitepress->is_translated_post_type($menu_item['object'])){
                                         //$ob_type = 'post';
                                         $tr_title_field = 'post_title';

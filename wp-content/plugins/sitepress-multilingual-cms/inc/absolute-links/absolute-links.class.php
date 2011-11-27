@@ -151,7 +151,10 @@ class AbsoluteLinks{
                 }  
                 
                 $post_name = $category_name = $tax_name = false;
-                if(isset($perma_query_vars['pagename'])){
+                if(isset($perma_query_vars['pagename']) && 'page' != $wpdb->get_var($wpdb->prepare("SELECT post_type FROM {$wpdb->posts} WHERE post_name=%s", $perma_query_vars['pagename']))){ // since WP 3.3
+                    $post_name = $perma_query_vars['pagename']; 
+                    $post_type = 'post';
+                }elseif(isset($perma_query_vars['pagename'])){
                     $post_name = $perma_query_vars['pagename']; 
                     $post_type = 'page';
                 }elseif(isset($perma_query_vars['name'])){

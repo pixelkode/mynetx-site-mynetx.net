@@ -10,12 +10,19 @@ class SitePress_Support
 
     function __construct() {
 
+        add_action('init', array($this, 'init'));
+        
         if (isset($_GET['page']) && $_GET['page'] == ICL_PLUGIN_FOLDER . '/menu/support.php') {
-            wp_enqueue_script('sitepress-icl_reminders', ICL_PLUGIN_URL . '/res/js/icl_reminders.js', array('jquery'), ICL_SITEPRESS_VERSION);
             add_action('icl_support_admin_page', array(&$this, 'admin_page'));
         }
     }
 
+    function init(){
+        if (isset($_GET['page']) && $_GET['page'] == ICL_PLUGIN_FOLDER . '/menu/support.php') {
+            wp_enqueue_script('sitepress-icl_reminders', ICL_PLUGIN_URL . '/res/js/icl_reminders.js', array('jquery'), ICL_SITEPRESS_VERSION);
+        }
+    }
+    
     function admin_page() {
         $this->offer_wpml_org_subscription();
     }
@@ -32,6 +39,9 @@ class SitePress_Support
             $_POST['sub']['subscription_email'] = trim($_POST['sub']['subscription_email'], ' ');
             $_POST['sub']['subscription_key'] = trim($_POST['sub']['subscription_key'], ' ');
             $sitepress->save_settings($_POST['sub']);
+            
+            check_for_WPML_plugin_updates(get_site_transient('update_plugins'));
+            
             echo '<script type="text/javascript">location.href = "admin.php?page=' . ICL_PLUGIN_FOLDER . '/menu/support.php";</script>';
         }
         
@@ -89,10 +99,10 @@ class SitePress_Support
         </table>
         <p class="submit">
             <input type="hidden" name="save_sub" value="1" />
-            <input class="button" name="save sub" value="<?php _e('Save subscription details', 'sitepress'); ?>" type="submit" />
+            <input class="button" name="save sub" value="<?php _e('Save subscription details', 'sitepress'); ?>" type="submit" />  
         </p>
         <div class="icl_progress" style="display:none;"><?php _e('Saving. Please wait...', 'sitepress'); ?></div>
-
+        
         <?php @printf($plugin_info->subscription['after']); ?>
 
     </form>

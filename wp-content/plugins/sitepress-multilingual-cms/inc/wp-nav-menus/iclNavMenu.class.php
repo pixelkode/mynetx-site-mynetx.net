@@ -24,18 +24,11 @@ class iclNavMenu{
                                     
         }
         
-        // add language controls for menus no option but javascript
-        if($pagenow == 'nav-menus.php'){
-            add_action('admin_footer', array($this, 'nav_menu_language_controls'), 10);
-            
-            wp_enqueue_script('wp_nav_menus', ICL_PLUGIN_URL . '/res/js/wp-nav-menus.js', ICL_SITEPRESS_VERSION, true);    
-            wp_enqueue_style('wp_nav_menus_css', ICL_PLUGIN_URL . '/res/css/wp-nav-menus.css', array(), ICL_SITEPRESS_VERSION,'all');    
-            
-            // filter posts by language
-            add_action('parse_query', array($this, 'parse_query'));
-        }
         // filter menus by language - also on the widgets page
-        if($pagenow == 'nav-menus.php' || $pagenow == 'widgets.php' || (isset($_GET['page']) && $_GET['page'] == ICL_PLUGIN_FOLDER . '/menu/languages.php')){
+        if($pagenow == 'nav-menus.php' || $pagenow == 'widgets.php' 
+            || (isset($_GET['page']) && $_GET['page'] == ICL_PLUGIN_FOLDER . '/menu/languages.php')
+            || isset($_POST['action']) && $_POST['action'] == 'save-widget'
+            ){
             add_filter('get_terms', array($this, 'get_terms_filter'), 1, 3);        
         }
         
@@ -53,7 +46,18 @@ class iclNavMenu{
     }
     
     function init(){
-        global $sitepress, $sitepress_settings;
+        global $sitepress, $sitepress_settings, $pagenow;
+        
+        // add language controls for menus no option but javascript
+        if($pagenow == 'nav-menus.php'){
+            add_action('admin_footer', array($this, 'nav_menu_language_controls'), 10);
+            
+            wp_enqueue_script('wp_nav_menus', ICL_PLUGIN_URL . '/res/js/wp-nav-menus.js', ICL_SITEPRESS_VERSION, true);    
+            wp_enqueue_style('wp_nav_menus_css', ICL_PLUGIN_URL . '/res/css/wp-nav-menus.css', array(), ICL_SITEPRESS_VERSION,'all');    
+            
+            // filter posts by language
+            add_action('parse_query', array($this, 'parse_query'));
+        }
         
         if(is_admin()){
             $this->_set_menus_language();

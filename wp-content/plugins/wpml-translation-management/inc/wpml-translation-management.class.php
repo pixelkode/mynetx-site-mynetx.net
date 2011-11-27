@@ -34,7 +34,7 @@ class WPML_Translation_Management{
             
             add_filter('plugin_action_links', array($this, 'plugin_action_links'), 10, 2); 
 
-            wp_enqueue_script('wpml-tm-scripts', WPML_TM_URL . '/res/js/scripts.js', array(), WPML_TM_VERSION);
+            wp_enqueue_script('wpml-tm-scripts', WPML_TM_URL . '/res/js/scripts.js', array('jquery'), WPML_TM_VERSION);
             wp_enqueue_style('wpml-tm-styles', WPML_TM_URL . '/res/css/style.css', array(), WPML_TM_VERSION); 
             wp_enqueue_style('wpml-tm-queue', WPML_TM_URL . '/res/css/translations-queue.css', array(), WPML_TM_VERSION); 
             

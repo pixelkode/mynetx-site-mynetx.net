@@ -393,9 +393,14 @@ if(!defined('ICL_DONT_PROMOTE') || !ICL_DONT_PROMOTE){
                 <?php else: ?> 
                     <?php foreach($sitepress->get_active_languages() as $lang): if($lang['code']==$icl_translation_filter['from_lang']) continue;?>
                     <?php 
+                        
                         $_suffix = str_replace('-','_',$lang['code']);                        
                         $_prop_up = 'needs_update_'.$_suffix;
                         $_prop_st = 'status_'.$_suffix;
+                        
+                        if(!isset($doc->$_prop_up)) $doc->$_prop_up = false;
+                        if(!isset($doc->$_prop_st)) $doc->$_prop_st = ICL_TM_NOT_TRANSLATED;
+                        
                         switch(intval($doc->$_prop_st)){
                             case ICL_TM_NOT_TRANSLATED : $tst_title = esc_attr(__('Not translated','wpml-translation-management')); break;
                             case ICL_TM_WAITING_FOR_TRANSLATOR : $tst_title = esc_attr(__('Waiting for translator','wpml-translation-management')); break;

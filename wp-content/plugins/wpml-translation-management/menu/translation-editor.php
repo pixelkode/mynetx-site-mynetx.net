@@ -18,13 +18,14 @@ $rtl_translation_attribute = $rtl_translation ? ' dir="rtl"' : ' dir="ltr"';
     <?php do_action('icl_tm_messages'); ?>
     <?php 
     $opost = get_post($job->original_doc_id);
-    if(($opost->post_status == 'draft' || $opost->post_status == 'private') && $opost->post_author != $current_user->data->ID){
+    if(!empty($opost) && ($opost->post_status == 'draft' || $opost->post_status == 'private') && $opost->post_author != $current_user->data->ID){
         $elink1 = '<i>';
         $elink2 = '</i>';
     }else{
         $elink1 = sprintf('<a href="%s">', get_permalink($job->original_doc_id));
         $elink2 = '</a>';
     }
+    
     ?>
     <p class="updated fade"><?php printf(__('You are translating %s from %s to %s.', 'wpml-translation-management'), 
         TranslationManagement::tm_post_link($job->original_doc_id), $job->from_language, $job->to_language); ?></p>
@@ -121,7 +122,7 @@ $rtl_translation_attribute = $rtl_translation ? ' dir="rtl"' : ' dir="ltr"';
                                     $icl_tm_f_translated = false;
                                 }
                             ?>
-                            <label><input class="icl_multiple" type="text" name="fields[<?php echo $element->field_type ?>][data][<?php echo $k ?>]" value="<?php if(isset($icl_tm_translated_content[$k])) echo esc_attr($icl_tm_translated_content[$k]); ?>"<?php echo $rtl_translation_attribute; ?> /></label>
+                            <label><input class="icl_multiple" type="text" name="fields[<?php echo htmlspecialchars($element->field_type) ?>][data][<?php echo $k ?>]" value="<?php if(isset($icl_tm_translated_content[$k])) echo esc_attr($icl_tm_translated_content[$k]); ?>"<?php echo $rtl_translation_attribute; ?> /></label>
                             <?php if($icl_tm_f_translated): ?>
                             <div class="icl_tm_tf"><?php _e('Translated field', 'wpml-translation-management'); ?></div>
                             <?php endif; ?>
@@ -129,16 +130,16 @@ $rtl_translation_attribute = $rtl_translation ? ' dir="rtl"' : ' dir="ltr"';
                             
                             <?php // CASE 3 - multiple lines *********************** ?>         
                             <?php elseif(0 === strpos($element->field_type, 'field-') && $element_field_style == 1): ?>
-                                <textarea name="fields[<?php echo $element->field_type ?>][data]"<?php echo $rtl_translation_attribute; ?>><?php echo esc_html($icl_tm_translated_content); ?></textarea>
+                                <textarea name="fields[<?php echo htmlspecialchars($element->field_type) ?>][data]"<?php echo $rtl_translation_attribute; ?>><?php echo esc_html($icl_tm_translated_content); ?></textarea>
                                 
                             <?php // CASE 4 - one-liner *********************** ?>         
                             <?php else: ?>
-                            <label><input type="text" name="fields[<?php echo $element->field_type ?>][data]" value="<?php 
+                            <label><input type="text" name="fields[<?php echo htmlspecialchars($element->field_type) ?>][data]" value="<?php 
                                 echo esc_attr($icl_tm_translated_content); ?>"<?php echo $rtl_translation_attribute; ?> /></label>
                             <?php endif; ?> 
                             
                             <p><label><input class="icl_tm_finished<?php if($element->field_format == 'csv_base64'): ?> icl_tmf_multiple<?php endif;
-                                ?>" type="checkbox" name="fields[<?php echo $element->field_type ?>][finished]" value="1" <?php 
+                                ?>" type="checkbox" name="fields[<?php echo htmlspecialchars($element->field_type) ?>][finished]" value="1" <?php 
                                 if($element->field_finished): ?>checked="checked"<?php endif;?> />&nbsp;<?php 
                                 _e('This translation is finished.', 'wpml-translation-management')?></label>                                
                                 <span class="icl_tm_error" style="display: none;"><?php _e('This field cannot be empty', 'wpml-translation-management') ?></span>
@@ -209,8 +210,8 @@ $rtl_translation_attribute = $rtl_translation ? ' dir="rtl"' : ' dir="ltr"';
                             </div>
                             <?php /* ORIGINAL CONTENT */ ?>
                             
-                            <input type="hidden" name="fields[<?php echo $element->field_type ?>][format]" value="<?php echo $element->field_format ?>" />
-                            <input type="hidden" name="fields[<?php echo $element->field_type ?>][tid]" value="<?php echo $element->tid ?>" />
+                            <input type="hidden" name="fields[<?php echo htmlspecialchars($element->field_type) ?>][format]" value="<?php echo $element->field_format ?>" />
+                            <input type="hidden" name="fields[<?php echo htmlspecialchars($element->field_type) ?>][tid]" value="<?php echo $element->tid ?>" />
                             
                             <?php if(!$element->field_finished && !empty($job->prev_version)): ?>                            
                                 <?php 

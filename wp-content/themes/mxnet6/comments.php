@@ -10,11 +10,6 @@ $options = get_option('philna_options');
 $trackbacks = $wpdb->get_results($wpdb->prepare("SELECT * FROM $wpdb->comments WHERE comment_post_ID = %d AND comment_approved = '1' AND (comment_type = 'pingback' OR comment_type = 'trackback') ORDER BY comment_date", $post->ID));
 $count = 0;
 ?>
-<script type="text/javascript">
-    /* <![CDATA[ */
-    ajaxCommentsURL = "<?php bloginfo('template_url'); ?>/comments-ajax.php";
-    /* ]]> */
-</script>
 <?php if ($comments || comments_open()): ?>
 <div id="comments">
     <div id="cmtswitcher">

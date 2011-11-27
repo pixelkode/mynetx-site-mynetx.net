@@ -85,7 +85,9 @@ class TranslationManagement{
         if(!isset($this->settings['custom_fields_translation'])) $this->settings['custom_fields_translation'] = array();
         
         get_currentuserinfo();
-        $user = new WP_User($current_user->ID);
+        if(isset($current_user->ID)){
+            $user = new WP_User($current_user->ID);    
+        }
         
         if(empty($user->data)) return;
         
@@ -198,9 +200,9 @@ class TranslationManagement{
         //add_filter('the_editor', array($this, 'editor_directionality'), 9999);
         add_filter('tiny_mce_before_init', array($this, '_mce_set_direction'), 9999);        
         add_filter('mce_buttons', array($this, '_mce_remove_fullscreen'), 9999);                    
-        if (function_exists('wp_tiny_mce')) try{
-            @wp_tiny_mce();
-        } catch(Exception $e) {  /*don't do anything with this */ }
+        //if (function_exists('wp_tiny_mce')) try{
+            //@wp_tiny_mce();
+        //} catch(Exception $e) {  /*don't do anything with this */ }
     }    
     
     function _mce_remove_fullscreen($options){
@@ -1756,14 +1758,16 @@ class TranslationManagement{
         }
         
         if(!defined('ICL_TM_DISABLE_ALL_NOTIFICATIONS') && $translation_status->translation_service=='local'){
-            require_once ICL_PLUGIN_PATH . '/inc/translation-management/tm-notification.class.php';
-            if($job_id){
-                $tn_notification = new TM_Notification();
-                if(empty($translator_id)){
-                    $tn_notification->new_job_any($job_id);    
-                }else{
-                    $tn_notification->new_job_translator($job_id, $translator_id);
-                }            
+            if($this->settings['notification']['new-job'] == ICL_TM_NOTIFICATION_IMMEDIATELY){
+                require_once ICL_PLUGIN_PATH . '/inc/translation-management/tm-notification.class.php';
+                if($job_id){
+                    $tn_notification = new TM_Notification();
+                    if(empty($translator_id)){
+                        $tn_notification->new_job_any($job_id);    
+                    }else{
+                        $tn_notification->new_job_translator($job_id, $translator_id);
+                    }            
+                }
             }
         }
 
@@ -1782,11 +1786,14 @@ class TranslationManagement{
                 $tn_notification->translator_removed($prev_translator_id, $job_id);
             }
         }
-        if(empty($translator_id)){
-            $tn_notification->new_job_any($job_id);    
-        }else{
-            $tn_notification->new_job_translator($job_id, $translator_id);
-        }            
+        
+        if($this->settings['notification']['new-job'] == ICL_TM_NOTIFICATION_IMMEDIATELY){
+            if(empty($translator_id)){
+                $tn_notification->new_job_any($job_id);    
+            }else{
+                $tn_notification->new_job_translator($job_id, $translator_id);
+            }            
+        }
         
         $wpdb->update($wpdb->prefix.'icl_translation_status', 
             array('translator_id'=>$translator_id, 'status'=>ICL_TM_WAITING_FOR_TRANSLATOR, 'translation_service' => $service),
@@ -3104,20 +3111,6 @@ class TranslationManagement{
         $q = $_POST['q'];
         
         $non_translators = $this->get_blog_not_translators();
-        
-        /*
-        for($i = 0; $i < 10000; $i++){
-            $randuser = array(
-                'ID' => $i+1,
-                'user_login'    => substr(str_shuffle(str_repeat('abcdefghijklmnopqrstuvwxyz',5)),0,5),
-                'display_name'  => substr(str_shuffle(str_repeat('abcdefghijklmnopqrstuvwxyz',5)),0,5)
-            );
-            
-            $non_translators[] = (object) $randuser;
-            $non_translators[] = (object) $randuser;
-            $non_translators[] = (object) $randuser;
-        }
-        */
         
         $matched_users = array();
         foreach($non_translators as $t){

@@ -1,25 +1,21 @@
 <?php $this->noscript_notice() ?>
-<p style="float:left;"> 
-<?php printf(__('Language of this %s', 'sitepress'), strtolower($wp_post_types[$post->post_type]->labels->singular_name != "" ? $wp_post_types[$post->post_type]->labels->singular_name : $wp_post_types[$post->post_type]->labels->name)); ?>&nbsp;
 
-<select name="icl_post_language" id="icl_post_language">
-<?php foreach($active_languages as $lang):?>
-<?php if(isset($translations[$lang['code']]->element_id) && $translations[$lang['code']]->element_id != $post->ID) continue ?>
-<option value="<?php echo $lang['code'] ?>" <?php if($selected_language==$lang['code']): ?>selected="selected"<?php endif;?>><?php echo $lang['display_name'] ?>&nbsp;</option>
-<?php endforeach; ?>
-</select> 
+<div id="icl_document_language_dropdown" class="icl_box_paragraph"> 
+    <?php printf(__('Language of this %s', 'sitepress'), strtolower($wp_post_types[$post->post_type]->labels->singular_name != "" ? $wp_post_types[$post->post_type]->labels->singular_name : $wp_post_types[$post->post_type]->labels->name)); ?>&nbsp;
 
-<input type="hidden" name="icl_trid" value="<?php echo $trid ?>" />
-
-<?php /*<input type="hidden" name="icl_is_page" value="<?php echo $is_page ?>" /> */?>
-
-</p>
+    <select name="icl_post_language" id="icl_post_language">
+    <?php foreach($active_languages as $lang):?>
+    <?php if(isset($translations[$lang['code']]->element_id) && $translations[$lang['code']]->element_id != $post->ID) continue ?>
+    <option value="<?php echo $lang['code'] ?>" <?php if($selected_language==$lang['code']): ?>selected="selected"<?php endif;?>><?php echo $lang['display_name'] ?>&nbsp;</option>
+    <?php endforeach; ?>
+    </select> 
+    <input type="hidden" name="icl_trid" value="<?php echo $trid ?>" />
+</div>
 
 <div id="translation_of_wrap">
     <?php if( ($selected_language != $default_language || (isset($_GET['lang']) && $_GET['lang']!=$default_language)) && 'all' != $this->get_current_language() ): ?>
-        <div style="clear:both;font-size:1px">&nbsp;</div>
         
-        <p style="float:left;">
+        <div id="icl_translation_of_panel" class="icl_box_paragraph">
         <?php echo __('This is a translation of', 'sitepress') ?>&nbsp;
         <select name="icl_translation_of" id="icl_translation_of"<?php if((empty($_GET['action']) || $_GET['action'] != 'edit') && $trid) echo ' disabled="disabled"';?>>
             <?php if($source_language == null || $source_language == $default_language): ?>
@@ -66,11 +62,11 @@
             <?php endif; ?>
         </select>
 
-        </p>
+        </div>
     <?php endif; ?>
 </div><!--//translation_of_wrap--><?php // don't delete this html comment ?>
 
-<div style="clear:both;font-size:1px">&nbsp;</div>
+<br clear="all" />
 
 <?php if(isset($_GET['action']) && $_GET['action'] == 'edit' && $trid): ?>       
     
@@ -169,8 +165,10 @@
         </p>
     <?php endif; ?>
     <?php if($translations_found > 0): ?>    
-        <p style="clear:both;">
-            <b><?php _e('Translations', 'sitepress') ?></b> 
+     
+     <div class="icl_box_paragraph">
+        
+            <b><?php _e('Translations', 'sitepress') ?></b>
             (<a class="icl_toggle_show_translations" href="#" <?php if(empty($this->settings['show_translations_flag'])):?>style="display:none;"<?php endif;?>><?php _e('hide','sitepress')?></a><a class="icl_toggle_show_translations" href="#" <?php if(!empty($this->settings['show_translations_flag'])):?>style="display:none;"<?php endif;?>><?php _e('show','sitepress')?></a>)                
         <table width="100%" class="icl_translations_table" id="icl_translations_table" <?php if(empty($this->settings['show_translations_flag'])):?>style="display:none;"<?php endif;?>>        
         <?php $oddev = 1; ?>
@@ -251,11 +249,12 @@
         </tr>
         <?php endforeach; ?>
         </table>
-                
+       
+       </div>         
         
     <?php endif; ?>
     
-    <br clear="all" style="line-height:1px;" />
+    
     
     </div>
 <?php endif; ?>

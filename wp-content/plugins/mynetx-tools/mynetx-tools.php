@@ -194,6 +194,7 @@ function mynetxtools_post_thumbnail_html($html, $post_id, $post_thumbnail_id, $s
 					$strImage.','.$arrSize[0].','.$arrSize[1], true);
 			}
 			elseif(preg_match('/src=\"https?:\/\/.+\.googleusercontent\.com\/.+(\/s\d+\/).+\.(jpg|gif|png)/', get_the_content(), $arrMatch)) {
+//TODO
 				$strImage = substr($arrMatch[0], 4, -3);
 				$strSize = $arrMatch[1];
 				$chrsize = $size == 'medium' ? '240' : '75';

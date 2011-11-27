@@ -21,12 +21,6 @@ if(!defined('XMLRPC')){
 
 //add_filter('xmlrpc_methods','icl_add_custom_xmlrpc_methods');
 
-if(is_admin()){
-    wp_enqueue_style('thickbox');
-    wp_enqueue_script('jquery');
-    wp_enqueue_script('thickbox');
-}
-
 function icl_st_init(){                       
     global $sitepress_settings, $sitepress, $wpdb, $icl_st_err_str;
     
@@ -1045,6 +1039,11 @@ function icl_sw_filters_nxgettext($translation, $single, $plural, $number, $_get
 function icl_st_author_first_name_filter($value, $user_id){
     global $sitepress_settings;
     
+    if(false === $user_id){
+        global $authordata;
+        $user_id = $authordata->data->ID;
+    }
+    
     $user = new WP_User($user_id);        
     if ( is_array( $user->roles ) && array_intersect($user->roles, (array)$sitepress_settings['st']['translated-users'])){
         $value = icl_st_translate_author_fields('first_name', $value, $user_id);
@@ -1056,6 +1055,11 @@ function icl_st_author_first_name_filter($value, $user_id){
 function icl_st_author_last_name_filter($value, $user_id){
     global $sitepress_settings;
     
+    if(false === $user_id){
+        global $authordata;
+        $user_id = $authordata->data->ID;
+    }
+    
     $user = new WP_User($user_id);        
     if ( is_array( $user->roles ) && array_intersect($user->roles, (array)$sitepress_settings['st']['translated-users'])){
         $value = icl_st_translate_author_fields('last_name', $value, $user_id);
@@ -1066,6 +1070,11 @@ function icl_st_author_last_name_filter($value, $user_id){
 
 function icl_st_author_nickname_filter($value, $user_id){
     global $sitepress_settings;
+
+    if(false === $user_id){
+        global $authordata;
+        $user_id = $authordata->data->ID;
+    }
     
     $user = new WP_User($user_id);        
     if ( is_array( $user->roles ) && array_intersect($user->roles, (array)$sitepress_settings['st']['translated-users'])){
@@ -1078,7 +1087,13 @@ function icl_st_author_nickname_filter($value, $user_id){
 function icl_st_author_description_filter($value, $user_id){
     global $sitepress_settings;
     
+    if(false === $user_id){
+        global $authordata;
+        $user_id = $authordata->data->ID;
+    }
+    
     $user = new WP_User($user_id);        
+    
     if ( is_array( $user->roles ) && array_intersect($user->roles, (array)$sitepress_settings['st']['translated-users'])){
         $value = icl_st_translate_author_fields('description', $value, $user_id);
     }
@@ -1088,7 +1103,7 @@ function icl_st_author_description_filter($value, $user_id){
 
 function icl_st_author_displayname_filter($value){
     global $authordata, $sitepress_settings;
-    
+        
     $user = new WP_User($authordata->ID);        
     if ( is_array( $user->roles ) && array_intersect($user->roles, (array)$sitepress_settings['st']['translated-users'])){
         $value = icl_st_translate_author_fields('display_name', $value, isset($authordata->ID)?$authordata->ID:null);

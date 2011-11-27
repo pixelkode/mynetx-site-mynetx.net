@@ -692,12 +692,24 @@ class SitePressLanguageSwitcher {
             $languages = $sitepress->get_ls_languages();
             
             $items .= '<li class="menu-item menu-item-language menu-item-language-current">';
+            if(isset($args->before)){
+                $items .= $args->before;
+            }                                 
             $items .= '<a href="#" onclick="return false">';
+            if(isset($args->link_before)){
+                $items .= $args->link_before;
+            } 
             if( $sitepress_settings['icl_lso_flags'] ){
                 $items .= '<img class="iclflag" src="'.$languages[$sitepress->get_current_language()]['country_flag_url'].'" width="18" height="12" alt="'.$languages[$sitepress->get_current_language()]['translated_name'].'" />';
             }
             $items .= $languages[$sitepress->get_current_language()]['translated_name'];
+            if(isset($args->link_after)){
+                $items .= $args->link_after;
+            }                                 
             $items .= '</a>';
+            if(isset($args->after)){
+                $items .= $args->after;
+            }                                             
             
             unset($languages[$sitepress->get_current_language()]);
             if(!empty($languages)){
@@ -746,11 +758,7 @@ class SitePressLanguageSwitcher {
         echo $before_widget;
         if ($sitepress_settings['icl_widget_title_show']) {
             echo $args['before_title'];
-            if (function_exists('icl_t')) {
-                echo icl_t('WPML', 'Widget title', 'Languages');
-            } else {
-                _e('Languages','sitepress');
-            }
+            _e('Languages','sitepress');
             echo $args['after_title'];
         }
         $sitepress->language_selector();

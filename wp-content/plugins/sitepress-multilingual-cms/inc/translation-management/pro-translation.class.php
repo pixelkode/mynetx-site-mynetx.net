@@ -33,6 +33,8 @@ class ICL_Pro_Translation{
             case 'set_pickup_mode':
                 $method = intval($data['icl_translation_pickup_method']);
                 $iclsettings['translation_pickup_method'] = $method;
+                $iclsettings['icl_disable_reminders'] = isset($_POST['icl_disable_reminders']) ? 1 : 0;
+                
                 $sitepress->save_settings($iclsettings);
                 
                 if(!empty($sitepress_settings) && !empty($sitepress_settings['site_id']) && !empty($sitepress_settings['access_key'])){
@@ -342,9 +344,9 @@ class ICL_Pro_Translation{
                     'title'         => $post->post_title,
                     'to_languages'   => array($target_for_server),
                     'orig_language' => $orig_lang_for_server,
-                    'permlink'      => $permlink,
+                    'permlink'      => isset($permlink) ? $permlink : false,
                     'translator_id' => $translator_id,
-                    'note'          => $note
+                    'note'          => isset($note) ? $note : '',
                 );
                 
                 $res = $iclq->send_request($args);
@@ -653,22 +655,40 @@ class ICL_Pro_Translation{
         $translation = $iclq->cms_do_download($request_id, $this->server_languages_map($_lang['english_name']));                                 
         
         $translation = apply_filters('icl_data_from_pro_translation', $translation);
-        
+                
         $ret = false;
         
         if(!empty($translation)){
-            //if(icl_is_string_translation($translation)){
-            //    $language_code = $wpdb->get_var($wpdb->prepare("
-            //        SELECT target FROM {$wpdb->prefix}icl_core_status
-            //        WHERE rid=%d", $request_id
-            //    ));
-            //    $ret = icl_translation_add_string_translation($request_id, $translation, $language_code);
-            //}else{
-                $language_code = $wpdb->get_var($wpdb->prepare("
-                    SELECT language_code FROM {$wpdb->prefix}icl_translations WHERE translation_id=%d", $translation_id
-                ));            
+            $language_code = $wpdb->get_var($wpdb->prepare("
+                SELECT language_code FROM {$wpdb->prefix}icl_translations WHERE translation_id=%d", $translation_id
+            ));            
+            $parts = explode('_', $translation['original_id']);
+            if ($parts[0] == 'external') {
+                
+                // Translations are saved in the string table for 'external' types
+                
+                $id = array_pop($parts);
+                unset($parts[0]);
+                $type = implode('_', $parts);
+
+                unset($translation['original_id']);
+                foreach($translation as $field => $value){
+                    if (function_exists('icl_st_is_registered_string')) {
+                        $value = str_replace('&#0A;', "\n", $value);
+                        $string_id = icl_st_is_registered_string($type, $id . '_' . $field);
+                        if (!$string_id) {
+                            icl_register_string($type, $id . '_' . $field, $value);
+                            $string_id = icl_st_is_registered_string($type, $id . '_' . $field);
+                        }
+                        if ($string_id) {
+                            icl_add_string_translation($string_id, $language_code, $value, ICL_STRING_TRANSLATION_COMPLETE);
+                        }
+                    }
+                }
+                $ret = true;
+            } else {
                 $ret = $this->save_post_translation($translation_id, $translation);    
-            //}
+            }
 
             if($ret){
                 $lang_details = $sitepress->get_language_details($language_code);
@@ -676,7 +696,10 @@ class ICL_Pro_Translation{
                 $iclq->cms_update_request_status($request_id, CMS_TARGET_LANGUAGE_DONE, $language_server);
                 
                 $translations = $sitepress->get_element_translations($tinfo->trid, $tinfo->element_type);
-                $iclq->report_back_permalink($request_id, $language_server, $translations[$tinfo->language_code]);
+                
+                if(isset($translations[$tinfo->language_code])){
+                    $iclq->report_back_permalink($request_id, $language_server, $translations[$tinfo->language_code]);
+                }
                 
             } 
         }

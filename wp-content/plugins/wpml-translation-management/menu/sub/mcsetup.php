@@ -116,6 +116,12 @@
                         ?>/>&nbsp;
                         <?php _e('ICanLocalize will deliver translations automatically using XML-RPC', 'wpml-translation-management'); ?>
                     </label></p>
+                    <?php if($sitepress_settings['translation_pickup_method']==ICL_PRO_TRANSLATION_PICKUP_XMLRPC): ?>
+                        <p style="padding-left: 20px;">
+                        <label><input type="checkbox" name="icl_disable_reminders" value="1" <?php if(!empty($sitepress_settings['icl_disable_reminders'])): ?>checked="checked"<?php endif;?> />
+                            &nbsp;<?php _e('Hide reminders', 'wpml-translation-management'); ?></label>
+                        </p>
+                    <?php endif; ?>
                     <p><label>
                         <input type="radio" name="icl_translation_pickup_method" value="<?php echo ICL_PRO_TRANSLATION_PICKUP_POLLING ?>"<?php
                             if($sitepress_settings['translation_pickup_method']==ICL_PRO_TRANSLATION_PICKUP_POLLING) echo ' checked="checked"';

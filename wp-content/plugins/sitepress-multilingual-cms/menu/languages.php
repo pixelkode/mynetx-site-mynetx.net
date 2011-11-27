@@ -123,7 +123,6 @@ global $language_switcher_defaults, $language_switcher_defaults_alt;
                 '<li><a href="#lang-sec-2">'.icl_nobreak(__('Language URL format', 'sitepress')).'</a></li>'.
                 '<li><a href="#lang-sec-3">'.icl_nobreak(__('Language switcher options', 'sitepress')).'</a></li>'.
                 '<li><a href="#lang-sec-4">'.icl_nobreak(__('Admin language', 'sitepress')).'</a></li>'.
-                '<li><a href="#lang-sec-5">'.icl_nobreak(__('Translation controls', 'sitepress')).'</a></li>'.
                 '<li><a href="#lang-sec-6">'.icl_nobreak(__('Blog posts to display', 'sitepress')).'</a></li>'.
                 '<li><a href="#lang-sec-7">'.icl_nobreak(__('Hide languages', 'sitepress')).'</a></li>'.
                 '<li><a href="#lang-sec-8">'.icl_nobreak(__('Make themes work multilingual', 'sitepress')).'</a></li>'.
@@ -612,33 +611,6 @@ global $language_switcher_defaults, $language_switcher_defaults_alt;
             <?php endif; ?>                            
             
             <?php if(!empty($sitepress_settings['setup_complete']) && count($active_languages) > 1): ?>   
-                <a name="lang-sec-5"></a>
-                <table class="widefat">
-                    <thead>
-                        <tr>
-                            <th><?php _e('Translation controls', 'sitepress') ?></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <form id="icl_lang_more_options" name="icl_lang_more_options" action="">        
-                                <p>
-                                    <label>
-                                        <input type="checkbox" name="icl_translation_controls_on_posts_lists" <?php if(empty($sitepress_settings['hide_translation_controls_on_posts_lists'])) echo 'checked="checked"' ?> /> <?php _e('Display translation controls on posts and pages lists.','sitepress'); ?>
-                                    </label>
-                                </p>
-                                <p>
-                                    <input class="button" name="save" value="<?php echo __('Apply','sitepress') ?>" type="submit" />
-                                    <span class="icl_ajx_response" id="icl_ajx_response_mo"></span>
-                                </p>
-                                </form>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br />
-
                 <a name="lang-sec-6"></a>
                 <table class="widefat">
                     <thead>

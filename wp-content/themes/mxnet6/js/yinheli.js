@@ -129,6 +129,7 @@ $("a[rel='external']").click(function(){window.open(this.href);return false});
 $("a[href*='http://philna.com'],a[href*='javascript'],a:has(img),a[href*=#]").attr("rel","inlinks");
 $("a[rel!='inlinks']").click(function(){window.open(this.href);return false;});
 */
+/*
 	//ajax reply
 	if ($('#commentform').length){
 	$('#commentform').submit(function(){
@@ -164,6 +165,7 @@ $("a[rel!='inlinks']").click(function(){window.open(this.href);return false;});
 		});
 		return false;
 	});
+*/
 	};
 })
 

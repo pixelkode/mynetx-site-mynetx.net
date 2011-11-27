@@ -50,6 +50,16 @@ if(isset($_GET['debug_action']) && $_GET['nonce']==wp_create_nonce($_GET['debug_
             $orphans = $wpdb->get_col("
                 SELECT t.translation_id 
                 FROM {$wpdb->prefix}icl_translations t 
+                LEFT JOIN {$wpdb->comments} c ON t.element_id = c.comment_ID
+                WHERE t.element_type = 'comment' AND c.comment_ID IS NULL ");   
+                echo mysql_error();
+            if(!empty($orphans)){
+                $wpdb->query("DELETE FROM {$wpdb->prefix}icl_translations WHERE translation_id IN (".join(',',$orphans).")");
+            }
+            
+            $orphans = $wpdb->get_col("
+                SELECT t.translation_id 
+                FROM {$wpdb->prefix}icl_translations t 
                 LEFT JOIN {$wpdb->term_taxonomy} p ON t.element_id = p.term_taxonomy_id 
                 WHERE t.element_id IS NOT NULL AND t.element_type LIKE 'tax\\_%' AND p.term_taxonomy_id IS NULL");   
             if(!empty($orphans)){

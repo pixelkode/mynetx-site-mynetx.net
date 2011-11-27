@@ -19,6 +19,12 @@ class WPML_String_Translation{
     
     function init(){        
         
+        if(is_admin()){
+            wp_enqueue_style('thickbox');
+            wp_enqueue_script('jquery');
+            wp_enqueue_script('thickbox');
+        }
+        
         $this->plugin_localization();
         
         // Check if WPML is active. If not display warning message and not load Sticky links

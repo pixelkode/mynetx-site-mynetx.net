@@ -277,11 +277,6 @@ switch($_REQUEST['icl_ajx_action']){
         $this->icl_locale_cache->clear();
         echo 1; 
         break;    
-    case 'icl_lang_more_options':
-        $iclsettings['hide_translation_controls_on_posts_lists'] = !@intval($_POST['icl_translation_controls_on_posts_lists']);
-        $this->save_settings($iclsettings);
-        echo 1; 
-        break;
     case 'icl_blog_posts':
         $iclsettings['show_untranslated_blog_posts'] = $_POST['icl_untranslated_blog_posts'];
         $this->save_settings($iclsettings);
@@ -532,6 +527,8 @@ switch($_REQUEST['icl_ajx_action']){
     case 'icl_messages': 
         $iclsettings = $this->get_settings();
         
+        if(!empty($this->settings['icl_disable_reminders'])) break;
+        
         if(!empty($iclsettings['site_id']) && !empty($iclsettings['access_key']) && empty($iclsettings['icl_anonymous_user'])){
             $iclq = new ICanLocalizeQuery($iclsettings['site_id'], $iclsettings['access_key']);       
 
@@ -598,6 +595,18 @@ switch($_REQUEST['icl_ajx_action']){
         $iclq->delete_message($_POST['message_id']);
         break;
     case 'icl_show_reminders':
+        switch($_POST['state']){
+            case 'show':
+                $iclsettings['icl_show_reminders'] = 1; 
+                break;
+            case 'hide':
+                $iclsettings['icl_show_reminders'] = 0; 
+                break;
+            case 'close':
+                $iclsettings['icl_disable_reminders'] = 1; 
+                break;
+            default: // nothing
+        }
         $iclsettings['icl_show_reminders'] = $_POST['state']=='show'?1:0;
         $this->save_settings($iclsettings);
         break;

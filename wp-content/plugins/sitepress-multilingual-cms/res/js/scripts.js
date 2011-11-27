@@ -572,6 +572,7 @@ function icl_copy_from_original(lang, trid){
                             ed.selection.moveToBookmark(tinymce.EditorManager.activeEditor.windowManager.bookmark);
                         ed.execCommand('mceInsertContent', false, msg.body);
                     } else {
+                        if(typeof wpActiveEditor == 'undefined') wpActiveEditor = 'content';
                         edInsertContent(edCanvas, msg.body);
                     }
                 }catch(err){;}
@@ -658,9 +659,9 @@ function icl_make_translatable(){
 }
 
 
-function icl_admin_language_switcher(){
+function icl_admin_language_switcher(){  
     jQuery('#icl-als-inside').width( jQuery('#icl-als-actions').width() - 4 );
-    jQuery('#icl-als-toggle, #icl-als-inside').bind('mouseenter', function() {
+    jQuery('#icl-als-toggle, #icl-als-inside').bind('mouseenter', function() {        
         jQuery('#icl-als-inside').removeClass('slideUp').addClass('slideDown');
         setTimeout(function() {
             if ( jQuery('#icl-als-inside').hasClass('slideDown') ) {

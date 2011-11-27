@@ -18,18 +18,10 @@ class ICLMenusSync{
             add_action('admin_notices', array($this, 'admin_notices'));            
         }
         
-        add_action('admin_notices', array($this, 'admin_notice_experimental_warning'));            
+        
         
     }
-    
-    // REMOVE IN 2.4.1
-    function admin_notice_experimental_warning(){
-        echo '<div class="error">';
-        echo '<p>' . __("WPML's menu synchronization is a new feature in version 2.4.0 and is considered experimental. It passes all our testing and we use it for our sites, but it's still very complex and might have unexpected interaction with themes and plugins.", 'sitepress') . '</p>';
-        echo '<p>' . sprintf(__("Before using this, please backup your database. We would highly appreciate feedback about this new function. Please send your feedback to our <a%s>forum</a>.", 'sitepress'), ' href=""http://forum.wpml.org"') . '</p>';
-        echo '</div>';    
-    }
-    
+   
     function init(){
         
         if(isset($_POST['action']) && $_POST['action']=='icl_msync_preview'){

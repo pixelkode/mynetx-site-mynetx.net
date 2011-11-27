@@ -92,7 +92,6 @@ class TM_Notification{
         $sitepress->switch_locale();
     }
     
-    
     function work_complete($job_id, $update = false){
         global $iclTranslationManagement, $sitepress, $wpdb;
         $job = $iclTranslationManagement->get_translation_job($job_id);    

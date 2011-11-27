@@ -9,6 +9,11 @@
         <?php if($nsettings['new-job']==ICL_TM_NOTIFICATION_IMMEDIATELY):?>checked="checked"<?php endif; ?> />
         <label for="icl_tm_notify_translator"><?php _e('Notify immediately', 'wpml-translation-management'); ?></label>
     </li>
+    <li>
+        <input name="notification[new-job]" type="radio" id="icl_tm_notify_translator_dont" value="<?php echo ICL_TM_NOTIFICATION_NONE ?>"
+        <?php if($nsettings['new-job']==ICL_TM_NOTIFICATION_NONE):?>checked="checked"<?php endif; ?> />
+        <label for="icl_tm_notify_translator_dont"><?php _e('No notification', 'wpml-translation-management'); ?></label>
+    </li>    
 </ul>
 
 <?php do_action('WPML_translator_notification'); ?>

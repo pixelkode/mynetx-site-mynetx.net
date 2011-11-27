@@ -169,8 +169,13 @@ class ICanLocalizeQuery{
         $xml .= $tab.'<link url="'.$data['url'].'" />'.$nl;
         $xml .= $tab.'<contents>'.$nl;
         foreach($data['contents'] as $key=>$val){
-            if($key=='categories' || $key == 'tags' || in_array($key, $taxonomies)){$quote="'";}else{$quote='"';}
-            $xml .= $tab.$tab.'<content type="'.$key.'" translate="'.$val['translate'].'" data='.$quote.$val['data'].$quote;
+            if($key=='categories' || $key == 'tags' || in_array($key, $taxonomies)){
+                $quote="'";
+            }else{
+                $quote='"';
+            }
+            
+            $xml .= $tab.$tab.'<content type="' . htmlspecialchars(htmlspecialchars($key, ENT_QUOTES)) . '" translate="'.$val['translate'].'" data='.$quote.$val['data'].$quote;
             if(isset($val['format'])) $xml .= ' format="'.$val['format'].'"';
             $xml .=  ' />'.$nl;    
         }        
@@ -181,7 +186,7 @@ class ICanLocalizeQuery{
         }                
         $xml .= $tab.'</cms_target_languages>'.$nl;
         $xml .= '</cms_request_details>';                
-        
+       
         return $xml;
     }
       
@@ -305,12 +310,16 @@ class ICanLocalizeQuery{
         
         $request_url = ICL_API_ENDPOINT . '/websites/' . $this->site_id . '/cms_requests/'.$request_id.'/cms_download?accesskey=' . $this->access_key . '&language=' . $language;                        
         $res = $this->_request_gz($request_url); 
-    
+        
         $content = $res['cms_request_details']['contents']['content'];
                 
         $translation = array();
+        
         if($content)        
         foreach($content as $c){
+            
+            $c['attr']['type'] = htmlspecialchars_decode(htmlspecialchars_decode($c['attr']['type']), ENT_QUOTES);
+            
             if($c['attr']['type']=='tags' || $c['attr']['type']=='categories' || in_array($c['attr']['type'], $taxonomies)){
                 $exp = explode(',',$c['translations']['translation']['attr']['data']);
                 $arr = array();
@@ -337,6 +346,7 @@ class ICanLocalizeQuery{
             }
             
         }
+        
         return $translation;
     }
     

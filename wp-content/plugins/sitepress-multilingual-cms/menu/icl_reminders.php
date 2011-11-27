@@ -14,12 +14,18 @@
     <table width="100%">
         <tr>
             <td><h4 style="margin-top:5px 0 5px 0; padding: 0;">ICanLocalize Reminders</h4></td>
-            <td align="right"><a id="icl_reminder_show" href="#" style="text-align:right">
-            <span id="icl_show_text"<?php if($show) { echo ' style="display:none"';}?>><?php _e('Show reminders', 'sitepress')?></span>
-            <span<?php if(!$show) { echo ' style="display:none"';}?>><?php _e('Hide reminders', 'sitepress')?></span>
-            </a></td>
+            <td align="right">
+            <a id="icl_reminder_close" class="icl_win_controls icl_close" href="#" title="<?php esc_attr_e('Hide reminders', 'sitepress')?>">x</a>
+            <span id="icl_reminder_close_prompt" style="display: none;"><?php _e("Click OK to confirm.\nYou can enable them back from Translation Management / Multilingual Content setup.", 'sitepress')?></span>            
+            <?php if(!$show): ?> 
+            <a id="icl_reminder_show" class="icl_win_controls icl_maximize" href="#" title="<?php esc_attr_e('Expand reminders', 'sitepress')?>">+</a>
+            <?php else: ?>
+            <a id="icl_reminder_show" class="icl_win_controls icl_minimize" href="#" title="<?php esc_attr_e('Collapse reminders', 'sitepress')?>">-</a>     
+            <?php endif; ?>            
+            </td>
         </tr>
     </table>
     <div id="icl_reminder_list"<?php if(!$show) { echo ' style="display:none"';}?>>
     </div>
 </div>
+
