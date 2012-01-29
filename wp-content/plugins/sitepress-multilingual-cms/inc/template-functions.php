@@ -447,3 +447,31 @@ function wpml_get_copied_fields_for_post_edit() {
     return $copied_cf;
     
 }
+
+function wpml_get_language_information($post_id = null){
+    global $sitepress;
+    
+    if(is_null($post_id)){
+        $post_id = get_the_ID();
+    }
+    if(empty($post_id)) return new WP_Error('missing_id', __('Missing post ID', 'sitepress'));
+    
+    $post = get_post($post_id);
+    if(empty($post)) return new WP_Error('missing_post', sprintf(__('No such post for ID = %d', 'sitepress'), $post_id));
+    
+    
+    $language = $sitepress->get_language_for_element($post_id, 'post_' . $post->post_type);
+    $language_information = $sitepress->get_language_details($language);
+    
+    $info = array(
+        'locale'                => $sitepress->get_locale($language),
+        'text_direction'        => $sitepress->is_rtl($language),
+        'display_name'          => $sitepress->get_display_language_name($language, $sitepress->get_current_language()),
+        'native_name'           => $language_information['display_name'],
+        'different_language'    => $language != $sitepress->get_current_language()    
+        
+    );
+    
+    return $info;    
+    
+}

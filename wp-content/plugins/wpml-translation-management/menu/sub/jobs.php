@@ -32,7 +32,7 @@ $translation_jobs = $iclTranslationManagement->get_translation_jobs((array)$icl_
                 <label>
                     <strong><?php _e('Status', 'wpml-translation-management')?></strong>&nbsp;
                     <select name="filter[status]">
-                        <option value=""><?php _e('All', 'wpml-translation-management')?></option>
+                        <option value=""><?php _e('All translation jobs', 'wpml-translation-management')?></option>
                         <option value="<?php echo ICL_TM_WAITING_FOR_TRANSLATOR ?>" <?php 
                             if(!empty($icl_translation_filter['status']) 
                                 && $icl_translation_filter['status']== ICL_TM_WAITING_FOR_TRANSLATOR):?>selected="selected"<?php endif ;?>><?php 
@@ -42,7 +42,9 @@ $translation_jobs = $iclTranslationManagement->get_translation_jobs((array)$icl_
                                 echo $iclTranslationManagement->status2text(ICL_TM_IN_PROGRESS); ?></option>
                         <option value="<?php echo ICL_TM_COMPLETE ?>" <?php 
                             if(!empty($icl_translation_filter['status']) &&  $icl_translation_filter['status']==ICL_TM_COMPLETE):?>selected="selected"<?php endif ;?>><?php 
-                                echo $iclTranslationManagement->status2text(ICL_TM_COMPLETE); ?></option>                                                            
+                                echo $iclTranslationManagement->status2text(ICL_TM_COMPLETE); ?></option>                                                 <option value="<?php echo ICL_TM_DUPLICATE ?>" <?php 
+                            if(!empty($icl_translation_filter['status']) &&  $icl_translation_filter['status']==ICL_TM_DUPLICATE):?>selected="selected"<?php endif ;?>><?php 
+                                _e('Content duplication', 'wpml-translation-management') ?></option>                                                           
                     </select>
                 </label>&nbsp;
                 <label>

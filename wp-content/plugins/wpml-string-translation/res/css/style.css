@@ -71,7 +71,7 @@ div.postbox div.inside {
     margin:0;
     list-style-position: inside;
     padding:0;
-    line-height:0px;
+    line-height:5px;
 }
 .icl_string_track_source .icl_string_track_filename{
     position:fixed;

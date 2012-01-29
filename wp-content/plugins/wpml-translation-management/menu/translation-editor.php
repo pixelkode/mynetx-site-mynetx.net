@@ -65,7 +65,7 @@ $rtl_translation_attribute = $rtl_translation ? ' dir="rtl"' : ' dir="ltr"';
                             }else{
                                 $element_field_type = $element->field_type;
                                 $element_field_style = false;
-                            }
+                            }                            
                         ?>
                         <h3 class="hndle"><?php echo $element_field_type  ?></h3>
                         <div class="inside">
@@ -97,7 +97,8 @@ $rtl_translation_attribute = $rtl_translation ? ' dir="rtl"' : ' dir="ltr"';
                             <p>
                                 <?php _e('Translated content', 'wpml-translation-management'); echo ' - ' . $job->to_language; ?>
                                 <?php if(empty($icl_tm_translated_content)):?>
-                                <span>| &nbsp;<a class="icl_tm_copy_link" id="icl_tm_copy_link_<?php echo $element->field_type ?>" href="#"><?php printf(__('Copy from %s', 'wpml-translation-management'), $job->from_language)?></a></span>
+                                <span>| &nbsp;<a class="icl_tm_copy_link" id="icl_tm_copy_link_<?php echo $element->field_type 
+                                    ?>" href="#"><?php printf(__('Copy from %s', 'wpml-translation-management'), $job->from_language)?></a></span>
                                 <?php endif; ?>
                             </p>
                             
@@ -107,7 +108,16 @@ $rtl_translation_attribute = $rtl_translation ? ' dir="rtl"' : ' dir="ltr"';
                             <?php 
                                 global $post;
                                 if(is_null($post)) $post = clone $opost;
-                                the_editor($icl_tm_translated_content, 'fields['.$element->field_type.'][data]', false, false); 
+                                if(version_compare($wp_version, '3.3', '>=')){
+                                    $settings = array(
+                                        'media_buttons'     => false,
+                                        'textarea_name'     => 'fields['.$element->field_type.'][data]',
+                                        'textarea_rows'     => 20
+                                    );
+                                    wp_editor($icl_tm_translated_content, 'fields['.$element->field_type.'][data]', $settings);                               
+                                }else{
+                                    the_editor($icl_tm_translated_content, 'fields['.$element->field_type.'][data]', false, false); 
+                                }
                             ?>
                             </div>    
                                            
@@ -122,7 +132,9 @@ $rtl_translation_attribute = $rtl_translation ? ' dir="rtl"' : ' dir="ltr"';
                                     $icl_tm_f_translated = false;
                                 }
                             ?>
-                            <label><input class="icl_multiple" type="text" name="fields[<?php echo htmlspecialchars($element->field_type) ?>][data][<?php echo $k ?>]" value="<?php if(isset($icl_tm_translated_content[$k])) echo esc_attr($icl_tm_translated_content[$k]); ?>"<?php echo $rtl_translation_attribute; ?> /></label>
+                            <label><input class="icl_multiple" type="text" name="fields[<?php echo htmlspecialchars($element->field_type) 
+                                ?>][data][<?php echo $k ?>]" value="<?php if(isset($icl_tm_translated_content[$k])) 
+                                    echo esc_attr($icl_tm_translated_content[$k]); ?>"<?php echo $rtl_translation_attribute; ?> /></label>
                             <?php if($icl_tm_f_translated): ?>
                             <div class="icl_tm_tf"><?php _e('Translated field', 'wpml-translation-management'); ?></div>
                             <?php endif; ?>
@@ -130,9 +142,26 @@ $rtl_translation_attribute = $rtl_translation ? ' dir="rtl"' : ' dir="ltr"';
                             
                             <?php // CASE 3 - multiple lines *********************** ?>         
                             <?php elseif(0 === strpos($element->field_type, 'field-') && $element_field_style == 1): ?>
-                                <textarea name="fields[<?php echo htmlspecialchars($element->field_type) ?>][data]"<?php echo $rtl_translation_attribute; ?>><?php echo esc_html($icl_tm_translated_content); ?></textarea>
-                                
-                            <?php // CASE 4 - one-liner *********************** ?>         
+                                <textarea style="width:100%;" name="fields[<?php echo htmlspecialchars($element->field_type) ?>][data]"<?php 
+                                    echo $rtl_translation_attribute; ?>><?php echo esc_html($icl_tm_translated_content); ?></textarea>
+
+                            <?php // CASE 4 - wysiwyg *********************** ?>         
+                            <?php elseif(0 === strpos($element->field_type, 'field-') && $element_field_style == 2): 
+                                    if(version_compare($wp_version, '3.3', '>=')){
+                                        $settings = array(
+                                            'media_buttons'     => false,
+                                            'textarea_name'     => 'fields['.$element->field_type.'][data]',
+                                            'textarea_rows'     => 4
+                                        );
+                                        wp_editor($icl_tm_translated_content, 'fields['.$element->field_type.'][data]', $settings);
+                                    }else{                                        
+                                        ?>
+                                        <textarea style="width:100%;" name="fields[<?php echo htmlspecialchars($element->field_type) ?>][data]"<?php 
+                                    echo $rtl_translation_attribute; ?>><?php echo esc_html($icl_tm_translated_content); ?></textarea>
+                                        <?php 
+                                    }
+                            ?>
+                            <?php // CASE 5 - one-liner *********************** ?>         
                             <?php else: ?>
                             <label><input type="text" name="fields[<?php echo htmlspecialchars($element->field_type) ?>][data]" value="<?php 
                                 echo esc_attr($icl_tm_translated_content); ?>"<?php echo $rtl_translation_attribute; ?> /></label>
@@ -166,7 +195,8 @@ $rtl_translation_attribute = $rtl_translation ? ' dir="rtl"' : ' dir="ltr"';
                                         $res = $wpdb->get_results($wpdb->prepare(
                                             "SELECT t.name, x.description FROM {$wpdb->terms} t 
                                                 JOIN {$wpdb->term_taxonomy} x ON  x.term_id = t.term_id
-                                            WHERE description<>'' && x.taxonomy=%s AND t.name IN ('".join("','", $wpdb->escape($icl_tm_original_content))."')",
+                                            WHERE description<>'' && x.taxonomy=%s 
+                                                AND t.name IN ('".join("','", $wpdb->escape($icl_tm_original_content))."')",
                                             $term_taxonomy
                                         ));
                                         $term_descriptions = array();
@@ -176,26 +206,30 @@ $rtl_translation_attribute = $rtl_translation ? ' dir="rtl"' : ' dir="ltr"';
                                     }
                                 }
                                                       
-                                if($element->field_type=='body'){
+                                if($element->field_type=='body' || $element_field_style == 2){
                                     $icl_tm_original_content_html = esc_html($icl_tm_original_content);
                                     $icl_tm_original_content = apply_filters('the_content', $icl_tm_original_content);
+                                    $icl_wysiwyg_height = $element->field_type == 'body' ? get_option('default_post_edit_rows', 20)*20 : 100;
                                     ?>
-                                    <div id="icl_tm_orig_toggle">
-                                        <a id="icl_tm_toggle_html" href="#"><?php _e('HTML', 'wpml-translation-management') ?></a><a id="icl_tm_toggle_visual" class="active" href="#"><?php _e('Visual', 'wpml-translation-management') ?></a>
+                                    <div class="icl_tm_orig_toggle">
+                                        <a class="icl_tm_toggle_html" href="#"><?php _e('HTML', 'wpml-translation-management') ?></a>
+                                        <a class="icl_tm_toggle_visual active" href="#"><?php _e('Visual', 'wpml-translation-management') ?></a>
                                         <br clear="all">
                                     </div>
                                     <?php
                                 }
                             ?>
-                            <div class="icl-tj-original">                                
-                                <?php if($element->field_type=='body'): ?>
+                            <div class="icl-tj-original<?php if(0 === strpos($element->field_type, 'field-')) :?> icl-tj-original-cf<?php endif; ?>" >                                
+                                <?php if($element->field_type=='body' || $element_field_style == 2): ?>
                                 <div class="icl_single visual"<?php echo $rtl_original_attribute; ?>>
 
                                 <iframe src="<?php echo admin_url('admin-ajax.php?action=show_post_content&field_type='.
-                                    $element->field_type.'&post_id='.$job->original_doc_id) . '&rtl=' . intval($rtl_original); ?>" width="100%" height="<?php echo get_option('default_post_edit_rows', 20) * 20 ?>" frameborder="0"></iframe>
+                                    $element->field_type.'&post_id='.$job->original_doc_id) . '&rtl=' . intval($rtl_original); 
+                                    ?>" width="100%" height="<?php echo $icl_wysiwyg_height ?>" frameborder="0"></iframe>
                                 
                                 <br clear="all"/></div>
-                                <div class="html"><textarea id="icl_tm_original_<?php echo $element->field_type ?>" readonly="readonly"><?php echo $icl_tm_original_content_html ?></textarea></div>
+                                <div class="html"><textarea id="icl_tm_original_<?php echo $element->field_type ?>" readonly="readonly"><?php 
+                                    echo $icl_tm_original_content_html ?></textarea></div>
                                 <?php elseif($element->field_format == 'csv_base64'): ?>
                                 <?php foreach($icl_tm_original_content as $c): ?>
                                 <div class="icl_multiple"<?php echo $rtl_original_attribute; ?>>

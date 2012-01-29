@@ -5,7 +5,7 @@ Description: WordPress plugin for twitter, facebook, Google +1 (plus one) and ot
 Author: Kunal Chichkar
 Author URI: http://www.searchtechword.com
 Plugin URI: http://www.searchtechword.com/2011/06/wordpress-plugin-add-twitter-facebook-google-plus-one-share
-Version: 2.1.0
+Version: 2.2.1
 License: GPL
 */
 /*

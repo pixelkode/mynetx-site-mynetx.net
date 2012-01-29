@@ -1,6 +1,6 @@
 <?php
 function icl_cache_get($key){
-    $icl_cache = get_site_option('_icl_cache');
+    $icl_cache = get_option('_icl_cache');
     if(isset($icl_cache[$key])){
         return $icl_cache[$key];
     }else{
@@ -9,9 +9,13 @@ function icl_cache_get($key){
 }  
 
 function icl_cache_set($key, $value=null){
-    $icl_cache = get_site_option('_icl_cache');
+    
+    global $switched;
+    if(!empty($switched)) return; 
+    
+    $icl_cache = get_option('_icl_cache');
     if(false === $icl_cache){
-        delete_site_option('_icl_cache');
+        delete_option('_icl_cache');
     }
     if(!is_null($value)){
         $icl_cache[$key] = $value;    
@@ -20,11 +24,11 @@ function icl_cache_set($key, $value=null){
             unset($icl_cache[$key]);
         }        
     }
-    update_site_option('_icl_cache', $icl_cache);
+    update_option('_icl_cache', $icl_cache);
 }
 
 function icl_cache_clear($key){
-    delete_site_option('_icl_cache');
+    delete_option('_icl_cache');
 }
 
 define('ICL_DISABLE_CACHE', false);

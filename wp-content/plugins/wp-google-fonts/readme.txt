@@ -3,7 +3,7 @@ Contributors: Adrian Hanft
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=designer%40adrianhanft%2ecom&lc=US&item_name=Wordpress%20Plugin%20Development&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 Tags: Google fonts, fonts, font, type, free fonts, typography, theme, admin, plugin, css, design, plugin, template, page, posts, links, Google
 Requires at least: 2.0.2
-Tested up to: 3.2.1
+Tested up to: 3.3
 Stable tag: trunk
 
 The WP Google Fonts plugin allows you to easily add fonts from the Google Font Directory to your Wordpress theme. 
@@ -11,9 +11,12 @@ The WP Google Fonts plugin allows you to easily add fonts from the Google Font D
 == Description ==
 Google's free font directory is one of the most exciting developments in web typography in a very long time. The amazing rise of this new font resource has made this plugin the most popular font plugin on Wordpress and it shows no signs of stopping. While <a href="http://www.fontburner.com/the-font-burner-wordpress-plugin/">font plugin</a> solutions like FontBurner.com have helped bring rich typography to Wordpress themes, the selection of fonts easily available to the average blogger have been limited. The WP Google Font plugin makes it even easier to use Google's free service to add high quality fonts to your Wordpress powered site. Not only does this plugin add the necessary Google code, but it also gives you the ability to assign the Google fonts to specific CSS elements of your website from within the Wordpress admin. Or if you would rather, you can target the Google fonts from your own theme's stylesheet.
 
-Right now, the Google Directory has over 225 great fonts, and the selection is steadily growing. As new fonts are added, we will release updates to the plugin quickly so you can start using new fonts as they become available. It truly is an exciting time to be creating websites, and I hope this plugin helps you create some great stuff. - Adrian3
+Right now, the Google Directory has over 390 great fonts, and the selection is steadily growing. As new fonts are added, we will release updates to the plugin quickly so you can start using new fonts as they become available. It truly is an exciting time to be creating websites, and I hope this plugin helps you create some great stuff. - Adrian3
 
 == Changelog ==
+Version 2.6
+- Added another 141 fonts to keep up with Google. I can't test every font individually, so if for some reason you encounter an error please contact me and I will release an update.
+
 Version 2.5
 - Italian language support thanks to Gianni Diurno (http://gidibao.net/)
 - 27 new fonts/variations added including: Abril Fatface, Adamina, Alike Angular, Antic, Changa One, Chivo, Chivo:400,900, Dorsa, Fanwood Text, Fanwood Text:400,400italic, Julee, Merienda One, Passero One, Poller One, Prata, Prociono, Sansita One, Sorts Mill Goudy, Sorts Mill Goudy:400,400italic, Spinnaker, Terminal Dosis:200, Terminal Dosis:300, Terminal Dosis, Terminal Dosis:500, Terminal Dosis:600, Terminal Dosis:700, and Terminal Dosis:800.

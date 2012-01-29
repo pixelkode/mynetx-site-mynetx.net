@@ -54,6 +54,7 @@ $show_in = array(
 		
 		$option['bkcolor_value'] = esc_html($_POST['twitter_facebook_share_bkcolor_value']);
 		$option['jsload'] = (isset($_POST['twitter_facebook_share_javascript_load']) and $_POST['twitter_facebook_share_javascript_load']=='on') ? true : false;
+		$option['mobdev'] = (isset($_POST['twitter_facebook_share_mobile_device']) and $_POST['twitter_facebook_share_mobile_device']=='on') ? true : false;
 
 		$option['twitter_id'] = esc_html($_POST['twitter_facebook_share_twitter_id']);		
 		$option['left_space'] = esc_html($_POST['twitter_facebook_share_left_space']);
@@ -89,6 +90,7 @@ $show_in = array(
 	
 	$bkcolor = ($option['bkcolor']) ? 'checked="checked"' : '';
 	$jsload =  ($option['jsload']) ? 'checked="checked"' : '';
+	$mobdev =  ($option['mobdev']) ? 'checked="checked"' : '';
 	$auto =    ($option['auto']) ? 'checked="checked"' : '';
 	$google_count = ($option['google_count']) ? 'checked="checked"' : '';
 	$twitter_count = ($option['twitter_count']) ? 'checked="checked"' : '';
@@ -176,6 +178,11 @@ $show_in = array(
 	<td style="padding-bottom:20px;">
 		<input type="checkbox" name="twitter_facebook_share_javascript_load" '.$jsload.' />
 		<span class="description">'.__("(Recommended, else loaded in header)", 'menu-test' ).'</span>
+	</td></tr>
+	<tr><td style="padding-bottom:20px;" valign="top">'.__("Disable on Mobile Device", 'menu-test' ).':</td>
+	<td style="padding-bottom:20px;">
+		<input type="checkbox" name="twitter_facebook_share_mobile_device" '.$mobdev.' />
+		<span class="description">'.__("(Disable on iPad,iPhone,Blackberry,Nokia,Opera Mini and Android)", 'menu-test' ).'</span>
 	</td></tr>
 	<tr><td style="padding-bottom:20px;" valign="top">'.__("Your Twitter ID", 'menu-test' ).':</td>
 	<td style="padding-bottom:20px;">
@@ -344,6 +351,9 @@ function twitter_facebook_share_get_options_stored () {
 	if (!isset($option['jsload'])) {
 		$option['jsload'] = true;
 	}
+	if (!isset($option['mobdev'])) {
+		$option['mobdev'] = true;
+	}
 	
 	if (!isset($option['facebook_like_width'])) {
 		$option['facebook_like_width'] = '85';
@@ -382,6 +392,7 @@ function twitter_facebook_share_get_options_default ($position='above', $border=
 	$option['bkcolor'] = true;
 	$option['bkcolor_value'] = $color;
 	$option['jsload'] = true;
+	$option['mobdev'] = true;
 	$option['left_space'] = $left_space;
 	$option['bottom_space'] = $bottom_space;
 	$option['float_position'] = $float_position;

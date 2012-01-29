@@ -42,7 +42,8 @@ jQuery(document).ready(function(){
     
     jQuery('#icl-tm-translation-dashboard td :checkbox').click(icl_tm_update_word_count_estimate);
     jQuery('#icl-tm-translation-dashboard th :checkbox').click(icl_tm_select_all_documents);
-    jQuery('#icl_tm_languages :checkbox').click(icl_tm_enable_submit);
+    jQuery('#icl_tm_languages :radio').change(icl_tm_enable_submit);
+    jQuery('#icl_tm_languages :radio').change(icl_tm_dup_warn);
     
     jQuery('.icl_tj_select_translator select').live('change', icl_tm_assign_translator);
     
@@ -54,18 +55,20 @@ jQuery(document).ready(function(){
         }
     })
     
-    jQuery('#icl_tm_toggle_visual').click(function(){
-        jQuery('.icl-tj-original .html').hide();
-        jQuery('.icl-tj-original .visual').show();
-        jQuery('#icl_tm_orig_toggle a').removeClass('active');
+    jQuery('.icl_tm_toggle_visual').click(function(){
+        var inside = jQuery(this).closest('.inside');
+        jQuery('.icl-tj-original .html', inside).hide();
+        jQuery('.icl-tj-original .visual', inside).show();
+        jQuery('.icl_tm_orig_toggle a', inside).removeClass('active');
         jQuery(this).addClass('active');        
         return false;
     });
     
-    jQuery('#icl_tm_toggle_html').click(function(){
-        jQuery('.icl-tj-original .html').show();
-        jQuery('.icl-tj-original .visual').hide();
-        jQuery('#icl_tm_orig_toggle a').removeClass('active');
+    jQuery('.icl_tm_toggle_html').click(function(){
+        var inside = jQuery(this).closest('.inside');
+        jQuery('.icl-tj-original .html', inside).show();
+        jQuery('.icl-tj-original .visual', inside).hide();
+        jQuery('.icl_tm_orig_toggle a', inside).removeClass('active');
         jQuery(this).addClass('active');
         return false;
     })
@@ -73,6 +76,7 @@ jQuery(document).ready(function(){
     jQuery('.icl_tm_finished').change(function(){        
         jQuery(this).parent().parent().find('.icl_tm_error').hide();
         var field = jQuery(this).attr('name').replace(/finished/,'data');
+        
         if(field == 'fields[body][data]'){
             var datatemp = '';
             try{
@@ -86,8 +90,17 @@ jQuery(document).ready(function(){
                 data = data * jQuery(this).val().length;
             });
         }else{
-            var data = jQuery('[name="'+field+'"]*').val();    
+            
+            var datatemp = '';
+            try{
+                datatemp = tinyMCE.get(field).getContent();
+            }catch(err){;}
+                    
+            var data = jQuery('[name="'+field+'"]*').val() + datatemp;    
         }
+        
+        
+        
         
         if(jQuery(this).attr('checked') && !data){
             jQuery(this).parent().parent().find('.icl_tm_error').show();
@@ -352,9 +365,13 @@ jQuery(document).ready(function(){
     jQuery('.icl_tm_copy_link').click(function(){
         var type = jQuery(this).attr('id').replace(/^icl_tm_copy_link_/,'');                
         field = 'fields['+type+'][data]';
-        var original = '';
-        if(type=='body'){      
+        var original = '';        
+        
+        if(type=='body' || 0 == type.indexOf('field-')){      
             original = jQuery('#icl_tm_original_'+type).val()            
+            
+            tinyMCE.get(field); // activate
+            
             if ( typeof tinyMCE != 'undefined' && ( ed = tinyMCE.activeEditor ) && !ed.isHidden() ) {
                 ed.focus();
                 if (tinymce.isIE)
@@ -457,6 +474,8 @@ jQuery(document).ready(function(){
     jQuery('#icl_parent_filter_control').change(iclTmPopulateParentFilter);
     jQuery('form[name="translation-dashboard-filter"]').find('select[name="filter[from_lang]"]').change(iclTmPopulateParentFilter);
     
+    jQuery('#icl_tm_jobs_dup_submit').click(function(){return confirm(jQuery(this).next().html());})
+
     
 });
 
@@ -507,7 +526,7 @@ function icl_tm_select_all_documents(){
         jQuery('#icl-tm-estimated-words-count').html('0');
     }
     icl_tm_update_doc_count();
-    icl_tm_enable_sumit();    
+    icl_tm_enable_submit();    
 }
 
 function icl_tm_update_doc_count(){
@@ -521,12 +540,33 @@ function icl_tm_update_doc_count(){
 }
 
 function icl_tm_enable_submit(){
-    if( jQuery('#icl-tm-translation-dashboard td :checkbox:checked').length > 0 && jQuery('#icl_tm_languages :checkbox:checked').length >  0){
+    var anyaction = false;
+    jQuery('#icl_tm_languages :radio:checked').each(function(){
+        if(jQuery(this).val() > 0){
+            anyaction = true;
+            return;
+        }
+    });
+    
+    if( jQuery('#icl-tm-translation-dashboard td :checkbox:checked').length > 0 && anyaction){
         jQuery('#icl_tm_jobs_submit').removeAttr('disabled');
     }else{
         jQuery('#icl_tm_jobs_submit').attr('disabled','disabled');
     }
 }
+
+function icl_tm_dup_warn(){
+    dupsel = false;
+    jQuery('#icl_tm_languages :radio:checked').each(function(){
+        if(jQuery(this).val() == 2){
+            dupsel = true;
+            return;
+        }
+    });    
+    if(dupsel) jQuery('#icl_dup_ovr_warn').fadeIn();
+    else jQuery('#icl_dup_ovr_warn').fadeOut();
+}
+
 
 function icl_tm_assign_translator(){
     var thiss = jQuery(this);

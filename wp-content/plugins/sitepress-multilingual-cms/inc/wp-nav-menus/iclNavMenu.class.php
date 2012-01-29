@@ -65,6 +65,15 @@ class iclNavMenu{
         
         $this->get_current_menu();
         
+        
+        if(isset( $_POST['action']) && $_POST['action'] == 'menu-get-metabox'){            
+            $parts = parse_url($_SERVER['HTTP_REFERER']);
+            @parse_str($parts['query'], $query);
+            if(isset($query['lang'])){
+                $sitepress->switch_lang($query['lang']);    
+            }
+        }
+            
         if(!empty($this->current_menu['language'])){
             $this->current_lang = $this->current_menu['language'];   
             //if($this->current_lang != $sitepress->get_default_language() && !isset($_GET['lang'])){
@@ -100,6 +109,8 @@ class iclNavMenu{
             include_once ICL_PLUGIN_PATH . '/inc/wp-nav-menus/menus-sync.php';
             $icl_menus_sync = new ICLMenusSync;            
         }
+        
+        
 
     }
     

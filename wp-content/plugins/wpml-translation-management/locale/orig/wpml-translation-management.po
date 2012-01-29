@@ -12,6 +12,42 @@ msgstr ""
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 
+msgid "%d documents sent to translation.<br />%d are complete, %d waiting for translation."
+msgstr ""
+
+msgid "%s offers affordable professional translation via a streamlined process."
+msgstr ""
+
+msgid "Your translators"
+msgstr ""
+
+msgid "%s to %s"
+msgstr ""
+
+msgid "Translate content"
+msgstr ""
+
+msgid "Need translation work?"
+msgstr ""
+
+msgid "Get quote"
+msgstr ""
+
+msgid "Get translators"
+msgstr ""
+
+msgid "Content translation"
+msgstr ""
+
+msgid "Add translators from ICanLocalize &raquo;"
+msgstr ""
+
+msgid "Add your own translators &raquo;"
+msgstr ""
+
+msgid "Translate contents &raquo;"
+msgstr ""
+
 msgid "You've resigned from this job."
 msgstr ""
 
@@ -90,97 +126,58 @@ msgstr ""
 msgid "Apply"
 msgstr ""
 
-msgid "Edit translator"
+msgid "Translation editor"
 msgstr ""
 
-msgid "Add translator"
+msgid "You are translating %s from %s to %s."
 msgstr ""
 
-msgid "From language:"
+msgid "Copy from %s"
 msgstr ""
 
-msgid "Choose"
-msgstr ""
-
-msgid "To language:"
-msgstr ""
-
-msgid "Select translation service"
-msgstr ""
-
-msgid " (inactive)"
-msgstr ""
-
-msgid "%s to %s"
-msgstr ""
-
-msgid "Local"
-msgstr ""
-
-msgid "Your own translators"
-msgstr ""
-
-msgid "All WordPress users are already translators. To add more translators, first create accounts for them."
-msgstr ""
-
-msgid "Select user."
-msgstr ""
-
-msgid "select user"
-msgstr ""
-
-msgid "To add translators, they must first have accounts in WordPress. Translators can have any editing privileges, including subscriber."
-msgstr ""
-
-msgid "Editing language pairs for <strong>%s</strong>"
-msgstr ""
-
-msgid "From %s"
-msgstr ""
-
-msgid "to"
-msgstr ""
-
-msgid "Update"
-msgstr ""
-
-msgid "Add as translator"
+msgid "Jobs queue"
 msgstr ""
 
 msgid "Cancel"
 msgstr ""
 
-msgid "ICanLocalize"
+msgid "Note for translator"
 msgstr ""
 
-msgid "No add translator interface available"
+msgid "Click to toggle"
 msgstr ""
 
-msgid "Current translators"
+msgid "Translated content"
 msgstr ""
 
-msgid "Name"
+msgid "Translated field"
 msgstr ""
 
-msgid "Languages"
+msgid "This translation is finished."
 msgstr ""
 
-msgid "Type"
+msgid "This field cannot be empty"
 msgstr ""
 
-msgid "Action"
+msgid "Original content"
 msgstr ""
 
-msgid "Remove"
+msgid "HTML"
 msgstr ""
 
-msgid "Language pairs"
+msgid "Visual"
 msgstr ""
 
-msgid "edit languages"
+msgid "Show Changes"
 msgstr ""
 
-msgid "You haven't added any translator accounts yet."
+msgid "Translation of this document is complete"
+msgstr ""
+
+msgid "Please review the document translation and fill in all the required fields."
+msgstr ""
+
+msgid "Save translation"
 msgstr ""
 
 msgid "Published"
@@ -196,9 +193,6 @@ msgid "Scheduled"
 msgstr ""
 
 msgid "Private"
-msgstr ""
-
-msgid "Get quote"
 msgstr ""
 
 msgid "Show documents in:"
@@ -231,6 +225,9 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
+msgid "Type"
+msgstr ""
+
 msgid "Edit note for the translators"
 msgstr ""
 
@@ -244,6 +241,9 @@ msgid "Waiting for translator"
 msgstr ""
 
 msgid "In progress"
+msgstr ""
+
+msgid "Duplicate"
 msgstr ""
 
 msgid "Complete"
@@ -267,9 +267,6 @@ msgstr ""
 msgid "show all"
 msgstr ""
 
-msgid "Translate to %s"
-msgstr ""
-
 msgid "Select which documents to display"
 msgstr ""
 
@@ -282,13 +279,13 @@ msgstr ""
 msgid "Status:"
 msgstr ""
 
+msgid "Any"
+msgstr ""
+
 msgid "Type:"
 msgstr ""
 
 msgid "Title:"
-msgstr ""
-
-msgid "Any"
 msgstr ""
 
 msgid "Page"
@@ -315,22 +312,142 @@ msgstr ""
 msgid "Translation options"
 msgstr ""
 
-msgid "Use translator"
+msgid "Translate by"
 msgstr ""
 
 msgid "Manage translators"
 msgstr ""
 
-msgid "Translate documents"
+msgid "Do not update"
+msgstr ""
+
+msgid "Duplicate content"
+msgstr ""
+
+msgid "Send documents"
 msgstr ""
 
 msgid "ICanLocalize account status"
+msgstr ""
+
+msgid "clear"
+msgstr ""
+
+msgid "Any existing content (translations) will be overwritten when creating duplicates."
+msgstr ""
+
+msgid "Notify translator about new job:"
+msgstr ""
+
+msgid "Notify immediately"
+msgstr ""
+
+msgid "No notification"
+msgstr ""
+
+msgid "Notify translator manager when job is completed:"
+msgstr ""
+
+msgid "Daily notifications summary"
+msgstr ""
+
+msgid "Notify translator when removed from job:"
+msgstr ""
+
+msgid "Edit translator"
+msgstr ""
+
+msgid "Add translator"
+msgstr ""
+
+msgid "From language:"
+msgstr ""
+
+msgid "Choose"
+msgstr ""
+
+msgid "To language:"
+msgstr ""
+
+msgid "Select translation service"
+msgstr ""
+
+msgid " (inactive)"
+msgstr ""
+
+msgid "Local"
+msgstr ""
+
+msgid "Your own translators"
+msgstr ""
+
+msgid "All WordPress users are already translators. To add more translators, first create accounts for them."
+msgstr ""
+
+msgid "Select user."
+msgstr ""
+
+msgid "To add translators, they must first have accounts in WordPress. Translators can have any editing privileges, including subscriber."
+msgstr ""
+
+msgid "Editing language pairs for <strong>%s</strong>"
+msgstr ""
+
+msgid "From %s"
+msgstr ""
+
+msgid "to"
+msgstr ""
+
+msgid "Update"
+msgstr ""
+
+msgid "Add as translator"
+msgstr ""
+
+msgid "search"
+msgstr ""
+
+msgid "ICanLocalize"
+msgstr ""
+
+msgid "No add translator interface available"
+msgstr ""
+
+msgid "Current translators"
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "Languages"
+msgstr ""
+
+msgid "Action"
+msgstr ""
+
+msgid "Remove"
+msgstr ""
+
+msgid "Language pairs"
+msgstr ""
+
+msgid "edit languages"
+msgstr ""
+
+msgid "You haven't added any translator accounts yet."
 msgstr ""
 
 msgid "Chat with translator"
 msgstr ""
 
 msgid "Translation jobs for:"
+msgstr ""
+
+msgid "All translation jobs"
+msgstr ""
+
+msgid "Content duplication"
 msgstr ""
 
 msgid "Translator"
@@ -384,6 +501,9 @@ msgstr ""
 msgid "ICanLocalize will deliver translations automatically using XML-RPC"
 msgstr ""
 
+msgid "Hide reminders"
+msgstr ""
+
 msgid "The site will fetch translations manually"
 msgstr ""
 
@@ -414,118 +534,28 @@ msgstr ""
 msgid "Edit translatable strings"
 msgstr ""
 
-msgid "%s days"
+msgid "Translation management"
 msgstr ""
 
-msgid "Notify translator about new job:"
+msgid "Translation Dashboard"
 msgstr ""
 
-msgid "Notify immediately"
+msgid "Translators"
 msgstr ""
 
-msgid "Notify translator manager when job is completed:"
+msgid "Translation Jobs"
 msgstr ""
 
-msgid "Daily notifications summary"
+msgid "Multilingual Content Setup"
 msgstr ""
 
-msgid "No notification"
-msgstr ""
-
-msgid "Notify translator when removed from job:"
-msgstr ""
-
-msgid "Show notifications on the translation dashboard"
-msgstr ""
-
-msgid "Delete old messages after:"
-msgstr ""
-
-msgid "Don't delete"
-msgstr ""
-
-msgid "Translation editor"
-msgstr ""
-
-msgid "You are translating %s from %s to %s."
-msgstr ""
-
-msgid "Copy from %s"
-msgstr ""
-
-msgid "Jobs queue"
-msgstr ""
-
-msgid "Note for translator"
-msgstr ""
-
-msgid "Click to toggle"
-msgstr ""
-
-msgid "Translated content"
-msgstr ""
-
-msgid "Translated field"
-msgstr ""
-
-msgid "This translation is finished."
-msgstr ""
-
-msgid "This field cannot be empty"
-msgstr ""
-
-msgid "Original content"
-msgstr ""
-
-msgid "HTML"
-msgstr ""
-
-msgid "Visual"
-msgstr ""
-
-msgid "Show Changes"
-msgstr ""
-
-msgid "Translation of this document is complete"
-msgstr ""
-
-msgid "Please review the document translation and fill in all the required fields."
-msgstr ""
-
-msgid "Save translation"
-msgstr ""
-
-msgid "%d documents sent to translation.<br />%d are complete, %d waiting for translation."
-msgstr ""
-
-msgid "%s offers affordable professional translation via a streamlined process."
-msgstr ""
-
-msgid "Your translators"
-msgstr ""
-
-msgid "Translate content"
-msgstr ""
-
-msgid "Need translation work?"
-msgstr ""
-
-msgid "Get translators"
-msgstr ""
-
-msgid "Content translation"
-msgstr ""
-
-msgid "Add translators from ICanLocalize &raquo;"
-msgstr ""
-
-msgid "Add your own translators &raquo;"
-msgstr ""
-
-msgid "Translate contents &raquo;"
+msgid "Translation Notifications"
 msgstr ""
 
 msgid "Update %s translation"
+msgstr ""
+
+msgid "Translate to %s"
 msgstr ""
 
 msgid "in progress"
@@ -583,24 +613,6 @@ msgid "Failed sending to translation."
 msgstr ""
 
 msgid "Sent to translation."
-msgstr ""
-
-msgid "Translation management"
-msgstr ""
-
-msgid "Translation Dashboard"
-msgstr ""
-
-msgid "Translators"
-msgstr ""
-
-msgid "Translation Jobs"
-msgstr ""
-
-msgid "Multilingual Content Setup"
-msgstr ""
-
-msgid "Translation Notifications"
 msgstr ""
 
 msgid "WPML Translation Management is enabled but not effective. It requires <a href=\"%s\">WPML</a> in order to work."

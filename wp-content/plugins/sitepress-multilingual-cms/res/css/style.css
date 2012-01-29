@@ -241,7 +241,7 @@ line-height: 100%; margin: 5px 0;
     margin: 0;
     padding: 2px 1px;
     position: absolute;
-    z-index: 111;    
+    z-index: 99;    
 }
 #icl-als-toggle {
     background: url("../../../../../wp-admin/images/fav-arrow.gif?ver=20100531") no-repeat scroll 0 -4px transparent;
@@ -250,7 +250,7 @@ line-height: 100%; margin: 5px 0;
     right: 0;
     top: 1px;
     width: 28px;     
-    z-index: 111;    
+    z-index: 99;    
 }
 
 #icl-als-actions-label{
@@ -298,6 +298,8 @@ line-height: 100%; margin: 5px 0;
 
 .icl_pop_info_but{
     cursor: pointer;
+    position:absolute;
+    z-index: 99;
 }
 .icl_pop_info{
     z-index: 900;

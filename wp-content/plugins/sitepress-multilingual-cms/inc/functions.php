@@ -134,9 +134,9 @@ function icl_pop_info($message, $icon='info', $args = array()){
     
     ?>
     <div class="icl_pop_info_wrap">
-    <img class="icl_pop_info_but" src="<?php echo $icon ?>" width="<?php echo $icon_size ?>" height="<?php echo $icon_size ?>" alt="info" onclick="jQuery('.icl_pop_info').hide();jQuery(this).next().fadeIn();" />
+    <img class="icl_pop_info_but" src="<?php echo $icon ?>" width="<?php echo $icon_size ?>" height="<?php echo $icon_size ?>" alt="info" />
     <div class="icl_cyan_box icl_pop_info">
-    <img align="right" src="<?php echo ICL_PLUGIN_URL ?>/res/img/ico-close.png" width="12" height="12" alt="x" onclick="jQuery(this).parent().fadeOut()" />
+    <img class="icl_pop_info_but_close" align="right" src="<?php echo ICL_PLUGIN_URL ?>/res/img/ico-close.png" width="12" height="12" alt="x" />
     <?php echo $message; ?>
     </div>
     </div>

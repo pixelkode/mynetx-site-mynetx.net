@@ -1089,6 +1089,7 @@ function icl_st_author_description_filter($value, $user_id){
     
     if(false === $user_id){
         global $authordata;
+        if(empty($authordata->data)) return $value;
         $user_id = $authordata->data->ID;
     }
     
@@ -1412,6 +1413,7 @@ function icl_st_scan_theme_files($dir = false, $recursion = 0){
 }
                                                 
 function __icl_st_scan_theme_files_store_results($string, $domain, $_gettext_context, $file, $line){
+    
     global $icl_scan_theme_found_domains;
     
     $string = str_replace(array('\"',"\\'"), array('"',"'"), $string);
@@ -1526,7 +1528,7 @@ function icl_st_scan_plugin_files($plugin, $recursion = 0){
     
 }
 
-function __icl_st_scan_plugin_files_store_results($string, $domain, $file, $line){
+function __icl_st_scan_plugin_files_store_results($string, $domain, $_gettext_context, $file, $line){
     global $icl_scan_plugin_found_domains, $icl_st_p_scan_plugin_id;
     
     $string = str_replace(array('\"',"\\'"), array('"',"'"), $string);
@@ -1743,6 +1745,7 @@ function icl_st_string_in_source($string_id){
     $files = $wpdb->get_col($wpdb->prepare("SELECT position_in_page 
                             FROM {$wpdb->prefix}icl_string_positions 
                             WHERE string_id = %d AND kind = %d", $string_id, ICL_STRING_TRANSLATION_STRING_TRACKING_TYPE_SOURCE));
+    
     if(!empty($files)){
         $string = $wpdb->get_row($wpdb->prepare("SELECT context, value FROM {$wpdb->prefix}icl_strings WHERE id=%d",$string_id));        
         echo '<div id="icl_show_source_top">';
@@ -1773,9 +1776,10 @@ function icl_st_string_in_source($string_id){
             echo '<pre>';        
             $content = file($file);
             echo '<ol>';
+            $hl_color = !empty($sitepress_settings['st']['hl_color'])?$sitepress_settings['st']['hl_color']:'#FFFF00';
             foreach($content as $k=>$l){
                 if($k == $line-1){
-                    $hl =  ' style="background-color:'.$sitepress_settings['st']['hl_color'].';"';
+                    $hl =  ' style="background-color:'.$hl_color.';"';
                 }else{
                     $hl = '';   
                 }

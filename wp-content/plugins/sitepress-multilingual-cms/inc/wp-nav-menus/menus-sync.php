@@ -223,7 +223,6 @@ class ICLMenusSync{
     function _do_the_sync($data){
         global $sitepress, $wpdb;
         
-        
         if(isset($data['menu_translation']) && is_array($data['menu_translation'])){
             
             foreach($data['menu_translation'] as $menuinfo){
@@ -233,7 +232,6 @@ class ICLMenusSync{
                 $_POST['icl_translation_of'] = $original_menu_id;
                 $_POST['icl_nav_menu_language'] = $language;
                 $new_menu_id = wp_update_nav_menu_object(0, array('menu-name' => $menu_name));
-                
                 $new_menus[$original_menu_id][$language] = $new_menu_id; 
             }
             
@@ -258,7 +256,7 @@ class ICLMenusSync{
                 
                 
                 global $wp_post_types;
-                if(is_taxonomy($ob_type)){
+                if(taxonomy_exists($ob_type)){
                     $menu_obj = get_term($object_id, $ob_type);    
                     $menu_item_type = 'taxonomy';
                 }elseif(in_array($ob_type, array_keys($wp_post_types))){
@@ -266,7 +264,10 @@ class ICLMenusSync{
                     $menu_item_type = 'post_type';
                 }
                 
-                $_ldetails = $sitepress->get_element_language_details($menu_id, 'tax_nav_menu');
+                $menu_tax_id = $wpdb->get_var($wpdb->prepare("
+                    SELECT term_taxonomy_id FROM {$wpdb->term_taxonomy} WHERE term_id=%d AND taxonomy='nav_menu'", $new_menu_id));
+                
+                $_ldetails = $sitepress->get_element_language_details($menu_tax_id, 'tax_nav_menu');
                 $language = $_ldetails->language_code;
                 
                 $menudata = array(
@@ -304,7 +305,7 @@ class ICLMenusSync{
                 }
                 
                 global $wp_post_types;
-                if(is_taxonomy($ob_type)){
+                if(taxonomy_exists($ob_type)){
                     $menu_obj = get_term($object_id, $ob_type);    
                     $menu_item_type = 'taxonomy';
                 }elseif(in_array($ob_type, array_keys($wp_post_types))){
@@ -347,14 +348,14 @@ class ICLMenusSync{
                             JOIN {$wpdb->terms} m ON m.term_id = x.term_id
                         WHERE meta_key='_menu_item_object_id' AND meta_value=%d AND m.term_id=%d
                     ", $object_id, $menu_id));
-                    
+
                     update_post_meta($item_id, '_menu_item_menu_item_parent', $item_parent);
                 }
                 
             }
             
         }
-        
+            
     }
     
     
