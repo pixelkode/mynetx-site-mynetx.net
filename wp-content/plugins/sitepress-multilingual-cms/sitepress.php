@@ -5,11 +5,11 @@ Plugin URI: http://wpml.org/
 Description: WPML Multilingual CMS. <a href="http://wpml.org">Documentation</a>.
 Author: ICanLocalize
 Author URI: http://wpml.org
-Version: 2.4.2
+Version: 2.4.3
 */
 
 if(defined('ICL_SITEPRESS_VERSION')) return;
-define('ICL_SITEPRESS_VERSION', '2.4.2');
+define('ICL_SITEPRESS_VERSION', '2.4.3');
 define('ICL_PLUGIN_PATH', dirname(__FILE__));
 define('ICL_PLUGIN_FOLDER', basename(ICL_PLUGIN_PATH));
 define('ICL_PLUGIN_URL', plugins_url() . '/' . ICL_PLUGIN_FOLDER );
@@ -43,7 +43,6 @@ if ( function_exists('is_multisite') && is_multisite() ) {
 
 require ICL_PLUGIN_PATH . '/inc/constants.inc';
 
-require ICL_PLUGIN_PATH . '/inc/pre-wp3-compatibility.php';
 require_once ICL_PLUGIN_PATH . '/inc/sitepress-schema.php';
 require ICL_PLUGIN_PATH . '/inc/template-functions.php';
 require ICL_PLUGIN_PATH . '/sitepress.class.php';

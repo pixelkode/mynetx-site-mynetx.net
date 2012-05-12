@@ -122,7 +122,7 @@ class TranslationManagement{
         }
         
         if(isset($_GET['page']) && basename($_GET['page']) == 'translations-queue.php' && isset($_GET['job_id'])){
-            add_filter('admin_head',array($this, '_show_tinyMCE'));    
+            add_filter('admin_head',array($this, '_show_tinyMCE'));                
         }
                 
         
@@ -202,9 +202,11 @@ class TranslationManagement{
         //add_filter('the_editor', array($this, 'editor_directionality'), 9999);
         add_filter('tiny_mce_before_init', array($this, '_mce_set_direction'), 9999);        
         add_filter('mce_buttons', array($this, '_mce_remove_fullscreen'), 9999);                    
-        //if (function_exists('wp_tiny_mce')) try{
-            //@wp_tiny_mce();
-        //} catch(Exception $e) {  /*don't do anything with this */ }
+        
+        if (version_compare($GLOBALS['wp_version'], '3.1.4', '<=') && function_exists('wp_tiny_mce')) 
+        try{
+            @wp_tiny_mce();
+        } catch(Exception $e) {  /*don't do anything with this */ }
     }    
     
     function _mce_remove_fullscreen($options){

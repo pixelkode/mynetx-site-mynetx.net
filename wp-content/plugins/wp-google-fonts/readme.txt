@@ -3,7 +3,7 @@ Contributors: Adrian Hanft
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=designer%40adrianhanft%2ecom&lc=US&item_name=Wordpress%20Plugin%20Development&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 Tags: Google fonts, fonts, font, type, free fonts, typography, theme, admin, plugin, css, design, plugin, template, page, posts, links, Google
 Requires at least: 2.0.2
-Tested up to: 3.3
+Tested up to: 3.3.1
 Stable tag: trunk
 
 The WP Google Fonts plugin allows you to easily add fonts from the Google Font Directory to your Wordpress theme. 
@@ -14,6 +14,9 @@ Google's free font directory is one of the most exciting developments in web typ
 Right now, the Google Directory has over 390 great fonts, and the selection is steadily growing. As new fonts are added, we will release updates to the plugin quickly so you can start using new fonts as they become available. It truly is an exciting time to be creating websites, and I hope this plugin helps you create some great stuff. - Adrian3
 
 == Changelog ==
+Version 2.7
+- Updated plugin to include 119 new font additions from Google. As always, email me if you run into any issues with any specific fonts or font weights.
+
 Version 2.6
 - Added another 141 fonts to keep up with Google. I can't test every font individually, so if for some reason you encounter an error please contact me and I will release an update.
 

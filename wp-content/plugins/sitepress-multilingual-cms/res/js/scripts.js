@@ -9,7 +9,7 @@ jQuery(document).ready(function(){
     jQuery('#icl_dismiss_upgrade_notice').click(iclDismissUpgradeNotice);
     jQuery('#icl_dismiss_page_estimate_hint').click(iclDismissPageEstimateHint);
     jQuery('#icl_show_page_estimate_hint').click(iclShowPageEstimateHint);
-    jQuery('a.icl_toggle_show_translations').click(iclToggleShowTranslations);
+    jQuery('a.icl_toggle_show_translations').live('click', iclToggleShowTranslations);
     
     icl_tn_initial_value   = jQuery('#icl_post_note textarea').val();
     jQuery('#icl_post_add_notes h4 a').live('click', iclTnOpenNoteBox);
@@ -773,7 +773,7 @@ var icl_popups = {
         jQuery('.icl_pop_info_but_close').click(function(){
            jQuery(this).parent().fadeOut(); 
         });
-    },
+    }
     
         
 }

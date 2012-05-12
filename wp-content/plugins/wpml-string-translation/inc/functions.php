@@ -302,6 +302,7 @@ function __icl_st_init_register_widget_titles(){
     
     foreach($widgets as $k=>$w){                     
         if('wp_inactive_widgets' != $k && $k != 'array_version'){
+            if(is_array($widgets[$k]))
             foreach($widgets[$k] as $v){                
                 $active_widgets[] = $v;
             }

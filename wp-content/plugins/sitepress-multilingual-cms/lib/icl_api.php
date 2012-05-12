@@ -341,9 +341,12 @@ class ICanLocalizeQuery{
                 $translation[$c['attr']['type']] = base64_decode($translation[$c['attr']['type']]);
             }
             
-            if($c['attr']['type'] == 'body'){
-                $translation['body'] = html_entity_decode($translation['body'], ENT_QUOTES, 'UTF-8');
-            }
+			// I've commented out this code. Any content that comes from ICL won't be html_entity_encoded.
+			// By Bruce
+			
+            //if($c['attr']['type'] == 'body'){
+            //    $translation['body'] = html_entity_decode($translation['body'], ENT_QUOTES, 'UTF-8');
+            //}
             
         }
         

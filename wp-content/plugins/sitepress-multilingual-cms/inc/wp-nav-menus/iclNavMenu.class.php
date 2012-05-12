@@ -569,8 +569,8 @@ class iclNavMenu{
     
     function pre_update_theme_mods_theme($val){
         global $sitepress;
-        if(is_array($val['nav_menu_locations'])){
-            foreach($val['nav_menu_locations'] as $k=>$v){
+        if(isset($val['nav_menu_locations'])){
+            foreach((array)$val['nav_menu_locations'] as $k=>$v){
                 if(!$v && $this->current_lang != $sitepress->get_default_language()){
                     $tl = get_theme_mod('nav_menu_locations');
                     $val['nav_menu_locations'][$k] = $tl[$k]; 

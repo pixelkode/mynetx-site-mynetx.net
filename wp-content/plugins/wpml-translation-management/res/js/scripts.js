@@ -367,10 +367,13 @@ jQuery(document).ready(function(){
         field = 'fields['+type+'][data]';
         var original = '';        
         
-        if(type=='body' || 0 == type.indexOf('field-')){      
+        if(type=='body' || (0 == type.indexOf('field-') && jQuery('#icl_tm_original_'+type)[0].tagName != 'SPAN')){      
+            
             original = jQuery('#icl_tm_original_'+type).val()            
             
-            tinyMCE.get(field); // activate
+            try{
+                tinyMCE.get(field); // activate
+            }catch(err){;} //backward compatibility
             
             if ( typeof tinyMCE != 'undefined' && ( ed = tinyMCE.activeEditor ) && !ed.isHidden() ) {
                 ed.focus();
@@ -379,13 +382,12 @@ jQuery(document).ready(function(){
                 original = original.replace(/\n\n/g, '<br />');
                 ed.execCommand('mceInsertContent', false, original);
             } else {
+                wpActiveEditor = field;
                 edInsertContent(edCanvas, original);
             }
         }else{
-            type = type.replace(/ /g, '__20__');
+            type = type.replace(/ /g, '__20__');            
             original = jQuery('#icl_tm_original_'+type).html();
-            
-            
             
             if(jQuery('#icl_tm_editor input[name="'+field+'"]').length){
                 jQuery('#icl_tm_editor input[name="'+field+'"]').val(original);    

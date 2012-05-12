@@ -1,10 +1,10 @@
 <?php
 /** Load WordPress Administration Bootstrap */
-$wp_root = dirname(__FILE__) .'/../../../../';
-if(file_exists($wp_root . 'wp-load.php')) {
-	require_once($wp_root . "wp-load.php");
-} else if(file_exists($wp_root . 'wp-config.php')) {
-	require_once($wp_root . "wp-config.php");
+$wp_root = dirname(dirname(dirname(dirname(dirname(__FILE__)))));
+if(file_exists($wp_root . '/wp-load.php')) {
+	require_once($wp_root . "/wp-load.php");
+} else if(file_exists($wp_root . '/wp-config.php')) {
+	require_once($wp_root . "/wp-config.php");
 } else {
 	exit;
 }
@@ -23,7 +23,7 @@ if ($wp_db_version < 8201) {
 
 require_once(ABSPATH.'wp-admin/admin.php');
 
-load_plugin_textdomain('wp-download_monitor', WP_PLUGIN_URL.'/download-monitor/languages/', 'download-monitor/languages/');
+load_plugin_textdomain('wp-download_monitor', false, 'download-monitor/languages/');
 
 global $wpdb, $wp_dlm_db, $wp_dlm_db_log;
 

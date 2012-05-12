@@ -10,7 +10,7 @@
     
     <a class="nav-tab <?php if(!isset($_GET['sm']) || (isset($_GET['sm']) && $_GET['sm']=='dashboard')): ?> nav-tab-active<?php endif;?>" 
         href="admin.php?page=<?php echo WPML_TM_FOLDER ?>/menu/main.php&sm=dashboard"><?php _e('Translation Dashboard', 'wpml-translation-management') ?></a>
-    <?php if ( current_user_can('list_users') || ICL_PRE_WP3): ?>
+    <?php if ( current_user_can('list_users')): ?>
     <a class="nav-tab<?php if(isset($_GET['sm']) && $_GET['sm']=='translators'): ?> nav-tab-active<?php endif;?>" 
         href="admin.php?page=<?php echo WPML_TM_FOLDER ?>/menu/main.php&sm=translators"><?php _e('Translators', 'wpml-translation-management') ?></a> 
     <?php endif;  ?>        

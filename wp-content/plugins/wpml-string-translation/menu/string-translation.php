@@ -408,7 +408,16 @@ function _icl_string_translation_rtl_textarea($language) {
                 <?php endif; ?>
                 <?php if(!isset($_GET['show_results'])): ?>
                 <?php echo __('Strings per page:', 'wpml-string-translation')?>
-                <select name="icl_st_per_page" onchange="location.href='admin.php?page=<?php echo $_GET['page']?>&amp;strings_per_page='+this.value">
+                <?php 
+                $params = array('context', 'status', 'search', 'em');
+                $spp_qsa = '';
+                foreach($params as $p){
+                    if(isset($_GET[$p])){
+                        $spp_qsa .= '&amp;' . urlencode($p) . '=' . urlencode($_GET[$p]);                        
+                    }                    
+                }    
+                ?>
+                <select name="icl_st_per_page" onchange="location.href='admin.php?page=<?php echo $_GET['page']?><?php echo $spp_qsa ?>&amp;strings_per_page='+this.value">
                     <option value="10"<?php if($sitepress_settings['st']['strings_per_page']==10) echo ' selected="selected"'; ?>>10</option>
                     <option value="20"<?php if($sitepress_settings['st']['strings_per_page']==20) echo ' selected="selected"'; ?>>20</option>
                     <option value="50"<?php if($sitepress_settings['st']['strings_per_page']==50) echo ' selected="selected"'; ?>>50</option>

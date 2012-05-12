@@ -1,36 +1,11 @@
 <?php
-/** Load WordPress Administration Bootstrap */
-if(file_exists('../../../wp-load.php')) {
-	require_once("../../../wp-load.php");
-} else if(file_exists('../../wp-load.php')) {
-	require_once("../../wp-load.php");
-} else if(file_exists('../wp-load.php')) {
-	require_once("../wp-load.php");
-} else if(file_exists('wp-load.php')) {
-	require_once("wp-load.php");
-} else if(file_exists('../../../../wp-load.php')) {
-	require_once("../../../../wp-load.php");
-} else if(file_exists('../../../../wp-load.php')) {
-	require_once("../../../../wp-load.php");
+$wp_root = dirname(dirname(dirname(dirname(__FILE__))));
+if(file_exists($wp_root . '/wp-load.php')) {
+	require_once($wp_root . "/wp-load.php");
+} else if(file_exists($wp_root . '/wp-config.php')) {
+	require_once($wp_root . "/wp-config.php");
 } else {
-
-	if(file_exists('../../../wp-config.php')) {
-		require_once("../../../wp-config.php");
-	} else if(file_exists('../../wp-config.php')) {
-		require_once("../../wp-config.php");
-	} else if(file_exists('../wp-config.php')) {
-		require_once("../wp-config.php");
-	} else if(file_exists('wp-config.php')) {
-		require_once("wp-config.php");
-	} else if(file_exists('../../../../wp-config.php')) {
-		require_once("../../../../wp-config.php");
-	} else if(file_exists('../../../../wp-config.php')) {
-		require_once("../../../../wp-config.php");
-	} else {
-		echo '<p>Failed to load bootstrap.</p>';
-		exit;
-	}
-
+	exit;
 }
 
 global $wp_db_version;
@@ -47,7 +22,7 @@ if ($wp_db_version < 8201) {
 
 require_once(ABSPATH.'wp-admin/admin.php');
 
-load_plugin_textdomain('wp-download_monitor', WP_PLUGIN_URL.'/download-monitor/languages/', 'download-monitor/languages/');
+load_plugin_textdomain('wp-download_monitor', false, 'download-monitor/languages/');
 
 ################################################################################
 // Changing the upload path
@@ -92,7 +67,6 @@ wp_enqueue_script( 'jquery-color' );
 if (!current_user_can('upload_files') || !current_user_can('user_can_add_new_download'))
 	wp_die(__('You do not have permission to upload files/downloads.'));
 	
-load_plugin_textdomain('wp-download_monitor', '/');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" <?php do_action('admin_xml_ns'); ?> <?php language_attributes(); ?>>
@@ -270,7 +244,7 @@ load_plugin_textdomain('wp-download_monitor', '/');
 	</div>
 	<?php
 	// Get the Tab
-	$tab = $_GET['tab'];
+	$tab = esc_attr( $_GET['tab'] );
 	switch ($tab) {
 	
 		case 'add' :
@@ -291,16 +265,16 @@ load_plugin_textdomain('wp-download_monitor', '/');
 				$filename = htmlspecialchars(trim($_POST['filename']));									
 				$dlversion = htmlspecialchars(trim($_POST['dlversion']));
 				$dlhits = htmlspecialchars(trim($_POST['dlhits']));
-				$postDate = $_POST['postDate'];
-				$user = $_POST['user'];
+				$postDate = esc_attr( $_POST['postDate'] );
+				$user = esc_attr( $_POST['user'] );
 				$members = (isset($_POST['memberonly'])) ? 1 : 0;
 				$forcedownload = (isset($_POST['forcedownload'])) ? 1 : 0;
-				$download_cat = $_POST['download_cat'];
+				$download_cat = esc_attr( $_POST['download_cat'] );
 				$mirrors = htmlspecialchars(trim($_POST['mirrors']));
 				$file_description = trim($_POST['file_description']);
 				
-				$tags = $_POST['tags'];
-				$thumbnail = $_POST['thumbnail'];
+				$tags = esc_attr( $_POST['tags'] );
+				$thumbnail = esc_attr( $_POST['thumbnail'] );
 								
 				if ($_POST['insertonlybutton']) {
 											
@@ -758,7 +732,7 @@ load_plugin_textdomain('wp-download_monitor', '/');
 			<form id="downloads-filter" action="uploader.php?tab=downloads" method="post">
 				<p class="search-box">
 					<label class="hidden" for="post-search-input"><?php _e('Search Downloads:',"wp-download_monitor"); ?></label>
-					<input class="search-input" id="post-search-input" name="s" value="<?php echo $_REQUEST['s']; ?>" type="text" />
+					<input class="search-input" id="post-search-input" name="s" value="<?php echo esc_attr( $_REQUEST['s'] ); ?>" type="text" />
 					<input value="<?php _e('Search Downloads',"wp-download_monitor"); ?>" class="button" type="submit" />
 				</p>
 			</form>

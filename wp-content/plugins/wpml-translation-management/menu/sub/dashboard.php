@@ -64,7 +64,8 @@ $icl_documents = $iclTranslationManagement->get_documents($icl_translation_filte
 
 // Get any documents from external sources.
 foreach ($icl_post_types as $id => $type_info) {
-    if (isset($type_info->external_type) && $type_info->external_type) {
+    if (isset($icl_translation_filter['type']) && $id == $icl_translation_filter['type'] 
+            && isset($type_info->external_type) && $type_info->external_type) {
         $icl_documents = apply_filters('WPML_get_translatable_items', $icl_documents, $id, $icl_translation_filter);
     }
 }

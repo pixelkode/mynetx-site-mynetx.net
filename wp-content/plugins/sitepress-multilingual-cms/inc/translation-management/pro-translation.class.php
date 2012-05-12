@@ -914,7 +914,7 @@ class ICL_Pro_Translation{
             foreach($sitepress_settings['taxonomies_sync_option'] as $taxonomy=>$value){
                 if($value == 1 && isset($translation[$taxonomy])){
                     $translated_taxs[$taxonomy] = $translation[$taxonomy];   
-                    $translated_tax_ids[$taxonomy] = explode(',', $translation[$taxonomy.'_ids']);
+                    $translated_tax_ids[$taxonomy] = explode(',', $translation[$taxonomy.'_ids']);                    
                     foreach($translated_taxs[$taxonomy] as $k=>$v){
                         $tax_trid = $wpdb->get_var("
                                 SELECT trid FROM {$wpdb->prefix}icl_translations 
@@ -936,7 +936,8 @@ class ICL_Pro_Translation{
                         $etag = get_term_by('name', htmlspecialchars($v), $taxonomy);
                         if(!$etag){
                             $etag = get_term_by('name', htmlspecialchars($v) . ' @'.$lang_code, $taxonomy);
-                        }                
+                        }         
+                        
                         if(!$etag){      
                             
                             // get original category parent id
@@ -1011,13 +1012,15 @@ class ICL_Pro_Translation{
                         $original_post_taxs[$taxonomy][] = $t->term_taxonomy_id;    
                     }    
                 }
-
+                
                 if(!empty($original_post_taxs[$taxonomy])){
                     $tax_trids = $wpdb->get_col("SELECT trid FROM {$wpdb->prefix}icl_translations 
                         WHERE element_type='tax_{$taxonomy}' AND element_id IN (".join(',',$original_post_taxs[$taxonomy]).")");    
-                    if(!empty($tax_trids))
-                    $tax_tr_tts = $wpdb->get_col("SELECT element_id FROM {$wpdb->prefix}icl_translations 
-                        WHERE element_type='tax_{$taxonomy}' AND language_code='{$lang_code}' AND trid IN (".join(',',$tax_trids).")");    
+                    if(!empty($tax_trids)){
+                        $tax_tr_tts = $wpdb->get_col("SELECT element_id FROM {$wpdb->prefix}icl_translations 
+                            WHERE element_type='tax_{$taxonomy}' AND language_code='{$lang_code}' AND trid IN (".join(',',$tax_trids).")");    
+                    }
+
                     if(!empty($tax_tr_tts)){
                         if($wp_taxonomies[$taxonomy]->hierarchical){
                             $translated_tax_ids[$taxonomy] = $wpdb->get_col("SELECT term_id FROM {$wpdb->term_taxonomy} WHERE term_taxonomy_id IN (".join(',',$tax_tr_tts).")");
@@ -1125,10 +1128,14 @@ class ICL_Pro_Translation{
         
         do_action('icl_pro_translation_saved', $new_post_id);
         
-        // associate custom taxonomies by hand
+        // associate custom taxonomies by hand        
         if ( !empty($postarr['tax_input']) ) {
             foreach ( $postarr['tax_input'] as $taxonomy => $tags ) {
-                wp_set_post_terms( $new_post_id, $tags, $taxonomy );
+                if($wp_taxonomies[$taxonomy]->hierarchical){
+                    wp_set_post_terms( $new_post_id, $tags, $taxonomy );
+                }else{
+                    wp_set_post_terms( $new_post_id, $translated_taxs[$taxonomy], $taxonomy );
+                }
             }
         }
         

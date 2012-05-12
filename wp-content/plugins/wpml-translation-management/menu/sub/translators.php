@@ -1,5 +1,5 @@
 <?php //included from menu translation-management.php ?>
-<?php if ( current_user_can('list_users') || ICL_PRE_WP3):
+<?php if ( current_user_can('list_users')):
 add_filter('icl_translation_services_button', 'icl_local_add_translator_button');
 
 if(!defined('ICL_DONT_PROMOTE') || !ICL_DONT_PROMOTE){

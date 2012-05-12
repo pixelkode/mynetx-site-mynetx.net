@@ -6,9 +6,22 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'resetwpml'){
 
 
 add_action('network_admin_menu', 'icl_network_administration_menu');
+
+
+/*
 add_action('network_admin_edit_resetwpml', 'icl_reset_wpml');
 add_action('network_admin_edit_deactivatewpml', 'icl_network_deactivate_wpml');
 add_action('network_admin_edit_activatewpml', 'icl_network_activate_wpml');
+*/
+
+add_action('wpmuadminedit', 'icl_wpmuadminedit');
+function icl_wpmuadminedit(){
+    switch($_REQUEST['action']){
+        case 'resetwpml':  icl_reset_wpml(); break;
+        case 'deactivatewpml':  icl_network_deactivate_wpml(); break;
+        case 'activatewpml':  icl_network_activate_wpml(); break;
+    }
+}
 
 
 function icl_network_administration_menu(){

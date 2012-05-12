@@ -162,19 +162,19 @@ if ( isset( $_REQUEST['updated'] ) && $_REQUEST['updated'] == 'true' && ! empty(
                     <?php if(get_option('_wpml_inactive', false, false)):?>
                     <?php _e('Inactive', 'sitepress'); ?>
                     <div class="row-actions">
-                        <a href="<?php echo esc_url( wp_nonce_url( network_admin_url( 'edit.php?action=activatewpml&amp;id=' . $blog['blog_id']  ), 'activatewpml'))  ?>"><?php _e('Activate', 'sitepress')?></a>
+                        <a href="<?php echo esc_url( wp_nonce_url( network_admin_url( 'sites.php?action=activatewpml&amp;id=' . $blog['blog_id']  ), 'activatewpml'))  ?>"><?php _e('Activate', 'sitepress')?></a>
                     </div>
                     <?php else:?>
                     <?php _e('Active', 'sitepress'); ?>
                     <div class="row-actions">
                         <?php if($blog['blog_id'] != $current_blog->blog_id): ?>
-                        <a href="<?php echo esc_url( wp_nonce_url( network_admin_url( 'edit.php?action=confirm&amp;action2=deactivatewpml&amp;id=' . $blog['blog_id'] . '&amp;msg=' . urlencode( sprintf( __( 'You are about to deactivate WPML on the site %s.', 'sitepress' ), $blogname ) ) ), 'confirm') ) ?>"><?php _e('Deactivate', 'sitepress')?></a>
+                        <a href="<?php echo esc_url( wp_nonce_url( network_admin_url( 'sites.php?action=confirm&amp;action2=deactivatewpml&amp;id=' . $blog['blog_id'] . '&amp;msg=' . urlencode( sprintf( __( 'You are about to deactivate WPML on the site %s.', 'sitepress' ), $blogname ) ) ), 'confirm') ) ?>"><?php _e('Deactivate', 'sitepress')?></a>
                         <?php endif; ?>
                     </div>                    
                     <?php endif; ?>
                     <?php restore_current_blog();  ?>
                 </td>
-                <td><a href="<?php echo esc_url( wp_nonce_url( network_admin_url( 'edit.php?action=confirm&amp;action2=resetwpml&amp;id=' . $blog['blog_id'] . '&amp;msg=' . urlencode( 
+                <td><a href="<?php echo esc_url( wp_nonce_url( network_admin_url( 'sites.php?action=confirm&amp;action2=resetwpml&amp;id=' . $blog['blog_id'] . '&amp;msg=' . urlencode( 
                     sprintf( __( 'You are about to reset WPML for this site: %s.', 'sitepress' ), $blogname ) . 
                     " " . __("All translations you have sent to ICanLocalize will be lost if you reset WPML's data. They cannot be recovered later.", 'sitepress') 
                     ) ), 'confirm') )  ?>"><?php _e('Reset', 'sitepress')?></a></td>

@@ -1,24 +1,11 @@
 jQuery(document).ready(function(){  
-    /* preWP3 compatibility  - start */
-    if(jQuery('form[name="addcat"]').length || jQuery('form[name="editcat"]').length){
-        if(jQuery('form[name="addcat"]').html()){
-            jQuery('form[name="addcat"] p[class="submit"]').before(jQuery('#icl_tax_menu').html());    
-        }else{
-            jQuery('form[name="editcat"] table[class="form-table"]').append(jQuery('form[name="editcat"] table[class="form-table"] tr:last').clone());    
-            jQuery('form[name="editcat"] table[class="form-table"] tr:last th:first').html('&nbsp;');
-            jQuery('form[name="editcat"] table[class="form-table"] tr:last td:last').html(jQuery('#icl_tax_menu').html());
-        }    
-    }else
-    /* preWP3 compatibility  - end */
-    {
-        if(jQuery('#addtag').html()){
-            jQuery('#addtag p[class="submit"]').before(jQuery('#icl_category_menu').html());    
-        }else{
-            jQuery('#edittag table[class="form-table"]').append(jQuery('form[name="editcat"] table[class="form-table"] tr:last').clone());    
-            jQuery('#edittag table[class="form-table"] tr:last th:first').html('&nbsp;');
-            jQuery('#edittag table[class="form-table"] tr:last td:last').html(jQuery('#icl_category_menu').html());
-        }    
-    }
+    if(jQuery('#addtag').html()){
+        jQuery('#addtag p[class="submit"]').before(jQuery('#icl_category_menu').html());    
+    }else{
+        jQuery('#edittag table[class="form-table"]').append(jQuery('form[name="editcat"] table[class="form-table"] tr:last').clone());    
+        jQuery('#edittag table[class="form-table"] tr:last th:first').html('&nbsp;');
+        jQuery('#edittag table[class="form-table"] tr:last td:last').html(jQuery('#icl_category_menu').html());
+    }    
     
     jQuery('#icl_tax_menu').remove();
    

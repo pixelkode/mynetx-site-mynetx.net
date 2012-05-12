@@ -3,7 +3,7 @@ Contributors: 1manfactory
 Donate link: http://1manfactory.com/donate
 Tags: german, deutsch, umlauts, umlaute, umlaut, permanlink, permalinks, post, feeds, feed, comment, comments
 Requires at least: 2.7
-Tested up to: 3.2.1
+Tested up to: 3.3.1
 Stable tag: trunk
 
 Converts German umlauts for permalinks, post, comments, feeds automatically. Wandelt Umlaute automatisch für Permalinks, Posting, Kommentare, Feeds.
@@ -20,12 +20,14 @@ Wandelt Umlaute automatisch lesbar für Permalinks um.<br>
 Ü -> Ue<br>
 ß -> ss<br>
 <br>
+Parts based on wp-cleanumlauts from www.4null4.de<br>
+<br>
 == Installation ==
 
 1. Upload `wp-cleanumlauts2.php` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Make your settings
-4. done
+done
 
 == Remove plugin ==
 
@@ -40,7 +42,7 @@ Just activate it and it will convert all German umlauts to it's corresponding eq
 
 = Is there anything I should be aware of? Any limitations?  =
 
-No. But of course you have to activate permalinks.
+No. But of course you have to active permalinks.
 
 = How can I support you? =
 
@@ -64,6 +66,9 @@ Post it at the plugin page: [WP-Cleanumlauts2](http://1manfactory.com/umlauts)
 2. Settings
 
 == Changelog ==
+
+= 1.5.1 (13.02.2012) =
+* Getting rid of notices when debug mode is set to true. Thanks to Johannes Freudendahl.
 
 = 1.5.0 (26.04.2011) =
 * Decide where to convert: post, permalinks, comments and/or feeds

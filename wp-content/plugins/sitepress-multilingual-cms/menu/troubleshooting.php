@@ -22,6 +22,7 @@ if(isset($_GET['debug_action']) && $_GET['nonce']==wp_create_nonce($_GET['debug_
             unset($sitepress_settings['last_get_translator_status_call']);
             unset($sitepress_settings['last_icl_reminder_fetch']);
             unset($sitepress_settings['icl_account_email']);
+            unset($sitepress_settings['translators_management_info']);
 
             update_option('icl_sitepress_settings', $sitepress_settings);
             

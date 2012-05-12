@@ -65,27 +65,14 @@ function icl_link_to_element($element_id, $element_type='post', $link_text='',
     $post_types = array_keys((array) $wp_post_types);
     $taxonomies = array_keys((array) $wp_taxonomies);
 
-    /* preWP3 compatibility  - start */
-    if (ICL_PRE_WP3) {
-        if ($element_type == 'post_tag') {
-            $element_id = $wpdb->get_var($wpdb->prepare("SELECT term_taxonomy_id FROM {$wpdb->term_taxonomy} WHERE term_id= %d AND taxonomy='post_tag'",
-                            $element_id));
-        } elseif ($element_type == 'category') {
-            $element_id = $wpdb->get_var($wpdb->prepare("SELECT term_taxonomy_id FROM {$wpdb->term_taxonomy} WHERE term_id= %d AND taxonomy='category'",
-                            $element_id));
-        }
-    } else {
-        /* preWP3 compatibility  - end */
-        if (in_array($element_type, $taxonomies)) {
-            $element_id = $wpdb->get_var($wpdb->prepare("SELECT term_taxonomy_id FROM {$wpdb->term_taxonomy} WHERE term_id= %d AND taxonomy='{$element_type}'",
-                            $element_id));
-        } elseif (in_array($element_type, $post_types)) {
-            $element_type = 'post';
-        }
-        /* preWP3 compatibility  - start */
+    if (in_array($element_type, $taxonomies)) {
+        $element_id = $wpdb->get_var($wpdb->prepare("SELECT term_taxonomy_id FROM {$wpdb->term_taxonomy} WHERE term_id= %d AND taxonomy='{$element_type}'",
+                        $element_id));
+    } elseif (in_array($element_type, $post_types)) {
+        $element_type = 'post';
     }
-    /* preWP3 compatibility  - end */
 
+    
     if (!$element_id)
         return '';
 
@@ -198,20 +185,11 @@ function icl_object_id($element_id, $element_type='post',
         return $element_id;
     }
 
-    /* preWP3 compatibility  - start */
-    if (ICL_PRE_WP3) {
-        $element_types = array('post', 'post_tag', 'category', 'page');
-        $taxonomies = array('post_tag', 'category');
-        $post_types = array('post', 'page');
-    } else {
-        /* preWP3 compatibility  - end */
-        $post_types = array_keys((array) $wp_post_types);
-        $taxonomies = array_keys((array) $wp_taxonomies);
-        $element_types = array_merge($post_types, $taxonomies);
-        /* preWP3 compatibility  - start */
-    }
-    /* preWP3 compatibility  - start */
+    $post_types = array_keys((array) $wp_post_types);
+    $taxonomies = array_keys((array) $wp_taxonomies);
+    $element_types = array_merge($post_types, $taxonomies);
 
+    
     if (!in_array($element_type, $element_types)) {
         trigger_error(__('Invalid object kind', 'sitepress'), E_USER_NOTICE);
         return null;
@@ -286,26 +264,11 @@ function icl_tf_determine_mo_folder($folder, $rec = 0) {
 function wpml_cf_translation_preferences($id, $custom_field = false,
         $class = 'wpml', $ajax = false, $default_value = 'ignore',
         $fieldset = false) {
+    $output = '';
     if ($custom_field) {
         $custom_field = @strval($custom_field);
     }
-    $actions = array('ignore' => 0, 'copy' => 1, 'translate' => 2);
-    $action = isset($actions[@strval($default_value)]) ? $actions[@strval($default_value)] : 0;
-    global $iclTranslationManagement;
-    if ($custom_field) {
-        if (!empty($iclTranslationManagement)) {
-            if (isset($iclTranslationManagement->settings['custom_fields_translation'][$custom_field])) {
-                $action = intval($iclTranslationManagement->settings['custom_fields_translation'][$custom_field]);
-            }
-        } else {
-            return '<span style="color:#FF0000;">'
-                    . __('Error: Please activate WPML Translation Management plugin',
-                            'wpml')
-                    . '</span>';
-        }
-    }
     $class = @strval($class);
-    $output = '';
     if ($fieldset) {
         $output .= '
 <fieldset id="wpml_cf_translation_preferences_fieldset_' . $id
@@ -313,6 +276,33 @@ function wpml_cf_translation_preferences($id, $custom_field = false,
             . $class . '-form-fieldset form-fieldset fieldset">'
             . '<legend>' . __('Translation preferences', 'wpml') . '</legend>';
     }
+    $actions = array('ignore' => 0, 'copy' => 1, 'translate' => 2);
+    $action = isset($actions[@strval($default_value)]) ? $actions[@strval($default_value)] : 0;
+    global $iclTranslationManagement;
+    if ($custom_field) {
+        if (defined('WPML_TM_VERSION') && !empty($iclTranslationManagement)) {
+            if (isset($iclTranslationManagement->settings['custom_fields_translation'][$custom_field])) {
+                $action = intval($iclTranslationManagement->settings['custom_fields_translation'][$custom_field]);
+            }
+            $disabled = $xml_override = in_array($custom_field, (array)$iclTranslationManagement->settings['custom_fields_readonly_config']);
+            if ($disabled) {
+                $output .= '<div style="color:Red;font-style:italic;margin: 10px 0 0 0;">' . __('The translation preference for this field are being controlled by a language configuration XML file. If you want to control it manually, remove the entry from the configuration file.', 'wpml') . '</div>';
+            }
+        } else {
+            $output .= '<span style="color:#FF0000;">'
+                    . __("To synchronize values for translations, you need to enable WPML's Translation Management module.",
+                            'wpml')
+                    . '</span>';
+            $disabled = true;
+        }
+    } else {
+        $output .= '<span style="color:#FF0000;">'
+                    . __('Error: Something is wrong with field value. Translation preferences can not be set.',
+                            'wpml')
+                    . '</span>';
+        $disabled = true;
+    }
+    $disabled = $disabled ? ' readonly="readonly" disabled="disabled"' : '';
     $output .= '<div class="description ' . $class . '-form-description '
             . $class . '-form-description-fieldset description-fieldset">'
             . __('Choose what to do when translating content with this field:',
@@ -323,7 +313,7 @@ function wpml_cf_translation_preferences($id, $custom_field = false,
     $output .= ' id="wpml_cf_translation_preferences_option_ignore_'
             . $id . '" name="wpml_cf_translation_preferences['
             . $id . ']" value="0" class="' . $class
-            . '-form-radio form-radio radio" type="radio">&nbsp;<label class="'
+            . '-form-radio form-radio radio" type="radio"' . $disabled . '>&nbsp;<label class="'
             . $class . '-form-label ' . $class
             . '-form-radio-label" for="wpml_cf_translation_preferences_option_ignore_'
             . $id . '">' . __('Do nothing', 'wpml') . '</label>
@@ -333,7 +323,7 @@ function wpml_cf_translation_preferences($id, $custom_field = false,
     $output .= ' id="wpml_cf_translation_preferences_option_copy_'
             . $id . '" name="wpml_cf_translation_preferences['
             . $id . ']" value="1" class="' . $class
-            . '-form-radio form-radio radio" type="radio">&nbsp;<label class="'
+            . '-form-radio form-radio radio" type="radio"' . $disabled . '>&nbsp;<label class="'
             . $class . '-form-label ' . $class
             . '-form-radio-label" for="wpml_cf_translation_preferences_option_copy_'
             . $id. '">' . __('Copy from original', 'wpml') . '</label>
@@ -343,7 +333,7 @@ function wpml_cf_translation_preferences($id, $custom_field = false,
     $output .= ' id="wpml_cf_translation_preferences_option_translate_'
             . $id . '" name="wpml_cf_translation_preferences['
             . $id . ']" value="2" class="' . $class
-            . '-form-radio form-radio radio" type="radio">&nbsp;<label class="'
+            . '-form-radio form-radio radio" type="radio"' . $disabled . '>&nbsp;<label class="'
             . $class . '-form-label ' . $class
             . '-form-radio-label" for="wpml_cf_translation_preferences_option_translate_'
             . $id . '">' . __('Translate', 'wpml') . '</label>

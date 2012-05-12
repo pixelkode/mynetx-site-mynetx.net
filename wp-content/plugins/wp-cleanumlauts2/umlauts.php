@@ -3,7 +3,7 @@
 Plugin Name: WP-CleanUmlauts2
 Plugin URI: http://1manfactory.com/umlauts
 Description: Converts German umlauts for permalinks, post, comments, feeds automatically. Wandelt Umlaute automatisch für Permalinks, Posting, Kommentare, Feeds.
-Version: 1.5.0
+Version: 1.5.1
 Author: J&uuml;rgen Schulze
 Author URI: http://1manfactory.com
 License: GPL2
@@ -30,8 +30,8 @@ License: GPL2
 // some definition we will use
 define( 'UMLAUTS_PUGIN_NAME', 'WP-CleanUmlauts2');
 define( 'UMLAUTS_PLUGIN_DIRECTORY', 'WP-CleanUmlauts2');
-define( 'UMLAUTS_CURRENT_VERSION', '1.5.0' );
-define( 'UMLAUTS_CURRENT_BUILD', '2' );
+define( 'UMLAUTS_CURRENT_VERSION', '1.5.1' );
+define( 'UMLAUTS_CURRENT_BUILD', '3' );
 define( 'UMLAUTS_DEBUG', false);		# never use debug mode on productive systems
 // i18n plugin domain for language files
 define( 'UMLAUTS_I18N_DOMAIN', 'umlauts' );
@@ -46,7 +46,7 @@ function umlauts_set_lang_file() {
 	if(!empty($currentLocale)) {
 		$moFile = dirname(__FILE__) . "/lang/" . $currentLocale . ".mo";
 		if (@file_exists($moFile) && is_readable($moFile)) {
-			load_textdomain(EMU2_I18N_DOMAIN, $moFile);
+			load_textdomain(UMLAUTS_I18N_DOMAIN, $moFile);
 		}
 
 	}
@@ -90,19 +90,19 @@ function umlauts_uninstall() {
 function umlauts_create_menu() {
 
 	// create options menu page
-	add_options_page(__("Umlauts", EMU2_I18N_DOMAIN), __("Umlauts", EMU2_I18N_DOMAIN), 'manage_options', UMLAUTS_PLUGIN_DIRECTORY, 'umlauts_options_page');
+	add_options_page(__("Umlauts", UMLAUTS_I18N_DOMAIN), __("Umlauts", UMLAUTS_I18N_DOMAIN), 'manage_options', UMLAUTS_PLUGIN_DIRECTORY, 'umlauts_options_page');
 
 }
 
 function umlauts_register_settings() {
 	// register settings
 	register_setting( 'umlauts_options', 'umlauts_options', 'umlauts_options_validate' );
-	add_settings_section('umlauts_main', __('Main Settings', EMU2_I18N_DOMAIN), 'umlauts_section_text', 'plugin');
+	add_settings_section('umlauts_main', __('Main Settings', UMLAUTS_I18N_DOMAIN), 'umlauts_section_text', 'plugin');
 	// add input fields
-	add_settings_field('umlauts_activate_permalinks',__('Convert Pemalinks', EMU2_I18N_DOMAIN).'<br />ä->ae ... ß->ss' , 'umlauts_permalinks_string', 'plugin', 'umlauts_main');
-	add_settings_field('umlauts_activate_feeds',__('Convert Feeds', EMU2_I18N_DOMAIN).'<br />ä->&amp;auml; ... ß->&ampszlig;' , 'umlauts_feeds_string', 'plugin', 'umlauts_main');
-	add_settings_field('umlauts_activate_posts', __('Convert Posts', EMU2_I18N_DOMAIN).'<br />ä->&amp;auml; ... ß->&ampszlig;', 'umlauts_posts_string', 'plugin', 'umlauts_main');
-	add_settings_field('umlauts_activate_comments',__('Convert Comments', EMU2_I18N_DOMAIN).'<br />ä->&amp;auml; ... ß->&ampszlig;' , 'umlauts_comments_string', 'plugin', 'umlauts_main');
+	add_settings_field('umlauts_activate_permalinks',__('Convert Pemalinks', UMLAUTS_I18N_DOMAIN).'<br />ä->ae ... ß->ss' , 'umlauts_permalinks_string', 'plugin', 'umlauts_main');
+	add_settings_field('umlauts_activate_feeds',__('Convert Feeds', UMLAUTS_I18N_DOMAIN).'<br />ä->&amp;auml; ... ß->&ampszlig;' , 'umlauts_feeds_string', 'plugin', 'umlauts_main');
+	add_settings_field('umlauts_activate_posts', __('Convert Posts', UMLAUTS_I18N_DOMAIN).'<br />ä->&amp;auml; ... ß->&ampszlig;', 'umlauts_posts_string', 'plugin', 'umlauts_main');
+	add_settings_field('umlauts_activate_comments',__('Convert Comments', UMLAUTS_I18N_DOMAIN).'<br />ä->&amp;auml; ... ß->&ampszlig;' , 'umlauts_comments_string', 'plugin', 'umlauts_main');
 }
 
 function umlauts_checked($check_value) {
@@ -110,7 +110,7 @@ function umlauts_checked($check_value) {
 }
 
 function umlauts_section_text() {
-	print '<p>'.__('Choose where you want the German umlauts to be converted.', EMU2_I18N_DOMAIN).'</p>';
+	print '<p>'.__('Choose where you want the German umlauts to be converted.', UMLAUTS_I18N_DOMAIN).'</p>';
 }
 
 function umlauts_permalinks_string() {

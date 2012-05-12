@@ -365,17 +365,17 @@ class SitePressLanguageSwitcher {
                                             </ul>
                                         </li>
                                         <li>                                        
-                                            <div id="icl_lang_sel_footer_preview_wrap" style="<?php if (empty($this->settings['icl_lang_sel_footer'])) echo 'display:none; '; ?>height:80px">                                            
+                                            <div id="icl_lang_sel_footer_preview_wrap" style="<?php if (empty($this->settings['icl_lang_sel_footer'])) echo 'display:none; '; ?>min-height:80px">                                            
                                             <div id="icl_lang_sel_footer_preview">                                            
                                             <h4><?php _e('Footer language switcher preview', 'sitepress')?></h4>
-<?php 
-        $this->footer_preview = true;
-        $this->language_selector_footer(); 
-?>                                                                          
+                                            <?php 
+                                                $this->footer_preview = true;
+                                                $this->language_selector_footer(); 
+                                            ?>                                                                          
                                             </div>                                                                     
                                             </div>
 
-<?php foreach($this->color_schemes as $key=>$val): ?>
+                                            <?php foreach($this->color_schemes as $key=>$val): ?>
                                                 <?php foreach($this->footer_css_defaults as $k=>$v): ?>                                                
                                                 <input type="hidden" id="icl_lang_sel_footer_config_alt_<?php echo $key ?>_<?php echo $k ?>" value="<?php echo $this->color_schemes[$key][$k] ?>" />
                                                 <?php endforeach; ?>
@@ -383,7 +383,8 @@ class SitePressLanguageSwitcher {
                                             
                             
                                             
-                                            <a href="#" onclick="jQuery(this).next().slideToggle();return false;" id="icl_lang_sel_footer_preview_link" <?php if (empty($this->settings['icl_lang_sel_footer'])) echo 'style="display:none;" '; ?>><?php _e('Edit the footer language switcher colors', 'sitepress')?></a>                                            
+                                            <a href="#" onclick="jQuery(this).next().slideToggle();return false;" id="icl_lang_sel_footer_preview_link" <?php 
+                                                if (empty($this->settings['icl_lang_sel_footer'])) echo 'style="display:none;" '; ?>><?php _e('Edit the footer language switcher colors', 'sitepress')?></a>
                                             <div style="display:none" id="icl_lang_preview_config_footer_editor_wrapper">                                          
                                                 <table id="icl_lang_preview_config_footer" style="width:auto;">
                                                     <thead>
@@ -684,6 +685,9 @@ class SitePressLanguageSwitcher {
     
     function wp_nav_menu_items_filter($items, $args){
         global $sitepress_settings, $sitepress;
+        
+        // menu can be passed as integger or object
+        if(isset($args->menu->term_id)) $args->menu = $args->menu->term_id;
         
         $abs_menu_id = icl_object_id($args->menu, 'nav_menu', false, $sitepress->get_default_language());
         

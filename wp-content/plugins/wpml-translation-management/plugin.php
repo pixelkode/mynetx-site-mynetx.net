@@ -5,12 +5,12 @@ Plugin URI: http://wpml.org/
 Description: Add a complete translation process for WPML. <a href="http://wpml.org">Documentation</a>.
 Author: ICanLocalize
 Author URI: http://wpml.org
-Version: 1.2.8
+Version: 1.2.9
 */
 
 if(defined('WPML_TM_VERSION')) return;
 
-define('WPML_TM_VERSION', '1.2.8');
+define('WPML_TM_VERSION', '1.2.9');
 define('WPML_TM_PATH', dirname(__FILE__));
 
 require WPML_TM_PATH . '/inc/constants.inc';

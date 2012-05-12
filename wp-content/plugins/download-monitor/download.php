@@ -1,9 +1,9 @@
 <?php
-$wp_root = dirname(__FILE__) .'/../../../';
-if(file_exists($wp_root . 'wp-load.php')) {
-	require_once($wp_root . "wp-load.php");
-} else if(file_exists($wp_root . 'wp-config.php')) {
-	require_once($wp_root . "wp-config.php");
+$wp_root = dirname(dirname(dirname(dirname(__FILE__))));
+if(file_exists($wp_root . '/wp-load.php')) {
+	require_once($wp_root . "/wp-load.php");
+} else if(file_exists($wp_root . '/wp-config.php')) {
+	require_once($wp_root . "/wp-config.php");
 } else {
 	exit;
 }
@@ -88,7 +88,7 @@ if (!function_exists('remote_filesize')) {
 	}
 }
 
-load_plugin_textdomain('wp-download_monitor', WP_PLUGIN_URL.'/download-monitor/languages/', 'download-monitor/languages/');
+load_plugin_textdomain('wp-download_monitor', false, 'download-monitor/languages/');
 
 do_action('wp_dlm_download');
 
@@ -98,6 +98,7 @@ do_action('wp_dlm_download');
 	$wp_dlm_db = $wpdb->prefix."download_monitor_files";
 	$wp_dlm_db_stats = $wpdb->prefix."download_monitor_stats";
 	$wp_dlm_db_log = $wpdb->prefix."download_monitor_log";
+	$level = '';
 	
 	$id = stripslashes($_GET['id']);
 	if ($id) {
@@ -671,4 +672,5 @@ do_action('wp_dlm_download');
    	@header('Content-Type: ' . get_option('html_type') . '; charset=' . get_option('blog_charset'));
    	wp_die(__('Download does not exist!',"wp-download_monitor"), __('Download does not exist!',"wp-download_monitor"));
    }
+
    exit();

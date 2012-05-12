@@ -199,7 +199,7 @@ switch($_REQUEST['icl_ajx_action']){
                 }
             }
             foreach($swidgets as $k=>$v){
-                $key = array_search('icl_lang_sel_widget',$swidgets[$k]);
+                $key = array_search('icl_lang_sel_widget',(array)$swidgets[$k]);
                 if(false !== $key && $k !== $_POST['icl_language_switcher_sidebar']){
                     unset($swidgets[$k][$key]);
                 }elseif($k==$_POST['icl_language_switcher_sidebar'] && !in_array('icl_lang_sel_widget',$swidgets[$k])){

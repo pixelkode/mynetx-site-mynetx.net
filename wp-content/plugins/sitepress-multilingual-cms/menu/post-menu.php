@@ -179,7 +179,26 @@
                 <td align="right"><a href="<?php echo $add_link?>" title="<?php echo esc_attr($add_anchor) ?>"><img  border="0" src="<?php 
                     echo ICL_PLUGIN_URL . '/res/img/' . $img ?>" alt="<?php echo esc_attr($add_anchor) ?>" width="16" height="16"  /></a></td>
                 <td align="right">
-                    <input type="checkbox" name="icl_dupes[]" value="<?php echo $lang['code'] ?>" title="<?php esc_attr_e('create duplicate', 'sitepress')?>" />
+                    <?php 
+                        // do not allow creating duplicates for posts that are being translated
+                        $ddisabled = '';
+                        $dtitle = esc_attr__('create duplicate', 'sitepress');
+                        if(defined('WPML_TM_VERSION')){
+                            $translation_id = $wpdb->get_var($wpdb->prepare("
+                                SELECT translation_id FROM {$wpdb->prefix}icl_translations WHERE trid=%d AND language_code='%s'"
+                                , $trid, $lang['code']));                    
+                            if($translation_id){
+                                $translation_status = $wpdb->get_var($wpdb->prepare("
+                                    SELECT status FROM {$wpdb->prefix}icl_translation_status WHERE translation_id=%d"
+                                , $translation_id));
+                                if($translation_status < ICL_TM_COMPLETE){
+                                    $ddisabled = ' disabled="disabled"';
+                                    $dtitle    = esc_attr__("Can't create a duplicate. A translation is in progress.", 'sitepress');
+                                }
+                            }
+                        }
+                    ?>                
+                    <input<?php echo $ddisabled?> type="checkbox" name="icl_dupes[]" value="<?php echo $lang['code'] ?>" title="<?php echo $dtitle ?>" />
                 </td>
                 
             <?php endif; ?>        

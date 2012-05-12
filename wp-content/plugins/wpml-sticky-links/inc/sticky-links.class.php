@@ -64,7 +64,7 @@ class WPML_Sticky_Links{
         add_action('admin_menu', array($this, 'menu'));
         add_filter('plugin_action_links', array($this, 'plugin_action_links'), 10, 2); 
         
-        if(is_admin()){
+        if(is_admin() && !defined('DOING_AJAX')){
             wp_enqueue_script('wpml-sticky-links-js', WPML_STICKY_LINKS_URL . '/res/js/scripts.js', array(), WPML_STICKY_LINKS_VERSION);    
         }        
         

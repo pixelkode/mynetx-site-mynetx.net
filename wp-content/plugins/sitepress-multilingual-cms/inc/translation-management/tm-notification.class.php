@@ -80,8 +80,14 @@ class TM_Notification{
         //$mail['to'] = $user->user_email;
         $mail['subject'] = sprintf(__('New translation job from %s', 'sitepress'), get_bloginfo('name'));
         //exit;
-        $mail['body'] = sprintf(__("You have been assigned to new translation job from %s to %s.\n%s\nStart editing: %s", 'sitepress'),
+
+        $mail['body'] = sprintf(__("Hi %s,", 'sitepress'),
+                                $user->display_name);
+
+        $mail['body'] .= "\n\n";
+        $mail['body'] .= sprintf(__("You have been assigned to new translation job from %s to %s.\n%s\nStart editing: %s", 'sitepress'),
             $lang_from, $lang_to, $post_link, $edit_url);
+
         $mail['type'] = 'translator';
 
         $mail = apply_filters('WPML_new_job_notification', $mail, $job_id);
