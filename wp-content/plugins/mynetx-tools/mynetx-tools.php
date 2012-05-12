@@ -299,13 +299,13 @@ function displayAd($intSize = 468, $intIndex = 0, $boolReturnAd = false) {
 
 	switch($intSize.':'.$intIndex) {
 		case '336:0':
-			$strSlot = '7615906862';
+			$strSlot = '2759913054';
 			break;
 		case '468:1':
-			$strSlot = '1448451984';
+			$strSlot = '6761713612';
 			break;
 		case '468:2':
-			$strSlot = '0136595613';
+			$strSlot = '0234164254';
 			break;
 		default:
 			return;
@@ -324,7 +324,7 @@ function displayAd($intSize = 468, $intIndex = 0, $boolReturnAd = false) {
 	}
 	ob_start();
 	?>
-	<script type="text/javascript"> google_ad_client = "pub-1891329266322353"; google_ad_slot = "<?php echo $strSlot; ?>"; google_ad_width = <?php echo $intWidth; ?>; google_ad_height = <?php echo $intHeight; ?>; </script>
+	<script type="text/javascript"> google_ad_client = "ca-pub-9881047971881878"; google_ad_slot = "<?php echo $strSlot; ?>"; google_ad_width = <?php echo $intWidth; ?>; google_ad_height = <?php echo $intHeight; ?>; </script>
 	<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
 	<?php
 	$strAd = ob_get_contents();
