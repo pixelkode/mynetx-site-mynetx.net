@@ -122,51 +122,5 @@ $('.cool').hover(
 	$('.cool').click(function(){
 	$($(this).attr('href')).ScrollTo(400);return false;
 	});
-
-/*
-//out links
-$("a[rel='external']").click(function(){window.open(this.href);return false});
-$("a[href*='http://philna.com'],a[href*='javascript'],a:has(img),a[href*=#]").attr("rel","inlinks");
-$("a[rel!='inlinks']").click(function(){window.open(this.href);return false;});
-*/
-/*
-	//ajax reply
-	if ($('#commentform').length){
-	$('#commentform').submit(function(){
-		$.ajax({
-			url:ajaxCommentsURL,
-			data: $('#commentform').serialize(),
-			type: 'POST',
-			beforeSend: function() {
-				$('#commentload').hide();
-				$('#commentload').fadeIn('fast');
-				$('#submit').attr('disabled', true).css('opacity','0.5');
-				$('#comment').attr('disabled', true);
-			},
-			error: function(request) {
-				$('#commentload').fadeOut('fast');
-				alert(request.responseText);
-				$('#submit').attr('disabled', false).css('opacity','1');
-				$('#comment').attr('disabled', false);
-			},
-			success:function(data){
-				$('textarea').each(function(){this.value='';});
-				if (!$('#thecomments').length ){
-					$('#pinglist').before('<ol class="commentlist"></ol>');
-					}
-				$('#thecomments').append(data);
-				var new_comment = $('#thecomments li:last').hide();
-				new_comment.animate({backgroundColor: '#B1D0ED'},500).animate({opacity:'show'},500).animate({backgroundColor:'#FFF'},1000);
-				$('.nub').text(parseInt($('#allcmnub').text())+1).removeClass('nub').addClass('cmnub');
-				$('#allcmnub').text(parseInt($('#allcmnub').text())+1);
-				$('#commentload').fadeOut('fast');
-				setTimeout(function() {$('#submit').attr('disabled', false).css('opacity','1');$('#comment').attr('disabled', false);}, 3000);
-			}
-		});
-		return false;
-	});
-*/
-	};
-})
-
+});
 })(jQuery);

@@ -1,5 +1,6 @@
-    <div style="width:50%;float:left;margin-right:12px;">
+    <?php if(!defined('WPML_TM_VERSION')): ?><div style="width:50%;float:left;margin-right:12px;"><?php endif;?>
     <form id="icl_page_sync_options" name="icl_page_sync_options" action="">        
+    <?php wp_nonce_field('icl_page_sync_options_nonce', '_icl_nonce'); ?>
     <table class="widefat">
         <thead>
             <tr>
@@ -61,7 +62,13 @@
                         <label><input type="checkbox" name="icl_sync_taxonomy_parents" <?php if($sitepress_settings['sync_taxonomy_parents']): ?>checked="checked"<?php endif; ?> value="1" />
                         <?php echo __('Sync taxonomy (e.g. category) parents ', 'sitepress') ?></label>                        
                     </p>  
-                    
+                    <?php if(defined('WPML_TM_VERSION')): ?>
+                    <p style="border-top:solid 1px #ddd;font-size:2px">&nbsp;</p>
+                    <p>
+                        <label><input type="checkbox" name="icl_sync_comments_on_duplicates" <?php if(!empty($sitepress_settings['sync_comments_on_duplicates'])): ?>checked="checked"<?php endif; ?> value="1" />
+                        <?php echo __('Synchronize comments on duplicate content', 'sitepress') ?></label>                        
+                    </p>  
+                    <?php endif; ?>
                     
                     <p>
                         <input class="button" name="save" value="<?php echo __('Save','sitepress') ?>" type="submit" />
@@ -72,6 +79,9 @@
         </tbody>
     </table>
     </form>
+    
+    <?php if(!defined('WPML_TM_VERSION')): ?>
     <br clear="all" />                
     </div>
+    <?php endif; ?>
     

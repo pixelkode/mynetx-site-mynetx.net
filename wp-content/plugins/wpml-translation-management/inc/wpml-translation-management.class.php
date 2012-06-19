@@ -54,7 +54,9 @@ class WPML_Translation_Management{
             
             add_action('wp_ajax_dismiss_icl_side_by_site', array($this, 'dismiss_icl_side_by_site'));
             add_action('wp_ajax_icl_tm_parent_filter', array($this, '_icl_tm_parent_filter'));
+            add_action('wp_ajax_icl_tm_toggle_promo', array($this, '_icl_tm_toggle_promo'));
             
+            add_action('admin_footer', array($this, '_icl_nonce_for_ajx'));
         }        
         
     }
@@ -87,7 +89,7 @@ class WPML_Translation_Management{
     function menu(){
         global $sitepress, $iclTranslationManagement;
         
-        if (1 < count($sitepress->get_active_languages())) {
+        if ($sitepress->setup() && 1 < count($sitepress->get_active_languages())) {
             
             $current_translator = $iclTranslationManagement->get_current_translator();
             if(!empty($current_translator->language_pairs) || current_user_can('manage_options')){
@@ -246,6 +248,17 @@ class WPML_Translation_Management{
         echo json_encode(array('html'=>$html));
         exit;
         
+    }
+    
+    function _icl_tm_toggle_promo(){
+        global $sitepress;
+        $iclsettings['dashboard']['hide_icl_promo'] = @intval($_POST['value']);
+        $sitepress->save_settings($iclsettings);
+        exit;
+    }
+    
+    function _icl_nonce_for_ajx(){
+        wp_nonce_field('get_translator_status_nonce', '_icl_nonce_gts');
     }
    
 }

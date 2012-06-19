@@ -21,7 +21,7 @@ if(isset($_GET['status']) && preg_match("#".ICL_STRING_TRANSLATION_WAITING_FOR_T
     $status_filter = isset($_GET['status']) ? intval($_GET['status']) : false;    
 }
 $context_filter = isset($_GET['context']) ? $_GET['context'] : false;
-$search_filter = isset($_GET['search']) ? $_GET['search'] : false;
+$search_filter = isset($_GET['search']) ? esc_html($_GET['search']) : false;
 $exact_match = isset($_GET['em']) ? $_GET['em'] == 1 : false;
 
 $icl_string_translations = icl_get_string_translations();
@@ -286,7 +286,7 @@ function _icl_string_translation_rtl_textarea($language) {
                             ?>
                             
                             <form class="icl_st_form" name="icl_st_form_<?php echo $lang['code'] . '_' . $string_id ?>" action="">
-                            <?php wp_nonce_field('icl_save_string_translation') ?>
+                            <?php wp_nonce_field('icl_st_save_translation_nonce', '_icl_nonce') ?>
                             <input type="hidden" name="icl_st_language" value="<?php echo $lang['code'] ?>" />                        
                             <input type="hidden" name="icl_st_string_id" value="<?php echo $string_id ?>" />                        
                             
@@ -310,7 +310,7 @@ function _icl_string_translation_rtl_textarea($language) {
                                 <tr>
                                     <td align="right" style="border:none">                                    
                                         <?php 
-                                        if(current_user_can('edit_others_posts') && isset($icl_string['translations'][$lang['code']]['status']) &&
+                                        if(current_user_can('manage_options') && isset($icl_string['translations'][$lang['code']]['status']) &&
                                             $icl_string['translations'][$lang['code']]['status'] == ICL_STRING_TRANSLATION_WAITING_FOR_TRANSLATOR
                                             ){
                                                 echo '<div style="float: left;">';
@@ -434,7 +434,7 @@ function _icl_string_translation_rtl_textarea($language) {
         <?php if(current_user_can('manage_options')):  // the rest is only for admins. not for editors  ?>
         
         <span class="subsubsub">
-            <input type="hidden" id="icl_delete_strings_nonce" value="<?php echo wp_create_nonce('icl_delete_strings_nonce') ?>" />
+            <input type="hidden" id="_icl_nonce_dstr" value="<?php echo wp_create_nonce('icl_st_delete_strings_nonce') ?>" />
             <input type="button" class="button-secondary" id="icl_st_delete_selected" value="<?php echo __('Delete selected strings', 'wpml-string-translation') ?>" disabled="disabled" />
             <span style="display:none"><?php echo __("Are you sure you want to delete these strings?\nTheir translations will be deleted too.",'wpml-string-translation') ?></span>
         </span>
@@ -534,7 +534,7 @@ function _icl_string_translation_rtl_textarea($language) {
                             <div class="inside">
                                 <p class="sub"><?php echo __("WPML can keep track of where strings are used on the public pages. Activating this feature will enable the 'view in page' functionality and make translation easier.", 'wpml-string-translation')?></p>
                                 <form id="icl_st_track_strings" name="icl_st_track_strings" action="">
-                                    <?php wp_nonce_field('icl_st_track_strings') ?>
+                                    <?php wp_nonce_field('icl_st_track_strings_nonce', '_icl_nonce'); ?>
                                     <p class="icl_form_errors" style="display:none"></p>
                                     <ul>
                                         <li>
@@ -575,7 +575,7 @@ function _icl_string_translation_rtl_textarea($language) {
                             <div class="inside">
                                 <p class="sub"><?php echo __('WPML can automatically register strings for translation. This allows you to translate user-generated content with minimal PHP code.', 'wpml-string-translation')?></p>
                                 <form id="icl_st_ar_form" name="icl_st_ar_form" method="post" action="">
-                                <?php wp_nonce_field('icl_ar_form') ?>
+                                <?php wp_nonce_field('icl_st_ar_form_nonce', '_icl_nonce') ?>
                                     <p class="icl_form_errors" style="display:none"></p>
                                     <?php
                                         if (!isset($sitepress_settings['st']['icl_st_auto_reg'])) {

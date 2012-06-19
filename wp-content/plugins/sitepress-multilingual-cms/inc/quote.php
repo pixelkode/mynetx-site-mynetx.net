@@ -12,8 +12,7 @@
 function icl_quote_ajax($action, $data = array()) {
     if ($action == 'quote-get' || isset($data['next']) || isset($data['back'])) {
         require_once ICL_PLUGIN_PATH . '/inc/quote/quote-get.php';
-    } else if ($action == 'quote-get-submit'
-            && wp_verify_nonce($_POST['_wpnonce'], 'quote-get-submit')) {
+    } else if ($action == 'quote-get-submit') {
         require_once ICL_PLUGIN_PATH . '/inc/quote/quote-get-submit.php';
     }
 }

@@ -103,7 +103,7 @@ function _icl_trash_restore_prompt(){
     global $sitepress;
     if(isset($_GET['lang'])){
         $post = get_post(intval($_GET['post']));
-        if($post->post_status == 'trash'){
+        if(isset($post->post_status) && $post->post_status == 'trash'){
             $post_type_object = get_post_type_object( $post->post_type );
             $ret = '<p>';
             $ret .= sprintf(__('This translation is currently in the trash. You need to either <a href="%s">delete it permanently</a> or <a href="%s">restore</a> it in order to continue.'), 
@@ -127,14 +127,15 @@ function icl_pop_info($message, $icon='info', $args = array()){
     }
     
     $defaults = array(
-        'icon_size' => 16
+        'icon_size' => 16,
+        'but_style' => array()
     );
     extract($defaults);
     extract($args, EXTR_OVERWRITE);
     
     ?>
     <div class="icl_pop_info_wrap">
-    <img class="icl_pop_info_but" src="<?php echo $icon ?>" width="<?php echo $icon_size ?>" height="<?php echo $icon_size ?>" alt="info" />
+    <img class="icl_pop_info_but <?php echo join(' ', $but_style)?>" src="<?php echo $icon ?>" width="<?php echo $icon_size ?>" height="<?php echo $icon_size ?>" alt="info" />
     <div class="icl_cyan_box icl_pop_info">
     <img class="icl_pop_info_but_close" align="right" src="<?php echo ICL_PLUGIN_URL ?>/res/img/ico-close.png" width="12" height="12" alt="x" />
     <?php echo $message; ?>

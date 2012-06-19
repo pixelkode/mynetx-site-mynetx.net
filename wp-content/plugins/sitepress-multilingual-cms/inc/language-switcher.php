@@ -69,7 +69,7 @@ class SitePressLanguageSwitcher {
             if(function_exists('icl_register_string')){
                 icl_register_string('WPML', 'Text for alternative languages for posts', $this->settings['icl_post_availability_text']);    
             }            
-            add_filter('the_content', array(&$this, 'post_availability'));
+            add_filter('the_content', array(&$this, 'post_availability'), 100);
         }
         // the language selector widget      
         $this->language_selector_widget_init();
@@ -123,9 +123,17 @@ class SitePressLanguageSwitcher {
                 $out = '<p class="icl_post_in_other_langs">' . sprintf(icl_t('WPML', 'Text for alternative languages for posts', $this->settings['icl_post_availability_text']), $out) . '</p>';
             }
         }
-         if ($this->settings['icl_post_availability_position'] == 'above')
-            return $out . $content;
-        else return $content . $out;
+        
+        $out = apply_filters('icl_post_alternative_languages', $out);
+        
+        if ($this->settings['icl_post_availability_position'] == 'above'){
+            $content = $out . $content;
+        }else{
+            $content = $content . $out;
+        }
+        
+        return $content;    
+        
     }
     
     function language_selector_footer_style(){
@@ -197,7 +205,7 @@ class SitePressLanguageSwitcher {
                     ';
                 foreach($languages as $lang){
                     echo '    <li>';
-                    echo '<a href="'.apply_filters('WPML_filter_link', $lang['url'], $lang).'"';
+                    echo '<a rel="alternate" hreflang="'. $lang['language_code'] .'" href="'.apply_filters('WPML_filter_link', $lang['url'], $lang).'"';
                     if($lang['active']) echo ' class="lang_sel_sel"';
                     echo '>';
                     if ($this->settings['icl_lso_flags'] || $this->footer_preview) echo '<img src="'.$lang['country_flag_url'].'" alt="'.$lang['language_code'].'" class="iclflag"';

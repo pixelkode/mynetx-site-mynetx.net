@@ -7,7 +7,7 @@ function icl_sitepress_activate(){
     
     global $wpdb;
     global $EZSQL_ERROR;
-    require_once(ICL_PLUGIN_PATH . '/inc/lang-data.inc');
+    require_once(ICL_PLUGIN_PATH . '/inc/lang-data.php');
     //defines $langs_names
 
     $charset_collate = '';
@@ -31,13 +31,14 @@ function icl_sitepress_activate(){
                 `major` TINYINT NOT NULL DEFAULT '0', 
                 `active` TINYINT NOT NULL ,
                 `default_locale` VARCHAR( 8 ),
+                `encode_url` TINYINT( 1 ) NOT NULL DEFAULT 0,
                 UNIQUE KEY `code` (`code`),
                 UNIQUE KEY `english_name` (`english_name`)
             ) ENGINE=MyISAM {$charset_collate}"; 
             $wpdb->query($sql);
             if($e = mysql_error()) throw new Exception($e);
             
-            //$langs_names is defined in ICL_PLUGIN_PATH . '/inc/lang-data.inc'
+            //$langs_names is defined in ICL_PLUGIN_PATH . '/inc/lang-data.php'
             foreach($langs_names as $key=>$val){
                 if(strpos($key,'Norwegian Bokm')===0){ $key = 'Norwegian Bokmål'; $lang_codes[$key] = 'nb';} // exception for norwegian
                 $default_locale = isset($lang_locales[$lang_codes[$key]]) ? $lang_locales[$lang_codes[$key]] : '';
@@ -140,7 +141,7 @@ function icl_sitepress_activate(){
                 `manager_id` INT UNSIGNED NOT NULL ,
                 `revision` INT UNSIGNED NULL,
                 INDEX ( `rid` , `translator_id` )
-                ) ENGINE = MYISAM ;    
+                ) ENGINE = MYISAM {$charset_collate}    
             ";
             $wpdb->query($sql);
             if($e = mysql_error()) throw new Exception($e);
@@ -162,7 +163,7 @@ function icl_sitepress_activate(){
                 `field_data_translated` TEXT NOT NULL ,
                 `field_finished` TINYINT NOT NULL DEFAULT 0,
                 INDEX ( `job_id` )
-                ) ENGINE = MYISAM ;
+                ) ENGINE = MYISAM {$charset_collate}
             ";
             $wpdb->query($sql);
             if($e = mysql_error()) throw new Exception($e);

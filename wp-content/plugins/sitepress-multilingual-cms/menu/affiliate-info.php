@@ -16,7 +16,7 @@
     <h2><?php echo __('Affiliate information check', 'sitepress') ?></h2>    
     
     <form id="icl_affiliate_info_check" method="post" action="">
-    
+    <?php wp_nonce_field('affiliate_info_check_nonce', '_icl_nonce'); ?>
     <h3><?php _e('Affiliate test', 'sitepress') ?></h3>
     <table class="widefat">
         <tr>

@@ -2,7 +2,7 @@
 // disabled
 //define('MACHINE_TRANSLATE_API_URL',"http://ajax.googleapis.com/ajax/services/language/translate?v=1.0&q=%s&langpair=%s|%s"); 
 
-require_once ICL_PLUGIN_PATH . '/inc/comments-translation/google_languages_map.inc';
+require_once ICL_PLUGIN_PATH . '/inc/comments-translation/google_languages_map.php';
 
 class IclCommentsTranslation{
     

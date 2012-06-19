@@ -30,7 +30,7 @@ if($user_language = get_user_meta($current_user->data->ID,'icl_admin_language',t
     <?php endif; ?>
     
     <form name="icl_ct_user_pref" id="icl_ct_user_pref" method="post" action="">
-    <input type="hidden" name="icl_ajx_action" value="save_ct_user_pref" />    
+    <?php wp_nonce_field('icl_ct_user_pref_nonce', '_icl_nonce'); ?>
     <table id="iclt_user_comments_settings" class="widefat" cellpadding="0" cellspacing="0" style="width:50%;margin:10px 0 10px 0;">
         <thead>
             <tr>

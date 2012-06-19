@@ -155,7 +155,7 @@ function wpml_default_link($anchor){
     }
     
     if($qv){
-        $link = '<a href="' .  $sitepress->language_url($sitepress->get_default_language()) . $url_glue . $qv . '" rel="nofollow">' . $anchor . '</a>';
+        $link = '<a href="' .  $sitepress->language_url($sitepress->get_default_language()) . $url_glue . $qv . '" rel="nofollow">' . esc_html($anchor) . '</a>';
     }else{
         $link = '';
     } 

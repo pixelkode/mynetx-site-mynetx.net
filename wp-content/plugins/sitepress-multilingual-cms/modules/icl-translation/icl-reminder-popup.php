@@ -141,7 +141,7 @@
     
 	
 	if (isset($_GET['code'])) {
-		$add = '&code=' . $_GET['code'];
+		$add = '&code=' . urlencode($_GET['code']);
 	}else{
         $add = '';
     }
@@ -154,7 +154,7 @@
     $target .= "session=" . $session_id . "&lc=" . $admin_lang . $add;
     
 
-    $on_click = isset($_GET['message_id']) ? 'parent.dismiss_message(' . esc_js($_GET['message_id']) . ');' : '';
+    $on_click = isset($_GET['message_id']) ? 'parent.dismiss_message(' . esc_js($_GET['message_id']) . ', \'' . wp_create_nonce('icl_delete_message_nonce') . '\');' : '';
     
     $can_delete = isset($_GET['message_id']) ? $wpdb->get_var($wpd->prepare("SELECT can_delete FROM {$wpdb->prefix}icl_reminders WHERE id=%d", $_GET['message_id'])) == '1' : false;
 
@@ -169,5 +169,5 @@
     <br />
     <br />
 <?php endif; ?> 
-<iframe src="<?php echo $target;?>" style="width:100%; height:92%" onload="<?php if($auto_resize):?>jQuery('#TB_window').css('width','90%').css('margin-left', '-45%');<?php endif; ?><?php if($unload_cb):?>jQuery('#TB_window').unbind('unload').bind('unload', <?php echo esc_js($unload_cb) ?>);<?php endif; ?>">
+<iframe src="<?php echo $target;?>" style="width:100%; height:92%" onload="<?php if($auto_resize):?>jQuery('#TB_window').css('width','90%').css('margin-left', '-45%');<?php endif; ?><?php if($unload_cb):?>jQuery('#TB_window').unbind('unload').bind('tb_unload', <?php echo esc_js($unload_cb) ?>);<?php endif; ?>">
 

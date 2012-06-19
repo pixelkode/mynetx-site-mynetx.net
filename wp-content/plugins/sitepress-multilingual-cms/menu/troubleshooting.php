@@ -87,7 +87,7 @@ if(isset($_GET['debug_action']) && $_GET['nonce']==wp_create_nonce($_GET['debug_
             // remove ghost translations
             // get unlinked rids
             $rids = $wpdb->get_col("SELECT rid FROM {$wpdb->prefix}icl_translation_status WHERE translation_id NOT IN (SELECT translation_id FROM {$wpdb->prefix}icl_translations)");
-            $jids = $wpdb->get_col("SELECT job_id FROM {$wpdb->prefix}icl_translate_job WHERE rids IN (".join(',', $rids).")");
+            $jids = $wpdb->get_col("SELECT job_id FROM {$wpdb->prefix}icl_translate_job WHERE rid IN (".join(',', $rids).")");
             $wpdb->query("DELETE FROM {$wpdb->prefix}icl_translate WHERE job_id IN (".join(',', $jids).")");
             $wpdb->query("DELETE FROM {$wpdb->prefix}icl_translate_job WHERE job_id IN (".join(',', $jids).")");
             $wpdb->query("DELETE FROM {$wpdb->prefix}icl_translation_status WHERE rid IN (".join(',', $rids).")");
@@ -411,7 +411,7 @@ if( (isset($_POST['icl_reset_allnonce']) && $_POST['icl_reset_allnonce']==wp_cre
     <h2><?php echo __('Troubleshooting', 'sitepress') ?></h2>    
     <?php if(isset($_GET['message'])):?>
     <div class="updated message fade"><p>
-    <?php echo $_GET['message'];?>
+    <?php echo esc_html($_GET['message']);?>
     </p></div>
     <?php endif?>
     <?php
@@ -496,6 +496,7 @@ if( (isset($_POST['icl_reset_allnonce']) && $_POST['icl_reset_allnonce']==wp_cre
     <div class="icl_cyan_box" >
     <h3><?php _e('More options', 'sitepress')?></h3>
     <form name="icl_torubleshooting_more_options" id="icl_torubleshooting_more_options" action="">
+    <?php wp_nonce_field('icl_torubleshooting_more_options_nonce', '_icl_nonce'); ?>
     <label><input type="checkbox" name="troubleshooting_options[raise_mysql_errors]" value="1" <?php 
         if(!empty($sitepress_settings['troubleshooting_options']['raise_mysql_errors'])): ?>checked="checked"<?php endif; ?>/>&nbsp;<?php 
         _e('Raise mysql errors on XML-RPC calls', 'sitepress')?></label>

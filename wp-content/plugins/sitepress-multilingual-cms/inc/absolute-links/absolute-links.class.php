@@ -122,6 +122,8 @@ class AbsoluteLinks{
                 
                 $request_match = $request;
                 
+                $perma_query_vars = array();
+                
                 foreach ( (array) $rewrite as $match => $query) {
 
                     // If the requesting file is the anchor of the match, prepend it
@@ -139,7 +141,7 @@ class AbsoluteLinks{
                         $query = preg_replace("!^.+\?!", '', $query);
                         
                         // Substitute the substring matches into the query.
-                        eval("@\$query = \"" . addslashes($query) . "\";");
+                        $query = addslashes(WP_MatchesMapRegex::apply($query, $matches));
 
                         $matched_query = $query;
 
@@ -154,19 +156,24 @@ class AbsoluteLinks{
                 
                 if(isset($perma_query_vars['pagename'])){
                     $page_by_path = get_page_by_path($perma_query_vars['pagename']);
-                    if(isset($page_by_path->post_type) && $page_by_path->post_type != 'page'){
-                        $post_name = $perma_query_vars['pagename']; 
-                        $post_type = 'post';
-                    }else{
+                    
+                    if(!empty($page_by_path->post_type)){
                         $post_name = $perma_query_vars['pagename']; 
                         $post_type = 'page';
-                        
+                    }else{
+                        $post_name = $perma_query_vars['pagename']; 
+                        $post_type = 'post';
                     }
+                    
                 }elseif(isset($perma_query_vars['name'])){
                     $post_name = $perma_query_vars['name']; 
                     $post_type = 'post';
                 }elseif(isset($perma_query_vars['category_name'])){
                     $category_name = $perma_query_vars['category_name']; 
+                }elseif(isset($perma_query_vars['p'])){ // case or /archives/%post_id
+                    $p = $perma_query_vars['p'];
+                    list($post_type, $post_name) = $wpdb->get_row($wpdb->prepare(
+                        "SELECT post_type, post_name FROM {$wpdb->posts} WHERE id=%d", $perma_query_vars['p']), ARRAY_N);
                 }else{
                     foreach($this->custom_post_query_vars as $k=>$v){
                         if(isset($perma_query_vars[$v])){
@@ -183,9 +190,17 @@ class AbsoluteLinks{
                             break;
                         }
                     }                    
-                }                
+                }  
+                
                 if($post_name){
                     $p = get_page_by_path($post_name, OBJECT, $post_type);
+                    
+                    if(empty($p)){ // fail safe
+                        if($post_id = url_to_postid($home_path . '/' . $post_name)){
+                            $p = get_post($post_id);
+                        }
+                    }
+                    
                     //$name = $wpdb->escape($post_name);
                     //$post_type = isset($perma_query_vars['pagename']) ? 'page' : 'post';
                     //$p = $wpdb->get_row("SELECT ID, post_type FROM {$wpdb->posts} WHERE post_name='{$name}' AND post_type ='{$post_type}'");
@@ -344,6 +359,7 @@ class AbsoluteLinks{
         $post = $wpdb->get_row("SELECT * FROM {$wpdb->posts} WHERE ID={$post_id}");
         $alp_broken_links = array();
         $post_content = $this->_process_generic_text($post->post_content, $alp_broken_links);
+        
         if($post_content != $post->post_content){
             $wpdb->update($wpdb->posts, array('post_content'=>$post_content), array('ID'=>$post_id));
         }

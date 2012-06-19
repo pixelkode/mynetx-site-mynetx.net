@@ -241,9 +241,16 @@ jQuery(document).ready(function(){
         
         select_listener : function(){
             
+            /*
             jQuery('.icl_tm_auto_suggest_dd option').live('click', function(){
                 icl_tm_users_quick_search.select(jQuery(this).val());
             });
+            */
+            
+            jQuery('.icl_tm_auto_suggest_dd').live('change', function(){
+                icl_tm_users_quick_search.select(jQuery(this).val());
+            });
+            
             
             jQuery('.icl_tm_auto_suggest_dd').live('keydown', function(e){
                 if(e.which == 13){
@@ -253,7 +260,7 @@ jQuery(document).ready(function(){
             });
             
             return;
-            
+            /*
             jQuery('.icl_tm_auto_suggest_dd').live('change', function(){
                 
                 var spl = jQuery(this).val().split('|');
@@ -261,7 +268,8 @@ jQuery(document).ready(function(){
                 spl.shift();
                 jQuery('#icl_quick_src_users').val(spl.join('|'));
                 jQuery(this).remove();
-            })    
+            })  
+            */  
         },
         
         select : function(val){
@@ -353,17 +361,19 @@ jQuery(document).ready(function(){
         type: "POST",
         url: icl_ajx_url,
         dataType: 'json',
-        data: "icl_ajx_action=get_translator_status"+cache,
+        data: "icl_ajx_action=get_translator_status" + cache + '&_icl_nonce=' + jQuery('#_icl_nonce_gts').val(),
         success: function(msg){
             if (cache == '') {
             }
         }
     });
 
+    if(jQuery('#icl_tdo_options').length)
     jQuery('#icl_tdo_options').submit(iclSaveForm);     
 
     jQuery('.icl_tm_copy_link').click(function(){
         var type = jQuery(this).attr('id').replace(/^icl_tm_copy_link_/,'');                
+        
         field = 'fields['+type+'][data]';
         var original = '';        
         
@@ -371,17 +381,28 @@ jQuery(document).ready(function(){
             
             original = jQuery('#icl_tm_original_'+type).val()            
             
+            
             try{
                 tinyMCE.get(field); // activate
+                
             }catch(err){;} //backward compatibility
             
-            if ( typeof tinyMCE != 'undefined' && ( ed = tinyMCE.activeEditor ) && !ed.isHidden() ) {
+            if ( typeof tinyMCE != 'undefined' && ( ed = tinyMCE.activeEditor ) && !ed.isHidden() ) {                
+                
+                if(tinyMCE.activeEditor.id != field){
+                    for(i in tinyMCE.editors){
+                        if(field == tinyMCE.editors[i].id){
+                            ed = tinyMCE.editors[i];
+                        }    
+                    }
+                }
+                
                 ed.focus();
                 if (tinymce.isIE)
                     ed.selection.moveToBookmark(tinymce.EditorManager.activeEditor.windowManager.bookmark);
                 original = original.replace(/\n\n/g, '<br />');
                 ed.execCommand('mceInsertContent', false, original);
-            } else {
+            } else {                
                 wpActiveEditor = field;
                 edInsertContent(edCanvas, original);
             }
@@ -434,7 +455,7 @@ jQuery(document).ready(function(){
         jQuery.ajax({
                 type: "POST",
                 url: icl_ajx_url,        
-                data: "icl_ajx_action=save_translator_note&note="+thisa.closest('table').prev().val()+'&post_id='+tn_post_id,
+                data: "icl_ajx_action=save_translator_note&note="+thisa.closest('table').prev().val()+'&post_id='+tn_post_id + '&_icl_nonce=' + jQuery('#_icl_nonce_stn_' + tn_post_id).val(),
                 success: function(msg){
                     thisa.closest('table').find('input').removeAttr('disabled');
                     thisa.closest('table').parent().slideUp();
@@ -477,7 +498,19 @@ jQuery(document).ready(function(){
     jQuery('form[name="translation-dashboard-filter"]').find('select[name="filter[from_lang]"]').change(iclTmPopulateParentFilter);
     
     jQuery('#icl_tm_jobs_dup_submit').click(function(){return confirm(jQuery(this).next().html());})
-
+    
+    jQuery('#icl_show_promo').click(function(){
+        jQuery.ajax({type:"POST", url:ajaxurl, data: 'action=icl_tm_toggle_promo&value=0', success: function(){
+            jQuery('#icl_show_promo').fadeOut(function(){jQuery('.icl-translation-services').    slideDown()});return false;    
+        }})
+    });
+    jQuery('#icl_hide_promo').click(function(){
+        jQuery.ajax({type:"POST", url:ajaxurl, data: 'action=icl_tm_toggle_promo&value=1', success: function(){
+            jQuery('.icl-translation-services').slideUp(function(){jQuery('#icl_show_promo').fadeIn()});return false;
+        }});
+    })
+    
+    
     
 });
 
@@ -486,7 +519,7 @@ function icl_save_dashboard_setting(setting, value, callback){
         jQuery.ajax({
             type: "POST",
             url: icl_ajx_url,
-            data: 'icl_ajx_action=save_dashboard_setting&setting='+setting+'&value='+value,
+            data: 'icl_ajx_action=save_dashboard_setting&setting='+setting+'&value='+value+'_icl_nonce=' + jQuery('#_icl_nonce_sds').val(),
             success: function(msg){
                 jQuery('#icl_dashboard_ajax_working').fadeOut();
                 callback(msg);                
@@ -593,7 +626,7 @@ function icl_tm_assign_translator_request(job_id, translator_id, select){
         type: "POST",
         url: icl_ajx_url,
         dataType: 'json',
-        data: 'icl_ajx_action=assign_translator&job_id='+job_id+'&translator_id='+translator_id,
+        data: 'icl_ajx_action=assign_translator&job_id='+job_id+'&translator_id='+translator_id+'&_icl_nonce=' + jQuery('#_icl_nonce_at').val(),
         success: function(msg){
             if(!msg.error){
                 translation_controls.hide();    
@@ -654,7 +687,7 @@ function icl_tm_pickup_translations(){
         type: "POST",
         url: icl_ajx_url,
         dataType: 'json',
-        data: 'icl_ajx_action=pickup_translations',
+        data: 'icl_ajx_action=pickup_translations&_icl_nonce='+jQuery('#_icl_nonce_pickt').val(),
         success: function(msg){
             if(!msg.error){
                 url_glue = (-1 == location.href.indexOf('?')) ? '?' : '&'; 

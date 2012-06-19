@@ -115,18 +115,33 @@ class WPML_Sticky_Links{
         if(!isset($_POST['alp_ajx_action'])){
             return;
         }
-        global $wpdb, $wp_post_types;
-        $post_types = array_diff(array_keys($wp_post_types), array('revision','attachment','nav_menu_item'));
+        global $wpdb;
+
+        $post_types = array();
+        foreach($GLOBALS['wp_post_types'] as $key=>$val){
+            if($val->public && !in_array($key, array('attachment'))){
+                $post_types[] = $key;
+            }
+        }
         
         $limit  = 5;
         
         switch($_POST['alp_ajx_action']){
             case 'rescan':
+            
                 $posts_pages = $wpdb->get_col("
-                    SELECT SQL_CALC_FOUND_ROWS p1.ID FROM {$wpdb->posts} p1 WHERE post_type IN ('".join("','", $post_types)."') AND ID NOT IN 
-                    (SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = '_alp_processed')
+                    SELECT SQL_CALC_FOUND_ROWS p1.ID 
+                        FROM {$wpdb->posts} p1 
+                        WHERE p1.post_type IN ('".join("','", $post_types)."') AND p1.post_status NOT IN ('auto-draft')  AND p1.ID NOT IN 
+                        
+                    (
+                        SELECT m.post_id FROM {$wpdb->postmeta} m 
+                        JOIN {$wpdb->posts} p2 ON p2.ID = m.post_id
+                        WHERE m.meta_key = '_alp_processed' AND p2.post_type IN ('" . join("','", $post_types) . "') AND p2.post_status NOT IN ('auto-draft')  
+                    )
                     ORDER BY p1.ID ASC LIMIT $limit
                 ");
+                
                 if($posts_pages){
                     $found = $wpdb->get_var("SELECT FOUND_ROWS()");                
                     foreach($posts_pages as $ppid){
@@ -165,12 +180,14 @@ class WPML_Sticky_Links{
                 }
                 break;
             case 'alp_revert_urls':
+            
                 $posts_pages = $wpdb->get_results("
-                    SELECT SQL_CALC_FOUND_ROWS p1.ID, p1.post_content FROM {$wpdb->posts} p1
-                    JOIN {$wpdb->postmeta} p2 ON p1.ID = p2.post_id
-                    WHERE p2.meta_key = '_alp_processed'
-                    ORDER BY p1.ID ASC LIMIT $limit
+                    SELECT SQL_CALC_FOUND_ROWS p.ID, p.post_content FROM {$wpdb->posts} p
+                    JOIN {$wpdb->postmeta} m ON p.ID = m.post_id
+                    WHERE m.meta_key = '_alp_processed' AND p.post_type IN ('" . join("','", $post_types) . "') AND p.post_status NOT IN ('auto-draft')  
+                    ORDER BY p.ID ASC LIMIT $limit
                 ");   
+                
                 if($posts_pages){
                     $found = $wpdb->get_var("SELECT FOUND_ROWS()");                
                     foreach($posts_pages as $p){
@@ -320,13 +337,30 @@ class WPML_Sticky_Links{
     function menu_content(){
         global $wpdb;
         
+        $types = array();
+        foreach($GLOBALS['wp_post_types'] as $key=>$val){
+            if($val->public && !in_array($key, array('attachment'))){
+                $types[] = $key;
+            }
+        }
+        
         $this->get_broken_links();
         $total_posts_pages = $wpdb->get_var("
-            SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type IN ('page','post') AND ID NOT IN 
-            (SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = '_alp_processed')
+            SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type IN ('" . join("','", $types) . "') AND post_status NOT IN ('auto-draft') AND ID NOT IN 
+            (
+                SELECT m.post_id FROM {$wpdb->postmeta} m 
+                JOIN {$wpdb->posts} p ON m.post_id = p.ID
+                WHERE m.meta_key = '_alp_processed' AND p.post_type IN ('" . join("','", $types) . "') AND p.post_status NOT IN ('auto-draft')  
+            )
         ");
-        
-        $total_posts_pages_processed = (int) $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE meta_key = '_alp_processed'");   
+
+        $total_posts_pages_processed = (int) $wpdb->get_var("
+            SELECT COUNT(m.meta_id) FROM {$wpdb->postmeta} m 
+            JOIN {$wpdb->posts} p ON p.ID = m.post_id
+            WHERE m.meta_key = '_alp_processed' 
+                AND p.post_type IN ('" . join("','", $types) . "')              
+                AND p.post_status NOT IN ('auto-draft')  
+        ");   
         
         include WPML_STICKY_LINKS_PATH . '/menu/management.php';
         

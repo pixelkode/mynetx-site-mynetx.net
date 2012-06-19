@@ -9,7 +9,7 @@ jQuery(document).ready(function(){
 });
 
 function show_help_links() {
-    var command = "icl_ajx_action=icl_help_links";
+    var command = "icl_ajx_action=icl_help_links&_icl_nonce=" + jQuery('#_icl_nonce_hl').val();
     jQuery.ajax({
         type: "POST",
         url: icl_ajx_url,
@@ -47,7 +47,7 @@ function icl_show_sidebar() {
     jQuery.ajax({
         type: "POST",
         url: icl_ajx_url,
-        data: "icl_ajx_action=icl_show_sidebar&state=show",
+        data: "icl_ajx_action=icl_show_sidebar&state=show&_icl_nonce="+jQuery('#_icl_nonce_ss').val(),
         async: true,
         success: function(msg){
         }
@@ -64,7 +64,7 @@ function icl_hide_sidebar() {
     jQuery.ajax({
         type: "POST",
         url: icl_ajx_url,
-        data: "icl_ajx_action=icl_show_sidebar&state=hide",
+        data: "icl_ajx_action=icl_show_sidebar&state=hide&_icl_nonce="+jQuery('#_icl_nonce_ss').val(),
         async: true,
         success: function(msg){
         }

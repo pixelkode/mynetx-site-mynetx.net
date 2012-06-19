@@ -60,6 +60,7 @@ class TranslationManagement{
         add_action('admin_print_scripts', array($this, '_inline_js_scripts'));
         
         add_action('wp_ajax_icl_tm_user_search', array($this, '_user_search'));
+        
     }
     
     function save_settings(){
@@ -73,6 +74,14 @@ class TranslationManagement{
         global $wpdb, $current_user, $sitepress_settings, $sitepress, $pagenow;
 
         $this->settings =& $sitepress_settings['translation-management'];
+        
+        //logic for syncing comments
+        if($sitepress->get_option('sync_comments_on_duplicates')){
+            add_action('delete_comment', array($this, 'duplication_delete_comment'));
+            add_action('edit_comment', array($this, 'duplication_edit_comment'));
+            add_action('wp_set_comment_status', array($this, 'duplication_status_comment'), 10, 2);
+            add_action('wp_insert_comment', array($this, 'duplication_insert_comment'), 100);
+        }
         
         $this->initial_custom_field_translate_states();
         
@@ -341,6 +350,7 @@ class TranslationManagement{
     function ajax_calls($call, $data){
         global $wpdb, $sitepress, $sitepress_settings;        
         switch($call){
+            /*
             case 'save_dashboard_setting':
                 $iclsettings['dashboard'] = $sitepress_settings['dashboard'];
                 if(isset($data['setting']) && isset($data['value'])){
@@ -348,6 +358,7 @@ class TranslationManagement{
                     $sitepress->save_settings($iclsettings);    
                 }
                 break;
+            */
             case 'assign_translator':
             
                 $_exp = explode('-', $data['translator_id']);
@@ -385,9 +396,9 @@ class TranslationManagement{
                         $cft[base64_decode($k)] = $v;
                     }
                     $this->settings['custom_fields_translation'] = $cft;
-                    $this->save_settings();
-                    echo '1|';
+                    $this->save_settings();                    
                 }            
+                echo '1|';
                 break;
             case 'icl_doc_translation_method':
                 $this->settings['doc_translation_method'] = intval($data['t_method']);
@@ -733,7 +744,7 @@ class TranslationManagement{
     /* HOOKS */
     /* ******************************************************************************************** */
     function save_post_actions($post_id, $post, $force_set_status = false){
-        global $wpdb, $sitepress, $current_user;
+        global $wpdb, $sitepress, $sitepress_settings, $current_user;
         // skip revisions
         if($post->post_type == 'revision'){
             return;
@@ -1361,7 +1372,7 @@ class TranslationManagement{
     * @param object|int $post
     */
     function create_translation_package($post){
-        global $sitepress;
+        global $sitepress, $sitepress_settings;
         
         $package = array();
         
@@ -1399,6 +1410,14 @@ class TranslationManagement{
                 'format'    => 'base64'
             );
             
+            if($sitepress_settings['translated_document_page_url'] == 'translate'){
+                $package['contents']['URL'] = array(
+                    'translate' => 1,
+                    'data'      => $this->encode_field_data($post->post_name, 'base64'),
+                    'format'    => 'base64'
+                );
+            }
+            
             $package['contents']['body'] = array(
                 'translate' => 1,
                 'data'      => $this->encode_field_data($post->post_content, 'base64'),
@@ -1421,6 +1440,8 @@ class TranslationManagement{
             if(!empty($this->settings['custom_fields_translation']))
             foreach($this->settings['custom_fields_translation'] as $cf => $op){
                 if ($op == 2) { // translate
+                
+                    /* */
                     $custom_fields_value = get_post_meta($post->ID, $cf, true);
                     if ($custom_fields_value != '' && is_scalar($custom_fields_value)) {
                         $package['contents']['field-'.$cf] = array(
@@ -1436,7 +1457,26 @@ class TranslationManagement{
                             'translate' => 0,
                             'data' => 'custom_field'
                         );
+                    }                    
+                    /* */
+                    /*    
+                    $post_custom = get_post_custom($post->ID);
+                    if(isset($post_custom[$cf])){
+                        $package['contents']['field-'.$cf] = array(
+                            'translate' => 1,
+                            'data' => $this->encode_field_data(serialize($post_custom[$cf]), 'base64'),
+                            'format' => 'base64'
+                        );
+                        $package['contents']['field-'.$cf.'-name'] = array(
+                            'translate' => 0,
+                            'data' => $cf
+                        );
+                        $package['contents']['field-'.$cf.'-type'] = array(
+                            'translate' => 0,
+                            'data' => 'custom_field'
+                        );
                     }
+                    */
                 }
             } 
             
@@ -2146,6 +2186,9 @@ class TranslationManagement{
                         case 'excerpt': 
                             $postarr['post_excerpt'] = $this->decode_field_data($field->field_data_translated, $field->field_format);
                             break;
+                        case 'URL':
+                            $postarr['post_name'] = $this->decode_field_data($field->field_data_translated, $field->field_format);
+                            break;
                         case 'tags': 
                             $tags = $this->decode_field_data($field->field_data_translated, $field->field_format);
                             $original_tags = $this->decode_field_data($field->field_data, $field->field_format);
@@ -2314,14 +2357,46 @@ class TranslationManagement{
                 $_POST['skip_sitepress_actions'] = true;
     
                 $postarr = apply_filters('icl_pre_save_pro_translation', $postarr);
-    
+
                 if(isset($element_id)){ // it's an update so dont change the url
                     $postarr['post_name'] = $wpdb->get_var($wpdb->prepare("SELECT post_name FROM {$wpdb->posts} WHERE ID=%d", $element_id));
                 }
                                 
                 $new_post_id = wp_insert_post($postarr);
-
                 do_action('icl_pro_translation_saved', $new_post_id, $data['fields']);
+                
+                
+                // Allow identical slugs
+                $post_name = sanitize_title($postarr['post_title']);
+                $post_name_rewritten = $wpdb->get_var($wpdb->prepare("SELECT post_name FROM {$wpdb->posts} WHERE ID=%d", $new_post_id));
+                
+                $post_name_base = $post_name;
+                
+                if($post_name != $post_name_rewritten){
+                    $incr = 1;                    
+                    do{
+                        
+                        $exists = $wpdb->get_var($wpdb->prepare("
+                            SELECT p.ID FROM {$wpdb->posts} p
+                                JOIN {$wpdb->prefix}icl_translations t ON t.element_id = p.ID AND t.element_type=%s
+                            WHERE p.ID <> %d AND t.language_code = %s AND p.post_name=%s
+                        ", 'post_' . $postarr['post_type'], $new_post_id, $job->language_code, $post_name));
+                        
+                        if($exists){
+                            $incr++;
+                        }else{
+                            break;
+                        }
+                        $post_name = $post_name_base . '-' . $incr;
+                         
+                    }while($exists);
+                    
+                    $wpdb->update($wpdb->posts, array('post_name' => $post_name), array('ID' => $new_post_id));
+                }
+                    
+                    
+                
+                
     
                 $ICL_Pro_Translation->_content_fix_links_to_translated_content($new_post_id, $job->language_code);
                 
@@ -2427,6 +2502,8 @@ class TranslationManagement{
                     $tn_notification->work_complete($data['job_id'], !is_null($element_id));
                 }
             }
+            
+            self::set_page_url($new_post_id);
             
             // redirect to jobs list
             wp_redirect(admin_url(sprintf('admin.php?page=%s&%s=%d', 
@@ -3104,8 +3181,7 @@ class TranslationManagement{
         $return['name'] = 'ICanLocalize';
         $return['logo'] = ICL_PLUGIN_URL . '/res/img/web_logo_small.png';
         $return['setup_url'] = $sitepress->create_icl_popup_link('@select-translators;from_replace;to_replace@', array('ar' => 1), true);
-        $return['description'] = __('Meet freelance professional translators from around the world.<br />You can interview and choose the best ones for your project.', 'sitepress');
-        $return['setup_url_dashboard'] = array(__('Get translators', 'sitepress'), 'admin.php?page=' . WPML_TM_FOLDER . '/menu/main.php&amp;sm=translators&amp;service=icanlocalize');
+        $return['description'] = __('Looking for a quality translation service? ICanLocalize offers excellent<br /> human service done by expert translators, starts at only $0.07 per word.', 'sitepress');
         $info['icanlocalize'] = $return;
         return $info;
     }
@@ -3251,14 +3327,18 @@ class TranslationManagement{
         
         
         if(!is_wp_error($id)){
+            
             $sitepress->set_element_language_details($id, 'post_' . $master_post->post_type, $trid, $lang);
             
             $this->save_post_actions($id, get_post($id), $force_set_status = ICL_TM_DUPLICATE);
+
+            // dup comments
+            if($sitepress->get_option('sync_comments_on_duplicates')){
+                $this->duplicate_comments($id, $master_post->ID);    
+            }
             
             // make sure post name is copied
             $wpdb->update($wpdb->posts, array('post_name'=>$master_post->post_name), array('ID'=>$id));
-            
-            
             
             update_post_meta($id, '_icl_lang_duplicate_of', $master_post->ID);
                         
@@ -3391,6 +3471,274 @@ class TranslationManagement{
         return $duplicates;
         
     }
+    
+    function duplicate_comments($post_id, $master_post_id){
+        global $wpdb, $sitepress;
+        
+        // delete existing comments
+        $current_comments = $wpdb->get_results($wpdb->prepare("SELECT comment_ID FROM {$wpdb->comments} WHERE comment_post_ID = %d", $post_id));
+        foreach($current_comments as $id){
+            wp_delete_comment($id);
+        }
+        
+        
+        $original_comments = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->comments} WHERE comment_post_id = %d", $master_post_id), ARRAY_A);
+        
+        $post_type = $wpdb->get_var($wpdb->prepare("SELECT post_type FROM {$wpdb->posts} WHERE ID=%d", $post_id));
+        $language = $wpdb->get_var($wpdb->prepare("SELECT language_code FROM {$wpdb->prefix}icl_translations WHERE element_id=%d AND element_type=%s", $post_id, 'post_' . $post_type));
+
+        $wpdb->update($wpdb->posts, array('post_count'=>count($original_comments)), array('ID'=>$post_id));        
+    
+        foreach($original_comments as $comment){
+            
+            $original_comment_id = $comment['comment_ID'];
+            unset($comment['comment_ID']);
+            
+            $comment['comment_post_ID'] = $post_id;
+            $wpdb->insert($wpdb->comments, $comment);
+            $comment_id = $wpdb->insert_id;
+            
+            update_comment_meta($comment_id, '_icl_duplicate_of', $original_comment_id);
+            
+            // comment meta
+            $meta = $wpdb->get_results($wpdb->prepare("SELECT meta_key, meta_value FROM {$wpdb->commentmeta} WHERE comment_id=%d", $original_comment_id));
+            foreach($meta as $key => $val){
+                $wpdb->insert($wpdb->commentmeta, array(
+                    'comment_id'    => $comment_id,
+                    'meta_key'      => $key,  
+                    'meta_value'    => $val 
+                ));
+            }
+            
+            $original_comment_tr = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}icl_translations WHERE element_id=%d AND element_type=%s", 
+                $original_comment_id, 'comment'));
+            
+            $comment_translation = array(
+                'element_type'          => 'comment',
+                'element_id'            => $comment_id,
+                'trid'                  => $original_comment_tr->trid,
+                'language_code'         => $language,
+                /*'source_language_code'  => $original_comment_tr->language_code */
+            );
+            
+            
+            $comments_map[$original_comment_id] = array('trid' => $original_comment_tr->trid, 'comment' => $comment_id);
+            
+            $wpdb->insert($wpdb->prefix . 'icl_translations', $comment_translation); 
+            
+        }
+        
+        // sync parents
+        foreach($original_comments as $comment){
+            if($comment['comment_parent']){
+                
+                $tr_comment_id = $comments_map[$comment['comment_ID']]['comment']; 
+                $tr_parent = icl_object_id($comment['comment_parent'], 'comment', false, $language);
+                if($tr_parent){
+                    $wpdb->update($wpdb->comments, array('comment_parent' => $tr_parent), array('comment_ID' => $tr_comment_id));
+                }
+                                       
+            }
+        }
+         
+                
+    }
+    
+    function duplication_delete_comment($comment_id){
+        global $wpdb;
+        static $_avoid_8_loop;
+        
+        if(isset($_avoid_8_loop)) return;
+        $_avoid_8_loop = true;
+        
+        $original_comment = get_comment_meta($comment_id, '_icl_duplicate_of', true);        
+        if($original_comment){
+            $duplicates = $wpdb->get_col($wpdb->prepare("SELECT comment_id FROM {$wpdb->commentmeta} WHERE meta_key='_icl_duplicate_of' AND meta_value=%d", $original_comment));
+            $duplicates = array($original_comment) + array_diff($duplicates, array($comment_id));
+            foreach($duplicates as $dup){
+                wp_delete_comment($dup);
+            }
+        }else{
+            $duplicates = $wpdb->get_col($wpdb->prepare("SELECT comment_id FROM {$wpdb->commentmeta} WHERE meta_key='_icl_duplicate_of' AND meta_value=%d", $comment_id));
+            if($duplicates){
+                foreach($duplicates as $dup){
+                    wp_delete_comment($dup);
+                }
+            }
+        }
+        
+        unset($_avoid_8_loop);
+    }
+    
+    function duplication_edit_comment($comment_id){
+        global $wpdb;
+        
+        $comment = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->comments} WHERE comment_ID=%d", $comment_id), ARRAY_A);
+        unset($comment['comment_ID'], $comment['comment_post_ID']);
+        
+        $comment_meta = $wpdb->get_results($wpdb->prepare("SELECT meta_key, meta_value FROM {$wpdb->commentmeta} WHERE comment_id=%d AND meta_key <> '_icl_duplicate_of'", $comment_id));
+        
+        $original_comment = get_comment_meta($comment_id, '_icl_duplicate_of', true);        
+        if($original_comment){
+            $duplicates = $wpdb->get_col($wpdb->prepare("SELECT comment_id FROM {$wpdb->commentmeta} WHERE meta_key='_icl_duplicate_of' AND meta_value=%d", $original_comment));
+            $duplicates = array($original_comment) + array_diff($duplicates, array($comment_id));
+        }else{
+            $duplicates = $wpdb->get_col($wpdb->prepare("SELECT comment_id FROM {$wpdb->commentmeta} WHERE meta_key='_icl_duplicate_of' AND meta_value=%d", $comment_id));
+        }                
+        
+        if(!empty($duplicates)){
+            foreach($duplicates as $dup){
+                
+                $wpdb->update($wpdb->comments, $comment, array('comment_ID' => $dup));
+
+                $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->commentmeta} WHERE comment_id=%d AND meta_key <> '_icl_duplicate_of'", $dup));
+                
+                if($comment_meta){
+                    foreach($comment_meta as $key => $value){
+                        update_comment_meta($dup, $meta_key, $meta_value);
+                    }
+                }
+                
+            }
+        }
+        
+            
+    }
+    
+    function duplication_status_comment($comment_id, $comment_status){
+        global $wpdb;
+        
+        static $_avoid_8_loop;
+        
+        if(isset($_avoid_8_loop)) return;
+        $_avoid_8_loop = true;
+        
+                
+        $original_comment = get_comment_meta($comment_id, '_icl_duplicate_of', true);        
+        if($original_comment){
+            $duplicates = $wpdb->get_col($wpdb->prepare("SELECT comment_id FROM {$wpdb->commentmeta} WHERE meta_key='_icl_duplicate_of' AND meta_value=%d", $original_comment));
+            $duplicates = array($original_comment) + array_diff($duplicates, array($comment_id));
+        }else{
+            $duplicates = $wpdb->get_col($wpdb->prepare("SELECT comment_id FROM {$wpdb->commentmeta} WHERE meta_key='_icl_duplicate_of' AND meta_value=%d", $comment_id));
+        }                
+        
+        if(!empty($duplicates)){
+            foreach($duplicates as $dup){
+                wp_set_comment_status($t->element_id, $status);
+            }
+        }
+        
+        unset($_avoid_8_loop);
+        
+        
+    }
+    
+    function duplication_insert_comment($comment_id){
+        global $wpdb, $sitepress;
+        
+        $comment = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->comments} WHERE comment_ID=%d", $comment_id), ARRAY_A);
+        
+        // loop duplicate posts, add new comment
+        $post_id = $comment['comment_post_ID'];
+        
+        // if this is a duplicate post
+        $duplicate_of = get_post_meta($post_id, '_icl_lang_duplicate_of', true);
+        if($duplicate_of){
+            $post_duplicates = $this->get_duplicates($duplicate_of);    
+            $_lang = $wpdb->get_var($wpdb->prepare("SELECT language_code FROM {$wpdb->prefix}icl_translations WHERE element_type='comment' AND element_id=%d", $comment_id));
+            unset($post_duplicates[$_lang]);
+            $_post = get_post($duplicate_of);
+            $_orig_lang = $sitepress->get_language_for_element($duplicate_of, 'post_' . $_post->post_type);
+            $post_duplicates[$_orig_lang] = $duplicate_of;
+        }else{
+            $post_duplicates = $this->get_duplicates($post_id);    
+        }
+        
+        unset($comment['comment_ID'], $comment['comment_post_ID']);
+        
+        foreach($post_duplicates as $lang => $dup_id){
+            $comment['comment_post_ID'] = $dup_id;
+            
+            if($comment['comment_parent']){
+                $comment['comment_parent'] = icl_object_id($comment['comment_parent'], 'comment', false, $lang);
+            }
+            
+            
+            $wpdb->insert($wpdb->comments, $comment);
+            
+            $dup_comment_id = $wpdb->insert_id;
+            
+            update_comment_meta($dup_comment_id, '_icl_duplicate_of', $comment_id);
+            
+            // comment meta
+            $meta = $wpdb->get_results($wpdb->prepare("SELECT meta_key, meta_value FROM {$wpdb->commentmeta} WHERE comment_id=%d", $comment_id));
+            foreach($meta as $key => $val){
+                $wpdb->insert($wpdb->commentmeta, array(
+                    'comment_id'    => $dup_comment_id,
+                    'meta_key'      => $key,  
+                    'meta_value'    => $val 
+                ));
+            }
+            
+            $original_comment_tr = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}icl_translations WHERE element_id=%d AND element_type=%s", 
+                $comment_id, 'comment'));
+            
+            $comment_translation = array(
+                'element_type'          => 'comment',
+                'element_id'            => $dup_comment_id,
+                'trid'                  => $original_comment_tr->trid,
+                'language_code'         => $lang,
+                /*'source_language_code'  => $original_comment_tr->language_code */
+            );
+            
+            $wpdb->insert($wpdb->prefix . 'icl_translations', $comment_translation);             
+                        
+        }
+        
+        
+    }
+    
+    // set slug according to user preference
+    static function set_page_url($post_id){
+        
+        global $sitepress, $sitepress_settings, $wpdb;
+        
+        if($sitepress_settings['translated_document_page_url'] == 'copy-encoded'){
+        
+            $post = $wpdb->get_row($wpdb->prepare("SELECT post_type FROM {$wpdb->posts} WHERE ID=%d", $post_id));                
+            $translation_row = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}icl_translations WHERE element_id=%d AND element_type=%s", $post_id, 'post_' . $post->post_type));
+            
+            $encode_url = $wpdb->get_var($wpdb->prepare("SELECT encode_url FROM {$wpdb->prefix}icl_languages WHERE code=%s", $translation_row->language_code));
+            if($encode_url){
+            
+                $trid = $sitepress->get_element_trid($post_id, 'post_' . $post->post_type);
+                $original_post_id = $wpdb->get_var($wpdb->prepare("SELECT element_id FROM {$wpdb->prefix}icl_translations WHERE trid=%d AND source_language_code IS NULL", $trid));
+                $post_name_original = $wpdb->get_var($wpdb->prepare("SELECT post_name FROM {$wpdb->posts} WHERE ID = %d", $original_post_id));
+            
+                $post_name_to_be = $post_name_original;
+                $taken = true;
+                $incr = 1;        
+                do{
+                    $taken = $wpdb->get_var($wpdb->prepare("
+                        SELECT ID FROM {$wpdb->posts} p  
+                        JOIN {$wpdb->prefix}icl_translations t ON p.ID = t.element_id
+                        WHERE ID <> %d AND t.element_type = %s AND t.language_code = %s AND p.post_name = %s
+                        ", $post_id, 'post_' . $post->post_type, $translation_row->language_code, $post_name_to_be ));
+                    if($taken){
+                        $incr++;
+                        $post_name_to_be = $post_name_original . '-' . $incr;
+                    }else{
+                        $taken = false;
+                    }
+                }while($taken == true);
+                $wpdb->update($wpdb->posts, array('post_name' => $post_name_to_be), array('ID' => $post_id));
+                
+            }
+            
+        }
+        
+    }
+    
     
 }
   

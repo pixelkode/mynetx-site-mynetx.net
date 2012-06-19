@@ -5,11 +5,11 @@ Plugin URI: http://wpml.org/
 Description: WPML Multilingual CMS. <a href="http://wpml.org">Documentation</a>.
 Author: ICanLocalize
 Author URI: http://wpml.org
-Version: 2.4.3
+Version: 2.5.1
 */
 
 if(defined('ICL_SITEPRESS_VERSION')) return;
-define('ICL_SITEPRESS_VERSION', '2.4.3');
+define('ICL_SITEPRESS_VERSION', '2.5.1');
 define('ICL_PLUGIN_PATH', dirname(__FILE__));
 define('ICL_PLUGIN_FOLDER', basename(ICL_PLUGIN_PATH));
 define('ICL_PLUGIN_URL', plugins_url() . '/' . ICL_PLUGIN_FOLDER );
@@ -41,7 +41,7 @@ if ( function_exists('is_multisite') && is_multisite() ) {
     }
 }
 
-require ICL_PLUGIN_PATH . '/inc/constants.inc';
+require ICL_PLUGIN_PATH . '/inc/constants.php';
 
 require_once ICL_PLUGIN_PATH . '/inc/sitepress-schema.php';
 require ICL_PLUGIN_PATH . '/inc/template-functions.php';
@@ -61,6 +61,9 @@ if(is_admin() || defined('XMLRPC_REQUEST')){
     require ICL_PLUGIN_PATH . '/lib/icl_api.php';
     require ICL_PLUGIN_PATH . '/lib/xml2array.php';
     require ICL_PLUGIN_PATH . '/lib/Snoopy.class.php';
+    require ICL_PLUGIN_PATH . '/inc/translation-management/translation-management.class.php';
+    require ICL_PLUGIN_PATH . '/inc/translation-management/pro-translation.class.php';        
+}elseif(preg_match('#wp-comments-post\.php$#', $_SERVER['REQUEST_URI'])){
     require ICL_PLUGIN_PATH . '/inc/translation-management/translation-management.class.php';
     require ICL_PLUGIN_PATH . '/inc/translation-management/pro-translation.class.php';        
 }
@@ -88,7 +91,6 @@ if( !isset($_REQUEST['action'])     || ($_REQUEST['action']!='activate' && $_REQ
     require ICL_PLUGIN_PATH . '/inc/wp-login-filters.php';
     
     require_once ICL_PLUGIN_PATH . '/inc/plugins-integration.php';
-    
 
 }
 

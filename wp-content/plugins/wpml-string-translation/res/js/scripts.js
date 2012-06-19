@@ -20,7 +20,7 @@ jQuery(document).ready(function(){
             jQuery('#icl_st_po_language').attr('disabled','disabled').fadeOut();
         }
     });
-    jQuery('#icl-tr-opt :checkbox').click(icl_st_update_languages);
+    jQuery('#icl_tm_languages :checkbox').click(icl_st_update_languages);
     jQuery('.icl_st_row_cb, .check-column :checkbox').click(icl_st_update_checked_elements);
     
     jQuery('#icl_tm_languages select').change(icl_st_change_service);
@@ -66,13 +66,13 @@ jQuery(document).ready(function(){
     jQuery('#icl_st_more_options').submit(
         function(){  
                   
-                if(!jQuery('#icl_st_tusers label :checkbox:checked').length){
+                if(!jQuery('#icl_st_tusers label input:checked').length){
                     
                     jQuery('#icl_st_tusers_list').html('-');
                     
                 }else{
             
-                    jQuery('#icl_st_tusers_list').html(jQuery('#icl_st_tusers label :checkbox:checked').next().map(
+                    jQuery('#icl_st_tusers_list').html(jQuery('#icl_st_tusers label input:checked').next().map(
                         function(){
                             return jQuery(this).html();
                         }).get().join(', '))
@@ -181,7 +181,7 @@ function icl_st_delete_selected(){
         delids.push(jQuery(this).val());        
     });
     if(delids){
-        postvars = 'icl_ajx_action=icl_st_delete_strings&value='+delids.join(',')+'&_wpnonce=' + jQuery('#icl_delete_strings_nonce').val();
+        postvars = 'icl_ajx_action=icl_st_delete_strings&value='+delids.join(',')+'&_icl_nonce=' + jQuery('#_icl_nonce_dstr').val();
         jQuery.post(icl_ajx_url, postvars, function(){
             for(i=0; i < delids.length; i++){
                 jQuery('.icl_st_row_cb[value="'+delids[i]+'"]').parent().parent().fadeOut('fast', function(){jQuery(this).remove()});
@@ -241,11 +241,11 @@ function icl_st_do_send_strings(){
 }
 */
 
-function icl_st_update_languages(){
-    if(!jQuery('#icl-tr-opt :checkbox:checked').length){
+function icl_st_update_languages(){    
+    if(!jQuery('#icl_tm_languages input:checked').length){
         jQuery('#icl_send_strings').attr('disabled','disabled');
     }else{
-        if(jQuery('.icl_st_row_cb:checked, .check-column :checkbox:checked').length){
+        if(jQuery('.icl_st_row_cb:checked, .check-column input:checked').length){
             jQuery('#icl_send_strings').removeAttr('disabled');            
         }        
     }
@@ -261,11 +261,12 @@ function icl_st_update_languages(){
 }
 
 function icl_st_update_checked_elements(){    
-    if(!jQuery('.icl_st_row_cb:checked, .check-column :checkbox:checked').length){
+    
+    if(!jQuery('.icl_st_row_cb:checked, .check-column input:checked').length){
         jQuery('#icl_st_delete_selected, #icl_send_strings').attr('disabled','disabled');
     }else{        
         jQuery('#icl_st_delete_selected').removeAttr('disabled');
-        if(!jQuery('#icl-tr-opt').length || jQuery('#icl-tr-opt :checkbox:checked').length){
+        if(!jQuery('#icl-tr-opt').length || jQuery('#icl-tr-opt input:checked').length){
             jQuery('#icl_send_strings').removeAttr('disabled');
         }
     }
@@ -390,7 +391,7 @@ function icl_st_ow_export_selected(){
         type: "POST",
         dataType: 'json',
         url: icl_ajx_url,
-        data: "icl_ajx_action=icl_st_ow_export&"+jQuery('#icl_st_option_write_form').serialize(),
+        data: "icl_ajx_action=icl_st_ow_export&"+jQuery('#icl_st_option_write_form').serialize() + '&_icl_nonce=' + jQuery('#_icl_nonce_owe').val(),
         success: function(res){            
             jQuery('#icl_st_ow_export_out').html(res.message).slideDown();
             jQuery('#icl_st_option_writes .ajax_loader').fadeOut(

@@ -3,12 +3,10 @@ jQuery(document).ready(function(){
         jQuery('#category-adder').prepend('<p>'+icl_cat_adder_msg+'</p>');
     }
     jQuery('select[name="icl_post_language"]').change(iclPostLanguageSwitch);
-    jQuery('#noupdate_but input[type="button"]').click(iclSetDocumentToDate);
+    //jQuery('#noupdate_but input[type="button"]').click(iclSetDocumentToDate);
     jQuery('select[name="icl_translation_of"]').change(function(){jQuery('#icl_translate_options').fadeOut();});
     jQuery('#icl_dismiss_help').click(iclDismissHelp);
     jQuery('#icl_dismiss_upgrade_notice').click(iclDismissUpgradeNotice);
-    jQuery('#icl_dismiss_page_estimate_hint').click(iclDismissPageEstimateHint);
-    jQuery('#icl_show_page_estimate_hint').click(iclShowPageEstimateHint);
     jQuery('a.icl_toggle_show_translations').live('click', iclToggleShowTranslations);
     
     icl_tn_initial_value   = jQuery('#icl_post_note textarea').val();
@@ -40,9 +38,16 @@ jQuery(document).ready(function(){
     jQuery('#addtag').ajaxSuccess(function(evt, request, settings) {
         if(settings.data == undefined)  return;
         
+        if(settings.data.search('action=add-tag') != -1){
+            jQuery('#icl_subsubsub').load(location.href + ' #icl_subsubsub', function(resp){
+                var p1 = resp.indexOf('<span id="icl_subsubsub">');
+                var p2 = resp.indexOf('<\\/span>', p1);
+                jQuery('#icl_subsubsub').html(resp.substr(p1+25, p2-p1-25).replace(/\\/g, ''));    
+            });
+        }
         
         if(settings.data.search('action=add-tag') != -1 && settings.data.search('source_lang%3D') != -1) {
-            
+
             var taxonomy = '';
             var vars = settings.data.split("&"); 
             for (var i=0; i<vars.length; i++) { 
@@ -69,12 +74,16 @@ jQuery(document).ready(function(){
     
     jQuery('#icl_translate_independent').click(function(){
         jQuery(this).attr('disabled', 'disabled').after(icl_ajxloaderimg);            
-        jQuery.ajax({type: "POST",url: icl_ajx_url,data: "icl_ajx_action=reset_duplication&post_id="+jQuery('#post_ID').val(),success: function(msg){location.reload()}});
+        jQuery.ajax({type: "POST",url: icl_ajx_url,
+            data: "icl_ajx_action=reset_duplication&post_id="+jQuery('#post_ID').val() + '&_icl_nonce=' + jQuery('#_icl_nonce_rd').val(),
+            success: function(msg){location.reload()}});
     });
     jQuery('#icl_set_duplicate').click(function(){
         if(confirm(jQuery(this).next().html())){
             jQuery(this).attr('disabled', 'disabled').after(icl_ajxloaderimg);            
-            jQuery.ajax({type: "POST",url: icl_ajx_url,data: "icl_ajx_action=set_duplication&post_id="+jQuery('#post_ID').val(),success: function(msg){location.reload()}});
+            jQuery.ajax({type: "POST",url: icl_ajx_url,
+            data: "icl_ajx_action=set_duplication&post_id="+jQuery('#post_ID').val() + '&_icl_nonce=' + jQuery('#_icl_nonce_sd').val(),
+            success: function(msg){location.reload()}});
         }
         
     });
@@ -91,7 +100,10 @@ jQuery(document).ready(function(){
         jQuery('#post input[name="icl_dupes[]"]:checked').each(function(){langs.push(jQuery(this).val())});
         langs = langs.join(',');
         jQuery(this).attr('disabled', 'disabled').after(icl_ajxloaderimg);            
-        jQuery.ajax({type: "POST",url: icl_ajx_url,data: "icl_ajx_action=make_duplicates&post_id=" + jQuery('#post_ID').val() + '&langs=' + langs ,success: function(msg){location.reload()}});
+        jQuery.ajax({
+            type: "POST",
+            url: icl_ajx_url,data: "icl_ajx_action=make_duplicates&post_id=" + jQuery('#post_ID').val() + '&langs=' + langs + '&_icl_nonce=' + jQuery('#_icl_nonce_mdup').val(),
+            success: function(msg){location.reload()}});
     })
     
     
@@ -367,7 +379,7 @@ function iclDismissHelp(){
     jQuery.ajax({
             type: "POST",
             url: icl_ajx_url,
-            data: "icl_ajx_action=dismiss_help",
+            data: "icl_ajx_action=dismiss_help&_icl_nonce=" + jQuery('#icl_dismiss_help_nonce').val(),
             success: function(msg){
                 thisa.closest('#message').fadeOut();    
             }
@@ -380,45 +392,12 @@ function iclDismissUpgradeNotice(){
     jQuery.ajax({
             type: "POST",
             url: icl_ajx_url,
-            data: "icl_ajx_action=dismiss_upgrade_notice",
+            data: "icl_ajx_action=dismiss_upgrade_notice&_icl_nonce=" + jQuery('#_icl_nonce_dun').val(),
             success: function(msg){
                 thisa.parent().parent().fadeOut();    
             }
     });    
     return false;
-}
-
-var iclShowPageEstimateHint_img = false;
-function iclDismissPageEstimateHint(){
-    var thisa = jQuery(this);
-    if(!iclShowPageEstimateHint_img){
-        iclShowPageEstimateHint_img = jQuery('#icl_dismiss_page_estimate_hint').parent().find('img').attr('src');        
-    }
-    jQuery('#icl_show_page_estimate_hint').find('img').attr('src', iclShowPageEstimateHint_img);
-    jQuery.ajax({
-            type: "POST",
-            url: icl_ajx_url,
-            data: "icl_ajx_action=dismiss_page_estimate_hint",
-            success: function(msg){
-                thisa.parent().fadeOut(function(){jQuery('#icl_show_page_estimate_hint').fadeIn()});                    
-            }
-    });    
-    return false;
-} 
-
-function iclShowPageEstimateHint(){
-    var thisa = jQuery(this);
-    iclShowPageEstimateHint_img = thisa.find('img').attr('src');
-    thisa.find('img').attr('src', icl_ajxloaderimg_src);
-    jQuery.ajax({
-            type: "POST",
-            url: icl_ajx_url,
-            data: "icl_ajx_action=dismiss_page_estimate_hint",
-            success: function(msg){
-                thisa.fadeOut(function(){jQuery('#icl_dismiss_page_estimate_hint').parent().fadeIn();});                    
-            }
-    });    
-    return false;    
 }
 
 function iclToggleShowTranslations(){
@@ -427,7 +406,7 @@ function iclToggleShowTranslations(){
     jQuery.ajax({
             type: "POST",
             url: icl_ajx_url,
-            data: "icl_ajx_action=toggle_show_translations"
+            data: "icl_ajx_action=toggle_show_translations&_icl_nonce=" + jQuery('#_icl_nonce_tst').val()
     });        
     return false;
 }
@@ -459,7 +438,7 @@ function iclShowPTControls(){
     jQuery.ajax({
             type: "POST",
             url: icl_ajx_url,
-            data: "icl_ajx_action=toggle_pt_controls&value=0",
+            data: "icl_ajx_action=toggle_pt_controls&value=0&_icl_nonce=" + jQuery('#_icl_nonce_ptc').val(),
             success: function(msg){
                 jQuery('#icl_pt_controls').slideDown();
                 thisa.fadeOut(function(){jQuery('#icl_pt_hide').fadeIn();});                    
@@ -473,7 +452,7 @@ function iclHidePTControls(){
     jQuery.ajax({
             type: "POST",
             url: icl_ajx_url,
-            data: "icl_ajx_action=toggle_pt_controls&value=1",
+            data: "icl_ajx_action=toggle_pt_controls&value=1&_icl_nonce=" + jQuery('#_icl_nonce_ptc').val(),
             success: function(msg){
                 thisa.fadeOut(function(){
                     jQuery('#icl_pt_controls').slideUp(function(){
@@ -523,7 +502,8 @@ function iclPTSend(){
             + '&icl_post_type['+ jQuery('#icl_pt_post_id').val() + ']=' + jQuery('#icl_pt_post_type').val() 
             + '&target_languages='+target_languages.join('#')
             + '&service=icanlocalize'
-            + '&tn_note_'+jQuery('#icl_pt_post_id').val()+'=' + jQuery('#icl_pt_tn_note').val(),
+            + '&tn_note_'+jQuery('#icl_pt_post_id').val()+'=' + jQuery('#icl_pt_tn_note').val()
+            + '&_icl_nonce=' + jQuery('#_icl_nonce_pt_' + jQuery('#icl_pt_post_id').val()).val(),
         success: function(msg){
             for(i in msg){
                 p = msg[i];    
@@ -544,7 +524,7 @@ function icl_pt_reload_translation_box(){
         type: "POST",
         url: icl_ajx_url,
         dataType: 'json',
-        data: "icl_ajx_action=get_translator_status",
+        data: "icl_ajx_action=get_translator_status&_icl_nonce=" . jQuery('_icl_nonce_gts').val(),
         success: function(){
             jQuery('#icl_pt_hide').hide();
             jQuery('#icl_pt_controls').html(icl_ajxloaderimg+'<br class="clear" />');    
@@ -559,6 +539,7 @@ function icl_pt_reload_translation_box(){
     });
 }
 
+/*
 function icl_pt_reload_translation_options(){
     jQuery.ajax({
         type: "POST",
@@ -574,8 +555,8 @@ function icl_pt_reload_translation_options(){
             })
         }
     });
-    
 }
+*/
 
 function icl_copy_from_original(lang, trid){    
     jQuery('#icl_cfo').after(icl_ajxloaderimg).attr('disabled', 'disabled');
@@ -590,7 +571,7 @@ function icl_copy_from_original(lang, trid){
         type: "POST",
         dataType: 'json',
         url: icl_ajx_url,
-        data: "icl_ajx_action=copy_from_original&lang="+lang+'&trid='+trid+'&editor_type='+editor_type,
+        data: "icl_ajx_action=copy_from_original&lang="+lang+'&trid='+trid+'&editor_type='+editor_type+'&_icl_nonce='+jQuery('#_icl_nonce_cfo_' + trid).val(),
         success: function(msg){
             if(msg.error){
                 alert(msg.error);
@@ -618,7 +599,7 @@ function icl_make_translatable(){
     jQuery(this).attr('disabled', 'disabled');
     jQuery('#icl_div_config .icl_form_success').hide();
     var translate = jQuery('#icl_make_translatable').attr('checked') ? 1 : 0;
-    var cusotm_post = jQuery('#icl_make_translatable').val();
+    var custom_post = jQuery('#icl_make_translatable').val();
     var custom_taxs_on = new Array();
     var custom_taxs_off = new Array();
     jQuery(".icl_mcs_custom_taxs").each(function(){
@@ -643,12 +624,14 @@ function icl_make_translatable(){
         {
                 'post_id'       : jQuery('#post_ID').val(),
                 'icl_action'    : 'icl_mcs_inline',
-                'custom_post'   : cusotm_post,
+                'custom_post'   : custom_post,
                 'translate'     : translate, 
                 'custom_taxs_on[]'   : custom_taxs_on,
                 'custom_taxs_off[]'   : custom_taxs_off,
                 'cfnames[]'   : cfnames,
-                'cfvals[]'   : cfvals                
+                'cfvals[]'   : cfvals,
+                '_icl_nonce' : jQuery('#_icl_nonce_imi').val()
+                                
         },
         
         function(data){
@@ -709,6 +692,10 @@ function icl_admin_language_switcher(){
             }
         }, 300);
     });
+    
+    jQuery('#show-settings-link, #contextual-help-link').bind('click', function(){
+        jQuery('#icl-als-wrap').toggle();
+    })
 }
 
 function icl_hide_user_notice(){
@@ -719,7 +706,7 @@ function icl_hide_user_notice(){
         type: "POST",
         dataType: 'json',
         url: icl_ajx_url,
-        data: "icl_ajx_action=save_user_preferences&user_preferences[notices]["+notice+"]=1",
+        data: "icl_ajx_action=save_user_preferences&user_preferences[notices]["+notice+"]=1&_icl_nonce="+jQuery('#_icl_nonce_sup').val(),
         success: function(msg){
             thisa.parent().parent().fadeOut();    
         }
@@ -732,7 +719,7 @@ function icl_cf_translation_preferences_submit(cf, obj) {
     jQuery.ajax({
         type: 'POST',
         url: ajaxurl,
-        data: 'action=wpml_ajax&icl_ajx_action=wpml_cf_translation_preferences&translate_action='+obj.parent().children('input:[name="wpml_cf_translation_preferences['+cf+']"]:checked').val()+'&'+obj.parent().children('input:[name="wpml_cf_translation_preferences_data_'+cf+'"]').val(),
+        data: 'action=wpml_ajax&icl_ajx_action=wpml_cf_translation_preferences&translate_action='+obj.parent().children('input:[name="wpml_cf_translation_preferences['+cf+']"]:checked').val()+'&'+obj.parent().children('input:[name="wpml_cf_translation_preferences_data_'+cf+'"]').val() + '&_icl_nonce = ' + jQuery('#_icl_nonce_cftpn').val(),
         cache: false,
         error: function(html){
             jQuery('#wpml_cf_translation_preferences_ajax_response_'+cf).html('Error occured');
@@ -755,11 +742,18 @@ var icl_popups = {
         jQuery('.icl_pop_info_but').click(function(){
             jQuery('.icl_pop_info').hide();
             var pop = jQuery(this).next();
+            
+            var _tdoffset = 0;
+            var _p = pop.parent().parent();            
+            if(_p[0]['nodeName'] == 'TD'){
+                _tdoffset = _p.width() - 30;
+            }
+            
             pop.show(function(){
                 var animate = {};
                 var fold = jQuery(window).width() + jQuery(window).scrollLeft();                    
                 if(fold < pop.offset().left + pop.width()){                    
-                    animate.left = '-=' + pop.width();
+                    animate.left = '-=' + (pop.width() - _tdoffset);
                 };
                 
                 if(parseInt(jQuery(window).height() + jQuery(window).scrollTop()) < parseInt(pop.offset().top) + pop.height()){

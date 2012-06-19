@@ -4,9 +4,6 @@ addLoadEvent(function(){
     jQuery('.icl_language_pairs .icl_tr_from').change(toggleTranslationPairsSub);
     jQuery('.icl_language_pairs .icl_tr_from').change(iclShowNextButtonStep1);
     jQuery('.icl_tr_to').change(iclShowNextButtonStep1);
-    jQuery('#icl_save_language_pairs').click(saveLanguagePairs);    
-    jQuery('#icl_save_site_description').click(saveSiteDescription);    
-    jQuery('#icl_save_account_transfer').click(doAccountTransfer);    
     jQuery('form[name="icl_more_options"]').submit(iclSaveForm);
     jQuery('form[name="icl_more_options"]').submit(iclSaveMoreOptions);
     jQuery('form[name="icl_editor_account"]').submit(iclSaveForm);    
@@ -43,7 +40,7 @@ addLoadEvent(function(){
     
 });
 
-function icl_toggle_account_setup(){
+function icl_toggle_account_setup(){    
     if(jQuery('#icl_languages_translators_stats').is(':visible')){
         jQuery('#icl_languages_translators_stats').slideUp();
     }else{
@@ -123,77 +120,6 @@ function toggleTranslationPairsSub(){
         // slideup is not working in wp2.8.4 so set display to none instead.
         jQuery('#icl_tr_pair_sub_'+code).css("display", "none");
     }            
-}
-
-function saveLanguagePairs(){
-    fadeInAjxResp('#icl_ajx_response', icl_ajxloaderimg);
-    var qargs = new Array();
-    qargs.push(jQuery('#icl_language_pairs_form').serialize());
-    jQuery.ajax({
-        type: "POST",
-        url: icl_ajx_url,
-        data: "icl_ajx_action=save_language_pairs&"+qargs.join('&'),
-        success: function(msg){
-            spl = msg.split('|');
-            if(spl[0]=='1'){
-                url = location.href;
-                url = url.replace(/&icl_refresh_langs=1/g, '');
-                url = url.replace(/&show_config=1/g, '');
-                url = url.replace(/#.*/,'');
-                url += "&icl_refresh_langs=1&show_config=1";
-
-                location.href = url;
-            }else{                        
-                fadeInAjxResp('#icl_ajx_response',icl_ajx_error + spl[1],true);
-            }  
-        }
-    }); 
-    
-}
-
-function saveSiteDescription(){
-    fadeInAjxResp('#icl_ajx_response_site', icl_ajxloaderimg);
-    var qargs = new Array();
-    jQuery.ajax({
-        type: "POST",
-        url: icl_ajx_url,
-        data: "icl_ajx_action=save_site_description&"+jQuery('#icl_site_description').serialize(),
-        success: function(msg){
-            spl = msg.split('|');
-            if(spl[0]=='1'){
-                fadeInAjxResp('#icl_ajx_response_site',spl[1],true);
-            }else{                        
-                fadeInAjxResp('#icl_ajx_response_site',icl_ajx_error + spl[1],true);
-            }  
-        }
-    }); 
-    
-}
-
-function doAccountTransfer(){
-    fadeInAjxResp('#icl_ajx_response_account', icl_ajxloaderimg);
-    jQuery('#icl_account_errors').hide();
-    jQuery('#icl_account_success').hide();
-    var qargs = new Array();
-    jQuery.ajax({
-        type: "POST",
-        url: icl_ajx_url,
-        data: "icl_ajx_action=do_account_transfer&"+jQuery('#icl_configure_account_transfer').serialize(),
-        success: function(msg){
-            spl = msg.split('|');
-            if(spl[0]=='1'){
-                fadeInAjxResp('#icl_ajx_response_account',spl[1],true);
-                jQuery('#icl_account_success').text(spl[1]);
-                jQuery('#icl_account_success').fadeIn();
-            }else{
-                jQuery('#icl_account_errors').text(spl[1]);
-                jQuery('#icl_account_errors').fadeIn();
-                
-                fadeInAjxResp('#icl_ajx_response_account',spl[1],true);
-            }  
-        }
-    }); 
-    
 }
 
 function iclToggleContentTranslation(){

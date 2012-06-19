@@ -31,5 +31,6 @@ if(!isset($upgrade_lines[$short_v])) return;
     <p>
         <a href="http://wpml.org/?cat=48"><?php _e('Learn more', 'sitepress')?></a>&nbsp;|&nbsp;
         <a title="<?php _e('Stop showing this message', 'sitepress') ?>" id="icl_dismiss_upgrade_notice" href="#"><?php _e('Dismiss', 'sitepress') ?></a>
+        <?php wp_nonce_field('dismiss_upgrade_notice_nonce', '_icl_nonce_dun'); ?>
     </p>
 </div>

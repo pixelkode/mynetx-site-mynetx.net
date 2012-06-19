@@ -71,7 +71,11 @@ class ICLMenusSync{
                 }elseif($sitepress->is_translated_taxonomy($item->object)){
                     $ob_type = 'tax';
                     $tr_title_field = 'name';
+                }elseif($item->object == 'custom'){
+                    continue;
                 }
+                
+                
                 $trid           = $sitepress->get_element_trid($item->object_id, $ob_type . '_' . $item->object);
                 $translations   = $sitepress->get_element_translations($trid, $ob_type . '_' . $item->object);
                 unset($translations[$sitepress->get_default_language()]);
@@ -332,7 +336,14 @@ class ICLMenusSync{
                 if($original_item_parent){
                     $original_item_parent_object_id = get_post_meta($original_item_parent, '_menu_item_object_id', true);
                     $parent_ob_type = $wpdb->get_var($wpdb->prepare("SELECT post_type FROM {$wpdb->posts} WHERE ID=%d", $original_item_parent_object_id));
+                    
+                    $menu_tax_id = $wpdb->get_var($wpdb->prepare("
+                        SELECT term_taxonomy_id FROM {$wpdb->term_taxonomy} WHERE term_id=%d AND taxonomy='nav_menu'", $menu_id));
+                    $_ldetails = $sitepress->get_element_language_details($menu_id, 'tax_nav_menu');
+                    $language = $_ldetails->language_code;
+                    
                     $item_parent_object_id = icl_object_id($original_item_parent_object_id, $parent_ob_type, false, $language);
+                    
                     $item_parent = $wpdb->get_var($wpdb->prepare("
                         SELECT p.post_id FROM {$wpdb->postmeta}  p
                             JOIN {$wpdb->term_relationships} r ON r.object_id = p.post_id
@@ -348,6 +359,7 @@ class ICLMenusSync{
                             JOIN {$wpdb->terms} m ON m.term_id = x.term_id
                         WHERE meta_key='_menu_item_object_id' AND meta_value=%d AND m.term_id=%d
                     ", $object_id, $menu_id));
+                    
 
                     update_post_meta($item_id, '_menu_item_menu_item_parent', $item_parent);
                 }

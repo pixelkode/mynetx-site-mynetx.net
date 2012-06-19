@@ -1,5 +1,4 @@
 <?php
-     
     if(!is_plugin_active(basename(dirname(dirname(__FILE__))) . "/sitepress.php")){
         ?>
         <h2><?php echo __('Setup WPML', 'sitepress') ?></h2>
@@ -12,7 +11,6 @@
     }
     
     if (isset($_GET['trop'])) { require_once dirname(__FILE__).'/edit-languages.php'; return; }
-    
     if(!$sitepress_settings['existing_content_language_verified']){
         // try to determine the blog language
         $blog_current_lang = 0;            
@@ -162,6 +160,7 @@ global $language_switcher_defaults, $language_switcher_defaults_alt;
                                     <?php else: ?>
                                         <?php _e('Select the languages to enable for your site (you can also add and remove languages later).','sitepress'); ?><br />
                                     <?php endif; ?>
+                                    <?php wp_nonce_field('set_default_language_nonce', 'set_default_language_nonce'); ?>
                                     <input id="icl_save_default_button" type="button" class="button-secondary action" value="<?php echo __('Apply', 'sitepress') ?>" />
                                     <input id="icl_cancel_default_button" type="button" class="button-secondary action" value="<?php echo __('Cancel', 'sitepress') ?>" />                                    
                                     <?php if(!empty($sitepress_settings['setup_complete'])): ?>
@@ -183,11 +182,12 @@ global $language_switcher_defaults, $language_switcher_defaults_alt;
                                         </ul>
                                         <?php if(!empty($sitepress_settings['setup_complete'])): ?>
                                         <br clear="all" />
-                                        <div>
+                                        <div>                                            
                                             <input id="icl_save_language_selection" type="button" class="button-secondary action" value="<?php echo __('Apply', 'sitepress') ?>" />
                                             <input id="icl_cancel_language_selection" type="button" class="button-secondary action" value="<?php echo __('Cancel', 'sitepress') ?>" />                                
                                         </div>
                                         <?php endif; ?>
+                                        <?php wp_nonce_field('set_active_languages_nonce', 'set_active_languages_nonce'); ?>
                                     </div>
                                 </td>
                             </tr>
@@ -247,6 +247,7 @@ global $language_switcher_defaults, $language_switcher_defaults_alt;
         <?php if($sitepress_settings['setup_wizard_step']==2): ?>             
         <div style="text-align:right">
             <input id="icl_setup_back_1" class="button-primary" name="save" value="<?php echo __('Back', 'sitepress') ?>" type="button" />
+            <?php wp_nonce_field('setup_got_to_step1_nonce', '_icl_nonce_gts1'); ?>
             <input id="icl_setup_next_1" class="button-primary" name="save" value="<?php echo __('Next', 'sitepress') ?>" type="button" <?php if(count($active_languages) < 2):?>disabled="disabled"<?php endif;?> />
         </div>
         <?php endif; ?>                      
@@ -269,6 +270,7 @@ global $language_switcher_defaults, $language_switcher_defaults_alt;
                             <td>
                                 <p><?php _e('Choose how to determine which language visitors see contents in', 'sitepress'); ?></p>
                                 <form id="icl_save_language_negotiation_type" name="icl_save_language_negotiation_type" action="">
+                                <?php wp_nonce_field('icl_save_language_negotiation_type_nonce', '_icl_nonce') ?>
                                 <ul>
                                     <?php
                                     if(!class_exists('WP_Http')) include_once ABSPATH . WPINC . '/class-http.php';
@@ -340,8 +342,10 @@ global $language_switcher_defaults, $language_switcher_defaults_alt;
                                             <span class="icl_error_text"><?php echo __('This option is not yet available for Multisite installs', 'sitepress')?></span>
                                             <?php endif; ?>
                                         </label>
+                                        <?php wp_nonce_field('language_domains_nonce', '_icl_nonce_ldom', false); ?>
+                                        <?php wp_nonce_field('validate_language_domain_nonce', '_icl_nonce_vd', false); ?>
                                         <?php if($sitepress_settings['language_negotiation_type']==2):?>                    
-                                        <div id="icl_lnt_domains_box">
+                                        <div id="icl_lnt_domains_box">                                        
                                         <table class="language_domains">
                                         <?php foreach($active_languages as $lang) :?>
                                         <tr>
@@ -386,6 +390,7 @@ global $language_switcher_defaults, $language_switcher_defaults_alt;
             <?php if(!empty($sitepress_settings['setup_complete']) && count($active_languages) > 1 || $sitepress_settings['setup_wizard_step']==3): ?>
 
                 <form id="icl_save_language_switcher_options" name="icl_save_language_switcher_options" action="">            
+                <?php wp_nonce_field('icl_save_language_switcher_options_nonce', '_icl_nonce'); ?>
                     <a name="lang-sec-3"></a>
                     <table class="widefat">
                         <thead>
@@ -555,6 +560,7 @@ global $language_switcher_defaults, $language_switcher_defaults_alt;
                     <?php if(empty($sitepress_settings['setup_complete'])): ?>             
                     <div id="icl_setup_nav_3" style="text-align:right">
                         <input id="icl_setup_back_2" class="button-primary" name="save" value="<?php echo __('Back', 'sitepress') ?>" type="button" />
+                        <?php wp_nonce_field('setup_got_to_step2_nonce', '_icl_nonce_gts2'); ?>
                         <input class="button-primary" name="save" value="<?php echo __('Finish', 'sitepress') ?>" type="submit" />
                     </div>
                     <script type="text/javascript">
@@ -583,6 +589,7 @@ global $language_switcher_defaults, $language_switcher_defaults_alt;
                         <tr>
                             <td>
                                 <form id="icl_admin_language_options" name="icl_admin_language_options" action="">        
+                                <?php wp_nonce_field('icl_admin_language_options_nonce', '_icl_nonce'); ?>
                                 <?php if(is_admin()): ?>
                                 <p>
                                     <label>
@@ -622,6 +629,7 @@ global $language_switcher_defaults, $language_switcher_defaults_alt;
                         <tr>
                             <td>
                                 <form id="icl_blog_posts" name="icl_blog_posts" action="">                                        
+                                <?php wp_nonce_field('icl_blog_posts_nonce', '_icl_nonce'); ?>
                                 <p>
                                     <label>
                                         <input type="radio" name="icl_untranslated_blog_posts" <?php if(empty($sitepress_settings['show_untranslated_blog_posts'])) echo 'checked="checked"' ?> value="0" /> <?php _e('Only translated posts.','sitepress'); ?>
@@ -655,6 +663,7 @@ global $language_switcher_defaults, $language_switcher_defaults_alt;
                             <td>
                                 <p><?php _e("You can completely hide content in specific languages from visitors and search engines, but still view it yourself. This allows reviewing translations that are in progress.", 'sitepress') ?></p>
                                 <form id="icl_hide_languages" name="icl_hide_languages" action="">                                        
+                                <?php wp_nonce_field('icl_hide_languages_nonce', '_icl_nonce') ?>
                                 <p>
                                     <?php foreach($active_languages as $l): ?>
                                     <?php if($l['code'] == $default_language['code']) continue; ?>
@@ -707,6 +716,7 @@ global $language_switcher_defaults, $language_switcher_defaults_alt;
                         <tr>
                             <td>
                                 <form id="icl_adjust_ids" name="icl_adjust_ids" action="">        
+                                <?php wp_nonce_field('icl_adjust_ids_nonce', '_icl_nonce'); ?>
                                 <p>
                                     <label>
                                         <input type="checkbox" value="1" name="icl_adjust_ids" <?php if($sitepress_settings['auto_adjust_ids']) echo 'checked="checked"' ?> /> 
@@ -744,6 +754,7 @@ global $language_switcher_defaults, $language_switcher_defaults_alt;
                                 </ol>
                                 <br />
                                 <form id="icl_automatic_redirect" name="icl_automatic_redirect" action="">        
+                                <?php wp_nonce_field('icl_automatic_redirect_nonce', '_icl_nonce') ?>
                                 <ul>
                                     <li><label>
                                         <input type="radio" value="0" name="icl_automatic_redirect" <?php if(empty($sitepress_settings['automatic_redirect'])) echo 'checked="checked"' ?> /> 
@@ -800,6 +811,7 @@ global $language_switcher_defaults, $language_switcher_defaults_alt;
             <tr>
                 <td>
                     <form id="icl_promote_form" name="icl_promote_form" action="">
+                    <?php wp_nonce_field('icl_promote_form_nonce', '_icl_nonce'); ?>
                     <p>
                         <label><input type="checkbox" name="icl_promote" <?php if($sitepress_settings['promote_wpml']) echo 'checked="checked"' ?> value="1" /> 
                         <?php printf(__("Tell the world your site is running multilingual with WPML (places a message in your site's footer) - <a href=\"%s\">read more</a>", 'sitepress'),'http://wpml.org/?page_id=4560'); ?></label>

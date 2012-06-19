@@ -1,18 +1,4 @@
 <?php
-if(isset($_GET['icl_phpinfo']) && $_GET['icl_phpinfo']==1){
-    add_action('init', 'icl_dump_phpinfo');
-}
-
-function icl_dump_phpinfo(){
-    if(current_user_can('manage_options')){
-        ob_start();
-        phpinfo();
-        $phpinfo = ob_get_contents();
-        ob_end_clean();
-        echo $phpinfo;
-        exit;    
-    }
-}
 
   if(version_compare(phpversion(), '5', '<')){
       add_action('admin_notices', 'icl_php_version_warn');

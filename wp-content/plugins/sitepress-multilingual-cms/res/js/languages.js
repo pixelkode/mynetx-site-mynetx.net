@@ -18,8 +18,7 @@ addLoadEvent(function(){
     jQuery('input[name="icl_language_negotiation_type"]').change(iclLntDomains);
     
     jQuery('#icl_setup_back_1').click(iclSetupStep1);
-    jQuery('#icl_setup_back_2').click(iclSetupStep2);
-    jQuery('#icl_setup_back_3').click(iclSetupStep3);
+    jQuery('#icl_setup_back_2').click(iclSetupStep2);    
     jQuery('#icl_setup_next_1').click(saveLanguageSelection);
     
     jQuery('#icl_avail_languages_picker li input:checkbox').click(function(){             
@@ -185,7 +184,7 @@ function saveDefaultLanguage(){
     jQuery.ajax({
         type: "POST",
         url: icl_ajx_url,
-        data: "icl_ajx_action=set_default_language&lang="+def_lang,
+        data: "icl_ajx_action=set_default_language&lang=" + def_lang + '&_icl_nonce=' + jQuery('#set_default_language_nonce').val(),
         success: function(msg){
             spl = msg.split('|');
             if(spl[0]=='1'){
@@ -234,7 +233,7 @@ function saveLanguageSelection(){
     jQuery.ajax({
         type: "POST",
         url: icl_ajx_url,
-        data: "icl_ajx_action=set_active_languages&langs="+sel_lang.join(','),
+        data: "icl_ajx_action=set_active_languages&langs=" + sel_lang.join(',') + '&_icl_nonce=' + jQuery('#set_active_languages_nonce').val(),
         success: function(msg){
             spl = msg.split('|');
             if(spl[0]=='1'){
@@ -242,7 +241,7 @@ function saveLanguageSelection(){
                 jQuery('#icl_enabled_languages').html(spl[1]);
             }else{                        
                 fadeInAjxResp('#icl_ajx_response', icl_ajx_error,true);
-            } 
+            }             
             if(spl[2]=='1'){
                 location.href = location.href.replace(/#.*/,'');
             }else if(spl[2]=='-1'){
@@ -261,7 +260,7 @@ function iclLntDomains(){
         jQuery(this).parent().parent().append('<div id="icl_lnt_domains_box"></div>');
         jQuery('#icl_lnt_domains_box').html(icl_ajxloaderimg);
         jQuery('#icl_save_language_negotiation_type input[type="submit"]').attr('disabled','disabled');
-        jQuery('#icl_lnt_domains_box').load(icl_ajx_url, {icl_ajx_action:'language_domains'}, function(resp){
+        jQuery('#icl_lnt_domains_box').load(icl_ajx_url, {icl_ajx_action:'language_domains', _icl_nonce: jQuery('#_icl_nonce_ldom').val()}, function(resp){
             jQuery('#icl_save_language_negotiation_type input[type="submit"]').removeAttr('disabled');
         })
     }else{
@@ -295,7 +294,7 @@ function iclSaveLanguageNegotiationType(){
                 used_urls.push(lang_domain_input.attr('value'));            
                 lang_domain_input.css('color','#000');
                 jQuery('#ajx_ld_'+lang).load(icl_ajx_url, 
-                    {icl_ajx_action:'validate_language_domain',url:lang_domain_input.attr('value')}, 
+                    {icl_ajx_action:'validate_language_domain',url:lang_domain_input.attr('value'), _icl_nonce: jQuery('#_icl_nonce_vd').val()}, 
                     function(resp){
                         jQuery('#ajx_ld_'+lang).html('');
                         if(resp=='0'){
@@ -335,7 +334,7 @@ function iclSetupStep1(){
     jQuery.ajax({
             type: "POST",
             url: icl_ajx_url,
-            data: "icl_ajx_action=setup_got_to_step1",
+            data: "icl_ajx_action=setup_got_to_step1&_icl_nonce=" + jQuery('#_icl_nonce_gts1').val(),
             success: function(msg){
                 location.href = location.href.replace(/#.*/,'');
             }
@@ -346,19 +345,7 @@ function iclSetupStep2(){
     jQuery.ajax({
             type: "POST",
             url: icl_ajx_url,
-            data: "icl_ajx_action=setup_got_to_step2",
-            success: function(msg){
-                location.href = location.href.replace(/#.*/,'');
-            }
-    });    
-    return false;
-}
-
-function iclSetupStep3(){
-    jQuery.ajax({
-            type: "POST",
-            url: icl_ajx_url,
-            data: "icl_ajx_action=setup_got_to_step3",
+            data: "icl_ajx_action=setup_got_to_step2&_icl_nonce=" + jQuery('#_icl_nonce_gts2').val(),
             success: function(msg){
                 location.href = location.href.replace(/#.*/,'');
             }
@@ -801,7 +788,7 @@ function icl_reset_languages(){
         jQuery.ajax({
                 type: "POST",
                 url: icl_ajx_url,
-                data: "icl_ajx_action=reset_languages",
+                data: "icl_ajx_action=reset_languages&_icl_nonce=" + jQuery('#_icl_nonce_rl').val(),
                 success: function(msg){location.href=location.pathname+location.search}
         });    
         

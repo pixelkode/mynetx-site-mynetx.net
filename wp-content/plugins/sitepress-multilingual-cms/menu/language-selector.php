@@ -50,7 +50,7 @@ if($w_this_lang['code']=='all'){
             <ul>
                 <?php foreach($active_languages as $lang): ?>
                 <li class="icl-<?php echo $lang['language_code'] ?>">          
-                    <a href="<?php echo apply_filters('WPML_filter_link', $lang['url'], $lang)?>">
+                    <a rel="alternate" hreflang="<?php echo $lang['language_code'] ?>" href="<?php echo apply_filters('WPML_filter_link', $lang['url'], $lang)?>">
                     <?php if( $this->settings['icl_lso_flags'] || $icl_language_switcher_preview):?>                
                     <img <?php if( !$this->settings['icl_lso_flags'] ):?>style="display:none"<?php endif?> class="iclflag" src="<?php echo $lang['country_flag_url'] ?>" alt="<?php echo $lang['language_code'] ?>" />&nbsp;                    
                     <?php endif; ?>

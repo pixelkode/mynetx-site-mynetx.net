@@ -97,7 +97,6 @@ class WPML_String_Translation{
         switch($call){        
             
             case 'icl_st_save_translation':
-                if(wp_verify_nonce($_POST['_wpnonce'], 'icl_save_string_translation')){
                     $icl_st_complete = isset($data['icl_st_translation_complete'])?$data['icl_st_translation_complete']:ICL_STRING_TRANSLATION_NOT_TRANSLATED;
                     if ( get_magic_quotes_gpc() ){
                         $data = stripslashes_deep( $data );         
@@ -108,16 +107,18 @@ class WPML_String_Translation{
                     echo icl_add_string_translation($data['icl_st_string_id'], $data['icl_st_language'], stripslashes($data['icl_st_translation']), $icl_st_complete, $translator_id);
                     echo '|';
                     global $icl_st_string_translation_statuses;
-                    echo $icl_st_string_translation_statuses[icl_update_string_status($data['icl_st_string_id'])];
-                }else{
-                    echo '0|'.__('Error', 'wpml-string-translation');
-                }
+                    
+                    $ts = icl_update_string_status($data['icl_st_string_id']);
+                    
+                    if(icl_st_is_translator()){
+                        $ts = icl_get_relative_translation_status($data['icl_st_string_id'], $translator_id);                        
+                    }
+                    
+                    echo $icl_st_string_translation_statuses[$ts];    
                 break;
             case 'icl_st_delete_strings':
-                if(wp_verify_nonce($_POST['_wpnonce'], 'icl_delete_strings_nonce')){
-                    $arr = explode(',',$data['value']);
-                    __icl_unregister_string_multi($arr);
-                }
+                $arr = explode(',',$data['value']);
+                __icl_unregister_string_multi($arr);
                 break;
             /*
             case 'icl_st_send_strings':
@@ -340,7 +341,7 @@ class WPML_String_Translation{
             $__wpml_st_po_file_content = '';    
         }
         
-        require_once ICL_PLUGIN_PATH . '/inc/potx.inc';        
+        require_once ICL_PLUGIN_PATH . '/inc/potx.php';        
                         
         if(is_file($file) && WP_PLUGIN_DIR == dirname($file)){               
 

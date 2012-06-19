@@ -3,6 +3,7 @@
     <div class="clear" style="font-size: 0px">&nbsp;</div>    
     <a id="icl_pt_hide" href="#" style="float:right;<?php if(!empty($sitepress_settings['hide_professional_translation_controls'])):?>display:none;<?php endif; ?>"><?php _e('hide', 'wpml-translation-management') ?></a>
     <a id="icl_pt_show" href="#" style="float:right;<?php if(empty($sitepress_settings['hide_professional_translation_controls'])):?>display:none;<?php endif; ?>"><?php _e('show', 'wpml-translation-management') ?></a>        
+    <?php wp_nonce_field('toggle_pt_controls_nonce', '_icl_nonce_ptc'); ?>
     <strong><?php _e('Professional translation', 'wpml-translation-management'); ?></strong>    
     <div id="icl_pt_controls" <?php if(!empty($sitepress_settings['hide_professional_translation_controls'])):?>style="display:none;"<?php endif; ?>>
     <?php 
@@ -71,6 +72,7 @@
     <input type="hidden" id="icl_pt_wc" value="<?php echo ICL_Pro_Translation::estimate_word_count($post, $selected_language) + ICL_Pro_Translation::estimate_custom_field_word_count($post->ID, $selected_language) ?>" />
     <input type="hidden" id="icl_pt_post_id" value="<?php echo $post->ID ?>" />
     <input type="hidden" id="icl_pt_post_type" value="<?php echo $post->post_type ?>" />
+    <?php wp_nonce_field('send_translation_request_nonce', '_icl_nonce_pt_' . $post->ID ) ?>
     <input type="button" disabled="disabled" id="icl_pt_send" class="button-primary alignright" value="<?php echo esc_html(__('Send to translation', 'wpml-translation-management')) ?>" style="clear: right;"/>
     <br clear="all" />
     <?php else:?>

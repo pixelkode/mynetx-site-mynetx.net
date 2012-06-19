@@ -12,7 +12,7 @@
             <p><?php printf(__('%s offers affordable professional translation via a streamlined process.','wpml-translation-management'),
                 '<a target="_blank" href="http://www.icanlocalize.com/site/">ICanLocalize</a>') ?></p>
 
-            <p><a href="<?php echo admin_url('index.php?icl_ajx_action=quote-get'); ?>" class="button secondary thickbox"><strong><?php
+            <p><a href="<?php echo admin_url('index.php?icl_ajx_action=quote-get&_icl_nonce=' . wp_create_nonce('quote-get_nonce')); ?>" class="button secondary thickbox"><strong><?php
                 _e('Get quote','wpml-translation-management') ?></strong></a>
                 <a href="admin.php?page=<?php echo WPML_TM_FOLDER;
                     ?>/menu/main.php&amp;sm=translators&amp;service=icanlocalize" class="button secondary"><strong><?php

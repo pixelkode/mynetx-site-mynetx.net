@@ -158,13 +158,14 @@ $translation_jobs = $iclTranslationManagement->get_translation_jobs((array)$icl_
                     <input type="button" class="button-secondary icl_tj_ok" value="<?php _e('Send', 'wpml-translation-management') ?>" />&nbsp;
                     <input type="button" class="button-secondary icl_tj_cancel" value="<?php _e('Cancel', 'wpml-translation-management') ?>" />
                 </span>
-                <?php endif; ?>
+                <?php endif; ?>                
             </td>
         </tr>
         <?php endforeach; endif; ?>
     </tbody>    
 </table>
 
+<?php wp_nonce_field('assign_translator_nonce', '_icl_nonce_at') ?>
 <br />
 <input id="icl-tm-jobs-cancel-but" class="button-primary" type="submit" value="<?php _e('Cancel selected', 'wpml-translation-management') ?>" disabled="disabled" />
 <span id="icl-tm-jobs-cancel-msg" style="display: none"><?php _e('Are you sure you want to cancel these jobs?', 'wpml-translation-management'); ?></span>

@@ -188,7 +188,7 @@ function icl_object_id($element_id, $element_type='post',
     $post_types = array_keys((array) $wp_post_types);
     $taxonomies = array_keys((array) $wp_taxonomies);
     $element_types = array_merge($post_types, $taxonomies);
-
+    $element_types[] = 'comment';
     
     if (!in_array($element_type, $element_types)) {
         trigger_error(__('Invalid object kind', 'sitepress'), E_USER_NOTICE);
@@ -215,7 +215,7 @@ function icl_object_id($element_id, $element_type='post',
 
     $trid = $sitepress->get_element_trid($icl_element_id, $icl_element_type);
     $translations = $sitepress->get_element_translations($trid,
-            $icl_element_type);
+            $icl_element_type);    
     if (is_null($ulanguage_code)) {
         $ulanguage_code = $sitepress->get_current_language();
     }
@@ -263,7 +263,7 @@ function icl_tf_determine_mo_folder($folder, $rec = 0) {
 
 function wpml_cf_translation_preferences($id, $custom_field = false,
         $class = 'wpml', $ajax = false, $default_value = 'ignore',
-        $fieldset = false) {
+        $fieldset = false, $suppress_error = false) {
     $output = '';
     if ($custom_field) {
         $custom_field = @strval($custom_field);
@@ -288,21 +288,21 @@ function wpml_cf_translation_preferences($id, $custom_field = false,
             if ($disabled) {
                 $output .= '<div style="color:Red;font-style:italic;margin: 10px 0 0 0;">' . __('The translation preference for this field are being controlled by a language configuration XML file. If you want to control it manually, remove the entry from the configuration file.', 'wpml') . '</div>';
             }
-        } else {
+        } else if (!$suppress_error) {
             $output .= '<span style="color:#FF0000;">'
                     . __("To synchronize values for translations, you need to enable WPML's Translation Management module.",
                             'wpml')
                     . '</span>';
             $disabled = true;
         }
-    } else {
+    } else if (!$suppress_error) {
         $output .= '<span style="color:#FF0000;">'
                     . __('Error: Something is wrong with field value. Translation preferences can not be set.',
                             'wpml')
                     . '</span>';
         $disabled = true;
     }
-    $disabled = $disabled ? ' readonly="readonly" disabled="disabled"' : '';
+    $disabled = !empty($disabled) ? ' readonly="readonly" disabled="disabled"' : '';
     $output .= '<div class="description ' . $class . '-form-description '
             . $class . '-form-description-fieldset description-fieldset">'
             . __('Choose what to do when translating content with this field:',
@@ -348,8 +348,8 @@ function wpml_cf_translation_preferences($id, $custom_field = false,
             . $id . '" />
 <input type="hidden" name="wpml_cf_translation_preferences_data_'
             . $id . '" value="custom_field=' . $custom_field
-            . '&amp;_wpnonce='
-            . wp_create_nonce('wpml_cf_translation_preferences') . '" />';
+            . '&amp;_icl_nonce='
+            . wp_create_nonce('wpml_cf_translation_preferences_nonce') . '" />';
     }
     if ($fieldset) {
         $output .= '

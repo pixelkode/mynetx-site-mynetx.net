@@ -241,7 +241,7 @@ line-height: 100%; margin: 5px 0;
     margin: 0;
     padding: 2px 1px;
     position: absolute;
-    z-index: 99;    
+    /*z-index: 99;    */
 }
 #icl-als-toggle {
     background: url("../../../../../wp-admin/images/fav-arrow.gif?ver=20100531") no-repeat scroll 0 -4px transparent;
@@ -250,7 +250,7 @@ line-height: 100%; margin: 5px 0;
     right: 0;
     top: 1px;
     width: 28px;     
-    z-index: 99;    
+    /*z-index: 99;*/    
 }
 
 #icl-als-actions-label{
@@ -299,8 +299,13 @@ line-height: 100%; margin: 5px 0;
 .icl_pop_info_but{
     cursor: pointer;
     position:absolute;
-    z-index: 99;
+    /*z-index: 99;*/    
 }
+
+.icl_pop_info_but_noabs{
+    position:relative;
+}
+
 .icl_pop_info{
     z-index: 900;
     min-width:300px;
@@ -317,13 +322,16 @@ line-height: 100%; margin: 5px 0;
      line-height: 15px;
 }
 
+
 .icl_pop_info img{
     margin: -4px -2px 4px 8px;
 }
 
 .icl_pop_info_wrap{
-    float:left;
+    display:inline;
+    text-align: left;
 }
+
 
 .icl_box_paragraph{margin-top:6px;margin-bottom:6px;}
 #icl_document_language_dropdown{float:left; }

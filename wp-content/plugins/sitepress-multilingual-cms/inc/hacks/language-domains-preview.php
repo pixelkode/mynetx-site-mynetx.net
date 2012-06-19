@@ -16,7 +16,7 @@ if(isset($_GET['preview']) && $sitepress_settings['language_negotiation_type'] =
     add_filter('icl_current_language', 'icl_current_language_preview_hack_filter');
     function icl_current_language_preview_hack_filter($lang){
         if(isset($_GET['lang'])){
-            $lang = $_GET['lang'];
+            $lang = esc_html($_GET['lang']);
         }
         return $lang;
     }   

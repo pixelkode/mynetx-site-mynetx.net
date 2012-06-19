@@ -15,11 +15,12 @@
         <input type="button" class="button" id="icl_st_ow_export" value="<?php _e('Export selected strings as PHP code to be added to the theme code', 'wpml-string-translation'); ?>" />
         <input type="button" class="button-primary" id="icl_st_ow_export_close" value="<?php _e('Close', 'wpml-string-translation')?>" />
         <img class="ajax_loader" src="<?php echo WPML_ST_URL ?>/res/img/ajax-loader.gif" style="display:none" width="16" height="16" />
+        <?php wp_nonce_field('icl_st_ow_export_nonce', '_icl_nonce_owe') ?>
     </p>
     <p id="icl_st_ow_export_out"></p>
     
     <form name="icl_st_option_writes_form" id="icl_st_option_write_form">    
-        
+    <?php wp_nonce_field('icl_st_option_writes_form_nonce', '_icl_nonce'); ?>    
     <?php foreach($troptions as $option_name=>$option_value): ?>
     <?php echo icl_st_render_option_writes($option_name, $option_value); ?>
     <br clear="all" />

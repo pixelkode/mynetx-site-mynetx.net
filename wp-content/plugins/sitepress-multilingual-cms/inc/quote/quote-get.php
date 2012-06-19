@@ -251,7 +251,7 @@ function icl_quote_get_step_one($saved) {
         <div id="icl-quote-get-wrap" style="margin: 25px 0 0 0">
             <form id="icl-quote-get-form" action="" method="post">
                 <input type="hidden" name="icl_ajx_action" value="quote-get-submit" />
-        <?php wp_nonce_field('quote-get-submit'); ?>
+        <?php wp_nonce_field('quote-get-submit_nonce', '_icl_nonce'); ?>
         <?php
         global $sitepress, $sitepress_settings;
         $continue = FALSE;

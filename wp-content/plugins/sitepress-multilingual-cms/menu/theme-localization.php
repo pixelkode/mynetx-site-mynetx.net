@@ -13,8 +13,8 @@ $locales = $sitepress->get_locale_file_names();
 
     <h3><?php _e('Select how to localize the theme','sitepress'); ?></h3>
     <p><?php _e("If your theme's texts are wrapped in gettext calls, WPML can help you display it multilingual.",'sitepress'); ?></p>
-    <form name="icl_theme_localization_type" id="icl_theme_localization_type" method="post" action="">
-    <input type="hidden" name="icl_ajx_action" value="icl_save_theme_localization_type" />
+    <form name="icl_theme_localization_type" id="icl_theme_localization_type" method="post" action="">    
+    <?php wp_nonce_field('icl_theme_localization_type_nonce', '_icl_nonce'); ?>
     <ul>
         <?php 
             if(!defined('WPML_ST_VERSION')){                
@@ -94,7 +94,7 @@ $locales = $sitepress->get_locale_file_names();
         <input type="text" size="10" name="locale_file_name_<?php echo $lang['code']?>" value="<?php echo isset($locales[$lang['code']]) ? $locales[$lang['code']] : ''; ?>" />.mo
     </td> 
     <td>
-        <?php if(@is_readable(ABSPATH . LANGDIR . '/' . $locales[$lang['code']] . '.mo')): ?>
+        <?php if(@is_readable(ABSPATH . (defined('WP_CONTENT_DIR')? basename( WP_CONTENT_DIR ).'/languages': LANGDIR) . '/' . $locales[$lang['code']] . '.mo')): ?>
         <span class="icl_valid_text"><?php echo __('File exists.', 'sitepress') ?></span>                
 		<?php elseif($lang['code'] != 'en' ): ?>
         <span class="icl_error_text"><?php echo __('File not found!', 'sitepress') ?></span>

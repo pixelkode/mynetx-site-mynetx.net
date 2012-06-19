@@ -7,6 +7,7 @@
         $translations[$this->get_default_language()]->post_title . '</a>');
 ?>    
     <p><input id="icl_translate_independent" class="button-secondary" type="button" value="<?php _e('Translate independently', 'sitepress') ?>" /></p>
+    <?php wp_nonce_field('reset_duplication_nonce', '_icl_nonce_rd') ?>
     <i><?php printf(__('WPML will no longer synchronize this %s with the original content.', 'sitepress'), $post->post_type); ?></i>
 </div>
 
@@ -144,13 +145,13 @@
                                             WHERE job_id=%d", $job_id));
                                     if($tres->status == ICL_TM_IN_PROGRESS){
                                         $img = 'edit_translation_disabled.png';
-                                        $add_anchor =  __('in progress (by a different translator)','sitepress');    
+                                        $add_anchor =  sprintf(__('In progress (by a different translator). <a%s>Learn more</a>.','sitepress'), ' href="http://wpml.org/?page_id=52218"');    
                                     }elseif($tres->status == ICL_TM_NOT_TRANSLATED || $tres->status == ICL_TM_WAITING_FOR_TRANSLATOR){
                                         $img = 'add_translation_disabled.png';
-                                        $add_anchor = __('You are not the translator of this document','sitepress');
+                                        $add_anchor = sprintf(__('You are not the translator of this document. <a%s>Learn more</a>.','sitepress'), ' href="http://wpml.org/?page_id=52218"');
                                     }elseif($tres->status == ICL_TM_NEEDS_UPDATE || $tres->status == ICL_TM_COMPLETE){
                                         $img = 'edit_translation_disabled.png';
-                                        $add_anchor = __('You are not the translator of this document','sitepress');
+                                        $add_anchor = sprintf(__('You are not the translator of this document. <a%s>Learn more</a>.','sitepress'), ' href="http://wpml.org/?page_id=52218"');
                                     }
                                     
                                 }
@@ -158,7 +159,7 @@
                                     $add_link = admin_url('admin.php?page='.WPML_TM_FOLDER.'/menu/translations-queue.php&job_id='.$job_id);        
                                 }else{
                                     $add_link = '#';
-                                    $add_anchor =  __('in progress (by a different translator)','sitepress');    
+                                    $add_anchor =  sprintf(__('In progress (by a different translator). <a%s>Learn more</a>.','sitepress'), ' href="http://wpml.org/?page_id=52218"');    
                                 }
                                 
                             }else{
@@ -168,7 +169,7 @@
                                 }else{
                                     $add_link = '#';
                                     $img = 'add_translation_disabled.png';
-                                    $add_anchor = __('You are not the translator of this document','sitepress');
+                                    $add_anchor = sprintf(__('You are not the translator of this document. <a%s>Learn more</a>.','sitepress'), ' href="http://wpml.org/?page_id=52218"');
                                 }
                             }                                                    
                     }else{     
@@ -176,8 +177,15 @@
                             $trid . "&lang=" . $lang['code'] . "&source_lang=" . $selected_language;    
                     }                                        
                 ?>
-                <td align="right"><a href="<?php echo $add_link?>" title="<?php echo esc_attr($add_anchor) ?>"><img  border="0" src="<?php 
-                    echo ICL_PLUGIN_URL . '/res/img/' . $img ?>" alt="<?php echo esc_attr($add_anchor) ?>" width="16" height="16"  /></a></td>
+                <td align="right">
+                <?php if($add_link == '#'): 
+                    icl_pop_info($add_anchor, ICL_PLUGIN_URL . '/res/img/' .$img, array('icon_size' => 16, 'but_style'=>array('icl_pop_info_but_noabs')));                    
+                 else: ?>
+                <a href="<?php echo $add_link?>" title="<?php echo esc_attr($add_anchor) ?>"><img  border="0" src="<?php 
+                    echo ICL_PLUGIN_URL . '/res/img/' . $img ?>" alt="<?php echo esc_attr($add_anchor) ?>" width="16" height="16"  /></a>
+                <?php endif; ?>
+                    
+                </td>
                 <td align="right">
                     <?php 
                         // do not allow creating duplicates for posts that are being translated
@@ -207,6 +215,7 @@
         <tr>
             <td colspan="3" align="right">
                 <input id="icl_make_duplicates" type="button" class="button-secondary" value="<?php echo esc_attr_e('Duplicate', 'sitepress') ?>" disabled="disabled" style="display:none;" />
+                <?php wp_nonce_field('make_duplicates_nonce', '_icl_nonce_mdup'); ?>
             </td>
         </tr>
         </table>
@@ -219,6 +228,7 @@
         
             <b><?php _e('Translations', 'sitepress') ?></b>
             (<a class="icl_toggle_show_translations" href="#" <?php if(empty($this->settings['show_translations_flag'])):?>style="display:none;"<?php endif;?>><?php _e('hide','sitepress')?></a><a class="icl_toggle_show_translations" href="#" <?php if(!empty($this->settings['show_translations_flag'])):?>style="display:none;"<?php endif;?>><?php _e('show','sitepress')?></a>)                
+            <?php wp_nonce_field('toggle_show_translations_nonce', '_icl_nonce_tst') ?>  
         <table width="100%" class="icl_translations_table" id="icl_translations_table" <?php if(empty($this->settings['show_translations_flag'])):?>style="display:none;"<?php endif;?>>        
         <?php $oddev = 1; ?>
         <?php foreach($active_languages as $lang): if($selected_language==$lang['code']) continue; ?>
@@ -248,7 +258,7 @@
                                 }else{
                                     $edit_link = '#';
                                     $img = 'edit_translation_disabled.png';
-                                    $edit_anchor = __('You are not the translator of this document','sitepress');
+                                    $edit_anchor = sprintf(__('You are not the translator of this document. <a%s>Learn more</a>.','sitepress'), ' href="http://wpml.org/?page_id=52218"');
                                 }
                             }else{
                                 if($current_user_is_translator){
@@ -256,7 +266,7 @@
                                 }else{
                                     $edit_link = '#';
                                     $img = 'edit_translation_disabled.png';
-                                    $edit_anchor = __('You are not the translator of this document','sitepress');
+                                    $edit_anchor = sprintf(__('You are not the translator of this document. <a%s>Learn more</a>.','sitepress'), ' href="http://wpml.org/?page_id=52218"');
                                 }
                             }
                             break;                        
@@ -293,8 +303,15 @@
                     <?php echo $lang['display_name'] ?>
                     <?php if(isset($dupes[$lang['code']])) echo ' (' . __('duplicate', 'sitepress') . ')'; ?>
                 </td>
-                <td align="right" ><a href="<?php echo $edit_link ?>" title="<?php echo esc_attr($edit_anchor) ?>"><img border="0" src="<?php 
+                <td align="right" >
+                
+                <?php if($edit_link == '#'): 
+                    icl_pop_info($edit_anchor, ICL_PLUGIN_URL . '/res/img/' .$img, array('icon_size' => 16, 'but_style'=>array('icl_pop_info_but_noabs')));                    
+                else: ?>
+                <a href="<?php echo $edit_link ?>" title="<?php echo esc_attr($edit_anchor) ?>"><img border="0" src="<?php 
                     echo ICL_PLUGIN_URL . '/res/img/' . $img ?>" alt="<?php echo esc_attr($edit_anchor) ?>" width="16" height="16" /></a>                    
+                <?php endif; ?>    
+                    
                 </td>
                 
             <?php endif; ?>        
@@ -334,6 +351,7 @@ if(!empty($translations)) foreach($translations as $lang=>$tr){
 
 ?>
 <?php if($tr_original_id != $post->ID && $show_dup_button): ?>
+    <?php wp_nonce_field('set_duplication_nonce', '_icl_nonce_sd') ?>
     <input id="icl_set_duplicate" type="button" class="button-secondary" value="<?php printf(__('Overwrite with %s content.', 'sitepress'), $original_language) ?>" style="float: left;" />
     <span style="display: none;"><?php echo esc_js(sprintf(__('The current content of this %s will be permanently lost. WPML will copy the %s content and replace the current content.', 'sitepress'), $post->post_type, $original_language)); ?></span>
     <?php icl_pop_info(__("This operation will synchronize this translation with the original language. When you edit the original, this translation will update immediately. It's meant when you want the content in this language to always be the same as the content in the original language.", 'sitepress'), 'question'); ?>

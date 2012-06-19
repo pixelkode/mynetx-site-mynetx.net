@@ -144,7 +144,7 @@ class iclNavMenu{
         }
         
         $translated_menu_items = $wpdb->get_col("
-            SELECT element_id FROM {$wpdb->prefix}icl_translations WHERE element_type='post_nav_menu_item'
+            SELECT element_id FROM {$wpdb->prefix}icl_translations WHERE element_type='post_nav_menu_item' AND element_id IS NOT NULL
         ");
         $translated_menu_items[] = 0; //dummy
         $untranslated_menu_items = $wpdb->get_col("
@@ -292,7 +292,7 @@ class iclNavMenu{
     function wp_delete_nav_menu_item($menu_item_id){
         global $wpdb;
         $post = get_post($menu_item_id);
-        if($post->post_type == 'nav_menu_item'){
+        if(!empty($post->post_type) && $post->post_type == 'nav_menu_item'){
             $wpdb->query("DELETE FROM {$wpdb->prefix}icl_translations WHERE element_id='{$menu_item_id}' AND element_type='post_nav_menu_item' LIMIT 1");
         }        
     }

@@ -941,6 +941,40 @@ function icl_get_string_translations($offset=0){
     return $string_translations;
 }
 
+function icl_get_relative_translation_status($string_id, $translator_id){
+    global $wpdb, $sitepress, $sitepress_settings;
+    
+    $user_lang_pairs = get_user_meta(get_current_user_id(), $wpdb->prefix.'language_pairs', true);    
+    
+    $src_langs = array_intersect(array_keys($sitepress->get_active_languages()), array_keys($user_lang_pairs[$sitepress_settings['st']['strings_language']]));
+    
+    if(empty($src_langs)) return ICL_STRING_TRANSLATION_NOT_TRANSLATED;
+    
+    $sql = "SELECT st.status
+            FROM {$wpdb->prefix}icl_strings s 
+            JOIN {$wpdb->prefix}icl_string_translations st ON s.id = st.string_id
+            WHERE st.language IN ('" . join("','", $src_langs) . "') AND s.id = %d
+    ";
+    $statuses = $wpdb->get_col($wpdb->prepare($sql, $string_id));
+    
+    $status = ICL_STRING_TRANSLATION_NOT_TRANSLATED;
+    $one_incomplete = false;
+    foreach($statuses as $s){
+        if($s == ICL_STRING_TRANSLATION_COMPLETE){
+            $status = ICL_STRING_TRANSLATION_COMPLETE;        
+        }elseif($s == ICL_STRING_TRANSLATION_NOT_TRANSLATED){
+            $one_incomplete = true;
+        }
+    }
+    
+    if($status == ICL_STRING_TRANSLATION_COMPLETE && $one_incomplete){
+        $status = ICL_STRING_TRANSLATION_PARTIAL;        
+    }
+    
+    return $status;
+    
+}
+
 function icl_get_strigs_tracked_in_pages($string_translations){
     global $wpdb;
     // get string position in page - if found
@@ -1315,14 +1349,17 @@ function icl_st_get_contexts($status){
     if(icl_st_is_translator()){
         $user_langs = get_user_meta(get_current_user_id(), $wpdb->prefix.'language_pairs', true);
     
-    
         $active_langs = $sitepress->get_active_languages();
         if(!empty($user_langs[$sitepress_settings['st']['strings_language']])){
             
             foreach($user_langs[$sitepress_settings['st']['strings_language']] as $lang=>$one){
                 if(isset($active_langs[$lang])){
                     $lcode_alias = str_replace('-', '', $lang);
-                    $joins[] = " JOIN {$wpdb->prefix}icl_string_translations {$lcode_alias}_str ON {$lcode_alias}_str.string_id = s.id AND {$lcode_alias}_str.language='{$lcode_alias}'\n";
+                    $joins[] = " JOIN {$wpdb->prefix}icl_string_translations {$lcode_alias}_str ON {$lcode_alias}_str.string_id = s.id AND {$lcode_alias}_str.language='{$lcode_alias}' AND
+                    ( 
+                        {$lcode_alias}_str.status = " . ICL_STRING_TRANSLATION_WAITING_FOR_TRANSLATOR . 
+                        " OR {$lcode_alias}_str.translator_id = " . get_current_user_id() 
+                    . ")" . "\n";
                         
                 }            
                 
@@ -1360,7 +1397,7 @@ function icl_st_admin_notices(){
 }
 
 function icl_st_scan_theme_files($dir = false, $recursion = 0){
-    require_once ICL_PLUGIN_PATH . '/inc/potx.inc';
+    require_once ICL_PLUGIN_PATH . '/inc/potx.php';
     static $scan_stats = false;
     static $recursion, $scanned_files = array();
     global $icl_scan_theme_found_domains, $sitepress, $sitepress_settings;
@@ -1455,7 +1492,7 @@ function __icl_st_scan_theme_files_store_results($string, $domain, $_gettext_con
 }
 
 function icl_st_scan_plugin_files($plugin, $recursion = 0){
-    require_once ICL_PLUGIN_PATH . '/inc/potx.inc';
+    require_once ICL_PLUGIN_PATH . '/inc/potx.php';
     static $recursion, $scanned_files = array();
     static $scan_stats = false;
     global $icl_scan_plugin_found_domains, $icl_st_p_scan_plugin_id,
@@ -1566,8 +1603,8 @@ function __icl_st_scan_plugin_files_store_results($string, $domain, $_gettext_co
 function get_theme_localization_stats(){
     global $sitepress_settings, $wpdb;
     $stats = false;
-    if(is_array($sitepress_settings['st']['theme_localization_domains'])){    
-        foreach($sitepress_settings['st']['theme_localization_domains'] as $domain){
+    if(isset($sitepress_settings['st']['theme_localization_domains'])){    
+        foreach((array)$sitepress_settings['st']['theme_localization_domains'] as $domain){
             $domains[] = $domain ? 'theme ' . $domain : 'theme';
         }
         $results = $wpdb->get_results("
@@ -2054,6 +2091,31 @@ function icl_st_set_admin_options_filters(){
 
 function icl_st_translate_admin_string($option_value, $key="", $name="", $rec_level = 0){
     
+    // determine option name
+    if(!$name){
+        if(is_array($option_value) || is_object($option_value)){
+            $ob = debug_backtrace();
+            if(is_scalar($ob[3]['args'][0])){
+                $name = preg_replace('@^option_@', '', $ob[3+$rec_level]['args'][0]);
+            }
+        }else{
+            $ob = debug_backtrace();
+            if(is_scalar($ob[2+$rec_level]['args'][0])){
+                $name = preg_replace('@^option_@', '',$ob[2+$rec_level]['args'][0]);    
+            }
+        }   
+    }
+    
+    // cache - phase 1 - check/get
+    static $__icl_st_cache;
+    if($rec_level == 0){
+        if(isset($__icl_st_cache[$name])) {
+            //echo "FROM CACHE $name<br />";
+            return $__icl_st_cache[$name];    
+        }
+        
+    }
+    
     // case of double-serialized options (See Arras theme)   
     $serialized = false;
     if(is_serialized( $option_value )){
@@ -2066,14 +2128,10 @@ function icl_st_translate_admin_string($option_value, $key="", $name="", $rec_le
     //}
     
     if(is_array($option_value) || is_object($option_value)){
-        if(!$name){
-            $ob = debug_backtrace();
-            if(is_scalar($ob[3]['args'][0])){
-                $name = preg_replace('@^option_@', '', $ob[3+$rec_level]['args'][0]);
-            }
-        }        
         foreach($option_value as $k=>$value){            
+            
             $val = icl_st_translate_admin_string($value, $key . '[' . $name . ']' , $k, $rec_level+1);
+            
             if(is_object($option_value)){
                 $option_value->$k = $val;
             }else{
@@ -2082,15 +2140,6 @@ function icl_st_translate_admin_string($option_value, $key="", $name="", $rec_le
         }            
         
     }else{   
-        
-        if(!$name){
-            $ob = debug_backtrace();
-            if(is_scalar($ob[2+$rec_level]['args'][0])){
-                $name = preg_replace('@^option_@', '',$ob[2+$rec_level]['args'][0]);    
-            }
-        }
-                
-                
         $option_names = get_option('_icl_admin_option_names');                
         // determine theme/plugin name
         
@@ -2153,7 +2202,7 @@ function icl_st_translate_admin_string($option_value, $key="", $name="", $rec_le
         }       
         
         if(!empty($key_suff)){
-            $tr = icl_t('admin_texts_' . $key_suff, $key . $name, $option_value, $hast, true);    
+            $tr = icl_t('admin_texts_' . $key_suff, $key . $name, $option_value, $hast, true);                
         } 
                 
         if(!is_null($tr)){
@@ -2165,6 +2214,11 @@ function icl_st_translate_admin_string($option_value, $key="", $name="", $rec_le
     // case of double-serialized options (See Arras theme)   
     if($serialized){
         $option_value = serialize($option_value);
+    }
+    
+    // cache - phase 2 - set
+    if($rec_val == 0){
+        $__icl_st_cache[$name] = $option_value;
     }
     
     return $option_value;

@@ -45,7 +45,9 @@
                             '<strong>' . $icl_menus_sync->sync_data['menu_new_name'][$original_menu_id.'#'.$language] . '</strong>') ; ?></td>
                     </tr>
                 <?php endforeach; endif; ?>
-                <?php foreach($icl_menus_sync->sync_data['menu_item_sync'] as $key=>$action): ?>
+                
+                <?php if(isset($icl_menus_sync->sync_data['menu_item_sync'])) 
+                    foreach($icl_menus_sync->sync_data['menu_item_sync'] as $key=>$action): ?>
                     <?php                         
                         list($original_menu_id, $language, $menu_object_id, $menu_object_title, $ob_type) = explode('#', $key);
                         $menu_object_title = urldecode($menu_object_title);

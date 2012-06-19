@@ -2,7 +2,7 @@
 
 <?php global $wp_version; ?>
 
-<span id="icl-als-wrap" <?php if($this->is_rtl()):?>style="direction:rtl;float:right;"<?php elseif(version_compare($wp_version, '3.3', '>=')):?>style="float:left;position:absolute;"<?php endif; ?>>
+<span id="icl-als-wrap" <?php if($this->is_rtl()):?>style="direction:rtl;float:right;"<?php elseif(version_compare($wp_version, '3.3', '>=')):?>style="float:left;position:absolute;z-index:10;"<?php endif; ?>>
 
     <?php if($this->is_rtl()):?>
     <div id="icl-als-info" style="margin-right:8px;">

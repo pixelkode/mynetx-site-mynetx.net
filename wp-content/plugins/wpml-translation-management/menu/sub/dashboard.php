@@ -104,18 +104,23 @@ if(!defined('ICL_DONT_PROMOTE') || !ICL_DONT_PROMOTE){
     $icl_translation_services = array_merge($icl_translation_services, TranslationManagement::icanlocalize_service_info());
     if (!empty($icl_translation_services)) {
         $icls_output = '';
-        $icls_output .= '<div class="icl-translation-services" style="margin-bottom:20px">';
+        if(empty($icl_dashboard_settings['hide_icl_promo'])){
+            $nt_visible = ' style="display:none"';    
+            $nt_show = '';
+        }else{
+            $nt_visible =  '';
+            $nt_show = 'display:none;';
+        }
+        
+        $icls_output .= '<a id="icl_show_promo" href="#"' . $nt_visible . '>' . __('Need translators?', 'wpml-translation-management') . '</a>';
+        $icls_output .= '<div class="icl-translation-services" style="margin-bottom:20px;'.$nt_show.'">';
         foreach ($icl_translation_services as $key => $service) {
             $icls_output .= '<div class="icl-translation-service">';
             $icls_output .= '<img src="' . $service['logo'] . '" alt="' . $service['name'] . '" />';
             $icls_output .= '<p style="width:500px;">' . $service['description'] . '</p>';
-            $icls_output .= '<a href="'. admin_url('index.php?icl_ajx_action=quote-get').'" class="button-secondary thickbox"><strong>' . __('Get quote','wpml-translation-management')
+            $icls_output .= '<a class="button-secondary" id="icl_hide_promo" href="#">' . __('Hide this', 'wpml-translation-management') . '</a>&nbsp;';
+            $icls_output .= '<a href="'. admin_url('index.php?icl_ajx_action=quote-get&_icl_nonce=' . wp_create_nonce('quote-get_nonce')).'" class="button-secondary thickbox"><strong>' . __('Get quote','wpml-translation-management')
                             . '</strong></a>&nbsp;';
-            $icls_output .= isset($service['setup_url_dashboard'])
-                ? '<a href="' . $service['setup_url_dashboard'][1] . '" title="'
-                    . $service['name'] . '" class="button-secondary"><strong>' . $service['setup_url_dashboard'][0]
-                    . '</strong></a>'
-                : '';
             $icls_output .= '</div>';
         }
         $icls_output .= '</div>';
@@ -173,8 +178,7 @@ if(!defined('ICL_DONT_PROMOTE') || !ICL_DONT_PROMOTE){
                         <?php endforeach; ?>
                     </select>
                 </label>                
-                <br />
-            
+                <br />                
             </td>
         </tr>
         <tr id="icl_dashboard_advanced_filters" valign="top">
@@ -365,7 +369,10 @@ if(!defined('ICL_DONT_PROMOTE') || !ICL_DONT_PROMOTE){
                                 value="<?php _e('Clear', 'wpml-translation-management')?>" <?php if(!$note): ?>disabled="disabled"<?php endif; ?> />        
                             <input class="icl_tn_post_id" type="hidden" value="<?php echo $doc->post_id ?>" />
                         </td>
-                        <td align="right" style="border-bottom:none"><input type="button" class="icl_tn_save button-primary" value="<?php _e('Save', 'wpml-translation-management')?>" /></td>
+                        <td align="right" style="border-bottom:none">
+                            <input type="button" class="icl_tn_save button-primary" value="<?php _e('Save', 'wpml-translation-management')?>" />
+                            <?php wp_nonce_field('save_translator_note_nonce', '_icl_nonce_stn_' . $doc->post_id) ?>
+                        </td>
                         </tr></table>
                     </div>
                 </td>

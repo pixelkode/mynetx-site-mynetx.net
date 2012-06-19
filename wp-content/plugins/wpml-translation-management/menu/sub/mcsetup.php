@@ -24,124 +24,156 @@
     
 ?>
         
-    <div style="width:50%;float:left;margin-right:12px;">
-    <form id="icl_doc_translation_method" name="icl_doc_translation_method" action="">        
-    <table class="widefat">
-        <thead>
-            <tr>
-                <th colspan="2"><?php _e('How to translate posts and pages', 'wpml-translation-management');?></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td style="border: none;">
-                    <ul>
-                        <li><label><input type="radio" name="t_method" value="<?php echo ICL_TM_TMETHOD_MANUAL ?>" <?php if($doc_translation_method==ICL_TM_TMETHOD_MANUAL): ?>checked="checked"<?php endif; ?> /> 
-                            <?php _e('Create translations manually', 'wpml-translation-management')?></label></li>
-                        <li><label><input type="radio" name="t_method" value="<?php echo ICL_TM_TMETHOD_EDITOR ?>" <?php if($doc_translation_method==ICL_TM_TMETHOD_EDITOR): ?>checked="checked"<?php endif; ?> /> 
-                            <?php _e('Use the translation editor', 'wpml-translation-management')?></label></li>
-                        <li><label><input type="radio" name="t_method" value="<?php echo ICL_TM_TMETHOD_PRO ?>" <?php if($doc_translation_method==ICL_TM_TMETHOD_PRO): ?>checked="checked"<?php endif; ?> /> 
-                            <?php _e('Send to professional translation', 'wpml-translation-management')?></label></li>
-                    </ul>
-                    <input type="submit" class="button-secondary" value="<?php _e('Save', 'wpml-translation-management')?>" />
-                    <span class="icl_ajx_response" id="icl_ajx_response_dtm"></span>
-                    <p><a href="http://wpml.org/?page_id=3416" target="_blank"><?php _e('Learn more about the different translation options') ?></a></p>
-                </td>    
-            </tr>
-        </tbody>
-    </table>
-    </form>
-    </div>
+    <div style="width:50%;float:left;">
     
-    <div style="width:48%;float:left;">
-    <form name="icl_tdo_options" id="icl_tdo_options" action="">
-    <table class="widefat">
-        <thead>
-            <tr>
-                <th colspan="2"><?php _e('Translated documents options', 'wpml-translation-management') ?></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td style="border: none;"><?php _e('Document status', 'wpml-translation-management')?></td>
-                <td style="border: none;">
-                    <ul>
-                        <li>
-                            <p>
-                            <label><input type="radio" name="icl_translated_document_status" value="0" 
-                                <?php if(!$sitepress_settings['translated_document_status']): ?>checked="checked"<?php endif;?> /> 
-                                <?php echo __('Draft', 'wpml-translation-management') ?>
-                            </label>&nbsp;
-                            <label><input type="radio" name="icl_translated_document_status" value="1" 
-                                <?php if($sitepress_settings['translated_document_status']): ?>checked="checked"<?php endif;?> /> 
-                                <?php echo __('Same as the original document', 'wpml-translation-management') ?>
-                            </label>     
-                            </p>
-                            <i><?php echo __("Choose if translations should be published when received. Note: If Publish is selected, the translation will only be published if the original node is published when the translation is received.", 'wpml-translation-management') ?></i>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" style="border: none;">
-                    <input type="submit" class="button-secondary" value="<?php _e('Save', 'wpml-translation-management')?>" />
-                    <span class="icl_ajx_response" id="icl_ajx_response_tdo"></span>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    </form>
-    </div>
-    
-    <br clear="all" />
-    <br>
-    
-    <?php include ICL_PLUGIN_PATH . '/menu/_posts_sync_options.php'; ?>
+        <form id="icl_doc_translation_method" name="icl_doc_translation_method" action="">        
+        <?php wp_nonce_field('icl_doc_translation_method_nonce', '_icl_nonce') ?>
+        <table class="widefat">
+            <thead>
+                <tr>
+                    <th colspan="2"><?php _e('How to translate posts and pages', 'wpml-translation-management');?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="border: none;">
+                        <ul>
+                            <li><label><input type="radio" name="t_method" value="<?php echo ICL_TM_TMETHOD_MANUAL ?>" <?php if($doc_translation_method==ICL_TM_TMETHOD_MANUAL): ?>checked="checked"<?php endif; ?> /> 
+                                <?php _e('Create translations manually', 'wpml-translation-management')?></label></li>
+                            <li><label><input type="radio" name="t_method" value="<?php echo ICL_TM_TMETHOD_EDITOR ?>" <?php if($doc_translation_method==ICL_TM_TMETHOD_EDITOR): ?>checked="checked"<?php endif; ?> /> 
+                                <?php _e('Use the translation editor', 'wpml-translation-management')?></label></li>
+                            <li><label><input type="radio" name="t_method" value="<?php echo ICL_TM_TMETHOD_PRO ?>" <?php if($doc_translation_method==ICL_TM_TMETHOD_PRO): ?>checked="checked"<?php endif; ?> /> 
+                                <?php _e('Send to professional translation', 'wpml-translation-management')?></label></li>
+                        </ul>
+                        <input type="submit" class="button-secondary" value="<?php _e('Save', 'wpml-translation-management')?>" />
+                        <span class="icl_ajx_response" id="icl_ajx_response_dtm"></span>
+                        <p><a href="http://wpml.org/?page_id=3416" target="_blank"><?php _e('Learn more about the different translation options') ?></a></p>
+                    </td>    
+                </tr>
+            </tbody>
+        </table>
+        </form>    
         
-    <div style="width:48%;float:left;">
-    <form id="icl_translation_pickup_mode" name="icl_translation_pickup_mode" action="">        
-    <table class="widefat">
-        <thead>
-            <tr>
-                <th><?php _e('Translation pickup mode', 'wpml-translation-management');?></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td style="border: none;" id="icl_tm_pickup_wrap">
-                    <p><?php _e('How should the site receive completed translations from ICanLocalize?', 'wpml-translation-management'); ?></p>
-                    <p><label>
-                        <input type="radio" name="icl_translation_pickup_method" value="<?php echo ICL_PRO_TRANSLATION_PICKUP_XMLRPC ?>"<?php
-                            if($sitepress_settings['translation_pickup_method']==ICL_PRO_TRANSLATION_PICKUP_XMLRPC) echo ' checked="checked"';
-                        ?>/>&nbsp;
-                        <?php _e('ICanLocalize will deliver translations automatically using XML-RPC', 'wpml-translation-management'); ?>
-                    </label></p>
-                    <?php if($sitepress_settings['translation_pickup_method']==ICL_PRO_TRANSLATION_PICKUP_XMLRPC): ?>
-                        <p style="padding-left: 20px;">
-                        <label><input type="checkbox" name="icl_disable_reminders" value="1" <?php if(!empty($sitepress_settings['icl_disable_reminders'])): ?>checked="checked"<?php endif;?> />
-                            &nbsp;<?php _e('Hide reminders', 'wpml-translation-management'); ?></label>
-                        </p>
-                    <?php endif; ?>
-                    <p><label>
-                        <input type="radio" name="icl_translation_pickup_method" value="<?php echo ICL_PRO_TRANSLATION_PICKUP_POLLING ?>"<?php
-                            if($sitepress_settings['translation_pickup_method']==ICL_PRO_TRANSLATION_PICKUP_POLLING) echo ' checked="checked"';
-                        ?>/>&nbsp;
-                        <?php _e('The site will fetch translations manually', 'wpml-translation-management'); ?>
-                    </label></p> 
-                    <p>
-                        <input class="button" name="save" value="<?php echo __('Save','wpml-translation-management') ?>" type="submit" />
-                        <span class="icl_ajx_response" id="icl_ajx_response_tpm"></span>
-                    </p>    
-                    
-                    <?php $ICL_Pro_Translation->get_icl_manually_tranlations_box(''); // shows only when translation polling is on and there are translations in progress ?>
-                                                                                               
-                </td>
-            </tr>
-        </tbody>
-    </table>   
-    </form> 
-    </div>
-    <br clear="all" />
+        <br />
+        <?php include ICL_PLUGIN_PATH . '/menu/_posts_sync_options.php'; ?>
+    
+    </div>    
+    <div style="width:49%;float:left;margin-left:10px;">
+    
+        <form name="icl_tdo_options" id="icl_tdo_options" action="">
+        <?php wp_nonce_field('icl_tdo_options_nonce', '_icl_nonce'); ?>
+        <table class="widefat">
+            <thead>
+                <tr>
+                    <th colspan="2"><?php _e('Translated documents options', 'wpml-translation-management') ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="border: none;" nowrap="nowrap" style="background-color: pink;"><?php _e('Document status', 'wpml-translation-management')?></td>
+                    <td style="border: none;">
+                        <ul>
+                            <li>
+                                <p>
+                                <label><input type="radio" name="icl_translated_document_status" value="0" 
+                                    <?php if(!$sitepress_settings['translated_document_status']): ?>checked="checked"<?php endif;?> /> 
+                                    <?php echo __('Draft', 'wpml-translation-management') ?>
+                                </label>&nbsp;
+                                <label><input type="radio" name="icl_translated_document_status" value="1" 
+                                    <?php if($sitepress_settings['translated_document_status']): ?>checked="checked"<?php endif;?> /> 
+                                    <?php echo __('Same as the original document', 'wpml-translation-management') ?>
+                                </label>     
+                                </p>
+                                <i><?php echo __("Choose if translations should be published when received. Note: If Publish is selected, the translation will only be published if the original node is published when the translation is received.", 'wpml-translation-management') ?></i>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="border: none;"><?php _e('Page url', 'wpml-translation-management')?></td>
+                    <td style="border: none;">
+                        <ul>
+                            <li>                            
+                                <label><input type="radio" name="icl_translated_document_page_url" value="auto-generate" 
+                                    <?php if(empty($sitepress_settings['translated_document_page_url']) || 
+                                        $sitepress_settings['translated_document_page_url'] == 'auto-generate'): ?>checked="checked"<?php endif;?> /> 
+                                    <?php echo __('Auto-generate from title (default)', 'wpml-translation-management') ?>
+                                </label>
+                            </li>
+                            <li>
+                                <label><input type="radio" name="icl_translated_document_page_url" value="translate" 
+                                    <?php if($sitepress_settings['translated_document_page_url'] == 'translate'): ?>checked="checked"<?php endif;?> /> 
+                                    <?php echo __('Translate (this will include the slug in the translation and not create it automatically from the title)', 'wpml-translation-management') ?>
+                                </label>
+                            </li>
+                            <li>
+                                <label><input type="radio" name="icl_translated_document_page_url" value="copy-encoded" 
+                                    <?php if($sitepress_settings['translated_document_page_url'] == 'copy-encoded'): ?>checked="checked"<?php endif;?> /> 
+                                    <?php echo __('Copy from original language if translation language uses encoded URLs', 'wpml-translation-management') ?>
+                                </label>                                                        
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td colspan="2" style="border: none;">
+                        <input type="submit" class="button-secondary" value="<?php _e('Save', 'wpml-translation-management')?>" />
+                        <span class="icl_ajx_response" id="icl_ajx_response_tdo"></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </form>
+            
+        <br />
+            
+        <form id="icl_translation_pickup_mode" name="icl_translation_pickup_mode" action="">        
+        <?php wp_nonce_field('set_pickup_mode_nonce', '_icl_nonce') ?>
+        <table class="widefat">
+            <thead>
+                <tr>
+                    <th><?php _e('Translation pickup mode', 'wpml-translation-management');?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="border: none;" id="icl_tm_pickup_wrap">
+                        <p><?php _e('How should the site receive completed translations from ICanLocalize?', 'wpml-translation-management'); ?></p>
+                        <p><label>
+                            <input type="radio" name="icl_translation_pickup_method" value="<?php echo ICL_PRO_TRANSLATION_PICKUP_XMLRPC ?>"<?php
+                                if($sitepress_settings['translation_pickup_method']==ICL_PRO_TRANSLATION_PICKUP_XMLRPC) echo ' checked="checked"';
+                            ?>/>&nbsp;
+                            <?php _e('ICanLocalize will deliver translations automatically using XML-RPC', 'wpml-translation-management'); ?>
+                        </label></p>
+                        <?php if($sitepress_settings['translation_pickup_method']==ICL_PRO_TRANSLATION_PICKUP_XMLRPC): ?>
+                            <p style="padding-left: 20px;">
+                            <label><input type="checkbox" name="icl_disable_reminders" value="1" <?php if(!empty($sitepress_settings['icl_disable_reminders'])): ?>checked="checked"<?php endif;?> />
+                                &nbsp;<?php _e('Hide reminders', 'wpml-translation-management'); ?></label>
+                            </p>
+                        <?php endif; ?>
+                        <p><label>
+                            <input type="radio" name="icl_translation_pickup_method" value="<?php echo ICL_PRO_TRANSLATION_PICKUP_POLLING ?>"<?php
+                                if($sitepress_settings['translation_pickup_method']==ICL_PRO_TRANSLATION_PICKUP_POLLING) echo ' checked="checked"';
+                            ?>/>&nbsp;
+                            <?php _e('The site will fetch translations manually', 'wpml-translation-management'); ?>
+                        </label></p> 
+                        <p>
+                            <input class="button" name="save" value="<?php echo __('Save','wpml-translation-management') ?>" type="submit" />
+                            <span class="icl_ajx_response" id="icl_ajx_response_tpm"></span>
+                        </p>    
+                        
+                        <?php $ICL_Pro_Translation->get_icl_manually_tranlations_box(''); // shows only when translation polling is on and there are translations in progress ?>
+                                                                                                   
+                    </td>
+                </tr>
+            </tbody>
+        </table>   
+        </form>         
+            
+    </div>        
+    <br clear="all" /><br />
     
     <div class="updated below-h2">
         <p style="line-height: 14px"><?php _e("WPML can read a configuration file that tells it what needs translation in themes and plugins. The file is named wpml-config.xml and it's placed in the root folder of the plugin or theme.", 'wpml-translation-management'); ?></p>
@@ -149,6 +181,7 @@
     </div>
     
     <form id="icl_cf_translation" name="icl_cf_translation" action="">        
+    <?php wp_nonce_field('icl_cf_translation_nonce', '_icl_nonce'); ?>
     <table class="widefat">
         <thead>
             <tr>

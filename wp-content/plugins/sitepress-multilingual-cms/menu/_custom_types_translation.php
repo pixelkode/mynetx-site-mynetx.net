@@ -45,6 +45,7 @@
     
     <?php if(!empty($cposts)): ?>    
     <form id="icl_custom_posts_sync_options" name="icl_custom_posts_sync_options" action="">        
+    <?php wp_nonce_field('icl_custom_posts_sync_options_nonce', '_icl_nonce') ?>
     <table class="widefat">
         <thead>
             <tr>
@@ -84,6 +85,7 @@
     
     <?php if(!empty($ctaxonomies)): ?>
     <form id="icl_custom_tax_sync_options" name="icl_custom_tax_sync_options" action="">        
+    <?php wp_nonce_field('icl_custom_tax_sync_options_nonce', '_icl_nonce') ?>
     <table class="widefat">
         <thead>
             <tr>
