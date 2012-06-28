@@ -17,7 +17,8 @@ $_icl_ajx_actions_no_nonce = array(
     'get_original_comment' => 1
 );
 
-if(!isset($_icl_ajx_actions_no_nonce[$_POST['icl_ajx_action']]) && !wp_verify_nonce($_POST['_icl_nonce'], $_REQUEST['icl_ajx_action'] . '_nonce')){
+if(!isset($_icl_ajx_actions_no_nonce[$_REQUEST['icl_ajx_action']]) 
+    && !wp_verify_nonce($_REQUEST['_icl_nonce'], $_REQUEST['icl_ajx_action'] . '_nonce')){
     die('Invalid nonce');
 }
 

@@ -11,8 +11,12 @@ class SitePress{
 
     function __construct(){
         global $wpdb, $pagenow;
-
+        
         $this->settings = get_option('icl_sitepress_settings');
+        
+        if(is_null($pagenow) && is_multisite()){
+            include ICL_PLUGIN_PATH . '/inc/hacks/vars-php-multisite.php';
+        }  
 
         if(false != $this->settings){
             $this->verify_settings();
@@ -281,6 +285,7 @@ class SitePress{
         }
         
         add_action('init', array($this, 'js_load'), 2); // enqueue scripts - higher priority
+        
     }
 
     function init(){
@@ -517,6 +522,10 @@ class SitePress{
             
         }
 
+        if($this->is_rtl()){
+            $GLOBALS['text_direction'] = 'rtl';
+        }
+        
         // Automatic redirect
         if(!is_admin() && !empty($this->settings['automatic_redirect'])){
             add_action('template_redirect', array($this, 'automatic_redirect'));
@@ -1140,7 +1149,7 @@ class SitePress{
                     WHERE language_code IN ('".join("','",array_keys($languages))."') AND language_code = display_language_code
                 ");
                 if (isset($this->icl_language_name_cache)) {
-                    $this->icl_language_name_cache->set('languages_'.$languages, $res);
+                    $this->icl_language_name_cache->set('languages', $res);
                 }
             }
 
@@ -2815,7 +2824,7 @@ class SitePress{
 
         //sync private flag
         if($this->settings['sync_private_flag']){
-            if($post_status=='private' && $postvars['original_post_status']!='private'){
+            if($post_status=='private' && (empty($postvars['original_post_status']) || $postvars['original_post_status']!='private')){
                 if(!empty($translated_posts)){
                     foreach($translated_posts as $tp){
                         if($tp != $post_id){
@@ -2930,7 +2939,7 @@ class SitePress{
         $post_language = $this->get_language_for_element($post_ID, 'post_' . $post_type);
         
         $post = get_post($post_ID);
-        if(isset($_POST['new_slug'])){
+        if(isset($_POST['new_slug']) && $_POST['new_slug'] !== ''){
             $slug = sanitize_title($_POST['new_slug'], $post->ID);                
         }else{
             $slug = sanitize_title($post->post_name ? $post->post_name : $post->post_title, $post->ID);
@@ -7055,7 +7064,7 @@ class SitePress{
             if(empty($lang)) $lang = $this->get_admin_language();
             
         }else{
-            if(empty($lang)) $lang = $this->get_admin_language();
+            if(empty($lang)) $lang = $this->get_current_language();
         }
         return in_array($lang, array('ar','he','fa'));
     }

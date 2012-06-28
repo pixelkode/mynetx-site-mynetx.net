@@ -2269,11 +2269,13 @@ class TranslationManagement{
                         default:
                             if(in_array($field->field_type, $sitepress->get_translatable_taxonomies(false, $job->original_post_type))){                            
                                 $taxs = $this->decode_field_data($field->field_data_translated, $field->field_format);
+                                
                                 $original_taxs = $this->decode_field_data($field->field_data, $field->field_format);
                                 $taxonomy = $field->field_type;
                                 $alltaxs = $tax_ids = array();
                                 foreach($taxs as $k=>$c){
                                     $thetax = $sitepress->get_term_by_name_and_lang($c, $taxonomy, $job->language_code);
+                                    
                                     $taxs[$k] = $c; // Save $c as we may have added @.lang to it
                                     if(empty($thetax)){
                                         $the_original_tax = $sitepress->get_term_by_name_and_lang($original_taxs[$k], $taxonomy, $job->source_language_code);                                
@@ -2281,6 +2283,7 @@ class TranslationManagement{
                                         if($the_original_tax_parent){
                                             $op_tr = icl_object_id($the_original_tax_parent, $taxonomy, false, $job->language_code);
                                         }else{$op_tr = 0;}                                
+                                        
                                         $tmp = wp_insert_term($c, $taxonomy, array('parent'=>$op_tr));
                                         if(isset($tmp['term_taxonomy_id'])){                
                                             $sitepress->set_term_translation($the_original_tax,

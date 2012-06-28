@@ -89,7 +89,7 @@ class WPML_Translation_Management{
     function menu(){
         global $sitepress, $iclTranslationManagement;
         
-        if ($sitepress->setup() && 1 < count($sitepress->get_active_languages())) {
+        if (method_exists($sitepress, 'setup') && $sitepress->setup() && 1 < count($sitepress->get_active_languages())) {
             
             $current_translator = $iclTranslationManagement->get_current_translator();
             if(!empty($current_translator->language_pairs) || current_user_can('manage_options')){

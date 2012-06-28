@@ -103,6 +103,8 @@ function icl_plugin_upgrade(){
     
     icl_upgrade_version('2.5.0');
     
+    icl_upgrade_version('2.5.2');
+    
     
     if(version_compare(get_option('icl_sitepress_version'), ICL_SITEPRESS_VERSION, '<')){
         update_option('icl_sitepress_version', ICL_SITEPRESS_VERSION);
