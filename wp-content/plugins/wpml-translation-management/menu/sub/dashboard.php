@@ -133,6 +133,7 @@ if(!defined('ICL_DONT_PROMOTE') || !ICL_DONT_PROMOTE){
 
     <form method="post" name="translation-dashboard-filter" action="admin.php?page=<?php echo WPML_TM_FOLDER ?>/menu/main.php&amp;sm=dashboard">
     <input type="hidden" name="icl_tm_action" value="dashboard_filter" />
+    
     <table class="form-table widefat fixed">
         <thead>
         <tr>
@@ -319,13 +320,13 @@ if(!defined('ICL_DONT_PROMOTE') || !ICL_DONT_PROMOTE){
         </tr>        
         </tfoot>                    
         <tbody>
+            <?php $wctotal = 0; ?>
             <?php if(!$icl_documents): ?>
             <tr>
                 <td scope="col" colspan="<?php 
                     echo 6 + ($icl_translation_filter['to_lang'] ? 1 : count($sitepress->get_active_languages())-1); ?>" align="center"><?php _e('No documents found', 'wpml-translation-management') ?></td>
             </tr>                
             <?php else: $oddcolumn = false; ?>
-            <?php $wctotal = 0; ?>
 
             <?php
             // #############################################

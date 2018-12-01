@@ -54,6 +54,8 @@ $locales = $sitepress->get_locale_file_names();
     <img src="<?php echo ICL_PLUGIN_URL ?>/res/img/question-green.png" width="29" height="29" alt="need help" align="left" /><p style="margin-top:14px;">&nbsp;<a href="http://wpml.org/?page_id=2717"><?php _e('Theme localization instructions', 'sitepress')?> &raquo;</a></p>
     </form>
     
+    <?php if(defined('WPML_ST_VERSION') && version_compare(WPML_ST_VERSION, '1.4.0', '>') && isset($sitepress_settings['theme_localization_type']) && $sitepress_settings['theme_localization_type'] == 1) include WPML_ST_PATH . '/menu/auto-download-mo-config.php'; ?>
+    
     <?php if($sitepress_settings['theme_localization_type'] > 0):?>
     <br />
     <div id="icl_tl">
@@ -72,19 +74,16 @@ $locales = $sitepress->get_locale_file_names();
     <?php if($sitepress_settings['theme_localization_type']==2):?>
     <th scope="col"><?php printf(__('MO file in %s', 'sitepress'), '/wp-content/themes/' . get_option('template')) ?></th>        
     <?php endif; ?>
-    </tr>        
-    </thead>        
-    <tfoot>
-    <tr>
-    <th scope="col"><?php echo __('Language', 'sitepress') ?></th>
-    <th scope="col"><?php echo __('Code', 'sitepress') ?></th>
-    <th scope="col"><?php echo __('Locale file name', 'sitepress') ?></th>        
-    <th scope="col"><?php printf(__('MO file in %s', 'sitepress'), LANGDIR) ?></th>        
-    <?php if($sitepress_settings['theme_localization_type']==2):?>
-    <th scope="col"><?php printf(__('MO file in %s', 'sitepress'), '/wp-content/themes/' . get_option('template')) ?></th>        
+    <?php if(!empty($sitepress_settings['st']['auto_download_mo'])):?>
+    <?php 
+        $wptranslations = $WPML_ST_MO_Downloader->get_option('translations');
+    ?>
+    <th scope="col" align="right"><?php echo __('WP Translation (current)', 'sitepress') ?></th>
+    <th scope="col"><?php echo __('WP Translation (available)', 'sitepress') ?></th>
+    <th scope="col">&nbsp;</th>
     <?php endif; ?>
     </tr>        
-    </tfoot>
+    </thead>        
     <tbody>
     <?php foreach($active_languages as $lang): ?>
     <tr>
@@ -114,6 +113,18 @@ $locales = $sitepress->get_locale_file_names();
         <?php endif; ?>        
     </td>              
     <?php endif; ?> 
+    <?php if(!empty($sitepress_settings['st']['auto_download_mo'])):?>
+    <td scope="col"><?php 
+        if(isset($wptranslations[$lang['code']]['installed'])){
+            echo $wptranslations[$lang['code']]['installed'] . ' ( ' . date("F j, Y @H:i", $wptranslations[$lang['code']]['time']) .  ')';
+        }else{
+            _e('not available', 'sitepress');
+        }
+    ?></td>
+    <td scope="col"><?php echo isset($wptranslations[$lang['code']]['available']) ? $wptranslations[$lang['code']]['available'] : _e('not available', 'sitepress'); ?></td>
+    <?php $disabled = empty($wptranslations[$lang['code']]['available']); ?>
+    <td scope="col" align="right"><a href="<?php if(!$disabled) echo admin_url('admin.php?page=' . WPML_ST_FOLDER . '/menu/string-translation.php&amp;download_mo=' . $lang['code']. '&amp;version=' . $wptranslations[$lang['code']]['available']); else echo '#'; ?>" class="button-secondary" <?php if($disabled): ?>disabled="disabled" onclick="return false;"<?php endif;?>><?php  _e('Review changes and update', 'wpml-string-translation') ?></a></td>
+    <?php endif; ?>
     </tr>
     <?php endforeach; ?>                                                          
     </tbody>        
@@ -126,7 +137,24 @@ $locales = $sitepress->get_locale_file_names();
         <span class="icl_ajx_response" id="icl_ajx_response_fn"></span>
     </p>
     </form>
-    <br /><br />
+        
+    <?php if(!empty($sitepress_settings['st']['auto_download_mo'])):?>            
+        <?php if(!is_null($WPML_ST_MO_Downloader->get_option('last_time_xml_check'))): ?>
+            <?php if($WPML_ST_MO_Downloader->get_option('last_time_xml_check_trigger') == 'wp-update'): ?>
+                <?php printf(__('WPML last checked for WordPress translations %s when WordPress version updated. <a%s>Check now.</a>', 'sitepress'), 
+                    date("F j, Y @H:i", $WPML_ST_MO_Downloader->get_option('last_time_xml_check')), ' id="icl_adm_update_check" href="#"'); ?>
+            <?php else: ?>
+                <?php printf(__('WPML last checked for WordPress translations %s (manual). <a%s>Check now.</a>', 'sitepress'), 
+                    date("F j, Y @H:i", $WPML_ST_MO_Downloader->get_option('last_time_xml_check')), ' id="icl_adm_update_check" href="#"'); ?>
+            <?php endif;?>
+        <?php else: ?>
+            <?php printf(__('WPML has never checked for WordPress translations. <a%s>Check now.</a>', 'sitepress'), ' id="icl_adm_update_check" href="#"'); ?>
+        <?php endif; ?>
+    <?php endif; ?>
+    
+    <br />    
+    <div id="icl_adm_updates" class="icl_cyan_box" style="display:none"></div>    
+    <br />
     </div> 
     <?php endif; ?>
     

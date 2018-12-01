@@ -7,7 +7,7 @@ if (!defined('W3TC')) {
     die();
 }
 
-require_once W3TC_LIB_W3_DIR . '/Plugin.php';
+w3_require_once(W3TC_LIB_W3_DIR . '/Plugin.php');
 
 /**
  * Class W3_Plugin_BrowserCache
@@ -24,35 +24,16 @@ class W3_Plugin_BrowserCache extends W3_Plugin {
             ));
         }
 
-        if ($this->can_ob()) {
-            ob_start(array(
+        if (!$this->_config->get_boolean('browsercache.html.etag')) {
+            add_filter('wp_headers', array(
                 &$this,
-                'ob_callback'
-            ));
+                'filter_wp_headers')
+                ,0,2);
         }
-    }
 
-    /**
-     * Instantiates worker with admin functionality on demand
-     *
-     * @return W3_Plugin_BrowserCacheAdmin
-     */
-    function &get_admin() {
-        return w3_instance('W3_Plugin_BrowserCacheAdmin');
-    }
-
-    /**
-     * Activate plugin action (called by W3_PluginProxy)
-     */
-    function activate() {
-        $this->get_admin()->activate();
-    }
-
-    /**
-     * Deactivate plugin action (called by W3_PluginProxy)
-     */
-    function deactivate() {
-        $this->get_admin()->deactivate();
+        if ($this->can_ob()) {
+            w3tc_add_ob_callback('browsercache', array($this,'ob_callback'));
+        }
     }
 
     /**
@@ -130,7 +111,7 @@ class W3_Plugin_BrowserCache extends W3_Plugin {
         if ($buffer != '' && w3_is_xml($buffer)) {
             $domain_url_regexp = w3_get_domain_url_regexp();
 
-            $buffer = preg_replace_callback('~(href|src|action)=[\'"]((' . $domain_url_regexp . ')?(/[^\'"]*\.([a-z-_]+)(\?[^\'"]*)?))[\'"]~Ui', array(
+            $buffer = preg_replace_callback('~(href|src|action|extsrc|asyncsrc|w3tc_load_js\()=?[\'"]((' . $domain_url_regexp . ')?(/[^\'"]*\.([a-z-_]+)(\?[^\'"]*)?))[\'"]~Ui', array(
                 &$this,
                 'link_replace_callback'
             ), $buffer);
@@ -162,7 +143,9 @@ class W3_Plugin_BrowserCache extends W3_Plugin {
             $url = w3_remove_query($url);
             $url .= (strstr($url, '?') !== false ? '&amp;' : '?') . $id;
 
-            return sprintf('%s="%s"', $attr, $url);
+            if ($attr != 'w3tc_load_js(')
+                return sprintf('%s="%s"', $attr, $url);
+            return sprintf('%s\'%s\'', $attr, $url);
         }
 
         return $match;
@@ -198,7 +181,8 @@ class W3_Plugin_BrowserCache extends W3_Plugin {
                 'browsercache.other.cache.control',
                 'browsercache.other.cache.policy',
                 'browsercache.other.etag',
-                'browsercache.other.w3tc'
+                'browsercache.other.w3tc',
+                'browsercache.timestamp'
             );
 
             $values = array();
@@ -293,13 +277,11 @@ class W3_Plugin_BrowserCache extends W3_Plugin {
     function get_cache_config() {
         $config = array();
 
-        $cssjs_types = $this->_get_cssjs_types();
-        $html_types = $this->_get_html_types();
-        $other_types = $this->_get_other_types();
+        $e = w3_instance('W3_BrowserCacheAdminEnvironment');
+        $mime_types = $e->get_mime_types();
 
-        $this->_get_cache_config($config, $cssjs_types, 'cssjs');
-        $this->_get_cache_config($config, $html_types, 'html');
-        $this->_get_cache_config($config, $other_types, 'other');
+        foreach ($mime_types as $type => $extensions)
+            $this->_get_cache_config($config, $extensions, $type);
 
         return $config;
     }
@@ -308,7 +290,7 @@ class W3_Plugin_BrowserCache extends W3_Plugin {
      * Writes cache config
      *
      * @param string $config
-     * @param string $mime_types
+     * @param array $mime_types
      * @param array $section
      * @return void
      */
@@ -324,9 +306,20 @@ class W3_Plugin_BrowserCache extends W3_Plugin {
             $config[$mime_type] = array(
                 'etag' => $etag,
                 'w3tc' => $w3tc,
-                'lifetime' => ($expires ? $lifetime : 0),
+                'lifetime' => $lifetime,
+                'expires' => $expires,
                 'cache_control' => ($cache_control ? $cache_policy : false)
             );
         }
+    }
+
+    /**
+     * Filters headers set by WordPress
+     * @param $headers
+     */
+    function filter_wp_headers($headers, $wp) {
+        if (!empty($wp->query_vars['feed']))
+            unset($headers['ETag']);
+        return $headers;
     }
 }

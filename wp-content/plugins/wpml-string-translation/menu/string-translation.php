@@ -1,9 +1,5 @@
 <?php 
 icl_st_reset_current_trasnslator_notifications();
-//delete_option($wpdb->prefix . 'icl_translators_cached');
-
-//$site_translators = TranslationManagement::get_blog_translators(array('from'=>$sitepress_settings['st']['strings_language'], 'to'=>$target));
-//echo '<pre>' . print_r($site_translators, 1) . '</pre>';
 
 if((!isset($sitepress_settings['existing_content_language_verified']) || !$sitepress_settings['existing_content_language_verified']) /*|| 2 > count($sitepress->get_active_languages())*/){
     return;
@@ -12,6 +8,9 @@ if((!isset($sitepress_settings['existing_content_language_verified']) || !$sitep
 if(isset($_GET['trop']) && $_GET['trop'] > 0){
     include dirname(__FILE__) . '/string-translation-translate-options.php';
     return;
+}elseif(isset($_GET['download_mo']) && $_GET['download_mo']){
+    include dirname(__FILE__) . '/auto-download-mo.php';
+    return;    
 }
 
 if(isset($_GET['status']) && preg_match("#".ICL_STRING_TRANSLATION_WAITING_FOR_TRANSLATOR."-(.+)#", $_GET['status'], $matches)){
@@ -52,11 +51,8 @@ if(!empty($sitepress_settings['st']['theme_localization_domains']) && is_array($
         if($c) $available_contexts[] = 'theme ' . $c;
     }
 }
+    
 $available_contexts = array_unique($available_contexts);
-if(empty($sitepress_settings['st']['strings_language'])){
-    $iclsettings['st']['strings_language'] = $sitepress_settings['st']['strings_language'] = $sitepress->get_default_language();
-    $sitepress->save_settings($iclsettings);
-}
 
 function _icl_string_translation_rtl_div($language) {
     if (in_array($language, array('ar','he','fa'))) {
@@ -75,6 +71,7 @@ function _icl_string_translation_rtl_textarea($language) {
 
 ?>
 <div class="wrap">
+
     <div id="icon-wpml" class="icon32"><br /></div>
     <h2><?php echo __('String translation', 'wpml-string-translation') ?></h2>    
     
@@ -82,10 +79,12 @@ function _icl_string_translation_rtl_textarea($language) {
     
     <?php if(isset($icl_st_po_strings) && !empty($icl_st_po_strings)): ?>
     
-        <p><?php printf(__('These are the strings that we found in your .po file. Please carefully review them. Then, click on the \'add\' or \'cancel\' buttons at the <a href="%s">bottom of this screen</a>. You can exclude individual strings by clearing the check boxes next to them.', 'wpml-string-translation'), '#add_po_strings_confirm'); ?></p>        
-        <form method="post" action="admin.php?page=<?php echo WPML_ST_FOLDER ?>/menu/string-translation.php">
+        <p><?php printf(__('These are the strings that we found in your .po file. Please carefully review them. Then, click on the \'add\' or \'cancel\' buttons at the <a href="%s">bottom of this screen</a>. You can exclude individual strings by clearing the check boxes next to them.', 'wpml-string-translation'), '#add_po_strings_confirm'); ?></p>  
+        
+        <form method="post" action="<?php echo admin_url("admin.php?page=" . WPML_ST_FOLDER . "/menu/string-translation.php");?>">
         <?php wp_nonce_field('add_po_strings') ?>
         <?php if(isset($_POST['icl_st_po_translations'])): ?>
+        <input type="hidden" name="action" value="icl_st_save_strings" />
         <input type="hidden" name="icl_st_po_language" value="<?php echo $_POST['icl_st_po_language'] ?>" />
         <?php endif; ?>
         <input type="hidden" name="icl_st_domain_name" value="<?php echo $_POST['icl_st_i_context_new']?$_POST['icl_st_i_context_new']:$_POST['icl_st_i_context'] ?>" />
@@ -121,7 +120,7 @@ function _icl_string_translation_rtl_textarea($language) {
         </table>            
         <a name="add_po_strings_confirm"></a>        
         <p><input class="button" type="button" value="<?php echo __('Cancel', 'wpml-string-translation'); ?>" onclick="location.href='admin.php?page=<?php echo $_GET['page'] ?>'" />
-        &nbsp; <input class="button-primary" type="submit" name="icl_st_save_strings" value="<?php echo __('Add selected strings', 'wpml-string-translation'); ?>" />
+        &nbsp; <input class="button-primary" type="submit" value="<?php echo __('Add selected strings', 'wpml-string-translation'); ?>" />
         </p>
         </form>
 
@@ -577,11 +576,6 @@ function _icl_string_translation_rtl_textarea($language) {
                                 <form id="icl_st_ar_form" name="icl_st_ar_form" method="post" action="">
                                 <?php wp_nonce_field('icl_st_ar_form_nonce', '_icl_nonce') ?>
                                     <p class="icl_form_errors" style="display:none"></p>
-                                    <?php
-                                        if (!isset($sitepress_settings['st']['icl_st_auto_reg'])) {
-                                            $sitepress_settings['st']['icl_st_auto_reg'] = 'disable';
-                                        }
-                                    ?>
                                     <ul>
                                         <li>
                                         <label>
@@ -745,7 +739,7 @@ function _icl_string_translation_rtl_textarea($language) {
                             </h3>         
                             <div class="inside">
                                 <form id="icl_st_more_options" name="icl_st_more_options" method="post">
-                                <?php wp_nonce_field('icl_st_more_options') ?>
+                                <?php wp_nonce_field('icl_st_more_options_nonce', '_icl_nonce') ?>
                                 <div>
                                     <?php 
                                     $editable_roles = get_editable_roles(); 
@@ -803,16 +797,12 @@ function _icl_string_translation_rtl_textarea($language) {
         
         <br clear="all" /><br />
     
-    
-        <a href="admin.php?page=<?php echo WPML_ST_FOLDER ?>/menu/string-translation.php&amp;trop=1"><?php _e('Translate texts in admin screens &raquo;', 'wpml-string-translation'); ?></a> 
+        <a href="admin.php?page=<?php echo WPML_ST_FOLDER ?>/menu/string-translation.php&amp;trop=1"><?php _e('Translate texts in admin screens &raquo;', 'wpml-string-translation'); ?></a>         
     
     <?php endif; //if(current_user_can('manage_options') ?>
     
     <?php endif; ?>
     
     <?php do_action('icl_menu_footer'); ?>
-    
-    <pre>
-    </pre>
     
 </div>

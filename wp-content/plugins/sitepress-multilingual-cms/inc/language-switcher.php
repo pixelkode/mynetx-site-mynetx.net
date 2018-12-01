@@ -237,8 +237,10 @@ class SitePressLanguageSwitcher {
                             }else{
                                 $lang_translated = false;
                             }
+                            $lang_native_hidden     = false;
+                            $lang_translated_hidden = false;
                         }
-                        echo @icl_disp_language($lang_native, $lang_translated, $lang_native_hidden, $lang_translated_hidden);
+                        echo icl_disp_language($lang_native, $lang_translated, $lang_native_hidden, $lang_translated_hidden);
                     //echo icl_disp_language( $this->settings['icl_lso_native_lang'] ? $l['native_name'] : null, $this->settings['icl_lso_display_lang'] ? $l['translated_name'] : null );
                     //if(!$l['active']) echo '</a>';
                     echo '</a>';

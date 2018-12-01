@@ -199,7 +199,7 @@
                                 $translation_status = $wpdb->get_var($wpdb->prepare("
                                     SELECT status FROM {$wpdb->prefix}icl_translation_status WHERE translation_id=%d"
                                 , $translation_id));
-                                if($translation_status < ICL_TM_COMPLETE){
+                                if(!is_null($translation_status) && $translation_status < ICL_TM_COMPLETE){
                                     $ddisabled = ' disabled="disabled"';
                                     $dtitle    = esc_attr__("Can't create a duplicate. A translation is in progress.", 'sitepress');
                                 }

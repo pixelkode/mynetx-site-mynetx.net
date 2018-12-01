@@ -333,6 +333,10 @@ class TranslationManagement{
                 );
                 break;
            case 'create_job':
+                global $current_user;
+                if(!isset($this->current_translator->ID) && isset($current_user->ID)){
+                    $this->current_translator->ID  = $current_user->ID;   
+                }
                 $data['translator'] = $this->current_translator->ID;
                 $job_ids = $this->send_jobs($data);
                 wp_redirect('admin.php?page='.WPML_TM_FOLDER . '/menu/translations-queue.php&job_id=' . array_pop($job_ids));
@@ -764,7 +768,8 @@ class TranslationManagement{
         }
         
         // when a manual translation is added/edited make sure to update translation tables
-        if(!empty($_POST['icl_trid']) && ($this->settings['doc_translation_method'] == ICL_TM_TMETHOD_MANUAL || $force_set_status) && !$is_original){
+        if(!empty($_POST['icl_trid']) && !$is_original){        
+        
             $trid = $_POST['icl_trid'];
             $lang = $_POST['icl_post_language'];
             
@@ -3075,13 +3080,13 @@ class TranslationManagement{
     }
 
     function _override_get_translatable_taxonomies($taxs_obj_type){                
-        global $wp_taxonomies;
+        global $wp_taxonomies, $sitepress;
         
         $taxs = $taxs_obj_type['taxs'];        
         
         $object_type = $taxs_obj_type['object_type'];
         foreach($taxs as $k=>$tax){
-            if(isset($this->settings['taxonomies_readonly_config'][$tax]) && !$this->settings['custom_types_readonly_config'][$tax]){
+            if(!$sitepress->is_translated_taxonomy($tax)){
                 unset($taxs[$k]);
             }
         }
@@ -3184,7 +3189,7 @@ class TranslationManagement{
         $return['name'] = 'ICanLocalize';
         $return['logo'] = ICL_PLUGIN_URL . '/res/img/web_logo_small.png';
         $return['setup_url'] = $sitepress->create_icl_popup_link('@select-translators;from_replace;to_replace@', array('ar' => 1), true);
-        $return['description'] = __('Looking for a quality translation service? ICanLocalize offers excellent<br /> human service done by expert translators, starts at only $0.07 per word.', 'sitepress');
+        $return['description'] = __('Looking for a quality translation service? ICanLocalize offers excellent<br /> human service done by expert translators, starts at only $0.09 per word.', 'sitepress');
         $info['icanlocalize'] = $return;
         return $info;
     }
@@ -3328,7 +3333,6 @@ class TranslationManagement{
             $id = wp_insert_post($postarr);
         }
         
-        
         if(!is_wp_error($id)){
             
             $sitepress->set_element_language_details($id, 'post_' . $master_post->post_type, $trid, $lang);
@@ -3384,17 +3388,23 @@ class TranslationManagement{
                             if(is_taxonomy_hierarchical($taxonomy)){
                                 $terms_array[] = $t->term_id;                                        
                             }else{
-                                $terms_array[] = $t->term_name;        
+                                $terms_array[] = $t->name;        
                             }
                         }
                     } 
                     wp_set_post_terms($id, $terms_array, $taxonomy);
                 }
             }
-            return $id;
+            $ret = $id;
+            do_action('icl_make_duplicate', $master_post_id, $lang, $postarr, $id);
+            
         }else{
-            return false;
+            $ret = false;
         }
+        
+        
+        
+        return $ret;
         
     }
     

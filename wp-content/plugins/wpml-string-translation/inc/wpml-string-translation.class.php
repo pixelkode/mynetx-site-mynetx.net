@@ -18,11 +18,19 @@ class WPML_String_Translation{
     }
     
     function init(){        
+        global $sitepress_settings;
         
         if(is_admin()){
             wp_enqueue_style('thickbox');
             wp_enqueue_script('jquery');
             wp_enqueue_script('thickbox');
+        }
+        
+        
+        if(is_admin()){            
+            require_once WPML_ST_PATH . '/inc/auto-download-locales.php';
+            global $WPML_ST_MO_Downloader;
+            $WPML_ST_MO_Downloader = new WPML_ST_MO_Downloader;
         }
         
         $this->plugin_localization();
@@ -38,7 +46,7 @@ class WPML_String_Translation{
             return false;            
         }        
         
-        global $sitepress_settings;
+        
         
         add_action('admin_menu', array($this,'menu'));           
         
@@ -63,6 +71,7 @@ class WPML_String_Translation{
         
         // add message to WPML dashboard widget
         add_action('icl_dashboard_widget_content', array($this, 'icl_dashboard_widget_content'));        
+        
         
     }
     
@@ -93,7 +102,7 @@ class WPML_String_Translation{
     }
     
     function ajax_calls($call, $data){
-
+        global $sitepress;
         switch($call){        
             
             case 'icl_st_save_translation':
@@ -140,6 +149,7 @@ class WPML_String_Translation{
                     echo '0' . __('No strings selected', 'wpml-string-translation');
                 }
                 break;
+            
             // OBSOLETE?
             case 'icl_st_ow_export':
                 // filter empty options out
@@ -166,7 +176,9 @@ class WPML_String_Translation{
                     $message = __('Error: no strings selected', 'wpml-string-translation');
                 }
                 echo json_encode(array('error'=>0, 'message'=>$message));
-                break;            
+                break; 
+                
+                       
         }
     }
     

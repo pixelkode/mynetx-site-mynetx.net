@@ -47,8 +47,8 @@ class WPML_Translation_Management{
             add_action('icl_post_languages_options_before', array($this, 'icl_post_languages_options_before'));
             
             // Add a nice warning message if the user tries to edit a post manually and it's actually in the process of being translated
-            global $pagenow;
-            if($pagenow == 'post-new.php' && isset($_GET['trid']) && isset($_GET['lang'])){
+            global $pagenow, $sitepress;
+            if(($pagenow == 'post-new.php' || $pagenow == 'post.php') && (isset($_GET['trid']) || isset($_GET['post']) ) && isset($_GET['lang'])){
                 add_action('admin_notices', array($this, '_warn_editing_icl_translation'));    
             }
             
@@ -128,24 +128,51 @@ class WPML_Translation_Management{
     }
   
     function _warn_editing_icl_translation(){
-        global $wpdb;
-        $translation_id = $wpdb->get_var($wpdb->prepare("
-                SELECT translation_id FROM {$wpdb->prefix}icl_translations WHERE trid=%d AND language_code='%s'"
-            , $_GET['trid'], $_GET['lang']));
+        global $wpdb, $iclTranslationManagement;
+        
+        if(isset($_GET['trid'])){
+            $translation_id = $wpdb->get_var($wpdb->prepare("
+                    SELECT translation_id FROM {$wpdb->prefix}icl_translations WHERE trid=%d AND language_code='%s'"
+                , $_GET['trid'], $_GET['lang']));            
+        }else{
+            $post_type = $wpdb->get_var($wpdb->prepare("SELECT post_type FROM {$wpdb->posts} WHERE ID=%d", $_GET['post']));
+            $translation_id = $wpdb->get_var($wpdb->prepare("
+                    SELECT translation_id FROM {$wpdb->prefix}icl_translations WHERE element_id=%d AND element_type=%s AND language_code='%s'"
+                , $_GET['post'], 'post_' . $post_type, $_GET['lang']));            
+        }
+         
         if($translation_id){
             $translation_status = $wpdb->get_var($wpdb->prepare("
                 SELECT status FROM {$wpdb->prefix}icl_translation_status WHERE translation_id=%d"
-            , $translation_id));
+            , $translation_id));            
             if($translation_status < ICL_TM_COMPLETE){
                 echo '<div class="error fade"><p id="icl_side_by_site">'. 
                     sprintf(__('<strong>Warning:</strong> You are trying to edit a translation that is currently in the process of being added using WPML.' , 'wpml-translation-management')) . '<br /><br />'.
                     sprintf(__('Please refer to the <a href="%s">Translation management dashboard</a> for the exact status of this translation.' , 'wpml-translation-management'),
                     admin_url('admin.php?page='.WPML_TM_FOLDER.'/menu/main.php&')) . '</p></div>';    
+            }else{
+                if($iclTranslationManagement->settings['doc_translation_method'] == ICL_TM_TMETHOD_EDITOR){
+                ?>
+                <div class="error">
+                    <p><?php _e('<strong>Warning:</strong> You are trying to edit a translation using the standard WordPress editor but your site is configured to use the WPML Translation Editor.' , 'wpml-translation-management')?></p>
+                </div>
+                <?php
+                }
+            }
+        }else{
+            if($iclTranslationManagement->settings['doc_translation_method'] == ICL_TM_TMETHOD_EDITOR){
+            ?>
+            <div class="error">
+                <p><?php _e('<strong>Warning:</strong> You are trying to add a translation using the standard WordPress editor but your site is configured to use the WPML Translation Editor.' , 'wpml-translation-management')?></p>
+                <p><?php printf(__('You should use <a href="%s">Translation management dashboard</a> for for sending the original document to translation.' , 'wpml-translation-management'), admin_url('admin.php?page='.WPML_TM_FOLDER.'/menu/main.php')); ?>
+                </p>
+            </div>
+            <?php
             }
         }
         
     }
-    
+        
     function dismiss_icl_side_by_site(){
         global $iclTranslationManagement;
         $iclTranslationManagement->settings['doc_translation_method'] = ICL_TM_TMETHOD_MANUAL;

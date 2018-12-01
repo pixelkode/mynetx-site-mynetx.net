@@ -1,8 +1,10 @@
+        
+        <h3><?php _e('Strings in the theme', 'wpml-string-translation'); ?></h3>
+        
         <div class="updated fade">
             <p><i><?php _e('Re-scanning the plugins or the themes will reset the strings tracked in the code or the HTML source', 'wpml-string-translation') ?></i></p>
         </div>
         
-        <h3><?php _e('Strings in the theme', 'wpml-string-translation'); ?></h3>
         <div id="icl_strings_in_theme_wrap">
         
         <?php if($theme_localization_stats): ?>
@@ -157,7 +159,7 @@
                                     </tr>            
                                 </table>
                             </td>
-                            <td align="right" style="padding-top:10px;">
+                            <td align="right" style="padding:10px;">
                                 <?php if($_tmplink): ?>
                                     <p><a href="admin.php?page=<?php echo WPML_ST_FOLDER ?>/menu/string-translation.php&amp;context=<?php echo $plugin_id ?>" class="button-secondary"><?php echo __("View all the plugin's texts",'wpml-string-translation')?></a></p>
                                     <?php if($_tmpinco): ?>

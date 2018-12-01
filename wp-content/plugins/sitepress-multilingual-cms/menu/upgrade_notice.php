@@ -18,8 +18,15 @@ $upgrade_lines =  array(
     '1.7.8' => __('Supports custom post types','sitepress'),
     '1.8.0' => __('Supports multilingual menus','sitepress'),
     '1.8.1' => __('Multilingual menus bug fixes and improved translation interface','sitepress'),
-    '2.0.0' => __('New Translator role and full translation management workflow','sitepress')
+    '2.0.0' => __('New Translator role and full translation management workflow','sitepress')    
 );
+
+if(defined('WPML_ST_VERSION')){
+    $upgrade_lines['2.6.0'] = sprintf(__('WPML can automatically download translations for WordPress. %sEnable now%s','sitepress'), 
+                '<a class="button-secondary" href="' . admin_url('admin.php?page=' . ICL_PLUGIN_FOLDER . '/menu/theme-localization.php') . '">', '</a>' );
+                
+       
+}
 
 $short_v = implode('.', array_slice(explode('.', ICL_SITEPRESS_VERSION), 0, 3));
 if(!isset($upgrade_lines[$short_v])) return;

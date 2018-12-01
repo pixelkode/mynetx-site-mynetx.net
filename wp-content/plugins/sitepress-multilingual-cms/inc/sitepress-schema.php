@@ -93,7 +93,7 @@ function icl_sitepress_activate(){
             $sql = "
             CREATE TABLE `{$table_name}` (
                 `translation_id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-                `element_type` VARCHAR( 32 ) NOT NULL DEFAULT 'post_post',
+                `element_type` VARCHAR( 36 ) NOT NULL DEFAULT 'post_post',
                 `element_id` BIGINT NULL DEFAULT NULL ,
                 `trid` BIGINT NOT NULL ,
                 `language_code` VARCHAR( 7 ) NOT NULL,

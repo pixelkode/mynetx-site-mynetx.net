@@ -8,7 +8,6 @@ $icl_st_string_translation_statuses = array(
     ICL_STRING_TRANSLATION_WAITING_FOR_TRANSLATOR => __('Waiting for translator','wpml-string-translation')
 );
 
-
 add_action('plugins_loaded', 'icl_st_init');
 add_action('icl_update_active_languages', 'icl_update_string_status_all');
 add_action('update_option_blogname', 'icl_st_update_blogname_actions',5,2);
@@ -37,7 +36,7 @@ function icl_st_init(){
     if ( get_magic_quotes_gpc() && isset($_GET['page']) && $_GET['page'] == WPML_ST_FOLDER . '/menu/string-translation.php'){
         $_POST = stripslashes_deep( $_POST );         
     }
-                         
+              
     if(!isset($sitepress_settings['existing_content_language_verified']) || !$sitepress_settings['existing_content_language_verified']){
         return;
     }          
@@ -54,6 +53,14 @@ function icl_st_init(){
     }elseif(isset($_GET['strings_per_page']) && $_GET['strings_per_page'] > 0){
         $sitepress_settings['st']['strings_per_page'] = $_GET['strings_per_page'];
         $sitepress->save_settings($sitepress_settings); 
+    }
+    if(!isset($sitepress_settings['st']['icl_st_auto_reg'])){
+        $sitepress_settings['st']['icl_st_auto_reg'] = 'disabled';
+        $sitepress->save_settings($sitepress_settings); 
+    }
+    if(empty($sitepress_settings['st']['strings_language'])){
+        $iclsettings['st']['strings_language'] = $sitepress_settings['st']['strings_language'] = $sitepress->get_default_language();
+        $sitepress->save_settings($iclsettings);
     }
     
     if(!isset($sitepress_settings['st']['translated-users'])) $sitepress_settings['st']['translated-users'] = array();
@@ -161,7 +168,7 @@ function icl_st_init(){
             }
         }
     }
-    elseif(isset($_POST['icl_st_save_strings'])){
+    elseif(isset($_POST['action']) && 'icl_st_save_strings' == $_POST['action']){
         $arr = array_intersect_key($_POST['icl_strings'], array_flip($_POST['icl_strings_selected']));
         //$arr = array_map('html_entity_decode', $arr);         
         if(isset($_POST['icl_st_po_language'])){
@@ -169,6 +176,7 @@ function icl_st_init(){
             $arr_f = array_intersect_key($_POST['icl_fuzzy'], array_flip($_POST['icl_strings_selected']));
             //$arr_t = array_map('html_entity_decode', $arr_t);         
         }   
+        
         
         // see if the strings are already registered and have names
         // case of adding translation
@@ -569,8 +577,9 @@ function icl_t($context, $name, $original_value=false, &$has_translation=null, $
             if (isset($sitepress_settings['st']['icl_st_auto_reg'])) {
                 $auto_reg = $sitepress_settings['st']['icl_st_auto_reg'];
             } else {
-                $auto_reg = 'auto-admin';
+                $auto_reg = 'disabled';
             }
+            
             switch ($auto_reg) {
                 case 'auto-admin':                    
                     if (current_user_can('manage_options')) {
@@ -1030,7 +1039,7 @@ function icl_sw_filters_gettext($translation, $text, $domain, $name = false){
     }elseif(0 === strpos($dbt4, $wpmu_plugin_dir)){ 
         $context = ($domain != 'default') ? 'plugin ' . $domain : 'plugin';         
     }else{
-        $context = ($domain != 'default') ? 'theme ' . $domain : 'theme';
+        $context = ($domain != 'default') ? 'theme ' . $domain : 'WordPress';
     }
     
     // track strings if the user has enabled this and if it's and editor or admin
@@ -1056,14 +1065,14 @@ function icl_sw_filters_gettext($translation, $text, $domain, $name = false){
 }
 
 function icl_sw_filters_gettext_with_context($translation, $text, $_gettext_context, $domain){
-    return icl_sw_filters_gettext($translation, $text, $domain, $_gettext_context);
+    return icl_sw_filters_gettext($translation, $text, $domain, $_gettext_context . ': ' . $text);
 }
 
 function icl_sw_filters_ngettext($translation, $single, $plural, $number, $domain, $_gettext_context = false){    
     if($number == 1){
-        return icl_sw_filters_gettext($translation, $single, $domain, $_gettext_context);    
+        return @sprintf(icl_sw_filters_gettext($translation, $single, $domain, $_gettext_context), $number);    
     }else{
-        return icl_sw_filters_gettext($translation, $plural, $domain, $_gettext_context);
+        return @sprintf(icl_sw_filters_gettext($translation, $plural, $domain, $_gettext_context), $number);
     }
 }
 
@@ -1139,10 +1148,12 @@ function icl_st_author_description_filter($value, $user_id){
 
 function icl_st_author_displayname_filter($value){
     global $authordata, $sitepress_settings;
-        
-    $user = new WP_User($authordata->ID);        
-    if ( is_array( $user->roles ) && array_intersect($user->roles, (array)$sitepress_settings['st']['translated-users'])){
-        $value = icl_st_translate_author_fields('display_name', $value, isset($authordata->ID)?$authordata->ID:null);
+    
+    if(isset($authordata->ID)){    
+        $user = new WP_User($authordata->ID);        
+        if ( is_array( $user->roles ) && array_intersect($user->roles, (array)$sitepress_settings['st']['translated-users'])){
+            $value = icl_st_translate_author_fields('display_name', $value, isset($authordata->ID)?$authordata->ID:null);
+        }
     }
     
     return $value;
@@ -2205,7 +2216,7 @@ function icl_st_translate_admin_string($option_value, $key="", $name="", $rec_le
             $tr = icl_t('admin_texts_' . $key_suff, $key . $name, $option_value, $hast, true);                
         } 
                 
-        if(!is_null($tr)){
+        if(isset($tr)){
             $option_value = $tr;
         }
         
@@ -2217,7 +2228,7 @@ function icl_st_translate_admin_string($option_value, $key="", $name="", $rec_le
     }
     
     // cache - phase 2 - set
-    if($rec_val == 0){
+    if($rec_level == 0){
         $__icl_st_cache[$name] = $option_value;
     }
     
@@ -2227,18 +2238,21 @@ function icl_st_translate_admin_string($option_value, $key="", $name="", $rec_le
 function icl_st_get_mo_files($path){
     static $mo_files = array();
     
-    $dh = opendir($path);
-    while($f = readdir($dh)){            
-        if(0 !== strpos($f, '.')){    
-            if(is_dir($path . '/' . $f)){
-                icl_st_get_mo_files($path . '/' . $f);
-            }else{
-                if(preg_match('#\.mo$#', $f)){                    
-                    $mo_files[] = $path . '/' . $f;
+    if(is_readable($path)){
+        $dh = opendir($path);
+        while($f = readdir($dh)){            
+            if(0 !== strpos($f, '.')){    
+                if(is_dir($path . '/' . $f)){
+                    icl_st_get_mo_files($path . '/' . $f);
+                }else{
+                    if(preg_match('#\.mo$#', $f)){                    
+                        $mo_files[] = $path . '/' . $f;
+                    }
                 }
             }
-        }
-    }    
+        }    
+    }
+    
     return $mo_files;
 }
 

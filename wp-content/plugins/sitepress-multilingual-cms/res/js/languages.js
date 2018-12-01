@@ -16,6 +16,7 @@ addLoadEvent(function(){
     jQuery('#icl_adjust_ids').submit(iclSaveForm);    
     jQuery('#icl_automatic_redirect').submit(iclSaveForm);    
     jQuery('input[name="icl_language_negotiation_type"]').change(iclLntDomains);
+    jQuery('#icl_seo_options').submit(iclSaveForm);    
     
     jQuery('#icl_setup_back_1').click(iclSetupStep1);
     jQuery('#icl_setup_back_2').click(iclSetupStep2);    

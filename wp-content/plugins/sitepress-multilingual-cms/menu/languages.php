@@ -125,6 +125,7 @@ global $language_switcher_defaults, $language_switcher_defaults_alt;
                 '<li><a href="#lang-sec-7">'.icl_nobreak(__('Hide languages', 'sitepress')).'</a></li>'.
                 '<li><a href="#lang-sec-8">'.icl_nobreak(__('Make themes work multilingual', 'sitepress')).'</a></li>'.
                 '<li><a href="#lang-sec-9">'.icl_nobreak(__('Browser language redirect', 'sitepress')).'</a></li>'.
+                '<li><a href="#lang-sec-9-5">'.icl_nobreak(__('SEO Options', 'sitepress')).'</a></li>'.
                 '<li><a href="#lang-sec-10">'.icl_nobreak(__('WPML love', 'sitepress')).'</a></li>'.
             '</ul>'
             );
@@ -800,6 +801,33 @@ global $language_switcher_defaults, $language_switcher_defaults_alt;
     
     <?php do_action('icl_extra_options_' . $_GET['page']); ?>        
         
+    <a name="lang-sec-9-5"></a>
+    <table class="widefat">
+        <thead>
+            <tr>
+                <th><?php _e('SEO Options', 'sitepress') ?></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <form id="icl_seo_options" name="icl_seo_options" action="">
+                    <?php wp_nonce_field('icl_seo_options_nonce', '_icl_nonce'); ?>
+                    <p>
+                        <label><input type="checkbox" name="icl_seo_head_langs" <?php if($sitepress_settings['seo']['head_langs']) echo 'checked="checked"' ?> value="1" /> 
+                        <?php _e("Display alternative languages in the HEAD section.", 'sitepress'); ?></label>
+                    </p>
+                    <p>
+                        <input class="button" name="save" value="<?php echo __('Apply','sitepress') ?>" type="submit" />
+                        <span class="icl_ajx_response" id="icl_ajx_response_seo"></span>
+                    </p>                    
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <br />
     <a name="lang-sec-10"></a>
     <table class="widefat">
         <thead>
@@ -824,7 +852,7 @@ global $language_switcher_defaults, $language_switcher_defaults_alt;
                 </td>
             </tr>
         </tbody>
-    </table>
+    </table>    
 
     <?php endif; ?>
     <br />

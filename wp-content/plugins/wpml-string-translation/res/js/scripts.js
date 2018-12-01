@@ -44,6 +44,7 @@ jQuery(document).ready(function(){
     jQuery('#icl_st_option_write_form').submit(icl_st_admin_options_form_submit);
     jQuery('#icl_st_option_write_form').submit(iclSaveForm);
     
+            
     jQuery('.icl_stow_toggler').click(icl_st_admin_strings_toggle_strings);
     
     jQuery('#icl_st_ow_export').click(icl_st_ow_export_selected);
@@ -83,6 +84,7 @@ jQuery(document).ready(function(){
         }
     );
         
+    icl_auto_download_mo.init();
         
 });
 
@@ -513,4 +515,74 @@ function icl_st_cancel_local_translation(ahref){
         }
     });
     return false;
+}
+
+
+var icl_auto_download_mo = {
+    
+    init: function(){
+        
+        icl_auto_download_mo.list_form_setup();
+        
+        jQuery('#icl_auto_download_mo').live('submit', icl_auto_download_mo.save_preferences);
+        jQuery('#icl_adm_update_check').live('click', icl_auto_download_mo.updates_check);
+        
+    },
+    
+    save_preferences: function(){
+        var thisf = jQuery(this);
+        var data = thisf.serialize();        
+        thisf.find('input:last').after(icl_ajxloaderimg);
+        jQuery.ajax({
+            type: "POST",
+            url: ajaxurl,
+            data: data,
+            dataType: 'json',
+            success: function(msg){
+                if(msg.enabled){
+                    jQuery('#icl_adm_update_check').fadeIn();
+                }else{
+                    jQuery('#icl_adm_update_check').fadeOut();
+                }                         
+                thisf.find('input:last').next().hide();                
+                try{
+                    jQuery('#icl_adm_options').pointer('close');    
+                }catch(err){;}
+                
+                location.href = location.href.replace(/#(.+)$/, '');
+                
+            }
+        });    
+        return false;
+    },
+        
+    list_form_setup: function(){
+        
+        jQuery('#icl_admo_list_table thead :checkbox').live('change', function(){
+            if(jQuery(this).is(':checked')){
+                jQuery('#icl_admo_list_table :checkbox').attr('checked', 'checked');
+            }else{
+                jQuery('#icl_admo_list_table :checkbox').removeAttr('checked');
+            }
+            
+        })
+        
+    },
+    
+    updates_check: function(){
+        jQuery('#icl_adm_updates').fadeIn().html(icl_ajxloaderimg);
+        jQuery.ajax({
+            type: "POST",
+            url: ajaxurl,
+            data: {action: 'icl_adm_updates_check'},
+            dataType: 'json',
+            success: function(msg){
+                jQuery('#icl_adm_updates').html(msg.html);        
+            }
+        });    
+        return false;
+        
+    }
+    
+    
 }

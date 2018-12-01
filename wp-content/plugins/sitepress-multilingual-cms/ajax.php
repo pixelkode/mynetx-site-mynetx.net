@@ -112,7 +112,7 @@ switch($_REQUEST['icl_ajx_action']){
             echo'0||' ;
         }
         if(1 === $response){
-            echo __('Wordpress language file (.mo) is missing. Keeping existing display language.', 'sitepress');
+            echo __('WordPress language file (.mo) is missing. Keeping existing display language.', 'sitepress');
         }
         break;
     case 'icl_tdo_options':
@@ -163,9 +163,9 @@ switch($_REQUEST['icl_ajx_action']){
             
             $active_languages = $this->get_active_languages();
             $default_language = $this->get_default_language();
-            foreach($active_languages as $al){
-                if($al != $default_language){
-                    if($this->_validate_language_per_directory($al)){
+            foreach($active_languages as $code=>$lng){
+                if($code != $default_language){
+                    if($this->_validate_language_per_directory($code)){
                         $iclsettings['language_negotiation_type'] = 1;
                     }            
                     break;
@@ -618,18 +618,14 @@ switch($_REQUEST['icl_ajx_action']){
         echo 1;
         break;
     case 'icl_st_more_options':
-        if(wp_verify_nonce($_POST['_wpnonce'], 'icl_st_more_options')){
-            $iclsettings['st']['translated-users'] = !empty($_POST['users']) ? array_keys($_POST['users']) : array();        
-            $this->save_settings($iclsettings);
-            if(!empty($iclsettings['st']['translated-users'])){
-                global $sitepress_settings;
-                $sitepress_settings['st']['translated-users'] = $iclsettings['st']['translated-users'];
-                icl_st_register_user_strings_all();
-            }
-            echo 1;
-        }else{
-            echo 0;
+        $iclsettings['st']['translated-users'] = !empty($_POST['users']) ? array_keys($_POST['users']) : array();        
+        $this->save_settings($iclsettings);
+        if(!empty($iclsettings['st']['translated-users'])){
+            global $sitepress_settings;
+            $sitepress_settings['st']['translated-users'] = $iclsettings['st']['translated-users'];
+            icl_st_register_user_strings_all();
         }
+        echo 1;
         break;
 
     case 'icl_st_ar_form':
@@ -829,7 +825,20 @@ switch($_REQUEST['icl_ajx_action']){
                     . '</span>';
         }
         break;
-                
+    
+    case 'icl_seo_options':
+        $iclsettings['seo']['head_langs'] = isset($_POST['icl_seo_head_langs']) ? intval($_POST['icl_seo_head_langs']) : 0;
+        $this->save_settings($iclsettings);
+        echo '1|';
+        break;
+    
+    case 'dismiss_object_cache_warning':
+        $iclsettings['dismiss_object_cache_warning'] = true;
+        $this->save_settings($iclsettings);
+        echo '1|';
+        break;
+        
+           
     default:
         do_action('icl_ajx_custom_call', $_REQUEST['icl_ajx_action'], $_REQUEST);
 }    

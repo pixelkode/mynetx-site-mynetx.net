@@ -269,7 +269,7 @@ class ICLMenusSync{
                 }
                 
                 $menu_tax_id = $wpdb->get_var($wpdb->prepare("
-                    SELECT term_taxonomy_id FROM {$wpdb->term_taxonomy} WHERE term_id=%d AND taxonomy='nav_menu'", $new_menu_id));
+                    SELECT term_taxonomy_id FROM {$wpdb->term_taxonomy} WHERE term_id=%d AND taxonomy='nav_menu'", $menu_id));
                 
                 $_ldetails = $sitepress->get_element_language_details($menu_tax_id, 'tax_nav_menu');
                 $language = $_ldetails->language_code;

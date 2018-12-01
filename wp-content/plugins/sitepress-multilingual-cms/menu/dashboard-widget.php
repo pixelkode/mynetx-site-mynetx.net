@@ -14,23 +14,7 @@ foreach ($active_languages as $lang) {
     }
     $alanguages_links[] = $lang['display_name'] . $hidden . $default;
 }
-//require_once(ICL_PLUGIN_PATH . '/inc/support.php');
-//$SitePress_Support = new SitePress_Support;
-//$pss_status = $SitePress_Support->get_subscription();
-//if (!isset($pss_status['valid'])) {
-//    $pss_string_status = __('None', 'sitepress');
-//} else {
-//    if ($pss_status['valid']) {
-//        $pss_string_status = '<span class="icl_valid_text">' . sprintf(__('Valid! (amount: $%d - until %s)', 'sitepress'), $pss_status['amount'], date('d/m/Y', $pss_status['expires'])) . '</span>';
-//    } else {
-//        $pss_string_status = '<span class="icl_error_text">' . sprintf(__('Expired! - since %s', 'sitepress'), date('d/m/Y', $pss_status['expires'])) . '</span>';
-//    }
-//}
 ?>
-<?php
-    $_GET['force_new_version_notice'] = 1;
-    include ICL_PLUGIN_PATH . '/menu/new_version_notice.php';
-?>        
 <?php if (empty($this->settings['setup_complete'])): ?>
     <p class="updated" style="text-align: center; padding:4px"><a href="admin.php?page=<?php echo ICL_PLUGIN_FOLDER ?>/menu/languages.php"><strong><?php _e('Setup languages', 'sitepress') ?></strong></a></p>
 <?php else: ?>
@@ -62,9 +46,8 @@ foreach ($active_languages as $lang) {
                                 <div><a href="javascript:void(0)" onclick="jQuery(this).parent().next('.wrapper').slideToggle();" style="display:block; padding:5px; border: 1px solid #eee; margin-bottom:2px; background-color: #F7F7F7;"><?php _e('Help resources', 'sitepress'); ?></a></div>
                                 <div class="wrapper" style="display:none; padding: 5px 10px; border: 1px solid #eee; border-top: 0px; margin:-11px 0 2px 0;">
                                     <p><img src="<?php echo ICL_PLUGIN_URL; ?>/res/img/question1.png" width="16" height="16" style="position: relative; top: 4px;" alt="<?php _e('WPML home page', 'sitepress'); ?>" />&nbsp;<a href="http://wpml.org/"><?php _e('WPML home page', 'sitepress'); ?></a>
-                                        <br /><img src="<?php echo ICL_PLUGIN_URL; ?>/res/img/RO-Mx1-16_tool-wrench.png" width="16" height="16" style="position: relative; top: 4px;" alt="<?php _e('Commercial support', 'sitepress'); ?>" />&nbsp;<a href="admin.php?page=<?php echo basename(ICL_PLUGIN_PATH); ?>/menu/support.php"><?php _e('Commercial support', 'sitepress'); ?></a></p>
-                                    <!-- <p><?php printf(__('Support Subscription - %s', 'sitepress'), @strval($pss_string_status)); ?>
-    <?php if (empty($pss_status['valid'])): ?>(<a href="admin.php?page=<?php echo ICL_PLUGIN_FOLDER ?>/menu/support.php"><?php _e('purchase', 'sitepress'); ?></a>)<?php endif; ?></p> -->
+                                        <br /><img src="<?php echo ICL_PLUGIN_URL; ?>/res/img/RO-Mx1-16_tool-wrench.png" width="16" height="16" style="position: relative; top: 4px;" alt="<?php _e('Commercial support', 'sitepress'); ?>" />&nbsp;<a href="<?php echo admin_url('admin.php?page=' . ICL_PLUGIN_FOLDER . '/menu/support.php') ?>"><?php _e('Commercial support', 'sitepress'); ?></a></p>
+                                    
                                     </div>
                                     
 <?php do_action('icl_dashboard_widget_content'); ?>

@@ -1,0 +1,70 @@
+/* @override http://beta.bravenewcode.com/wordpress/wp-content/plugins/wordtwit-pro/admin/css/wordtwit-admin-fresh.css?ver=24561555fe2af297b9fa06719658cf01 */
+
+/* WordTwit Pro Admin CSS > Fresh Styles (Grey)  */
+
+/* @group Fresh Styles */
+
+.fresh.beta #wordtwit-admin-top h2 {
+	background: url(../images/admin-wordtwit-48.png) no-repeat left center;
+}
+
+.fresh.normal #wordtwit-admin-top h2 {
+	background: url(../images/admin-wordtwit-48.png) no-repeat left center;
+}
+
+#bnc.fresh ul#wordtwit-top-menu li a.active {
+	background: url(../images/up-arrow-fresh.png) no-repeat center bottom;
+	color: #d54e21;
+}
+
+#bnc #wordtwit-tabbed-area {
+	border: 1px solid #d3d3d3;
+	padding: 8px 8px 0;
+	background-color: #f1f1f1;
+}
+
+#bnc .box-holder h3, #bnc .wordtwit-right-align {
+	background: #eee url(../images/gray-grad.png) repeat-x left top;
+}
+
+#bnc legend {
+	font: italic bold 16px Georgia, "Times New Roman", Times, serif;
+	color: #444;
+}
+
+#bnc h4 {
+	font: italic bold 16px Georgia, "Times New Roman", Times, serif;
+	letter-spacing: 0;
+	color: #444;
+	margin-bottom: 13px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+
+#bnc input.text:focus {
+	background: 
+	-webkit-gradient(linear, left top, left bottom, from(#fff), to(#fff));
+	background: -moz-linear-gradient(top, #fff, #fff);
+	border: 1px solid #aaa;
+}
+
+#bnc textarea.textarea:focus {
+	background: 
+	-webkit-gradient(linear, left top, left bottom, from(#fff), to(#fff));
+	background: -moz-linear-gradient(top, #fff, #fff);
+	border: 1px solid #aaa;
+}
+
+#wordtwit-accounts h2 {
+	background: url(../images/acct.png) no-repeat -6px -41px;
+	padding-left: 45px;
+	padding-bottom: 15px;
+}
+
+#wordtwit-tweet-log h2 {
+	background: url(../images/twlog.png) no-repeat -5px 15px;
+	padding-left: 45px;
+	padding-bottom: 15px;
+}
+
+/* @end */

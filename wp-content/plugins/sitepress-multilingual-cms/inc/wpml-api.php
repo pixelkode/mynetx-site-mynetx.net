@@ -18,7 +18,7 @@ define('WPML_API_GET_CONTENT_ERROR' , 0);
 
 define('WPML_API_MAGIC_NUMBER', 6);
 define('WPML_API_ASIAN_LANGUAGES', 'zh-hans|zh-hant|ja|ko');
-define('WPML_API_COST_PER_WORD', 0.07);
+define('WPML_API_COST_PER_WORD', 0.09);
 
 
 function _wpml_api_allowed_content_type($content_type){

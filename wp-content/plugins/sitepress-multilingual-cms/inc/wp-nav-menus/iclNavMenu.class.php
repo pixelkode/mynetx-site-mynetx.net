@@ -445,6 +445,7 @@ class iclNavMenu{
     
     function get_menus_by_language(){
         global $wpdb, $sitepress;
+        $langs = array();
         $res = $wpdb->get_results("
             SELECT lt.name AS language_name, l.code AS lang, COUNT(ts.translation_id) AS c
             FROM {$wpdb->prefix}icl_languages l

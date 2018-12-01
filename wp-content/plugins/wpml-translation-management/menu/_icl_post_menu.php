@@ -77,7 +77,7 @@
     <br clear="all" />
     <?php else:?>
     <?php 
-        $estimated_cost = sprintf("%.2f", (ICL_Pro_Translation::estimate_word_count($post, $selected_language) + ICL_Pro_Translation::estimate_custom_field_word_count($post->ID, $selected_language)) * 0.07);
+        $estimated_cost = sprintf("%.2f", (ICL_Pro_Translation::estimate_word_count($post, $selected_language) + ICL_Pro_Translation::estimate_custom_field_word_count($post->ID, $selected_language)) * 0.09);
     ?>
     <div style="text-align: right;margin:0 5px 5px 0;white-space:nowrap;">
     <?php printf( __('Estimated cost: %s USD', 'wpml-translation-management'), $estimated_cost);?><br />

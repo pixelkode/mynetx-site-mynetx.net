@@ -729,8 +729,10 @@ function iclTmSelectAllJobs(){
 }
 
 function iclTmCancelJobs(){
+    
     var tm_prompt = jQuery('#icl-tm-jobs-cancel-msg').html();
-    var in_progress = jQuery('tr.icl_tm_status_2 :checkbox:checked').length;
+    var in_progress = jQuery('tr.icl_tm_status_2 input:checkbox:checked').length;
+    
     if(in_progress > 0){
         tm_prompt += "\n" + jQuery('#icl-tm-jobs-cancel-msg-2').html().replace(/%s/g, in_progress);    
         jQuery('tr.icl_tm_status_2 :checkbox:checked').parent().parent().addClass('icl_tm_row_highlight');

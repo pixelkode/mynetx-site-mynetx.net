@@ -265,9 +265,13 @@ class SitePress{
             
             add_action('wp_login', array($this, 'reset_admin_language_cookie'));
             
-            add_action('init', array($this, 'setup_canonical_urls'), 100);
+            add_action('template_redirect', array($this, 'setup_canonical_urls'), 100);
             
             add_action('init', array($this, '_taxonomy_languages_menu'), 99); //allow hooking in            
+            
+            if($this->settings['seo']['head_langs']){
+                add_action('wp_head', array($this, 'head_langs'));    
+            }
             
 
         } //end if the initial language is set - existing_content_language_verified
@@ -328,6 +332,13 @@ class SitePress{
                     (defined('WPML_TM_FOLDER') && $_GET['page'] == WPML_TM_FOLDER . '/menu/translations-queue.php'))
                     ){
                     $this->this_lang = $this->get_default_language();                        
+                }elseif(defined('DOING_AJAX')) {
+                    $al = $this->get_active_languages();
+                    if(isset($_POST['lang']) && isset($al[$_POST['lang']])){
+                        $this->this_lang = $_POST['lang'];    
+                    }else{
+                        $this->this_lang = $this->get_language_cookie();    
+                    }                    
                 }elseif($lang = $this->get_admin_language_cookie()){
                     $this->this_lang = $lang;                                    
                 }else{
@@ -407,6 +418,7 @@ class SitePress{
                         if(defined('ICL_USE_MULTIPLE_DOMAIN_LOGIN') && ICL_USE_MULTIPLE_DOMAIN_LOGIN){
                             include ICL_PLUGIN_PATH . '/modules/multiple-domains-login.php';
                         }
+                        add_filter('allowed_redirect_hosts', array($this, 'allowed_redirect_hosts'));
                         break;
                     case 3:
                     default:
@@ -542,8 +554,7 @@ class SitePress{
             add_action('admin_notices', array($this, 'upgrade_notice'));
         }
 
-        if(is_admin() && current_user_can('manage_options')){
-            add_action('admin_notices', array($this, 'new_version_notice'));
+        if(is_admin() && current_user_can('manage_options')){            
             if($this->icl_account_configured()) {
                 add_action('admin_notices', array($this, 'icl_reminders'));
             }
@@ -956,8 +967,8 @@ class SitePress{
         }
 
         //$alert = '&nbsp;<img width="12" height="12" style="margin-bottom:-2px;" src="'.ICL_PLUGIN_URL.'/res/img/alert.png" />';
-        add_submenu_page($main_page,
-            __('Support','sitepress'), __('Support','sitepress'), 'manage_options', basename(ICL_PLUGIN_PATH).'/menu/support.php');
+         add_submenu_page($main_page,
+            __('Support','sitepress'), __('Support','sitepress'), 'manage_options', ICL_PLUGIN_FOLDER . '/menu/support.php');
 
     }
     
@@ -1024,7 +1035,8 @@ class SitePress{
             'icl_lang_sel_type' => 'dropdown',
             'icl_widget_title_show' => 1, 
             'translated_document_page_url' => 'auto-generate',
-            'sync_comments_on_duplicates ' => 0
+            'sync_comments_on_duplicates ' => 0,
+            'seo' => array('head_langs' => 1)
         );
 
         //congigured for three levels
@@ -2647,7 +2659,7 @@ class SitePress{
             
         }
 
-        if(isset($postvars['action']) && $postvars['action']=='inline-save' || isset($_GET['bulk_edit']) || isset($_GET['doing_wp_cron']) || @$_GET['action']=='untrash'){            
+        if(isset($postvars['action']) && $postvars['action']=='inline-save' || isset($_GET['bulk_edit']) || isset($_GET['doing_wp_cron']) || (isset($_GET['action']) && $_GET['action']=='untrash')){            
             $res = $wpdb->get_row("SELECT trid, language_code FROM {$wpdb->prefix}icl_translations WHERE element_id={$post_id} AND element_type LIKE 'post\\_%'");            
             $trid = $res->trid;
             $language_code = $res->language_code;
@@ -2669,11 +2681,10 @@ class SitePress{
             }
         }
         $this->set_element_language_details($post_id, 'post_'.$post_type, $trid, $language_code);
-
-        if(!in_array($post_type, array('post','page')) && $this->settings['custom_posts_sync_option'][$post_type] != 1){
+        
+        if(!in_array($post_type, array('post','page')) && !$this->is_translated_post_type($post_type)){
             return;
         }
-
         
         // used by the sync jobs
         $translated_posts = $wpdb->get_col("
@@ -2744,7 +2755,7 @@ class SitePress{
         
         // copy custom fields from original
         $translations = $this->get_element_translations($trid, 'post_' . $postvars['post_type']);
-        if (!empty($translations) > 0) {
+        if (!empty($translations)) {
             foreach($translations as $t) if($t->original){ $original_post_id = $t->element_id; break;}
             
             // this runs only for translated documents
@@ -2775,7 +2786,7 @@ class SitePress{
                         // if the list of values has 1 element run update
                         // this will either ADD or UPDATE the value on the translated document 
                         if(count($meta_values) == 1){
-                            update_post_meta($post_id, $meta_key, $meta_values[0]);;
+                            update_post_meta($post_id, $meta_key, maybe_unserialize($meta_values[0]));;
                                                       
                         // determine the list of added elements                 
                         }else{
@@ -2918,6 +2929,12 @@ class SitePress{
         if(isset($postvars['icl_tn_note'])){
             update_post_meta($post_id, '_icl_translator_note', $postvars['icl_tn_note']);
         }
+        
+        //fix guid
+        if($this->settings['language_negotiation_type'] == 2 && $this->get_current_language() != $this->get_default_language()){
+            $guid = $this->convert_url(get_post_field( 'guid', $post_id ));  
+            $wpdb->update($wpdb->posts, array('guid' => $guid), array('id' => $post_id));
+        }
 
         require_once ICL_PLUGIN_PATH . '/inc/cache.php';
         @icl_cache_clear($postvars['post_type'].'s_per_language');
@@ -2925,9 +2942,11 @@ class SitePress{
     
     function wp_unique_post_slug($slug, $post_ID, $post_status, $post_type, $post_parent){
         
-        if(!$this->is_translated_post_type($post_type)) return $slug;
+        if(!$this->is_translated_post_type($post_type) || empty($post_ID)) return $slug;
         
-        if ( in_array( $post_status, array( 'draft', 'pending', 'auto-draft' ) ) )
+        $post = get_post($post_ID);
+        
+        if ( in_array( $post->post_status, array( 'draft', 'pending', 'auto-draft' ) ) )
             return $slug;
 
         global $wpdb, $wp_rewrite;
@@ -2938,14 +2957,15 @@ class SitePress{
 
         $post_language = $this->get_language_for_element($post_ID, 'post_' . $post_type);
         
-        $post = get_post($post_ID);
+        
         if(isset($_POST['new_slug']) && $_POST['new_slug'] !== ''){
             $slug = sanitize_title($_POST['new_slug'], $post->ID);                
+        }elseif(isset($_POST['action']) && $_POST['action']=='inline-save'){
+            $slug = sanitize_title($_POST['post_name'], $post->ID);                
         }else{
             $slug = sanitize_title($post->post_name ? $post->post_name : $post->post_title, $post->ID);
         }
         
-                        
         $hierarchical_post_types = get_post_types( array('hierarchical' => true) );
         if ( in_array( $post_type, $hierarchical_post_types ) ) {
             // Page slugs must be unique within their own trees. Pages are in a separate
@@ -4469,6 +4489,11 @@ class SitePress{
 
     function get_terms_args_filter($args){
         
+        // Unique cache domain for each language.
+        if(isset($args['cache_domain'])){
+            $args['cache_domain'] .= '_' . $this->get_current_language();
+        }
+        
         // special case for when term hierarchy is cached in wp_options
         $dbbt = debug_backtrace();
         if(isset($dbbt[4]) && $dbbt[4]['function'] == '_get_term_hierarchy'){
@@ -4582,6 +4607,8 @@ class SitePress{
         
         $clauses['join'] .= "{$leftjoin} JOIN {$wpdb->prefix}icl_translations icl_t ON icl_t.element_id = tt.term_taxonomy_id";
         $clauses['where'] .= "{$where_lang} AND icl_t.element_type IN({$icl_taxs})";
+        
+        //echo '<pre>' . print_r($clauses) . '</pre>';
         
         return $clauses;
     }
@@ -5116,6 +5143,7 @@ class SitePress{
         return $w_active_languages;        
         
     }
+    
     function get_display_language_name($lang_code, $display_code) {
         global $wpdb;
         if (isset($this->icl_language_name_cache)) {
@@ -5230,7 +5258,7 @@ class SitePress{
         global $wpdb;        
         if(isset($_POST['icl_post_language']) && $_POST['icl_post_language'] || (isset($_GET['lang']) && $_GET['lang']!='all')){
             $lang = isset($_POST['icl_post_language'])  && $_POST['icl_post_language'] ? $_POST['icl_post_language'] : $_GET['lang'];
-            $ttid = intval($this->settings['default_categories'][$lang]);
+            $ttid = @intval($this->settings['default_categories'][$lang]);
             return $tid = $wpdb->get_var("SELECT term_id FROM {$wpdb->term_taxonomy} WHERE term_taxonomy_id={$ttid} AND taxonomy='category'");
         }
         return false;
@@ -5557,7 +5585,7 @@ class SitePress{
         return $public_query_vars;
     }
 
-    function parse_query($q){
+    function parse_query($q){         
         global $wp_query, $wpdb;
         //if($q == $wp_query) return; // not touching the WP query
         if(is_admin()) return;
@@ -5979,7 +6007,7 @@ class SitePress{
     function pre_option_page_on_front(){
         global $wpdb;
         static $page_on_front_sc = array();
-        if (@is_null($page_on_front_sc[$this->this_lang]) || ICL_DISABLE_CACHE) {
+        if (!isset($page_on_front_sc[$this->this_lang]) || ICL_DISABLE_CACHE) {
             $page_on_front_sc[$this->this_lang] = false;
             $page_on_front = $wpdb->get_var("SELECT option_value FROM {$wpdb->options} WHERE option_name='page_on_front'");
             $_el_lang_det = $this->get_element_language_details($page_on_front, 'post_page');
@@ -6000,7 +6028,7 @@ class SitePress{
     function pre_option_page_for_posts(){
         global $wpdb;
         static $page_for_posts_sc = array();
-        if (@is_null($page_for_posts_sc[$this->this_lang]) || ICL_DISABLE_CACHE) {
+        if (!isset($page_for_posts_sc[$this->this_lang]) || ICL_DISABLE_CACHE) {
             $page_for_posts_sc[$this->this_lang] = false;
             $page_for_posts = $wpdb->get_var("SELECT option_value FROM {$wpdb->options} WHERE option_name='page_for_posts'");
             $_el_lang_det = $this->get_element_language_details($page_for_posts, 'post_page');
@@ -6238,9 +6266,11 @@ class SitePress{
         if( preg_match("#SELECT ID, post_name, post_parent FROM {$wpdb->posts} WHERE post_name IN \(([^)]+)\) AND \(post_type = '([^']+)' OR post_type = 'attachment'\)#", $sql, $matches) ){
             $sql = "SELECT p.ID, p.post_name, p.post_parent 
                     FROM {$wpdb->posts} p
-                    JOIN {$wpdb->prefix}icl_translations t on t.element_id = p.ID AND t.element_type = 'post_{$matches[2]}'
-                    WHERE p.post_name IN ({$matches[1]}) AND (p.post_type = '{$matches[2]}' OR p.post_type = 'attachment')  
-                        AND t.language_code='" . $this->get_current_language() . "'";
+                    LEFT JOIN {$wpdb->prefix}icl_translations t on t.element_id = p.ID AND t.element_type = 'post_{$matches[2]}' AND t.language_code='" . $this->get_current_language() . "'
+                    WHERE p.post_name IN ({$matches[1]}) AND (p.post_type = '{$matches[2]}' OR p.post_type = 'attachment')
+                    ORDER BY t.language_code='" . $this->get_current_language() . "' DESC
+                    ";
+            // added order by to ensure that we get the result in teh current language first
         }
         // filter get page by path < WP 3.3
         elseif( preg_match("#SELECT ID, post_name, post_parent FROM {$wpdb->posts} WHERE post_name = '([^']+)' AND \(post_type = '([^']+)' OR post_type = 'attachment'\)#", $sql, $matches) ){
@@ -6252,9 +6282,9 @@ class SitePress{
         }
         
         // filter calendar widget queries
-        elseif( preg_match("##", $sql, $matches) ){
-            
-        }
+        //elseif( preg_match("##", $sql, $matches) ){
+        //    
+        //}
 
         return $sql;
     }
@@ -6403,10 +6433,6 @@ class SitePress{
 
     function upgrade_notice(){
         include ICL_PLUGIN_PATH . '/menu/upgrade_notice.php';
-    }
-
-    function new_version_notice(){
-        include ICL_PLUGIN_PATH . '/menu/new_version_notice.php';
     }
 
     function icl_reminders(){
@@ -6589,7 +6615,7 @@ class SitePress{
                                     $alt = sprintf(__('Translation to %s is in progress (by a different translator)','sitepress'), $v['display_name']);
                                 }elseif($tres->status == ICL_TM_NEEDS_UPDATE || $tres->status == ICL_TM_COMPLETE){
                                     $img = 'edit_translation_disabled.png';
-                                    $alt = sprintf(__('Translation to %s is in maintained (by a different translator)','sitepress'), $v['display_name']);
+                                    $alt = sprintf(__('Translation to %s is maintained by a different translator','sitepress'), $v['display_name']);
                                 }
                             }
                         }else{
@@ -6682,34 +6708,18 @@ class SitePress{
             $wpml_in_other_langs_icl = array('es','fr','de');
             $cl_icl = in_array(ICL_LANGUAGE_CODE, $wpml_in_other_langs_icl) ? ICL_LANGUAGE_CODE . '/' : '';
 
-            if(in_array(ICL_LANGUAGE_CODE, array('ja', 'zh-hans', 'zh-hant'))){
+            $nofollow_wpml = is_home() ? '' : ' rel="nofollow"';
+
+            if(in_array(ICL_LANGUAGE_CODE, array('ja', 'zh-hans', 'zh-hant', 'ko'))){
+                // parameters order is set according to teh translation
                 echo '<p id="wpml_credit_footer">' .
-                        sprintf(__('<a href="%s">Multilingual WordPress</a> by <a href="%s">ICanLocalize</a>', 'sitepress'),
-                        'http://www.icanlocalize.com/site/'.$cl_icl, 'http://wpml.org/'.$cl) . '</p>';
+                        sprintf(__('<a href="%s"%s>Multilingual WordPress</a> by <a href="%s" rel="nofollow">ICanLocalize</a>', 'sitepress'),
+                        'http://www.icanlocalize.com/site/'.$cl_icl, 'http://wpml.org/'.$cl, $nofollow_wpml) . '</p>';
             }else{
                 echo '<p id="wpml_credit_footer">' .
-                        sprintf(__('<a href="%s">Multilingual WordPress</a> by <a href="%s">ICanLocalize</a>', 'sitepress'),
-                        'http://wpml.org/'.$cl, 'http://www.icanlocalize.com/site/'.$cl_icl) . '</p>';
+                        sprintf(__('<a href="%s"%s>Multilingual WordPress</a> by <a href="%s" rel="nofollow">ICanLocalize</a>', 'sitepress'),
+                        'http://wpml.org/'.$cl, $nofollow_wpml, 'http://www.icanlocalize.com/site/'.$cl_icl) . '</p>';            
             }
-
-            /*
-            $footers = array(
-                '1' => __('Multilingual thanks to WPML', 'sitepress'),
-                '2' => __('Multilingual WordPress by WPML', 'sitepress'),
-                '3' => __('Translated with WPML', 'sitepress'),
-                '4' => __('Translating with WPML', 'sitepress'),
-                '5' => __('We translate using WPML', 'sitepress'),
-            );
-
-            if(!isset($this->settings['promote_wpml_footer_version'])){
-                $iclsettings['promote_wpml_footer_version'] = $this->settings['promote_wpml_footer_version'] = rand(1,5);
-                $this->save_settings($iclsettings);
-            }
-
-            $wpml_in_other_langs = array('es','de','ja','zh-hans');
-            $cl = in_array(ICL_LANGUAGE_CODE, $wpml_in_other_langs) ? ICL_LANGUAGE_CODE . '/' : '';
-            echo '<p id="wpml_credit_footer"><a href="http://wpml.org/'.$cl.'">' . $footers[$this->settings['promote_wpml_footer_version']] . '</a></p>';
-            */
         }
     }
 
@@ -6994,7 +7004,7 @@ class SitePress{
     function set_language_cookie(){
         if (!headers_sent()){
             if(preg_match('@\.(css|js|png|jpg|gif|jpeg|bmp)@i',basename(preg_replace('@\?.*$@','',$_SERVER['REQUEST_URI']))) ||
-                isset($_POST['icl_ajx_action']) || isset($_POST['_ajax_nonce'])){
+                isset($_POST['icl_ajx_action']) || isset($_POST['_ajax_nonce']) || defined('DOING_AJAX')){
                 return;
             }
 
@@ -7055,7 +7065,7 @@ class SitePress{
             $value[$this->get_current_language().'/'.$k] = $v;
             unset($value[$k]);
         }
-        $value[$this->get_current_language()] = 'index.php';
+        $value[$this->get_current_language() . '/?$'] = 'index.php';
         return $value;
     }
 
@@ -7468,21 +7478,52 @@ class SitePress{
     }
     
     function setup_canonical_urls(){
-        remove_action('wp_head', 'rel_canonical');
-        add_action('wp_head', array($this, 'rel_canonical'));
+        global $wp_the_query;
+        
+        // Yoast Exception
+        global $wpseo_front;
+        if(isset($wpseo_front) && has_filter('wp_head', array($wpseo_front, 'head'))) return;
+        
+        if ( is_singular() ){
+            $id = $wp_the_query->get_queried_object_id();
+            $master_post_id = get_post_meta($id, '_icl_lang_duplicate_of', true);
+            if($id && $master_post_id != $id){
+                remove_action('wp_head', 'rel_canonical');
+                add_action('wp_head', array($this, 'rel_canonical'));
+            }
+        }
     }
     
     function rel_canonical() {
-        if ( !is_singular() )
-            return;
         global $wp_the_query;
-        if ( !$id = $wp_the_query->get_queried_object_id() )
-            return;
-        
+        $id = $wp_the_query->get_queried_object_id();
         if($master_post_id = get_post_meta($id, '_icl_lang_duplicate_of', true)){
             $link = get_permalink( $master_post_id );
             echo "<link rel='canonical' href='$link' />\n";
         }
+    }
+    
+    function head_langs(){
+        $languages = $this->get_ls_languages(array('skip_missing' => true));
+        foreach($languages as $code => $lang){
+            if($code != $this->get_current_language()){
+                printf('<link rel="alternate" hreflang="%s" href="%s" />' . PHP_EOL, $this->get_locale($code), html_entity_decode($lang['url']));
+            }
+        }
+    }
+    
+    function allowed_redirect_hosts($hosts){
+        if($this->settings['language_negotiation_type']==2){
+            foreach($this->settings['language_domains'] as $code => $url){
+                if(!empty($this->active_languages[$code])){
+                    $parts = parse_url($url);
+                    if(!in_array($parts['host'], $hosts)){
+                        $hosts[] = $parts['host'];
+                    }
+                }
+            }
+        }   
+        return $hosts;
     }
     
     function icl_nonces(){

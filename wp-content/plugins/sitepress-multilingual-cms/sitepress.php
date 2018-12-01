@@ -5,11 +5,11 @@ Plugin URI: http://wpml.org/
 Description: WPML Multilingual CMS. <a href="http://wpml.org">Documentation</a>.
 Author: ICanLocalize
 Author URI: http://wpml.org
-Version: 2.5.2
+Version: 2.6.0
 */
 
 if(defined('ICL_SITEPRESS_VERSION')) return;
-define('ICL_SITEPRESS_VERSION', '2.5.2');
+define('ICL_SITEPRESS_VERSION', '2.6.0');
 define('ICL_PLUGIN_PATH', dirname(__FILE__));
 define('ICL_PLUGIN_FOLDER', basename(ICL_PLUGIN_PATH));
 define('ICL_PLUGIN_URL', plugins_url() . '/' . ICL_PLUGIN_FOLDER );
@@ -54,17 +54,16 @@ require ICL_PLUGIN_PATH . '/inc/import-xml.php';
 if(defined('WPML_UPGRADE_NOT_POSSIBLE') && WPML_UPGRADE_NOT_POSSIBLE) return;
 
 if(is_admin() || defined('XMLRPC_REQUEST')){
-    require ICL_PLUGIN_PATH . '/inc/upgrade_plugins.php';
     require ICL_PLUGIN_PATH . '/lib/icl_api.php';
     require ICL_PLUGIN_PATH . '/lib/xml2array.php';
     require ICL_PLUGIN_PATH . '/lib/Snoopy.class.php';
     require ICL_PLUGIN_PATH . '/inc/translation-management/translation-management.class.php';
     require ICL_PLUGIN_PATH . '/inc/translation-management/pro-translation.class.php';        
+    require ICL_PLUGIN_PATH . '/inc/pointers.php';        
 }elseif(preg_match('#wp-comments-post\.php$#', $_SERVER['REQUEST_URI'])){
     require ICL_PLUGIN_PATH . '/inc/translation-management/translation-management.class.php';
     require ICL_PLUGIN_PATH . '/inc/translation-management/pro-translation.class.php';        
 }
-
 
 if( !isset($_REQUEST['action'])     || ($_REQUEST['action']!='activate' && $_REQUEST['action']!='activate-selected') 
     || ((!isset($_REQUEST['plugin']) || $_REQUEST['plugin'] != basename(ICL_PLUGIN_PATH).'/'.basename(__FILE__)) 
@@ -77,11 +76,6 @@ if( !isset($_REQUEST['action'])     || ($_REQUEST['action']!='activate' && $_REQ
     if($sitepress_settings['existing_content_language_verified']){
         require ICL_PLUGIN_PATH . '/inc/comments-translation/functions.php';
     }
-
-	if (is_admin() && isset($_GET['page']) && $_GET['page'] == ICL_PLUGIN_FOLDER . '/menu/support.php'){
-		require_once ICL_PLUGIN_PATH . '/inc/support.php';
-		$icl_support = new SitePress_Support();
-	}
 
     require ICL_PLUGIN_PATH . '/modules/cache-plugins-integration/cache-plugins-integration.php';
     

@@ -45,9 +45,15 @@
     border-bottom-color: #fff;
 }
 
-.form-table td, .form-table th{
-    border-bottom:none;
+
+.icl_tm_wrap .form-table{
+    border-collapse: separate;
 }
+.icl_tm_wrap .form-table td, .icl_tm_wrap .form-table th{
+    border:none;
+    padding: 10px;
+}
+
 
 .icl_tj_select_translator_controls{
     display: none;

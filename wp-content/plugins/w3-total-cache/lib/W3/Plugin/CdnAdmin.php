@@ -7,9 +7,9 @@ if (!defined('W3TC')) {
     die();
 }
 
-require_once W3TC_INC_DIR . '/functions/file.php';
-require_once W3TC_INC_DIR . '/functions/http.php';
-require_once W3TC_LIB_W3_DIR . '/Plugin.php';
+w3_require_once(W3TC_INC_DIR . '/functions/file.php');
+w3_require_once(W3TC_INC_DIR . '/functions/http.php');
+w3_require_once(W3TC_LIB_W3_DIR . '/Plugin.php');
 
 /**
  * Class W3_Plugin_CdnAdmin
@@ -20,132 +20,8 @@ class W3_Plugin_CdnAdmin extends W3_Plugin {
      *
      * @return W3_Plugin_CdnCommon
      */
-    function &_get_common() {
+    function _get_common() {
         return w3_instance('W3_Plugin_CdnCommon');
-    }
-
-    /**
-     * Activation action
-     */
-    function activate() {
-        require_once W3TC_INC_DIR . '/functions/activation.php';
-
-        global $wpdb;
-
-        $this->schedule();
-        $this->schedule_upload();
-
-        if ($this->_config->get_boolean('cdn.enabled') && !w3_is_cdn_mirror($this->_config->get_string('cdn.engine')) && !$this->table_create(true)) {
-            $error = sprintf('Unable to create table <strong>%s%s</strong>: %s', $wpdb->prefix, W3TC_CDN_TABLE_QUEUE, $wpdb->last_error);
-
-            w3_activate_error($error);
-        }
-    }
-
-    /**
-     * Deactivation action
-     */
-    function deactivate() {
-        $this->table_delete();
-        $this->unschedule_upload();
-        $this->unschedule();
-    }
-
-    /**
-     * Called from admin interface after configuration is changed
-     */
-    function after_config_change() {
-        $this->schedule();
-        $this->schedule_upload();
-    }
-
-    /**
-     * Schedules cron events
-     */
-    function schedule() {
-        if ($this->_config->get_boolean('cdn.enabled') && !w3_is_cdn_mirror($this->_config->get_string('cdn.engine'))) {
-            if (!wp_next_scheduled('w3_cdn_cron_queue_process')) {
-                wp_schedule_event(time(), 'w3_cdn_cron_queue_process', 'w3_cdn_cron_queue_process');
-            }
-        } else {
-            $this->unschedule();
-        }
-    }
-
-    /**
-     * Schedule upload event
-     */
-    function schedule_upload() {
-        if ($this->_config->get_boolean('cdn.enabled') && $this->_config->get_boolean('cdn.autoupload.enabled') && !w3_is_cdn_mirror($this->_config->get_string('cdn.engine'))) {
-            if (!wp_next_scheduled('w3_cdn_cron_upload')) {
-                wp_schedule_event(time(), 'w3_cdn_cron_upload', 'w3_cdn_cron_upload');
-            }
-        } else {
-            $this->unschedule_upload();
-        }
-    }
-
-    /**
-     * Unschedules cron events
-     */
-    function unschedule() {
-        if (wp_next_scheduled('w3_cdn_cron_queue_process')) {
-            wp_clear_scheduled_hook('w3_cdn_cron_queue_process');
-        }
-    }
-
-    /**
-     * Unschedule upload event
-     */
-    function unschedule_upload() {
-        if (wp_next_scheduled('w3_cdn_cron_upload')) {
-            wp_clear_scheduled_hook('w3_cdn_cron_upload');
-        }
-    }
-
-    /**
-     * Create queue table
-     *
-     * @param bool $drop
-     * @return int
-     */
-    function table_create($drop = false) {
-        global $wpdb;
-
-        if ($drop) {
-            $sql = sprintf('DROP TABLE IF EXISTS `%s%s`', $wpdb->prefix, W3TC_CDN_TABLE_QUEUE);
-
-            $wpdb->query($sql);
-        }
-
-        $sql = sprintf("CREATE TABLE IF NOT EXISTS `%s%s` (
-            `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-            `local_path` varchar(150) NOT NULL DEFAULT '',
-            `remote_path` varchar(150) NOT NULL DEFAULT '',
-            `command` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '1 - Upload, 2 - Delete, 3 - Purge',
-            `last_error` varchar(150) NOT NULL DEFAULT '',
-            `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-            PRIMARY KEY (`id`),
-            UNIQUE KEY `path` (`local_path`, `remote_path`),
-            KEY `date` (`date`)
-        ) /*!40100 CHARACTER SET latin1 */", $wpdb->prefix, W3TC_CDN_TABLE_QUEUE);
-
-        $wpdb->query($sql);
-
-        return $wpdb->result;
-    }
-
-    /**
-     * Delete queue table
-     *
-     * @return int
-     */
-    function table_delete() {
-        global $wpdb;
-
-        $sql = sprintf('DROP TABLE IF EXISTS `%s%s`', $wpdb->prefix, W3TC_CDN_TABLE_QUEUE);
-
-        return $wpdb->query($sql);
     }
 
     /**
@@ -237,13 +113,16 @@ class W3_Plugin_CdnAdmin extends W3_Plugin {
      * Process queue
      *
      * @param integer $limit
+	 * @return integer
      */
     function queue_process($limit) {
+        $items = 0;
+        
         $commands = $this->queue_get($limit);
         $force_rewrite = $this->_config->get_boolean('cdn.force.rewrite');
 
         if (count($commands)) {
-            $cdn = & $this->_get_common()->get_cdn();
+            $cdn = $this->_get_common()->get_cdn();
 
             foreach ($commands as $command => $queue) {
                 $files = array();
@@ -251,13 +130,29 @@ class W3_Plugin_CdnAdmin extends W3_Plugin {
                 $map = array();
 
                 foreach ($queue as $result) {
-                    $files[$result->local_path] = $result->remote_path;
+                    $files[] = $this->_get_common()->build_file_descriptor($result->local_path, $result->remote_path);
                     $map[$result->local_path] = $result->id;
+                    $items++;
                 }
 
                 switch ($command) {
                     case W3TC_CDN_COMMAND_UPLOAD:
+                        $dispatcher = w3_instance('W3_Dispatcher');
+                        foreach ($files as $file) {
+                            $local_file_name = $file['local_path'];
+                            $remote_file_name = $file['remote_path'];
+                            if (!file_exists($local_file_name)) {
+                                $dispatcher->create_file_for_cdn($local_file_name);
+                            }
+                        }
+
                         $cdn->upload($files, $results, $force_rewrite);
+                        
+                        foreach ($results as $result) {
+                            if ($result['result'] == W3TC_CDN_RESULT_OK) {
+                                $dispatcher->on_cdn_file_upload($result['local_path']);
+                            }
+                        }
                         break;
 
                     case W3TC_CDN_COMMAND_DELETE:
@@ -278,6 +173,8 @@ class W3_Plugin_CdnAdmin extends W3_Plugin {
                 }
             }
         }
+        
+        return $items;
     }
 
     /**
@@ -309,7 +206,7 @@ class W3_Plugin_CdnAdmin extends W3_Plugin {
             LEFT JOIN
             	%spostmeta AS pm2 ON p.ID = pm2.post_ID AND pm2.meta_key = "_wp_attachment_metadata"
             WHERE
-                p.post_type = "attachment"
+                p.post_type = "attachment"  AND (pm.meta_value IS NOT NULL OR pm2.meta_value IS NOT NULL)
             GROUP BY
             	p.ID', $wpdb->prefix, $wpdb->prefix, $wpdb->prefix);
 
@@ -337,7 +234,7 @@ class W3_Plugin_CdnAdmin extends W3_Plugin {
                         $local_file = $upload_info['basedir'] . '/' . $file;
                         $remote_file = ltrim($upload_info['baseurlpath'] . $file, '/');
 
-                        $post_files[$local_file] = $remote_file;
+                        $post_files[] = $this->_get_common()->build_file_descriptor($local_file, $remote_file);
                     }
 
                     if ($post->metadata) {
@@ -534,13 +431,13 @@ class W3_Plugin_CdnAdmin extends W3_Plugin {
                                          * Check if download or copy was successful
                                          */
                                         if ($download_result) {
-                                            require_once W3TC_INC_DIR . '/functions/mime.php';
+                                            w3_require_once(W3TC_INC_DIR . '/functions/mime.php');
 
                                             $title = $dst_basename;
                                             $guid = ltrim($upload_info['baseurlpath'] . $title, ',');
                                             $mime_type = w3_get_mime_type($dst);
 
-                                            @$GLOBALS['wp_rewrite'] = & new WP_Rewrite();
+                                            $GLOBALS['wp_rewrite'] = new WP_Rewrite();
 
                                             /**
                                              * Insert attachment
@@ -714,14 +611,13 @@ class W3_Plugin_CdnAdmin extends W3_Plugin {
     function get_attachments_count() {
         global $wpdb;
 
-        $sql = sprintf('SELECT
-        		COUNT(DISTINCT p.ID)
-            FROM
-                %sposts AS p
-            JOIN
-                %spostmeta AS pm ON p.ID = pm.post_ID AND (pm.meta_key = "_wp_attached_file" OR pm.meta_key = "_wp_attachment_metadata")
-            WHERE
-                p.post_type = "attachment"', $wpdb->prefix, $wpdb->prefix);
+        $sql = sprintf('SELECT COUNT(DISTINCT p.ID)
+FROM %sposts AS p
+LEFT JOIN %spostmeta AS pm ON p.ID = pm.post_ID
+AND pm.meta_key =  "_wp_attached_file"
+LEFT JOIN %spostmeta AS pm2 ON p.ID = pm2.post_ID
+AND pm2.meta_key =  "_wp_attachment_metadata"
+WHERE p.post_type = "attachment" AND (pm.meta_value IS NOT NULL OR pm2.meta_value IS NOT NULL)', $wpdb->prefix, $wpdb->prefix, $wpdb->prefix);
 
         return $wpdb->get_var($sql);
     }

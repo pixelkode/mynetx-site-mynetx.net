@@ -57,7 +57,8 @@ class AbsoluteLinks{
         $int2 = preg_match_all('@<a([^>]*)href=\'(('.rtrim($home_url,'/').')?/([^\'^>]+))\'([^>]*)>@i',$text,$alp_matches2);        
         for($i = 0; $i < 6; $i++){
             $alp_matches[$i] = array_merge((array)$alp_matches1[$i], (array)$alp_matches2[$i]); 
-        }        
+        }               
+        
         $sitepress_settings = $sitepress->get_settings();
         
         if($int1 || $int2){   
@@ -151,11 +152,15 @@ class AbsoluteLinks{
                         break;
                     }
                 }  
+                       
                 
                 $post_name = $category_name = $tax_name = false;
                 
                 if(isset($perma_query_vars['pagename'])){
+                    $icl_post_lang = isset($_POST['icl_post_language']) ? $_POST['icl_post_language'] : $sitepress->get_current_language();
+                    $sitepress->switch_lang($icl_post_lang);
                     $page_by_path = get_page_by_path($perma_query_vars['pagename']);
+                    $sitepress->switch_lang();
                     
                     if(!empty($page_by_path->post_type)){
                         $post_name = $perma_query_vars['pagename']; 
@@ -192,9 +197,13 @@ class AbsoluteLinks{
                     }                    
                 }  
                 
-                if($post_name){
-                    $p = get_page_by_path($post_name, OBJECT, $post_type);
+                if($post_name){     
                     
+                    $icl_post_lang = isset($_POST['icl_post_language']) ? $_POST['icl_post_language'] : $sitepress->get_current_language();
+                    $sitepress->switch_lang($icl_post_lang);
+                    $p = get_page_by_path($post_name, OBJECT, $post_type);
+                    $sitepress->switch_lang();
+                                
                     if(empty($p)){ // fail safe
                         if($post_id = url_to_postid($home_path . '/' . $post_name)){
                             $p = get_post($post_id);

@@ -624,7 +624,9 @@ function potx_status($op, $value = NULL, $file = NULL, $line = NULL, $excerpt = 
           drupal_set_message(join(' ', array($value, $location_info, $read_more)), $op);
           break;
         case POTX_STATUS_CLI:
-          fwrite($op == 'error' ? STDERR : STDOUT, join("\n", array($value, $location_info, $read_more)) ."\n\n");
+          if(defined('STDERR') && defined('STDOUT')){  
+            fwrite($op == 'error' ? STDERR : STDOUT, join("\n", array($value, $location_info, $read_more)) ."\n\n");
+          }
           break;
         case POTX_STATUS_SILENT:
           if ($op == 'error') {
