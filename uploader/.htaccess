@@ -1,3 +1,0 @@
-Options -Indexes
-ErrorDocument 403 "You may not access this page."
-ErrorDocument 404 "The requested file was not found."

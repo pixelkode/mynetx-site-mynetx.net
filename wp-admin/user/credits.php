@@ -8,6 +8,6 @@
  */
 
 /** Load WordPress Administration Bootstrap */
-require_once( './admin.php' );
+require_once __DIR__ . '/admin.php';
 
-require( '../credits.php' );
+require ABSPATH . 'wp-admin/credits.php';

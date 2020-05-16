@@ -1,27 +1,33 @@
 === Google Analyticator ===
-Contributors: VideoUserManuals
-Tags: stats, statistics, google, analytics, google analytics, tracking, widget
+Contributors: noahkagan
+Tags: google analytics plugin, stats, statistics, google, analytics, dashboard, google analytics, tracking, widget, marketing,pageviews,visits, web stats, javascript
 Requires at least: 3.2
-Tested up to: 3.6
-Stable tag: 6.4.5
+Tested up to: 4.8
+Stable tag: 6.5.4
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Adds the necessary JavaScript code to enable Google Analytics. Includes widgets for Analytics data display.
+Easily view your Google Analytics and real-time statistics inside WordPress! Makes it super simple to add your tracking code too.
 
 == Description ==
 
-Google Analyticator is back! Google Analyticator adds the necessary JavaScript code to enable Google Analytics logging on any WordPress blog. This eliminates the need to edit your template code to begin logging. Google Analyticator also includes several widgets for displaying Analytics data in the admin and on your blog.
+Google Analyticator makes it super easy to view Google Analytics within your WordPress dashboard. This eliminates the need to edit your template code to begin logging. Google Analyticator also includes several widgets for displaying Analytics data in the admin and on your blog.
 
-For a video explaining the simple installation process, please [visit the new home of Google Analyticator](http://www.videousermanuals.com/google-analyticator/?utm_campaign=analyticator&utm_medium=plugin&utm_source=description).
+One of the most popular WordPress plugins for Google Analytics! Over 3.5+ million downloads.
+
+Check out our other plugin for getting more traffic [here](http://bit.ly/1PhVdpI).
+
 
 = Features =
 
 Google Analyticator Has the Following Features:
 
-- Supports standard Google Analytics tracking via the latest async tracking methods (faster and more reliable than the older ga.js tracking method)
+- Supports Universal (analytics.js) and traditional analytics (ga.js)
 - Includes an admin dashboard widget that displays a graph of the last 30 days of visitors, a summary of site usage, the top pages, the top referrers, and the top searches
 - Includes a widget that can be used to display visitor stat information on the front-end
 - Supports outbound link tracking of all links on the page, including links not managed by WordPress
 - Supports download link tracking
+- Shortcodes to show off your Google Analytics stats publicly
 - Supports event tracking with outbound links / downloads instead of the old pageview tracking method
 - Support site speed tracking
 - Allows hiding of Administrator visits without affecting Google Analytics' site overlay feature
@@ -29,18 +35,26 @@ Google Analyticator Has the Following Features:
 - Installs easily - unlike other plugins, the user doesn't even have to know their Analytics UID
 - Provides complete control over options; disable any feature if needed
 - Supports localization - get the settings page in your language of choice
+- Ability to hide Google UID dropdown
+- Translations - Polish, Turkish, Dutch and Spanish
 
-For more information, visit the [Google Analyticator plugin page](http://www.videousermanuals.com/google-analyticator/?utm_campaign=analyticator&utm_medium=plugin&utm_source=description).
-
-If you have a great idea on how to improve the plugin, we would love to hear from you at the [Google Analyticator Feature Request page](http://www.videousermanuals.com/google-analyticator/feature-request/?utm_campaign=analyticator&utm_medium=plugin&utm_source=description)
 
 A big thank you from the whole community to [Ronald](http://ronaldheft.com/) for all the hard work he put into this plugin.
 
+We also would like to thank our translators:
+
+Polish - Michał Mleczko from http://michalmleczko.waw.pl/
+Turkish - Cansın Çağan Acarer from http://www.35pixel.com/
+
 == Installation ==
 
-Please visit the new home of [Google Analyticator](http://www.videousermanuals.com/google-analyticator/?utm_campaign=analyticator&utm_medium=plugin&utm_source=description) for installation information.
-
-If you are updating, you will need to Authenticate your site again, so it will work with the new Google API
+1. Install the plugin and activate it.
+2. Click to connect to Google Analytics and login.
+3. Copy and paste your Google Authentication code and hit Save and Continue.
+4. Choose the Analytics Account you want in the drop down.
+5. Enable Google Analytics logging. 
+6. Scroll to the bottom and save.
+7. Then go to your Dashboard to see your stats.
 
 == Frequently Asked Questions ==
 
@@ -57,7 +71,77 @@ For any support issues, please use the official WordPress support forums.
 5. An example of a front-end widget configuration.
 6. An example of a front-end widget configuration.
 
+
 == Changelog ==
+= 6.5.4 =
+* Fix depricated API field name calls.
+* Check for is_preview() in ga_external_tracking_js()
+
+= 6.5.3 =
+* Use wp_get_current_user() instead of get_currentuserinfo()
+
+= 6.5.2 =
+* Small fix to widget markup.
+
+= 6.5.1 =
+* Fix depricated classname constructors.
+* Fix issue with being unable to deactivate and reset from settings screen.
+
+= 6.5.0.0 =
+* Fix bug with options page not showing correctly in some cases.
+
+= 6.4.9.7 =
+* Minor code cleanup changes.
+
+= 6.4.9.6 =
+* Resolve XSS vuln
+
+= 6.4.9.5 =
+* Remove notice from Dashboard
+
+= 6.4.9.4 =
+* Fix CSRF vulnerability on reset page
+
+= 6.4.9.3 =
+* Re-enable [analytics] shortcode with fix
+
+= 6.4.9.2 =
+* Temporarily disable [analytics] shortcode to fix a bug
+ 
+= 6.4.9.1 =
+* Added [analytics-counter] shortcode so you can display the page view counter widget anywhere
+
+= 6.4.9 =
+* Added [analytics] shortcode so you can add show off your analytics publicly
+
+= 6.4.8 =
+* Bug fix: anonymizeIP
+* Reduced Memory Usage for dashboard
+* Added Turkish, Spanish and Dutch
+* Check token fix widget authentication
+* Added Remarketing, Demographics and Interests reports for universal
+* Changed Google API Client on setting of default path
+* Fixes bugs
+
+= 6.4.7.3 =
+* Bug fix: Test data left in place of Domain name / UID dropdown
+
+= 6.4.7.2 =
+* Ability to hide Google UID dropdown
+* Bug fix: rename stats_init to ganalyticator_stats_init
+* Bug fix: Moved analyticsSnippet from line 1110 to line 1111
+* Bug fix: added condition for empty href reported by @Jesin A http://wordpress.org/support/topic/bug-external-trackingjs-interferes-with-some-themes?replies=1
+* Added Polish Translation from @mleczakm http://wordpress.org/support/topic/localization-translation
+
+= 6.4.7 =
+* Add missing Google PHP API classes
+
+= 6.4.6 =
+* Introduce Demographics and Interests support
+* Enhanced Link attribution support
+* added Universal Tracking (analytics.js) option
+* Fixed sidebar Ad background for wp 3.8
+* Used Custom Dimensions as replacement of Custom Variables for analytics.js
 
 = 6.4.5 =
 * Introduce Remarketing support
@@ -392,10 +476,6 @@ For any support issues, please use the official WordPress support forums.
 
 == Upgrade Notice ==
 
-= 6.1.1 =
-
-Bug fix release. If you're having trouble accessing the settings page or use Internet Explorer, this is a recommended update.
-
-= 6.1 =
-
-Recommended update. Highlights include WordPress 3.0 support, updated async tracking code, dashboard stats by Analytics profile, more control over who gets tracked, and more control over who can see the dashboard widget. Settings have changed, so revisit the settings to verify.
+= 6.5.4 =
+* Fix depricated API field name calls.
+* Check for is_preview() in ga_external_tracking_js()

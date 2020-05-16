@@ -1,172 +1,80 @@
-=== Akismet ===
-Contributors: matt, ryan, andy, mdawaffe, tellyworth, josephscott, lessbloat, eoigal, automattic
-Tags: akismet, comments, spam
-Requires at least: 3.0
-Tested up to: 3.6
-Stable tag: 2.5.9
+=== Akismet Anti-Spam ===
+Contributors: matt, ryan, andy, mdawaffe, tellyworth, josephscott, lessbloat, eoigal, cfinke, automattic, jgs, procifer, stephdau
+Tags: akismet, comments, spam, antispam, anti-spam, anti spam, comment moderation, comment spam, contact form spam, spam comments
+Requires at least: 4.6
+Tested up to: 5.4
+Stable tag: 4.1.5
 License: GPLv2 or later
 
-Akismet checks your comments against the Akismet web service to see if they look like spam or not.
+Akismet checks your comments and contact form submissions against our global database of spam to protect you and your site from malicious content.
 
 == Description ==
 
-Akismet checks your comments against the Akismet web service to see if they look like spam or not and lets you
-review the spam it catches under your blog's "Comments" admin screen.
+Akismet checks your comments and contact form submissions against our global database of spam to prevent your site from publishing malicious content. You can review the comment spam it catches on your blog's "Comments" admin screen.
 
-Major new features in Akismet 2.5 include:
+Major features in Akismet include:
 
-* A comment status history, so you can easily see which comments were caught or cleared by Akismet, and which were spammed or unspammed by a moderator
-* Links are highlighted in the comment body, to reveal hidden or misleading links
-* If your web host is unable to reach Akismet's servers, the plugin will automatically retry when your connection is back up
-* Moderators can see the number of approved comments for each user
-* Spam and Unspam reports now include more information, to help improve accuracy
+* Automatically checks all comments and filters out the ones that look like spam.
+* Each comment has a status history, so you can easily see which comments were caught or cleared by Akismet and which were spammed or unspammed by a moderator.
+* URLs are shown in the comment body to reveal hidden or misleading links.
+* Moderators can see the number of approved comments for each user.
+* A discard feature that outright blocks the worst spam, saving you disk space and speeding up your site.
 
-PS: You'll need an [Akismet.com API key](http://akismet.com/get/) to use it.  Keys are free for personal blogs, with paid subscriptions available for businesses and commercial sites.
+PS: You'll be prompted to get an Akismet.com API key to use it, once activated. Keys are free for personal blogs; paid subscriptions are available for businesses and commercial sites.
 
 == Installation ==
 
-Upload the Akismet plugin to your blog, Activate it, then enter your [Akismet.com API key](http://akismet.com/get/).
+Upload the Akismet plugin to your blog, activate it, and then enter your Akismet.com API key.
 
 1, 2, 3: You're done!
 
 == Changelog ==
 
-= 2.5.9 =
-* Update 'Already have a key' link to redirect page rather than depend on javascript
-* Fix some non-translatable strings to be translatable
-* Update Activation banner in plugins page to redirect user to Akismet config page
+= 4.1.5 =
+*Release Date - 29 April 2020*
 
-= 2.5.8 =
-* Simplify the activation process for new users
-* Remove the reporter_ip parameter
-* Minor preventative security improvements
+* Based on user feedback, we have dropped the in-admin notice explaining the availability of the "privacy notice" option in the AKismet settings screen. The option itself is available, but after displaying the notice for the last 2 years, it is now considered a known fact.
+* Updated the "Requires at least" to WP 4.6, based on recommendations from https://wp-info.org/tools/checkplugini18n.php?slug=akismet
+* Moved older changelog entries to a separate file to keep the size of this readme reasonable, also based on recommendations from https://wp-info.org/tools/checkplugini18n.php?slug=akismet
 
-= 2.5.7 =
-* FireFox Stats iframe preview bug
-* Fix mshots preview when using https
-* Add .htaccess to block direct access to files
-* Prevent some PHP notices
-* Fix Check For Spam return location when referrer is empty
-* Fix Settings links for network admins
-* Fix prepare() warnings in WP 3.5
+= 4.1.4 =
+*Release Date - 17 March 2020*
 
-= 2.5.6 =
-* Prevent retry scheduling problems on sites where wp_cron is misbehaving
-* Preload mshot previews
-* Modernize the widget code
-* Fix a bug where comments were not held for moderation during an error condition
-* Improve the UX and display when comments are temporarily held due to an error
-* Make the Check For Spam button force a retry when comments are held due to an error
-* Handle errors caused by an invalid key
-* Don't retry comments that are too old
-* Improve error messages when verifying an API key
+* Only redirect to the Akismet setup screen upon plugin activation if the plugin was activated manually from within the plugin-related screens, to help users with non-standard install workflows, like WP-CLI.
+* Update the layout of the initial setup screen to be more readable on small screens.
+* If no API key has been entered, don't run code that expects an API key.
+* Improve the readability of the comment history entries.
+* Don't modify the comment form HTML if no API key has been set.
 
-= 2.5.5 =
-* Add nonce check for comment author URL remove action
-* Fix the settings link
+= 4.1.3 =
+*Release Date - 31 October 2019*
 
-= 2.5.4 =
-* Limit Akismet CSS and Javascript loading in wp-admin to just the pages that need it
-* Added author URL quick removal functionality
-* Added mShot preview on Author URL hover
-* Added empty index.php to prevent directory listing
-* Move wp-admin menu items under Jetpack, if it is installed
-* Purge old Akismet comment meta data, default of 15 days
+* Prevented an attacker from being able to cause a user to unknowingly recheck their Pending comments for spam.
+* Improved compatibility with Jetpack 7.7+.
+* Updated the plugin activation page to use consistent language and markup.
+* Redirecting users to the Akismet connnection/settings screen upon plugin activation, in an effort to make it easier for people to get setup.
 
-= 2.5.3 = 
-* Specify the license is GPL v2 or later
-* Fix a bug that could result in orphaned commentmeta entries
-* Include hotfix for WordPress 3.0.5 filter issue
+= 4.1.2 =
+*Release Date - 14 May 2019*
 
-= 2.5.2 =
+* Fixed a conflict between the Akismet setup banner and other plugin notices.
+* Reduced the number of API requests made by the plugin when attempting to verify the API key.
+* Include additional data in the pingback pre-check API request to help make the stats more accurate.
+* Fixed a bug that was enabling the "Check for Spam" button when no comments were eligible to be checked.
+* Improved Akismet's AMP compatibility.
 
-* Properly format the comment count for author counts
-* Look for super admins on multisite installs when looking up user roles
-* Increase the HTTP request timeout
-* Removed padding for author approved count
-* Fix typo in function name
-* Set Akismet stats iframe height to fixed 2500px.  Better to have one tall scroll bar than two side by side.
+= 4.1.1 =
+*Release Date - 31 January 2019*
 
-= 2.5.1 =
+* Fixed the "Setup Akismet" notice so it resizes responsively.
+* Only highlight the "Save Changes" button in the Akismet config when changes have been made.
+* The count of comments in your spam queue shown on the dashboard show now always be up-to-date.
 
-* Fix a bug that caused the "Auto delete" option to fail to discard comments correctly
-* Remove the comment nonce form field from the 'Akismet Configuration' page in favor of using a filter, akismet_comment_nonce
-* Fixed padding bug in "author" column of posts screen
-* Added margin-top to "cleared by ..." badges on dashboard
-* Fix possible error when calling akismet_cron_recheck()
-* Fix more PHP warnings
-* Clean up XHTML warnings for comment nonce
-* Fix for possible condition where scheduled comment re-checks could get stuck
-* Clean up the comment meta details after deleting a comment
-* Only show the status badge if the comment status has been changed by someone/something other than Akismet
-* Show a 'History' link in the row-actions
-* Translation fixes
-* Reduced font-size on author name
-* Moved "flagged by..." notification to top right corner of comment container and removed heavy styling
-* Hid "flagged by..." notification while on dashboard
+= 4.1 =
+*Release Date - 12 November 2018*
 
-= 2.5.0 =
+* Added a WP-CLI method for retrieving stats.
+* Hooked into the new "Personal Data Eraser" functionality from WordPress 4.9.6.
+* Added functionality to clear outdated alerts from Akismet.com.
 
-* Track comment actions under 'Akismet Status' on the edit comment screen
-* Fix a few remaining deprecated function calls ( props Mike Glendinning ) 
-* Use HTTPS for the stats IFRAME when wp-admin is using HTTPS
-* Use the WordPress HTTP class if available
-* Move the admin UI code to a separate file, only loaded when needed
-* Add cron retry feature, to replace the old connectivity check
-* Display Akismet status badge beside each comment
-* Record history for each comment, and display it on the edit page
-* Record the complete comment as originally submitted in comment_meta, to use when reporting spam and ham
-* Highlight links in comment content
-* New option, "Show the number of comments you've approved beside each comment author."
-* New option, "Use a nonce on the comment form."
-
-= 2.4.0 =
-
-* Spell out that the license is GPLv2
-* Fix PHP warnings
-* Fix WordPress deprecated function calls
-* Fire the delete_comment action when deleting comments
-* Move code specific for older WP versions to legacy.php
-* General code clean up
-
-= 2.3.0 =
-
-* Fix "Are you sure" nonce message on config screen in WPMU
-* Fix XHTML compliance issue in sidebar widget
-* Change author link; remove some old references to WordPress.com accounts
-* Localize the widget title (core ticket #13879)
-
-= 2.2.9 =
-
-* Eliminate a potential conflict with some plugins that may cause spurious reports
-
-= 2.2.8 =
-
-* Fix bug in initial comment check for ipv6 addresses
-* Report comments as ham when they are moved from spam to moderation
-* Report comments as ham when clicking undo after spam
-* Use transition_comment_status action when available instead of older actions for spam/ham submissions
-* Better diagnostic messages when PHP network functions are unavailable
-* Better handling of comments by logged-in users
-
-= 2.2.7 =
-
-* Add a new AKISMET_VERSION constant
-* Reduce the possibility of over-counting spam when another spam filter plugin is in use
-* Disable the connectivity check when the API key is hard-coded for WPMU
-
-= 2.2.6 =
-
-* Fix a global warning introduced in 2.2.5
-* Add changelog and additional readme.txt tags
-* Fix an array conversion warning in some versions of PHP
-* Support a new WPCOM_API_KEY constant for easier use with WordPress MU
-
-= 2.2.5 =
-
-* Include a new Server Connectivity diagnostic check, to detect problems caused by firewalls
-
-= 2.2.4 =
-
-* Fixed a key problem affecting the stats feature in WordPress MU
-* Provide additional blog information in Akismet API calls
+For older changelog entries, please see the [additional changelog.txt file](https://plugins.svn.wordpress.org/akismet/trunk/changelog.txt) delivered with the plugin.

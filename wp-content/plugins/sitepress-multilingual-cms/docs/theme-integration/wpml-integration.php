@@ -24,19 +24,32 @@ function wpml_get_home_url(){
 // function wpml_content_languages($args)
 // args: skip_missing, before, after
 // defaults: skip_missing = 1, before =  __('This post is also available in: '), after = ''
-function wpml_content_languages($args=''){
-    parse_str($args);
-    if(function_exists('icl_get_languages')){
-        $languages = icl_get_languages($args);
-        if(1 < count($languages)){
-            echo isset($before) ? $before : __('This post is also available in: ', 'sitepress');
-            foreach($languages as $l){
-                if(!$l['active']) $langs[] = '<a href="'.$l['url'].'">'.$l['translated_name'].'</a>';
-            }
-            echo join(', ', $langs);
-            echo isset($after) ? $after : '';
-        }    
-    }
+function wpml_content_languages( $args = '' ) {
+	$before = null;
+	$after = null;
+	$languages_items = array();
+
+	parse_str( $args, $params );
+	if(array_key_exists( 'before', $params)) {
+		$before = $params['before'];
+	}
+	if(array_key_exists( 'after', $params)) {
+		$after = $params['after'];
+	}
+
+	if ( function_exists( 'icl_get_languages' ) ) {
+		$languages = icl_get_languages( $args );
+		if ( 1 < count( $languages ) ) {
+			echo isset( $before ) ? esc_html( $before ) : esc_html__( 'This post is also available in: ', 'sitepress' );
+			foreach ( $languages as $l ) {
+				if ( ! $l['active'] ) {
+					$languages_items[] = '<a href="' . $l['url'] . '">' . $l['translated_name'] . '</a>';
+				}
+			}
+			echo join( ', ', $languages_items );
+			echo isset( $after ) ? esc_html( $after ) : '';
+		}
+	}
 } 
 
 
@@ -48,21 +61,23 @@ function wpml_link_to_element($element_id, $element_type='post', $link_text='', 
         switch($element_type){
             case 'post':
             case 'page':
-                $ret = '<a href="'.get_permalink($element_id).'">';
+                $ret = '<a href="'. esc_url( get_permalink($element_id) ) .'">';
                 if($anchor){
-                    $ret .= $anchor;
+                    $ret .= esc_html( $anchor );
                 }else{
-                    $ret .= get_the_title($element_id);
+                    $ret .= esc_html( get_the_title($element_id) );
                 }
                 $ret .= '<a>'; 
                 break;
             case 'tag':
             case 'post_tag':
                 $tag = get_term_by('id', $element_id, 'tag', ARRAY_A);
-                $ret = '<a href="'.get_tag_link($element_id).'">' . $tag->name . '</a>';
+                $ret = '<a href="'.esc_url( get_tag_link($element_id) ) .'">' . esc_html( $tag->name ) . '</a>';
+                break;
             case 'category':
-                $ret = '<a href="'.get_tag_link($element_id).'">' . get_the_category_by_ID($element_id) . '</a>';
-            default: $ret = '';           
+                $ret = '<a href="'.esc_url( get_tag_link($element_id) ) .'">' . esc_html( get_the_category_by_ID($element_id) ) . '</a>';
+                break;
+            default: $ret = '';
         }
         if($echoit){
             echo $ret;
@@ -80,15 +95,15 @@ function wpml_languages_list($skip_missing=0, $div_id = "footer_language_list"){
     if(function_exists('icl_get_languages')){
         $languages = icl_get_languages('skip_missing='.intval($skip_missing));
         if(!empty($languages)){
-            echo '<div id="'.$div_id.'"><ul>';
+            echo '<div id="'. esc_attr( $div_id ) .'"><ul>';
             foreach($languages as $l){
                 echo '<li>';
-                if(!$l['active']) echo '<a href="'.$l['url'].'">';
-                echo '<img src="'.$l['country_flag_url'].'" alt="'.$l['language_code'].'" />';
+                if(!$l['active']) echo '<a href="'. esc_url(  $l['url'] ) .'">';
+                echo '<img src="'. esc_url(  $l['country_flag_url'] ) .'" alt="'. esc_attr(  $l['language_code'] ) .'" />';
                 if(!$l['active']) echo '</a>';
-                if(!$l['active']) echo '<a href="'.$l['url'].'">';
+                if(!$l['active']) echo '<a href="'. esc_url(  $l['url'] ) .'">';
                 echo $l['native_name'];
-                if(!$l['active']) echo ' ('.$l['translated_name'].')';
+                if(!$l['active']) echo ' ('. esc_attr(  $l['translated_name'] ) .')';
                 if(!$l['active']) echo '</a>';
                 echo '</li>';
             }

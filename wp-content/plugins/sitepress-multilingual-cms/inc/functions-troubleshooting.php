@@ -1,252 +1,205 @@
 <?php
-/*
-if ( !function_exists('sys_get_temp_dir')) {
-  function sys_get_temp_dir() {
-      if( $temp=getenv('TMP') )        return $temp;
-      if( $temp=getenv('TEMP') )        return $temp;
-      if( $temp=getenv('TMPDIR') )    return $temp;
-      $temp=tempnam(__FILE__,'');
-      if (file_exists($temp)) {
-          unlink($temp);
-          return dirname($temp);
-      }
-      return null;
-  }
-}
-*/  
-function icl_troubleshooting_dumpdb(){
-    
-    if($_GET['nonce'] == wp_create_nonce('dbdump') && is_admin() &&  current_user_can('manage_options')){
-    
-        ini_set('memory_limit','128M');
 
-        $dump = _icl_ts_mysqldump(DB_NAME);
-        $gzdump = gzencode($dump, 9);
-        
-        header("Content-Type: application/force-download");
-        header("Content-Type: application/octet-stream");
-        header("Content-Type: application/download");
-        header("Content-Disposition: attachment; filename=" . DB_NAME . ".sql.gz");
-        //header("Content-Encoding: gzip");
-        header("Content-Length: ". strlen($gzdump));
-        
-        echo $gzdump;
-        exit;
-    }
-}
+function icl_reset_wpml( $blog_id = false ) {
+	global $wpdb, $sitepress_settings;
 
+	if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'resetwpml' ) {
+		check_admin_referer( 'resetwpml' );
+	}
 
+	if ( empty( $blog_id ) ) {
+	    $filtered_id = filter_input( INPUT_POST, 'id', FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_NULL_ON_FAILURE );
+		$filtered_id = $filtered_id ? $filtered_id : filter_input( INPUT_GET, 'id', FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_NULL_ON_FAILURE );
+        $blog_id = $filtered_id !== false ? $filtered_id : $wpdb->blogid;
+	}
 
+	if ( $blog_id || ! function_exists( 'is_multisite' ) || ! is_multisite() ) {
 
-function _icl_ts_mysqldump($mysql_database)
-{
-    global $wpdb;
-    $upload_folder = wp_upload_dir();
-    $dump_tmp_file = $upload_folder['path'] . '/' . '__icl_mysqldump.sql';
-    
-    $fp = @fopen($dump_tmp_file, 'w');        
-    if(!$fp){
-        $fp = fopen('php://output', 'w');        
-        ob_start();
-    }
-    
-    $sql="SHOW TABLES LIKE '".str_replace('_','\_',$wpdb->prefix)."%';";
-    
-    $result= mysql_query($sql);
-    if( $result)
-    {
-        while( $row= mysql_fetch_row($result))
-        {       
-            //_icl_ts_mysqldump_table_structure($row[0]);
-            //_icl_ts_mysqldump_table_data($row[0]);
-            _icl_ts_backup_table($row[0], 0, $fp);            
-        }
-    }
-    else
-    {
-        echo "/* no tables in $mysql_database */\n";
-    }
-    mysql_free_result($result);
-    fclose ($fp);
-    
-    
-    if(file_exists($dump_tmp_file)){
-        $data = file_get_contents($dump_tmp_file);
-        @unlink($dump_tmp_file);    
-    }else{
-        $data = ob_get_contents();
-        ob_end_clean();
-    }
-    
-    return $data ;
-}
+		if ( function_exists( 'is_multisite' ) && is_multisite() ) {
+			switch_to_blog( $blog_id );
+		}
 
-if ( ! defined('ROWS_PER_SEGMENT') ) define('ROWS_PER_SEGMENT', 100);
+		do_action( 'wpml_reset_plugins_before' );
 
-function _icl_ts_stow($query_line, $fp) {
-    if(! @fwrite($fp, $query_line,strlen($query_line)))
-        die(__('Error writing query:','sitepress') . '  ' . $query_line);
-}
- 
-function _icl_ts_backquote($a_name) {
-    if (!empty($a_name) && $a_name != '*') {
-        if (is_array($a_name)) {
-            $result = array();
-            reset($a_name);
-            while(list($key, $val) = each($a_name)) 
-                $result[$key] = '`' . $val . '`';
-            return $result;
-        } else {
-            return '`' . $a_name . '`';
-        }
-    } else {
-        return $a_name;
-    }
-} 
-      
-function _icl_ts_backup_table($table, $segment = 'none', $fp) {
-        global $wpdb;
+		wp_clear_scheduled_hook( 'update_wpml_config_index' );
 
-        $table_structure = $wpdb->get_results("DESCRIBE $table");        
-        if(($segment == 'none') || ($segment == 0)) {
-            _icl_ts_stow("\n\n", $fp);
-            _icl_ts_stow("DROP TABLE IF EXISTS " . _icl_ts_backquote($table) . ";\n", $fp);
-            // Table structure
-            _icl_ts_stow("\n\n", $fp);
-            $create_table = $wpdb->get_results("SHOW CREATE TABLE $table", ARRAY_N);
-            _icl_ts_stow($create_table[0][1] . ' ;', $fp);
-            _icl_ts_stow("\n\n", $fp);
-        }
-        
-        if(($segment == 'none') || ($segment >= 0)) {
-            $defs = array();
-            $ints = array();
-            foreach ($table_structure as $struct) {
-                if ( (0 === strpos($struct->Type, 'tinyint')) ||
-                    (0 === strpos(strtolower($struct->Type), 'smallint')) ||
-                    (0 === strpos(strtolower($struct->Type), 'mediumint')) ||
-                    (0 === strpos(strtolower($struct->Type), 'int')) ||
-                    (0 === strpos(strtolower($struct->Type), 'bigint')) ) {
-                        $defs[strtolower($struct->Field)] = ( null === $struct->Default ) ? 'NULL' : $struct->Default;
-                        $ints[strtolower($struct->Field)] = "1";
-                }
-            }
-            
-            
-            // Batch by $row_inc
-            
-            if($segment == 'none') {
-                $row_start = 0;
-                $row_inc = ROWS_PER_SEGMENT;
-            } else {
-                $row_start = $segment * ROWS_PER_SEGMENT;
-                $row_inc = ROWS_PER_SEGMENT;
-            }
-            
-            do {    
-                $table_data = $wpdb->get_results("SELECT * FROM $table LIMIT {$row_start}, {$row_inc}", ARRAY_A);
+		$icl_tables = array(
+			$wpdb->prefix . 'icl_languages',
+			$wpdb->prefix . 'icl_languages_translations',
+			$wpdb->prefix . 'icl_translations',
+			$wpdb->prefix . 'icl_translation_status',
+			$wpdb->prefix . 'icl_translate_job',
+			$wpdb->prefix . 'icl_translate',
+			$wpdb->prefix . 'icl_locale_map',
+			$wpdb->prefix . 'icl_flags',
+			$wpdb->prefix . 'icl_content_status',
+			$wpdb->prefix . 'icl_core_status',
+			$wpdb->prefix . 'icl_node',
+			$wpdb->prefix . 'icl_strings',
+			$wpdb->prefix . 'icl_string_packages',
+			$wpdb->prefix . 'icl_translation_batches',
+			$wpdb->prefix . 'icl_string_translations',
+			$wpdb->prefix . 'icl_string_status',
+			$wpdb->prefix . 'icl_string_positions',
+			$wpdb->prefix . 'icl_message_status',
+			$wpdb->prefix . 'icl_reminders',
+			$wpdb->prefix . 'icl_mo_files_domains',
+			$wpdb->prefix . 'icl_string_pages',
+			$wpdb->prefix . 'icl_string_urls',
+			$wpdb->prefix . 'icl_cms_nav_cache',
+		);
+		$icl_tables = apply_filters( 'wpml_reset_tables', $icl_tables, $blog_id );
 
-                $entries = 'INSERT INTO ' . _icl_ts_backquote($table) . ' VALUES (';    
-                //    \x08\\x09, not required
-                $search = array("\x00", "\x0a", "\x0d", "\x1a");
-                $replace = array('\0', '\n', '\r', '\Z');
-                if($table_data) {
-                    foreach ($table_data as $row) {
-                        $values = array();
-                        foreach ($row as $key => $value) {
-                            if ($ints[strtolower($key)]) {
-                                // make sure there are no blank spots in the insert syntax,
-                                // yet try to avoid quotation marks around integers
-                                $value = ( null === $value || '' === $value) ? $defs[strtolower($key)] : $value;
-                                $values[] = ( '' === $value ) ? "''" : $value;
-                            } else {
-                                $values[] = "'" . str_replace($search, $replace, $wpdb->escape($value)) . "'";
-                            }
-                        }
-                        _icl_ts_stow(" \n" . $entries . implode(', ', $values) . ');', $fp);
-                    }
-                    $row_start += $row_inc;
-                }
-            } while((count($table_data) > 0) and ($segment=='none'));
-        }
-        
-        if(($segment == 'none') || ($segment < 0)) {
-            // Create footer/closing comment in SQL-file
-            _icl_ts_stow("\n", $fp);
-        }
-    } // end backup_table()  
-    
+		foreach ( $icl_tables as $icl_table ) {
+			$wpdb->query( "DROP TABLE IF EXISTS " . $icl_table );
+		}
 
-    
-function icl_reset_wpml($blog_id = false){
-    global $wpdb;
-    
-    if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'resetwpml'){
-        check_admin_referer( 'resetwpml' );    
-    }
-    
-    if(empty($blog_id)){
-        $blog_id = isset($_POST['id']) ? $_POST['id'] : $wpdb->blogid;
-    }
-      
-    if($blog_id || !function_exists('is_multisite') || !is_multisite()){
+		$wpml_options = array(
+			'icl_sitepress_settings',
+			'icl_sitepress_version',
+			'_icl_cache',
+			'_icl_admin_option_names',
+			'wp_icl_translators_cached',
+			'wpml32_icl_non_translators_cached',
+			'wpml-package-translation-db-updates-run',
+			'wpml-package-translation-refresh-required',
+			'wpml-package-translation-string-packages-table-updated',
+			'wpml-package-translation-string-table-updated',
+			'icl_translation_jobs_basket',
+			'widget_icl_lang_sel_widget',
+			'icl_admin_messages',
+			'icl_adl_settings',
+			'wpml_tp_com_log',
+			'wpml_config_index',
+			'wpml_config_index_updated',
+			'wpml_config_files_arr',
+			'wpml_language_switcher',
+			'wpml_notices',
+			'wpml_start_version',
+			'wpml_dependencies:installed_plugins',
+			'wpml_translation_services',
+			'wpml_update_statuses',
+			'_wpml_dismissed_notices',
+			'wpml_translation_services_timestamp',
+			'wpml_string_table_ok_for_mo_import',
+			'wpml-charset-validation',
+			'_wpml_media',
+			'wpml_st_display_strings_scan_notices',
+			'wpml-st-all-strings-are-in-english',
+			'wpml_strings_need_links_fixed',
+			'_wpml_batch_report',
+			'wpml_cms_nav_settings',
+			'WPML_CMS_NAV_VERSION',
+			'icl_st_settings',
+			'wpml-tm-custom-xml',
+			'wpml-st-persist-errors',
+			'wpml_base_slug_translation',
+		);
+		$wpml_options = apply_filters( 'wpml_reset_options', $wpml_options, $blog_id );
 
-        if(function_exists('is_multisite') && is_multisite()){
-            switch_to_blog($blog_id);
-        }
-        
-        $icl_tables = array(
-            $wpdb->prefix . 'icl_languages',
-            $wpdb->prefix . 'icl_languages_translations',
-            $wpdb->prefix . 'icl_translations',
-            $wpdb->prefix . 'icl_translation_status',    
-            $wpdb->prefix . 'icl_translate_job',    
-            $wpdb->prefix . 'icl_translate',    
-            $wpdb->prefix . 'icl_locale_map',
-            $wpdb->prefix . 'icl_flags',
-            $wpdb->prefix . 'icl_content_status',
-            $wpdb->prefix . 'icl_core_status',
-            $wpdb->prefix . 'icl_node',
-            $wpdb->prefix . 'icl_strings',
-            $wpdb->prefix . 'icl_string_translations',
-            $wpdb->prefix . 'icl_string_status',
-            $wpdb->prefix . 'icl_string_positions',
-            $wpdb->prefix . 'icl_message_status',
-            $wpdb->prefix . 'icl_reminders',    
-        );
-                
-        foreach($icl_tables as $icl_table){
-            mysql_query("DROP TABLE IF EXISTS " . $icl_table);
-        }
-        
-        delete_option('icl_sitepress_settings');
-        delete_option('icl_sitepress_version');
-        delete_option('_icl_cache');
-        delete_option('_icl_admin_option_names');
-        delete_option('wp_icl_translators_cached');
-        delete_option('WPLANG');   
-         
-        $wpmu_sitewide_plugins = (array) maybe_unserialize( get_site_option( 'active_sitewide_plugins' ) );
-        if(!isset($wpmu_sitewide_plugins[ICL_PLUGIN_FOLDER.'/sitepress.php'])){
-            deactivate_plugins(basename(ICL_PLUGIN_PATH) . '/sitepress.php');
-            $ra = get_option('recently_activated');
-            $ra[basename(ICL_PLUGIN_PATH) . '/sitepress.php'] = time();
-            update_option('recently_activated', $ra);        
-        }else{
-            update_option('_wpml_inactive', true);
-        }
-        
-        
-        if(isset($_REQUEST['submit'])){            
-            wp_redirect(network_admin_url('admin.php?page='.ICL_PLUGIN_FOLDER.'/menu/network.php&updated=true&action=resetwpml'));
-            exit();
-        }
-        
-        if(function_exists('is_multisite') && is_multisite()){
-            restore_current_blog(); 
-        }
-        
-    }
+		foreach ( $wpml_options as $wpml_option ) {
+			delete_option( $wpml_option );
+		}
+
+		$wpml_user_options = array(
+			'language_pairs'
+		);
+		$wpml_user_options = apply_filters( 'wpml_reset_user_options', $wpml_user_options, $blog_id );
+		if ( $wpml_user_options ) {
+			foreach ( $wpml_user_options as $wpml_user_option ) {
+
+				$meta_key = $wpdb->get_blog_prefix( $blog_id ) . $wpml_user_option;
+				$users    = get_users( array(
+					'blog_id'  => $blog_id,
+					'meta_key' => $meta_key,
+					'fields'   => array( 'ID' ),
+				) );
+
+				/** @var WP_User $user */
+				foreach ( $users as $user ) {
+					delete_user_option( $user->ID, $wpml_user_option );
+				}
+			}
+		}
+
+		$capabilities = array(
+			'wpml_manage_translation_management',
+			'wpml_manage_languages',
+			'wpml_manage_theme_and_plugin_localization',
+			'wpml_manage_support',
+			'wpml_manage_woocommerce_multilingual',
+			'wpml_operate_woocommerce_multilingual',
+			'wpml_manage_media_translation',
+			'wpml_manage_navigation',
+			'wpml_manage_sticky_links',
+			'wpml_manage_string_translation',
+			'wpml_manage_translation_analytics',
+			'wpml_manage_wp_menus_sync',
+			'wpml_manage_taxonomy_translation',
+			'wpml_manage_troubleshooting',
+			'wpml_manage_translation_options',
+			'manage_translations',
+			'translate',
+		);
+
+		$capabilities = apply_filters( 'wpml_reset_user_capabilities', $capabilities, $blog_id );
+		if ( $capabilities ) {
+			$users = get_users( array(
+				'blog_id' => $blog_id,
+			) );
+
+			/** @var WP_User $user */
+			foreach ( $users as $user ) {
+				foreach ( $capabilities as $capability ) {
+					$user->remove_cap( $capability );
+				}
+			}
+		}
+
+		$sitepress_settings = null;
+		wp_cache_init();
+
+		$wpml_cache_directory = new WPML_Cache_Directory( new WPML_WP_API() );
+		$wpml_cache_directory->remove();
+
+		do_action( 'wpml_reset_plugins_after' );
+		
+		$wpmu_sitewide_plugins = (array) maybe_unserialize( get_site_option( 'active_sitewide_plugins' ) );
+		if ( ! isset( $wpmu_sitewide_plugins[ WPML_PLUGIN_BASENAME ] ) ) {
+			remove_action( 'deactivate_' . WPML_PLUGIN_BASENAME, 'icl_sitepress_deactivate' );
+			deactivate_plugins( WPML_PLUGIN_BASENAME );
+			$ra                                                   = get_option( 'recently_activated' );
+			$ra[ WPML_PLUGIN_BASENAME ] = time();
+			update_option( 'recently_activated', $ra );
+		} else {
+			update_option( '_wpml_inactive', true );
+		}
+
+		$options_to_delete_after_deactivation = array(
+			'wpml_dependencies:needs_validation',
+			'wpml_dependencies:valid_plugins',
+			'wpml_dependencies:invalid_plugins',
+		);
+		$options_to_delete_after_deactivation = apply_filters( 'wpml_reset_options_after_deactivation', $options_to_delete_after_deactivation, $blog_id );
+
+		foreach ( $options_to_delete_after_deactivation as $option ) {
+			delete_option( $option );
+		}
+
+		if ( function_exists( 'is_multisite' ) && is_multisite() ) {
+			restore_current_blog();
+		}
+	}
 }
 
-?>
+/**
+ * Ajax handler for type assignment fix troubleshoot action
+ */
+function icl_repair_broken_type_and_language_assignments() {
+	global $sitepress;
+
+	$lang_setter = new WPML_Fix_Type_Assignments( $sitepress );
+	$rows_fixed  = $lang_setter->run();
+
+	wp_send_json_success( $rows_fixed );
+}

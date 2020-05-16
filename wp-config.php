@@ -3,7 +3,7 @@
 define('DB_NAME', 'mynetxne_blog');    // The name of the database
 define('DB_USER', 'mynetxne_blog');     // Your MySQL username
 define('DB_PASSWORD', 'nQ2tmDmx@1!'); // ...and password
-define('DB_HOST', 'pippa.srv.mynetx.net');    // 99% chance you won't need to change this value
+define('DB_HOST', 'localhost');    // 99% chance you won't need to change this value
 define('DB_CHARSET', 'utf8');
 define('DB_COLLATE', '');
 
@@ -25,6 +25,7 @@ define('COOKIE_DOMAIN', '.mynetx.net');
 define('COOKIEPATH', '/');
 define('SITECOOKIEPATH', '/');
 define('ADMIN_COOKIE_PATH', '/');
+if (defined('WP_PLUGIN_URL'))
 define('PLUGINS_COOKIE_PATH', preg_replace('|https?://[^/]+|i', '', WP_PLUGIN_URL));
 
  //Added by WP-Cache Manager

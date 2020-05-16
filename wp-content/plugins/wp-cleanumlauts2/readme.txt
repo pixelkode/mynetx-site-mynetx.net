@@ -3,8 +3,8 @@ Contributors: 1manfactory
 Donate link: http://1manfactory.com/donate
 Tags: german, deutsch, umlauts, umlaute, umlaut, permanlink, permalinks, post, feeds, feed, comment, comments
 Requires at least: 2.7
-Tested up to: 3.3.1
-Stable tag: trunk
+Tested up to: 3.8
+Stable tag: 1.6
 
 Converts German umlauts for permalinks, post, comments, feeds automatically. Wandelt Umlaute automatisch für Permalinks, Posting, Kommentare, Feeds.
 
@@ -66,6 +66,9 @@ Post it at the plugin page: [WP-Cleanumlauts2](http://1manfactory.com/umlauts)
 2. Settings
 
 == Changelog ==
+
+= 1.6 (31.12.2013) =
+* Check with Wordpress 3.8 OK
 
 = 1.5.1 (13.02.2012) =
 * Getting rid of notices when debug mode is set to true. Thanks to Johannes Freudendahl.

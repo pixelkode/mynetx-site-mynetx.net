@@ -3,7 +3,7 @@
 Plugin Name: WP-CleanUmlauts2
 Plugin URI: http://1manfactory.com/umlauts
 Description: Converts German umlauts for permalinks, post, comments, feeds automatically. Wandelt Umlaute automatisch für Permalinks, Posting, Kommentare, Feeds.
-Version: 1.5.1
+Version: 1.6
 Author: J&uuml;rgen Schulze
 Author URI: http://1manfactory.com
 License: GPL2
@@ -30,8 +30,8 @@ License: GPL2
 // some definition we will use
 define( 'UMLAUTS_PUGIN_NAME', 'WP-CleanUmlauts2');
 define( 'UMLAUTS_PLUGIN_DIRECTORY', 'WP-CleanUmlauts2');
-define( 'UMLAUTS_CURRENT_VERSION', '1.5.1' );
-define( 'UMLAUTS_CURRENT_BUILD', '3' );
+define( 'UMLAUTS_CURRENT_VERSION', '1.6' );
+define( 'UMLAUTS_CURRENT_BUILD', '4' );
 define( 'UMLAUTS_DEBUG', false);		# never use debug mode on productive systems
 // i18n plugin domain for language files
 define( 'UMLAUTS_I18N_DOMAIN', 'umlauts' );

@@ -7,6 +7,7 @@
  * @since 3.1.0
  */
 
-require_once( './admin.php' );
+/** Load WordPress Administration Bootstrap */
+require_once __DIR__ . '/admin.php';
 
-require( '../profile.php' );
+require ABSPATH . 'wp-admin/profile.php';

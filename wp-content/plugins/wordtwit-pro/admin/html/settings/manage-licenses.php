@@ -1,1 +1,0 @@
-<div id="wordtwit-license-area"><?php _e( "Loading licenses from the BNC server...", "wordtwit-pro" ); ?></div>

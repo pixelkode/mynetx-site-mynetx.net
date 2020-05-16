@@ -3,7 +3,7 @@
 
 .tiled-gallery {
 	clear: both;
-	margin: 0;
+	margin: 0 0 20px;
 	overflow: hidden;
 }
 .tiled-gallery img {
@@ -21,12 +21,11 @@
 }
 .tiled-gallery .gallery-row {
 	 overflow: hidden;
-	 margin-bottom: 2px;
 }
 .tiled-gallery .tiled-gallery-item a { /* Needs to reset some properties for theme compatibility */
 	background: transparent;
 	border: none;
-	color: none;
+	color: inherit;
 	margin: 0;
 	padding: 0;
 	text-decoration: none;
@@ -87,9 +86,16 @@
 
 .tiled-gallery.type-circle .tiled-gallery-item img {
 	border-radius: 50% !important; /* Ensure that circles are displayed in themes that add border-radius to all images as a default */
+	object-fit: cover;
 }
 .tiled-gallery.type-circle .tiled-gallery-caption {
 	display: none;
 	opacity: 0;
 }
 
+
+/* =Square Layout
+-------------------------------------------------------------- */
+.tiled-gallery.type-square .tiled-gallery-item img {
+	object-fit: cover;
+}

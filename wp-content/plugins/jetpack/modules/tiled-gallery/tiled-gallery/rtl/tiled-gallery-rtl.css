@@ -1,11 +1,11 @@
-/* This file was automatically generated on Jul 03 2013 18:11:40 */
+/* This file was automatically generated on Oct 01 2015 20:17:19 */
 
 /* =Tiled Gallery Default Styles
 -------------------------------------------------------------- */
 
 .tiled-gallery {
 	clear: both;
-	margin: 0;
+	margin: 0 0 20px;
 	overflow: hidden;
 }
 .tiled-gallery img {
@@ -23,12 +23,11 @@
 }
 .tiled-gallery .gallery-row {
 	 overflow: hidden;
-	 margin-bottom: 2px;
 }
 .tiled-gallery .tiled-gallery-item a { /* Needs to reset some properties for theme compatibility */
 	background: transparent;
 	border: none;
-	color: none;
+	color: inherit;
 	margin: 0;
 	padding: 0;
 	text-decoration: none;

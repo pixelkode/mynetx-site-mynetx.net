@@ -1,5 +1,11 @@
+/**
+ * @output wp-admin/js/gallery.js
+ */
+
+/* global unescape, getUserSetting, setUserSetting, wpgallery, tinymce */
+
 jQuery(document).ready(function($) {
-	var gallerySortable, gallerySortableInit, w, desc = false;
+	var gallerySortable, gallerySortableInit, sortIt, clearAll, w, desc = false;
 
 	gallerySortableInit = function() {
 		gallerySortable = $('#media-items').sortable( {
@@ -8,8 +14,8 @@ jQuery(document).ready(function($) {
 			axis: 'y',
 			distance: 2,
 			handle: 'div.filename',
-			stop: function(e, ui) {
-				// When an update has occurred, adjust the order for each item
+			stop: function() {
+				// When an update has occurred, adjust the order for each item.
 				var all = $('#media-items').sortable('toArray'), len = all.length;
 				$.each(all, function(i, id) {
 					var order = desc ? (len - i) : (1 + i);
@@ -17,7 +23,7 @@ jQuery(document).ready(function($) {
 				});
 			}
 		} );
-	}
+	};
 
 	sortIt = function() {
 		var all = $('.menu_order_input'), len = all.length;
@@ -25,34 +31,47 @@ jQuery(document).ready(function($) {
 			var order = desc ? (len - i) : (1 + i);
 			$(this).val(order);
 		});
-	}
+	};
 
 	clearAll = function(c) {
 		c = c || 0;
-		$('.menu_order_input').each(function(){
-			if ( this.value == '0' || c ) this.value = '';
+		$('.menu_order_input').each( function() {
+			if ( this.value === '0' || c ) {
+				this.value = '';
+			}
 		});
-	}
+	};
 
-	$('#asc').click(function(){desc = false; sortIt(); return false;});
-	$('#desc').click(function(){desc = true; sortIt(); return false;});
-	$('#clear').click(function(){clearAll(1); return false;});
-	$('#showall').click(function(){
+	$('#asc').click( function( e ) {
+		e.preventDefault();
+		desc = false;
+		sortIt();
+	});
+	$('#desc').click( function( e ) {
+		e.preventDefault();
+		desc = true;
+		sortIt();
+	});
+	$('#clear').click( function( e ) {
+		e.preventDefault();
+		clearAll(1);
+	});
+	$('#showall').click( function( e ) {
+		e.preventDefault();
 		$('#sort-buttons span a').toggle();
 		$('a.describe-toggle-on').hide();
 		$('a.describe-toggle-off, table.slidetoggle').show();
 		$('img.pinkynail').toggle(false);
-		return false;
 	});
-	$('#hideall').click(function(){
+	$('#hideall').click( function( e ) {
+		e.preventDefault();
 		$('#sort-buttons span a').toggle();
 		$('a.describe-toggle-on').show();
 		$('a.describe-toggle-off, table.slidetoggle').hide();
 		$('img.pinkynail').toggle(true);
-		return false;
 	});
 
-	// initialize sortable
+	// Initialize sortable.
 	gallerySortableInit();
 	clearAll();
 
@@ -60,7 +79,7 @@ jQuery(document).ready(function($) {
 		w = wpgallery.getWin();
 
 		$('#save-all, #gallery-settings').show();
-		if ( typeof w.tinyMCE != 'undefined' && w.tinyMCE.activeEditor && ! w.tinyMCE.activeEditor.isHidden() ) {
+		if ( typeof w.tinyMCE !== 'undefined' && w.tinyMCE.activeEditor && ! w.tinyMCE.activeEditor.isHidden() ) {
 			wpgallery.mcemode = true;
 			wpgallery.init();
 		} else {
@@ -69,12 +88,12 @@ jQuery(document).ready(function($) {
 	}
 });
 
-jQuery(window).unload( function () { tinymce = tinyMCE = wpgallery = null; } ); // Cleanup
+jQuery(window).unload( function () { window.tinymce = window.tinyMCE = window.wpgallery = null; } ); // Cleanup.
 
 /* gallery settings */
-var tinymce = null, tinyMCE, wpgallery;
+window.tinymce = null;
 
-wpgallery = {
+window.wpgallery = {
 	mcemode : false,
 	editor : {},
 	dom : {},
@@ -88,7 +107,9 @@ wpgallery = {
 	init: function() {
 		var t = this, li, q, i, it, w = t.getWin();
 
-		if ( ! t.mcemode ) return;
+		if ( ! t.mcemode ) {
+			return;
+		}
 
 		li = ('' + document.location.search).replace(/^\?/, '').split('&');
 		q = {};
@@ -97,12 +118,13 @@ wpgallery = {
 			q[unescape(it[0])] = unescape(it[1]);
 		}
 
-		if (q.mce_rdomain)
+		if ( q.mce_rdomain ) {
 			document.domain = q.mce_rdomain;
+		}
 
-		// Find window & API
-		tinymce = w.tinymce;
-		tinyMCE = w.tinyMCE;
+		// Find window & API.
+		window.tinymce = w.tinymce;
+		window.tinyMCE = w.tinyMCE;
 		t.editor = tinymce.EditorManager.activeEditor;
 
 		t.setup();
@@ -114,18 +136,28 @@ wpgallery = {
 
 	setup : function() {
 		var t = this, a, ed = t.editor, g, columns, link, order, orderby;
-		if ( ! t.mcemode ) return;
+		if ( ! t.mcemode ) {
+			return;
+		}
 
 		t.el = ed.selection.getNode();
 
-		if ( t.el.nodeName != 'IMG' || ! ed.dom.hasClass(t.el, 'wpGallery') ) {
-			if ( (g = ed.dom.select('img.wpGallery')) && g[0] ) {
+		if ( t.el.nodeName !== 'IMG' || ! ed.dom.hasClass(t.el, 'wpGallery') ) {
+			if ( ( g = ed.dom.select('img.wpGallery') ) && g[0] ) {
 				t.el = g[0];
 			} else {
-				if ( getUserSetting('galfile') == '1' ) t.I('linkto-file').checked = "checked";
-				if ( getUserSetting('galdesc') == '1' ) t.I('order-desc').checked = "checked";
-				if ( getUserSetting('galcols') ) t.I('columns').value = getUserSetting('galcols');
-				if ( getUserSetting('galord') ) t.I('orderby').value = getUserSetting('galord');
+				if ( getUserSetting('galfile') === '1' ) {
+					t.I('linkto-file').checked = 'checked';
+				}
+				if ( getUserSetting('galdesc') === '1' ) {
+					t.I('order-desc').checked = 'checked';
+				}
+				if ( getUserSetting('galcols') ) {
+					t.I('columns').value = getUserSetting('galcols');
+				}
+				if ( getUserSetting('galord') ) {
+					t.I('orderby').value = getUserSetting('galord');
+				}
 				jQuery('#insert-gallery').show();
 				return;
 			}
@@ -143,10 +175,18 @@ wpgallery = {
 			order = a.match(/order=['"]([^'"]+)['"]/i);
 			orderby = a.match(/orderby=['"]([^'"]+)['"]/i);
 
-			if ( link && link[1] ) t.I('linkto-file').checked = "checked";
-			if ( order && order[1] ) t.I('order-desc').checked = "checked";
-			if ( columns && columns[1] ) t.I('columns').value = ''+columns[1];
-			if ( orderby && orderby[1] ) t.I('orderby').value = orderby[1];
+			if ( link && link[1] ) {
+				t.I('linkto-file').checked = 'checked';
+			}
+			if ( order && order[1] ) {
+				t.I('order-desc').checked = 'checked';
+			}
+			if ( columns && columns[1] ) {
+				t.I('columns').value = '' + columns[1];
+			}
+			if ( orderby && orderby[1] ) {
+				t.I('orderby').value = orderby[1];
+			}
 		} else {
 			jQuery('#insert-gallery').show();
 		}
@@ -156,14 +196,16 @@ wpgallery = {
 		var t = this, ed = t.editor, all = '', s;
 
 		if ( ! t.mcemode || ! t.is_update ) {
-			s = '[gallery'+t.getSettings()+']';
+			s = '[gallery' + t.getSettings() + ']';
 			t.getWin().send_to_editor(s);
 			return;
 		}
 
-		if (t.el.nodeName != 'IMG') return;
+		if ( t.el.nodeName !== 'IMG' ) {
+			return;
+		}
 
-		all = ed.dom.decode(ed.dom.getAttrib(t.el, 'title'));
+		all = ed.dom.decode( ed.dom.getAttrib( t.el, 'title' ) );
 		all = all.replace(/\s*(order|link|columns|orderby)=['"]([^'"]+)['"]/gi, '');
 		all += t.getSettings();
 
@@ -184,13 +226,13 @@ wpgallery = {
 			setUserSetting('galdesc', '1');
 		}
 
-		if ( I('columns').value != 3 ) {
-			s += ' columns="'+I('columns').value+'"';
+		if ( I('columns').value !== 3 ) {
+			s += ' columns="' + I('columns').value + '"';
 			setUserSetting('galcols', I('columns').value);
 		}
 
-		if ( I('orderby').value != 'menu_order' ) {
-			s += ' orderby="'+I('orderby').value+'"';
+		if ( I('orderby').value !== 'menu_order' ) {
+			s += ' orderby="' + I('orderby').value + '"';
 			setUserSetting('galord', I('orderby').value);
 		}
 

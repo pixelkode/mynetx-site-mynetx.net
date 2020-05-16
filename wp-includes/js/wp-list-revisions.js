@@ -1,3 +1,7 @@
+/**
+ * @output wp-includes/js/wp-list-revisions.js
+ */
+
 (function(w) {
 	var init = function() {
 		var pr = document.getElementById('post-revisions'),
@@ -14,9 +18,9 @@
 				else if ( 'left' == side || 'right' == side )
 					inputs[i].style.visibility = 'visible';
 			}
-		}
+		};
 		pr.onclick();
-	}
+	};
 	if ( w && w.addEventListener )
 		w.addEventListener('load', init, false);
 	else if ( w && w.attachEvent )

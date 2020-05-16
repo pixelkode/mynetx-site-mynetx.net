@@ -1,10 +1,11 @@
 <?php
+
 /////////////////////////////////////////////////////////////////
 /// getID3() by James Heinrich <info@getid3.org>               //
-//  available at http://getid3.sourceforge.net                 //
-//            or http://www.getid3.org                         //
-/////////////////////////////////////////////////////////////////
-// See readme.txt for more details                             //
+//  available at https://github.com/JamesHeinrich/getID3       //
+//            or https://www.getid3.org                        //
+//            or http://getid3.sourceforge.net                 //
+//  see readme.txt for more details                            //
 /////////////////////////////////////////////////////////////////
 //                                                             //
 // module.audio-video.matriska.php                             //
@@ -71,7 +72,7 @@ define('EBML_ID_FILEREFERRAL',                  0x0675); //         [46][75] -- 
 define('EBML_ID_FILEDESCRIPTION',               0x067E); //         [46][7E] -- A human-friendly name for the attached file.
 define('EBML_ID_FILEUID',                       0x06AE); //         [46][AE] -- Unique ID representing the file, as random as possible.
 define('EBML_ID_CONTENTENCALGO',                0x07E1); //         [47][E1] -- The encryption algorithm used. The value '0' means that the contents have not been encrypted but only signed. Predefined values:
-define('EBML_ID_CONTENTENCKEYID',               0x07E2); //         [47][E2] -- For public key algorithms this is the ID of the public key the the data was encrypted with.
+define('EBML_ID_CONTENTENCKEYID',               0x07E2); //         [47][E2] -- For public key algorithms this is the ID of the public key the data was encrypted with.
 define('EBML_ID_CONTENTSIGNATURE',              0x07E3); //         [47][E3] -- A cryptographic signature of the contents.
 define('EBML_ID_CONTENTSIGKEYID',               0x07E4); //         [47][E4] -- This is the ID of the private key the data was signed with.
 define('EBML_ID_CONTENTSIGALGO',                0x07E5); //         [47][E5] -- The algorithm used for the signature. A value of '0' means that the contents have not been signed but only encrypted. Predefined values:
@@ -214,17 +215,33 @@ define('EBML_ID_CLUSTERREFERENCEVIRTUAL',         0x7D); //             [FD] -- 
 */
 class getid3_matroska extends getid3_handler
 {
-	// public options
-	public static $hide_clusters    = true;  // if true, do not return information about CLUSTER chunks, since there's a lot of them and they're not usually useful [default: TRUE]
-	public static $parse_whole_file = false; // true to parse the whole file, not only header [default: FALSE]
+	/**
+	 * If true, do not return information about CLUSTER chunks, since there's a lot of them
+	 * and they're not usually useful [default: TRUE].
+	 *
+	 * @var bool
+	 */
+	public static $hide_clusters    = true;
 
-	// private parser settings/placeholders
+	/**
+	 * True to parse the whole file, not only header [default: FALSE].
+	 *
+	 * @var bool
+	 */
+	public static $parse_whole_file = false;
+
+	/*
+	 * Private parser settings/placeholders.
+	 */
 	private $EBMLbuffer        = '';
 	private $EBMLbuffer_offset = 0;
 	private $EBMLbuffer_length = 0;
 	private $current_offset    = 0;
 	private $unuseful_elements = array(EBML_ID_CRC32, EBML_ID_VOID);
 
+	/**
+	 * @return bool
+	 */
 	public function Analyze()
 	{
 		$info = &$this->getid3->info;
@@ -233,7 +250,7 @@ class getid3_matroska extends getid3_handler
 		try {
 			$this->parseEBML($info);
 		} catch (Exception $e) {
-			$info['error'][] = 'EBML parser: '.$e->getMessage();
+			$this->error('EBML parser: '.$e->getMessage());
 		}
 
 		// calculate playtime
@@ -281,10 +298,8 @@ class getid3_matroska extends getid3_handler
 
 						switch ($trackarray['CodecID']) {
 							case 'V_MS/VFW/FOURCC':
-								if (!getid3_lib::IncludeDependency(GETID3_INCLUDEPATH.'module.audio-video.riff.php', __FILE__, false)) {
-									$this->warning('Unable to parse codec private data ['.basename(__FILE__).':'.__LINE__.'] because cannot include "module.audio-video.riff.php"');
-									break;
-								}
+								getid3_lib::IncludeDependency(GETID3_INCLUDEPATH.'module.audio-video.riff.php', __FILE__, true);
+
 								$parsed = getid3_riff::ParseBITMAPINFOHEADER($trackarray['CodecPrivate']);
 								$track_info['codec'] = getid3_riff::fourccLookup($parsed['fourcc']);
 								$info['matroska']['track_codec_parsed'][$trackarray['TrackNumber']] = $parsed;
@@ -327,18 +342,17 @@ class getid3_matroska extends getid3_handler
 						switch ($trackarray['CodecID']) {
 							case 'A_PCM/INT/LIT':
 							case 'A_PCM/INT/BIG':
-								$track_info['bitrate'] = $trackarray['SamplingFrequency'] * $trackarray['Channels'] * $trackarray['BitDepth'];
+								$track_info['bitrate'] = $track_info['sample_rate'] * $track_info['channels'] * $trackarray['BitDepth'];
 								break;
 
 							case 'A_AC3':
+							case 'A_EAC3':
 							case 'A_DTS':
 							case 'A_MPEG/L3':
 							case 'A_MPEG/L2':
 							case 'A_FLAC':
-								if (!getid3_lib::IncludeDependency(GETID3_INCLUDEPATH.'module.audio.'.($track_info['dataformat'] == 'mp2' ? 'mp3' : $track_info['dataformat']).'.php', __FILE__, false)) {
-									$this->warning('Unable to parse audio data ['.basename(__FILE__).':'.__LINE__.'] because cannot include "module.audio.'.$track_info['dataformat'].'.php"');
-									break;
-								}
+								$module_dataformat = ($track_info['dataformat'] == 'mp2' ? 'mp3' : ($track_info['dataformat'] == 'eac3' ? 'ac3' : $track_info['dataformat']));
+								getid3_lib::IncludeDependency(GETID3_INCLUDEPATH.'module.audio.'.$module_dataformat.'.php', __FILE__, true);
 
 								if (!isset($info['matroska']['track_data_offsets'][$trackarray['TrackNumber']])) {
 									$this->warning('Unable to parse audio data ['.basename(__FILE__).':'.__LINE__.'] because $info[matroska][track_data_offsets]['.$trackarray['TrackNumber'].'] not set');
@@ -356,7 +370,7 @@ class getid3_matroska extends getid3_handler
 								}
 
 								// analyze
-								$class = 'getid3_'.($track_info['dataformat'] == 'mp2' ? 'mp3' : $track_info['dataformat']);
+								$class = 'getid3_'.$module_dataformat;
 								$header_data_key = $track_info['dataformat'][0] == 'm' ? 'mpeg' : $track_info['dataformat'];
 								$getid3_audio = new $class($getid3_temp, __CLASS__);
 								if ($track_info['dataformat'] == 'flac') {
@@ -368,8 +382,8 @@ class getid3_matroska extends getid3_handler
 								if (!empty($getid3_temp->info[$header_data_key])) {
 									$info['matroska']['track_codec_parsed'][$trackarray['TrackNumber']] = $getid3_temp->info[$header_data_key];
 									if (isset($getid3_temp->info['audio']) && is_array($getid3_temp->info['audio'])) {
-										foreach ($getid3_temp->info['audio'] as $key => $value) {
-											$track_info[$key] = $value;
+										foreach ($getid3_temp->info['audio'] as $sub_key => $value) {
+											$track_info[$sub_key] = $value;
 										}
 									}
 								}
@@ -385,10 +399,6 @@ class getid3_matroska extends getid3_handler
 								}
 								if (!empty($getid3_temp->info['warning'])) {
 									foreach ($getid3_temp->info['warning'] as $newerror) {
-										if ($track_info['dataformat'] == 'mp3' && preg_match('/^Probable truncated file: expecting \d+ bytes of audio data, only found \d+ \(short by \d+ bytes\)$/', $newerror)) {
-											// LAME/Xing header is probably set, but audio data is chunked into Matroska file and near-impossible to verify if audio stream is complete, so ignore useless warning
-											continue;
-										}
 										$this->warning($class.'() says: ['.$newerror.']');
 									}
 								}
@@ -400,7 +410,7 @@ class getid3_matroska extends getid3_handler
 							case 'A_AAC/MPEG2/LC/SBR':
 							case 'A_AAC/MPEG4/LC':
 							case 'A_AAC/MPEG4/LC/SBR':
-							    $this->warning($trackarray['CodecID'].' audio data contains no header, audio/video bitrates can\'t be calculated');
+								$this->warning($trackarray['CodecID'].' audio data contains no header, audio/video bitrates can\'t be calculated');
 								break;
 
 							case 'A_VORBIS':
@@ -415,10 +425,7 @@ class getid3_matroska extends getid3_handler
 								}
 								$vorbis_offset -= 1;
 
-								if (!getid3_lib::IncludeDependency(GETID3_INCLUDEPATH.'module.audio.ogg.php', __FILE__, false)) {
-									$this->warning('Unable to parse audio data ['.basename(__FILE__).':'.__LINE__.'] because cannot include "module.audio.ogg.php"');
-									break;
-								}
+								getid3_lib::IncludeDependency(GETID3_INCLUDEPATH.'module.audio.ogg.php', __FILE__, true);
 
 								// create temp instance
 								$getid3_temp = new getID3();
@@ -430,8 +437,8 @@ class getid3_matroska extends getid3_handler
 								if (!empty($getid3_temp->info['ogg'])) {
 									$info['matroska']['track_codec_parsed'][$trackarray['TrackNumber']] = $getid3_temp->info['ogg'];
 									if (isset($getid3_temp->info['audio']) && is_array($getid3_temp->info['audio'])) {
-										foreach ($getid3_temp->info['audio'] as $key => $value) {
-											$track_info[$key] = $value;
+										foreach ($getid3_temp->info['audio'] as $sub_key => $value) {
+											$track_info[$sub_key] = $value;
 										}
 									}
 								}
@@ -455,15 +462,12 @@ class getid3_matroska extends getid3_handler
 								break;
 
 							case 'A_MS/ACM':
-								if (!getid3_lib::IncludeDependency(GETID3_INCLUDEPATH.'module.audio-video.riff.php', __FILE__, false)) {
-									$this->warning('Unable to parse audio data ['.basename(__FILE__).':'.__LINE__.'] because cannot include "module.audio-video.riff.php"');
-									break;
-								}
+								getid3_lib::IncludeDependency(GETID3_INCLUDEPATH.'module.audio-video.riff.php', __FILE__, true);
 
 								$parsed = getid3_riff::parseWAVEFORMATex($trackarray['CodecPrivate']);
-								foreach ($parsed as $key => $value) {
-									if ($key != 'raw') {
-										$track_info[$key] = $value;
+								foreach ($parsed as $sub_key => $value) {
+									if ($sub_key != 'raw') {
+										$track_info[$sub_key] = $value;
 									}
 								}
 								$info['matroska']['track_codec_parsed'][$trackarray['TrackNumber']] = $parsed;
@@ -471,6 +475,7 @@ class getid3_matroska extends getid3_handler
 
 							default:
 								$this->warning('Unhandled audio type "'.(isset($trackarray['CodecID']) ? $trackarray['CodecID'] : '').'"');
+								break;
 						}
 
 						$info['audio']['streams'][] = $track_info;
@@ -507,6 +512,9 @@ class getid3_matroska extends getid3_handler
 		return true;
 	}
 
+	/**
+	 * @param array $info
+	 */
 	private function parseEBML(&$info) {
 		// http://www.matroska.org/technical/specs/index.html#EBMLBasics
 		$this->current_offset = $info['avdataoffset'];
@@ -515,7 +523,6 @@ class getid3_matroska extends getid3_handler
 			switch ($top_element['id']) {
 
 				case EBML_ID_EBML:
-					$info['fileformat'] = 'matroska';
 					$info['matroska']['header']['offset'] = $top_element['offset'];
 					$info['matroska']['header']['length'] = $top_element['length'];
 
@@ -534,10 +541,12 @@ class getid3_matroska extends getid3_handler
 							case EBML_ID_DOCTYPE:
 								$element_data['data'] = getid3_lib::trimNullByte($element_data['data']);
 								$info['matroska']['doctype'] = $element_data['data'];
+								$info['fileformat'] = $element_data['data'];
 								break;
 
 							default:
 								$this->unhandledElement('header', __LINE__, $element_data);
+								break;
 						}
 
 						unset($element_data['offset'], $element_data['end']);
@@ -576,15 +585,20 @@ class getid3_matroska extends getid3_handler
 
 													default:
 														$this->unhandledElement('seekhead.seek', __LINE__, $sub_seek_entry);												}
+														break;
 											}
-
-											if ($seek_entry['target_id'] != EBML_ID_CLUSTER || !self::$hide_clusters) { // collect clusters only if required
+											if (!isset($seek_entry['target_id'])) {
+												$this->warning('seek_entry[target_id] unexpectedly not set at '.$seek_entry['offset']);
+												break;
+											}
+											if (($seek_entry['target_id'] != EBML_ID_CLUSTER) || !self::$hide_clusters) { // collect clusters only if required
 												$info['matroska']['seek'][] = $seek_entry;
 											}
 											break;
 
 										default:
 											$this->unhandledElement('seekhead', __LINE__, $seek_entry);
+											break;
 									}
 								}
 								break;
@@ -667,6 +681,7 @@ class getid3_matroska extends getid3_handler
 
 																default:
 																	$this->unhandledElement('track.video', __LINE__, $sub_subelement);
+																	break;
 															}
 														}
 														break;
@@ -692,6 +707,7 @@ class getid3_matroska extends getid3_handler
 
 																default:
 																	$this->unhandledElement('track.audio', __LINE__, $sub_subelement);
+																	break;
 															}
 														}
 														break;
@@ -727,6 +743,7 @@ class getid3_matroska extends getid3_handler
 
 																						default:
 																							$this->unhandledElement('track.contentencodings.contentencoding.contentcompression', __LINE__, $sub_sub_sub_subelement);
+																							break;
 																					}
 																				}
 																				break;
@@ -750,24 +767,28 @@ class getid3_matroska extends getid3_handler
 
 																						default:
 																							$this->unhandledElement('track.contentencodings.contentencoding.contentcompression', __LINE__, $sub_sub_sub_subelement);
+																							break;
 																					}
 																				}
 																				break;
 
 																			default:
 																				$this->unhandledElement('track.contentencodings.contentencoding', __LINE__, $sub_sub_subelement);
+																				break;
 																		}
 																	}
 																	break;
 
 																default:
 																	$this->unhandledElement('track.contentencodings', __LINE__, $sub_subelement);
+																	break;
 															}
 														}
 														break;
 
 													default:
 														$this->unhandledElement('track', __LINE__, $subelement);
+														break;
 												}
 											}
 
@@ -776,6 +797,7 @@ class getid3_matroska extends getid3_handler
 
 										default:
 											$this->unhandledElement('tracks', __LINE__, $track_entry);
+											break;
 									}
 								}
 								break;
@@ -839,6 +861,7 @@ class getid3_matroska extends getid3_handler
 
 													default:
 														$this->unhandledElement('info.chaptertranslate', __LINE__, $sub_subelement);
+														break;
 												}
 											}
 											$info_entry[$subelement['id_name']] = $chaptertranslate_entry;
@@ -846,6 +869,7 @@ class getid3_matroska extends getid3_handler
 
 										default:
 											$this->unhandledElement('info', __LINE__, $subelement);
+											break;
 									}
 								}
 								$info['matroska']['info'][] = $info_entry;
@@ -882,6 +906,7 @@ class getid3_matroska extends getid3_handler
 
 																default:
 																	$this->unhandledElement('cues.cuepoint.cuetrackpositions', __LINE__, $sub_sub_subelement);
+																	break;
 															}
 														}
 														$cuepoint_entry[$sub_subelement['id_name']][] = $cuetrackpositions_entry;
@@ -893,6 +918,7 @@ class getid3_matroska extends getid3_handler
 
 													default:
 														$this->unhandledElement('cues.cuepoint', __LINE__, $sub_subelement);
+														break;
 												}
 											}
 											$cues_entry[] = $cuepoint_entry;
@@ -900,6 +926,7 @@ class getid3_matroska extends getid3_handler
 
 										default:
 											$this->unhandledElement('cues', __LINE__, $subelement);
+											break;
 									}
 								}
 								$info['matroska']['cues'] = $cues_entry;
@@ -941,6 +968,7 @@ class getid3_matroska extends getid3_handler
 
 																default:
 																	$this->unhandledElement('tags.tag.targets', __LINE__, $sub_sub_subelement);
+																	break;
 															}
 														}
 														$tag_entry[$sub_subelement['id_name']] = $targets_entry;
@@ -952,6 +980,7 @@ class getid3_matroska extends getid3_handler
 
 													default:
 														$this->unhandledElement('tags.tag', __LINE__, $sub_subelement);
+														break;
 												}
 											}
 											$tags_entry[] = $tag_entry;
@@ -959,6 +988,7 @@ class getid3_matroska extends getid3_handler
 
 										default:
 											$this->unhandledElement('tags', __LINE__, $subelement);
+											break;
 									}
 								}
 								$info['matroska']['tags'] = $tags_entry;
@@ -999,6 +1029,7 @@ class getid3_matroska extends getid3_handler
 
 													default:
 														$this->unhandledElement('attachments.attachedfile', __LINE__, $sub_subelement);
+														break;
 												}
 											}
 											$info['matroska']['attachments'][] = $attachedfile_entry;
@@ -1006,6 +1037,7 @@ class getid3_matroska extends getid3_handler
 
 										default:
 											$this->unhandledElement('attachments', __LINE__, $subelement);
+											break;
 									}
 								}
 								break;
@@ -1065,6 +1097,7 @@ class getid3_matroska extends getid3_handler
 
 																			default:
 																				$this->unhandledElement('chapters.editionentry.chapteratom.chaptertrack', __LINE__, $sub_sub_sub_subelement);
+																				break;
 																		}
 																	}
 																	$chapteratom_entry[$sub_sub_subelement['id_name']][] = $chaptertrack_entry;
@@ -1084,6 +1117,7 @@ class getid3_matroska extends getid3_handler
 
 																			default:
 																				$this->unhandledElement('chapters.editionentry.chapteratom.chapterdisplay', __LINE__, $sub_sub_sub_subelement);
+																				break;
 																		}
 																	}
 																	$chapteratom_entry[$sub_sub_subelement['id_name']][] = $chapterdisplay_entry;
@@ -1091,6 +1125,7 @@ class getid3_matroska extends getid3_handler
 
 																default:
 																	$this->unhandledElement('chapters.editionentry.chapteratom', __LINE__, $sub_sub_subelement);
+																	break;
 															}
 														}
 														$editionentry_entry[$sub_subelement['id_name']][] = $chapteratom_entry;
@@ -1098,6 +1133,7 @@ class getid3_matroska extends getid3_handler
 
 													default:
 														$this->unhandledElement('chapters.editionentry', __LINE__, $sub_subelement);
+														break;
 												}
 											}
 											$info['matroska']['chapters'][] = $editionentry_entry;
@@ -1105,6 +1141,7 @@ class getid3_matroska extends getid3_handler
 
 										default:
 											$this->unhandledElement('chapters', __LINE__, $subelement);
+											break;
 									}
 								}
 								break;
@@ -1133,6 +1170,7 @@ class getid3_matroska extends getid3_handler
 
 													default:
 														$this->unhandledElement('cluster.silenttracks', __LINE__, $sub_subelement);
+														break;
 												}
 											}
 											$cluster_entry[$subelement['id_name']][] = $cluster_silent_tracks;
@@ -1163,6 +1201,7 @@ class getid3_matroska extends getid3_handler
 
 													default:
 														$this->unhandledElement('clusters.blockgroup', __LINE__, $sub_subelement);
+														break;
 												}
 											}
 											$cluster_entry[$subelement['id_name']][] = $cluster_block_group;
@@ -1174,6 +1213,7 @@ class getid3_matroska extends getid3_handler
 
 										default:
 											$this->unhandledElement('cluster', __LINE__, $subelement);
+											break;
 									}
 									$this->current_offset = $subelement['end'];
 								}
@@ -1195,16 +1235,23 @@ class getid3_matroska extends getid3_handler
 
 							default:
 								$this->unhandledElement('segment', __LINE__, $element_data);
+								break;
 						}
 					}
 					break;
 
 				default:
 					$this->unhandledElement('root', __LINE__, $top_element);
+					break;
 			}
 		}
 	}
 
+	/**
+	 * @param int $min_data
+	 *
+	 * @return bool
+	 */
 	private function EnsureBufferHasEnoughData($min_data=1024) {
 		if (($this->current_offset - $this->EBMLbuffer_offset) >= ($this->EBMLbuffer_length - $min_data)) {
 			$read_bytes = max($min_data, $this->getid3->fread_buffer_size());
@@ -1226,6 +1273,9 @@ class getid3_matroska extends getid3_handler
 		return true;
 	}
 
+	/**
+	 * @return int|float|false
+	 */
 	private function readEBMLint() {
 		$actual_offset = $this->current_offset - $this->EBMLbuffer_offset;
 
@@ -1258,6 +1308,12 @@ class getid3_matroska extends getid3_handler
 		return $int_value;
 	}
 
+	/**
+	 * @param int  $length
+	 * @param bool $check_buffer
+	 *
+	 * @return string|false
+	 */
 	private function readEBMLelementData($length, $check_buffer=false) {
 		if ($check_buffer && !$this->EnsureBufferHasEnoughData($length)) {
 			return false;
@@ -1267,6 +1323,13 @@ class getid3_matroska extends getid3_handler
 		return $data;
 	}
 
+	/**
+	 * @param array      $element
+	 * @param int        $parent_end
+	 * @param array|bool $get_data
+	 *
+	 * @return bool
+	 */
 	private function getEBMLelement(&$element, $parent_end, $get_data=false) {
 		if ($this->current_offset >= $parent_end) {
 			return false;
@@ -1303,6 +1366,11 @@ class getid3_matroska extends getid3_handler
 		return true;
 	}
 
+	/**
+	 * @param string $type
+	 * @param int    $line
+	 * @param array  $element
+	 */
 	private function unhandledElement($type, $line, $element) {
 		// warn only about unknown and missed elements, not about unuseful
 		if (!in_array($element['id'], $this->unuseful_elements)) {
@@ -1315,6 +1383,11 @@ class getid3_matroska extends getid3_handler
 		}
 	}
 
+	/**
+	 * @param array $SimpleTagArray
+	 *
+	 * @return bool
+	 */
 	private function ExtractCommentsSimpleTag($SimpleTagArray) {
 		if (!empty($SimpleTagArray['SimpleTag'])) {
 			foreach ($SimpleTagArray['SimpleTag'] as $SimpleTagKey => $SimpleTagData) {
@@ -1330,6 +1403,11 @@ class getid3_matroska extends getid3_handler
 		return true;
 	}
 
+	/**
+	 * @param int $parent_end
+	 *
+	 * @return array
+	 */
 	private function HandleEMBLSimpleTag($parent_end) {
 		$simpletag_entry = array();
 
@@ -1353,12 +1431,20 @@ class getid3_matroska extends getid3_handler
 
 				default:
 					$this->unhandledElement('tag.simpletag', __LINE__, $element);
+					break;
 			}
 		}
 
 		return $simpletag_entry;
 	}
 
+	/**
+	 * @param array $element
+	 * @param int   $block_type
+	 * @param array $info
+	 *
+	 * @return array
+	 */
 	private function HandleEMBLClusterBlock($element, $block_type, &$info) {
 		// http://www.matroska.org/technical/specs/index.html#block_structure
 		// http://www.matroska.org/technical/specs/index.html#simpleblock_structure
@@ -1422,6 +1508,11 @@ class getid3_matroska extends getid3_handler
 		return $block_data;
 	}
 
+	/**
+	 * @param string $EBMLstring
+	 *
+	 * @return int|float|false
+	 */
 	private static function EBML2Int($EBMLstring) {
 		// http://matroska.org/specs/
 
@@ -1464,12 +1555,22 @@ class getid3_matroska extends getid3_handler
 		return getid3_lib::BigEndian2Int($EBMLstring);
 	}
 
+	/**
+	 * @param int $EBMLdatestamp
+	 *
+	 * @return float
+	 */
 	private static function EBMLdate2unix($EBMLdatestamp) {
 		// Date - signed 8 octets integer in nanoseconds with 0 indicating the precise beginning of the millennium (at 2001-01-01T00:00:00,000000000 UTC)
 		// 978307200 == mktime(0, 0, 0, 1, 1, 2001) == January 1, 2001 12:00:00am UTC
 		return round(($EBMLdatestamp / 1000000000) + 978307200);
 	}
 
+	/**
+	 * @param int $target_type
+	 *
+	 * @return string|int
+	 */
 	public static function TargetTypeValue($target_type) {
 		// http://www.matroska.org/technical/specs/tagging/index.html
 		static $TargetTypeValue = array();
@@ -1485,6 +1586,11 @@ class getid3_matroska extends getid3_handler
 		return (isset($TargetTypeValue[$target_type]) ? $TargetTypeValue[$target_type] : $target_type);
 	}
 
+	/**
+	 * @param int $lacingtype
+	 *
+	 * @return string|int
+	 */
 	public static function BlockLacingType($lacingtype) {
 		// http://matroska.org/technical/specs/index.html#block_structure
 		static $BlockLacingType = array();
@@ -1497,6 +1603,11 @@ class getid3_matroska extends getid3_handler
 		return (isset($BlockLacingType[$lacingtype]) ? $BlockLacingType[$lacingtype] : $lacingtype);
 	}
 
+	/**
+	 * @param string $codecid
+	 *
+	 * @return string
+	 */
 	public static function CodecIDtoCommonName($codecid) {
 		// http://www.matroska.org/technical/specs/codecid/index.html
 		static $CodecIDlist = array();
@@ -1504,6 +1615,7 @@ class getid3_matroska extends getid3_handler
 			$CodecIDlist['A_AAC']            = 'aac';
 			$CodecIDlist['A_AAC/MPEG2/LC']   = 'aac';
 			$CodecIDlist['A_AC3']            = 'ac3';
+			$CodecIDlist['A_EAC3']           = 'eac3';
 			$CodecIDlist['A_DTS']            = 'dts';
 			$CodecIDlist['A_FLAC']           = 'flac';
 			$CodecIDlist['A_MPEG/L1']        = 'mp1';
@@ -1526,12 +1638,17 @@ class getid3_matroska extends getid3_handler
 			$CodecIDlist['V_MPEG4/ISO/AVC']  = 'h264';
 			$CodecIDlist['V_MPEG4/ISO/SP']   = 'mpeg4';
 			$CodecIDlist['V_VP8']            = 'vp8';
-			$CodecIDlist['V_MS/VFW/FOURCC']  = 'riff';
-			$CodecIDlist['A_MS/ACM']         = 'riff';
+			$CodecIDlist['V_MS/VFW/FOURCC']  = 'vcm'; // Microsoft (TM) Video Codec Manager (VCM)
+			$CodecIDlist['A_MS/ACM']         = 'acm'; // Microsoft (TM) Audio Codec Manager (ACM)
 		}
 		return (isset($CodecIDlist[$codecid]) ? $CodecIDlist[$codecid] : $codecid);
 	}
 
+	/**
+	 * @param int $value
+	 *
+	 * @return string
+	 */
 	private static function EBMLidName($value) {
 		static $EBMLidList = array();
 		if (empty($EBMLidList)) {
@@ -1730,6 +1847,11 @@ class getid3_matroska extends getid3_handler
 		return (isset($EBMLidList[$value]) ? $EBMLidList[$value] : dechex($value));
 	}
 
+	/**
+	 * @param int $value
+	 *
+	 * @return string
+	 */
 	public static function displayUnit($value) {
 		// http://www.matroska.org/technical/specs/index.html#DisplayUnit
 		static $units = array(
@@ -1741,8 +1863,14 @@ class getid3_matroska extends getid3_handler
 		return (isset($units[$value]) ? $units[$value] : 'unknown');
 	}
 
+	/**
+	 * @param array $streams
+	 *
+	 * @return array
+	 */
 	private static function getDefaultStreamInfo($streams)
 	{
+		$stream = array();
 		foreach (array_reverse($streams) as $stream) {
 			if ($stream['default']) {
 				break;
