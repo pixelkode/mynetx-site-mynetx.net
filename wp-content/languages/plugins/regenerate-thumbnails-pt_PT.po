@@ -1,0 +1,25 @@
+# Translation of Plugins - Regenerate Thumbnails - Stable (latest release) in Portuguese (Portugal)
+# This file is distributed under the same license as the Plugins - Regenerate Thumbnails - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2019-05-10 15:36:40+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/3.0.0-alpha\n"
+"Language: pt\n"
+"Project-Id-Version: Plugins - Regenerate Thumbnails - Stable (latest release)\n"
+
+#. Author of the plugin
+msgid "Alex Mills (Viper007Bond)"
+msgstr "Alex Mills (Viper007Bond)"
+
+#: regenerate-thumbnails.php:433 regenerate-thumbnails.php:449
+#: regenerate-thumbnails.php:473
+msgid "Regenerate the thumbnails for this single image"
+msgstr "Regenerar miniaturas apenas para esta imagem"
+
+#. Plugin Name of the plugin
+msgid "Regenerate Thumbnails"
+msgstr "Regenerate Thumbnails"

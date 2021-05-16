@@ -7,7 +7,7 @@ use Automattic\Jetpack\Status;
  *
  * Some are used outside of the Photon module being active, so intentionally not within the module.
  *
- * @package jetpack
+ * @package automattic/jetpack
  */
 
 /**
@@ -31,9 +31,9 @@ function jetpack_photon_url( $image_url, $args = array(), $scheme = null ) {
 		 *
 		 * @since 4.1.0
 		 *
-		 * @param bool false Result of Automattic\Jetpack\Status->is_development_mode().
+		 * @param bool false Result of Automattic\Jetpack\Status->is_offline_mode().
 		 */
-		if ( true === apply_filters( 'jetpack_photon_development_mode', ( new Status() )->is_development_mode() ) ) {
+		if ( true === apply_filters( 'jetpack_photon_development_mode', ( new Status() )->is_offline_mode() ) ) {
 			return $image_url;
 		}
 	}
@@ -125,16 +125,6 @@ function jetpack_photon_url( $image_url, $args = array(), $scheme = null ) {
 		|| wp_parse_url( $custom_photon_url, PHP_URL_HOST ) === $image_url_parts['host']
 		|| $is_wpcom_image
 	) {
-		/*
-		 * VideoPress Poster images should only keep one param, ssl.
-		 */
-		if (
-			is_array( $args )
-			&& 'videos.files.wordpress.com' === strtolower( $image_url_parts['host'] )
-		) {
-			$args = array_intersect_key( array( 'ssl' => 1 ), $args );
-		}
-
 		$photon_url = add_query_arg( $args, $image_url );
 		return jetpack_photon_url_scheme( $photon_url, $scheme );
 	}
@@ -154,7 +144,7 @@ function jetpack_photon_url( $image_url, $args = array(), $scheme = null ) {
 	if ( ! apply_filters( 'jetpack_photon_any_extension_for_domain', false, $image_url_parts['host'] ) ) {
 		// Photon doesn't support query strings so we ignore them and look only at the path.
 		// However some source images are served via PHP so check the no-query-string extension.
-		// For future proofing, this is a blacklist of common issues rather than a whitelist.
+		// For future proofing, this is an excluded list of common issues rather than an allow list.
 		$extension = pathinfo( $image_url_parts['path'], PATHINFO_EXTENSION );
 		if ( empty( $extension ) || in_array( $extension, array( 'php', 'ashx' ), true ) ) {
 			return $image_url;
@@ -352,6 +342,7 @@ function jetpack_photon_banned_domains( $skip, $image_url ) {
 		'/\.paypalobjects\.com$/',
 		'/\.dropbox\.com$/',
 		'/\.cdninstagram\.com$/',
+		'/^(commons|upload)\.wikimedia\.org$/',
 	);
 
 	$host = wp_parse_url( $image_url, PHP_URL_HOST );

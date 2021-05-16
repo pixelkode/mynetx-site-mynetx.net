@@ -1,0 +1,619 @@
+# Translation of Themes - Treville in Spanish (Spain)
+# This file is distributed under the same license as the Themes - Treville package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2020-08-19 07:32:07+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
+"Language: es\n"
+"Project-Id-Version: Themes - Treville\n"
+
+#. Description of the theme
+msgid "An elegant Blogging & Magazine WordPress Theme with subtle colors and great typography. Treville supports two navigation menus, advanced post settings and a post slider with fullscreen images!"
+msgstr "Un elegante tema de WordPress para blogs y revistas con colores sutiles y una gran tipografía. ¡Treville es compatible con dos menús de navegación, ajustes de entradas avanzados y un carrusel de entradas con imágenes a pantalla completa!"
+
+#: template-parts/header/top-navigation.php:28
+msgid "Secondary Menu"
+msgstr "Menú secundario"
+
+#: template-parts/header/top-navigation.php:17
+msgid "Menu"
+msgstr "Menú"
+
+#: template-parts/header/main-navigation.php:16
+msgid "Primary Menu"
+msgstr "Menú principal"
+
+#: functions.php:185 inc/addons.php:219 inc/addons.php:220
+msgid "Collapse child menu"
+msgstr "Cerrar el menú hijo"
+
+#: functions.php:184 inc/addons.php:219 inc/addons.php:220
+msgid "Expand child menu"
+msgstr "Abrir el menú hijo"
+
+#: inc/customizer/sections/customizer-website.php:50
+msgid "Scale down logo image for retina displays"
+msgstr "Escalar la imagen del logotipo para pantallas Retina"
+
+#: inc/customizer/sections/customizer-website.php:34
+msgid "Retina Logo"
+msgstr "Logotipo Retina"
+
+#: inc/theme-info.php:50
+msgid "https://themezee.com/changelogs/?action=themezee-changelog&type=theme&slug=treville"
+msgstr "https://themezee.com/changelogs/?action=themezee-changelog&type=theme&slug=treville"
+
+#: inc/customizer/controls/plugin-control.php:33
+msgid "Install Plugin"
+msgstr "Instalar el plugin"
+
+#: inc/customizer/controls/upgrade-control.php:28
+msgid "Purchase the %s Pro Add-on to get additional features and advanced customization options."
+msgstr "Compra la extensión %s Pro y obtén características adicionales y opciones avanzadas de personalización."
+
+#: inc/theme-info.php:50 inc/customizer/controls/links-control.php:47
+msgid "Theme Changelog"
+msgstr "Registro de cambios del tema"
+
+#: inc/customizer/controls/links-control.php:46
+msgid "https://themezee.com/changelogs/?action=themezee-changelog&type=theme&slug=treville/"
+msgstr "https://themezee.com/changelogs/?action=themezee-changelog&type=theme&slug=treville/"
+
+#: inc/customizer/sections/customizer-info.php:49
+msgid "Install our free Magazine Blocks to create a magazine-styled homepage in the Editor with just a few clicks."
+msgstr "Instala nuestros bloques gratuitos Magazine Blocks para crear en el editor una página de inicio de estilo revista con solo unos pocos clics."
+
+#: inc/customizer/sections/customizer-info.php:48
+msgid "Magazine Blocks"
+msgstr "Magazine Blocks"
+
+#. translators: Theme Name and Link to ThemeZee.
+#: inc/template-tags.php:413
+msgid "WordPress Theme: %1$s by %2$s."
+msgstr "Tema WordPress: %1$s por %2$s."
+
+#: functions.php:246
+msgid "Treville Thumbnail"
+msgstr "Miniatura de Treville"
+
+#: functions.php:245
+msgid "Treville Magazine Post"
+msgstr "Entrada de revista de Treville"
+
+#: functions.php:244
+msgid "Treville Single Post"
+msgstr "Entrada individual de Treville"
+
+#: functions.php:104
+msgctxt "Gutenberg Color Palette"
+msgid "Black"
+msgstr "Negro"
+
+#: functions.php:99
+msgctxt "Gutenberg Color Palette"
+msgid "Dark Gray"
+msgstr "Gris oscuro"
+
+#: functions.php:94
+msgctxt "Gutenberg Color Palette"
+msgid "Light Gray"
+msgstr "Gris claro"
+
+#: functions.php:89
+msgctxt "Gutenberg Color Palette"
+msgid "White"
+msgstr "Blanco"
+
+#: functions.php:84
+msgctxt "Gutenberg Color Palette"
+msgid "Primary"
+msgstr "Principal"
+
+#: inc/customizer/sections/customizer-post.php:181
+msgid "Display image on single posts"
+msgstr "Mostrar la imagen en entradas individuales"
+
+#: inc/customizer/sections/customizer-post.php:159
+msgid "Display images on blog and archives"
+msgstr "Mostrar imágenes en el blog y los archivos"
+
+#: inc/customizer/sections/customizer-post.php:133
+msgid "Display previous/next post navigation"
+msgstr "Mostrar la navegación de entradas anterior/siguiente"
+
+#: inc/customizer/sections/customizer-post.php:117
+msgid "Display tags"
+msgstr "Mostrar las etiquetas"
+
+#: inc/customizer/sections/customizer-post.php:101
+msgid "Display categories"
+msgstr "Mostrar las categorías"
+
+#: inc/customizer/sections/customizer-post.php:75
+msgid "Display comments"
+msgstr "Mostrar los comentarios"
+
+#: inc/customizer/sections/customizer-post.php:59
+msgid "Display author"
+msgstr "Mostrar el autor"
+
+#: inc/customizer/sections/customizer-post.php:43
+msgid "Display date"
+msgstr "Mostrar la fecha"
+
+#: inc/customizer/sections/customizer-post.php:27
+msgid "Post Details"
+msgstr "Detalles de la entrada"
+
+#: inc/customizer/sections/customizer-blog.php:124
+msgid "Read More Text"
+msgstr "Texto de «Leer más»"
+
+#: inc/customizer/sections/customizer-blog.php:84
+msgid "Display post excerpts"
+msgstr "Mostrar el extracto de la entrada"
+
+#: inc/customizer/sections/customizer-blog.php:83
+msgid "Display full posts"
+msgstr "Mostrar todas las entradas"
+
+#: inc/customizer/sections/customizer-blog.php:77
+msgid "Blog Layout"
+msgstr "Diseño del blog"
+
+#: inc/customizer/sections/customizer-blog.php:117
+#: inc/customizer/default-options.php:60
+msgid "Continue reading"
+msgstr "Seguir leyendo"
+
+#: inc/customizer/sections/customizer-post.php:143
+msgid "Featured Images"
+msgstr "Imágenes destacadas"
+
+#: inc/customizer/sections/customizer-post.php:85
+msgid "Single Posts"
+msgstr "Entradas individuales"
+
+#: inc/customizer/sections/customizer-blog.php:150
+msgid "Display Magazine widgets on blog index"
+msgstr "Mostrar widgets de revista en el índice del blog"
+
+#: inc/customizer/sections/customizer-blog.php:134
+msgid "Magazine Widgets"
+msgstr "Widgets de revista"
+
+#: inc/customizer/sections/customizer-blog.php:19
+msgid "Blog Settings"
+msgstr "Ajustes del blog"
+
+#: inc/widgets/widget-magazine-grid.php:27
+msgid "Displays your posts from a selected category in a grid layout."
+msgstr "Muestra las entradas de una categoría seleccionada en un diseño de cuadrícula."
+
+#: inc/widgets/widget-magazine-columns.php:42
+msgid "Right Category"
+msgstr "Categoría derecha"
+
+#: inc/widgets/widget-magazine-columns.php:41
+msgid "Left Category"
+msgstr "Categoría izquierda"
+
+#: inc/widgets/widget-magazine-columns.php:27
+msgid "Displays your posts from two selected categories."
+msgstr "Muestra las entradas de dos categorías seleccionadas."
+
+#: inc/magazine.php:47
+msgid "Please go to Customize &#8594; Widgets and add at least one widget to the Magazine Homepage widget area."
+msgstr "Por favor, ve a Personalizar &#8594; Widgets y añade al menos un widget al área de widgets de la página de inicio de la revista."
+
+#: inc/customizer/sections/customizer-magazine.php:51
+#: inc/customizer/controls/magazine-widget-area-control.php:33
+msgid "Add Magazine Widget"
+msgstr "Añadir widget de revista"
+
+#: functions.php:149
+msgid "Appears on blog index and Magazine Homepage template. You can use the Magazine widgets here."
+msgstr "Aparece en la plantilla del blog y en la página de inicio de revista. Puedes usar widgets de revista aquí"
+
+#. Template Name of the theme
+msgid "Full-width Layout"
+msgstr "Diseño de ancho completo"
+
+#. Template Name of the theme
+msgid "Centered Layout"
+msgstr "Diseño centrado"
+
+#. Theme Name of the theme
+#. translators: Theme Name and Link to ThemeZee.
+#: inc/template-tags.php:414
+msgid "Treville"
+msgstr "Treville"
+
+#: template-parts/content-page.php:27 template-parts/content-single.php:29
+msgid "Pages:"
+msgstr "Páginas:"
+
+#: template-parts/content-none.php:35
+msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
+msgstr "Parece que no encontramos lo que estás buscando. Puede que una búsqueda te ayude."
+
+#: template-parts/content-none.php:29
+msgid "Sorry, but nothing matched your search terms. Please try again with some different keywords."
+msgstr "Lo siento, pero no hay nada que coincida con tus términos de búsqueda. Por favor, inténtalo de nuevo con algunas palabras clave diferentes."
+
+#: template-parts/content-none.php:25
+msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgstr "¿Preparado para publicar tu primera entrada? <a href=\"%1$s\">Empieza aquí</a>."
+
+#: template-parts/content-none.php:14
+msgid "Nothing Found"
+msgstr "No se ha encontrado nada"
+
+#: searchform.php:20
+msgctxt "submit button"
+msgid "Search"
+msgstr "Buscar"
+
+#: searchform.php:14
+msgctxt "placeholder"
+msgid "Search &hellip;"
+msgstr "Buscar &hellip;"
+
+#: searchform.php:12 searchform.php:16
+msgctxt "label"
+msgid "Search for:"
+msgstr "Buscar:"
+
+#: search.php:20
+msgid "Search Results for: %s"
+msgstr "Resultados de búsqueda: %s"
+
+#: inc/widgets/widget-magazine-grid.php:217
+msgid "Three Columns Grid"
+msgstr "Cuadrícula de tres columnas"
+
+#: inc/widgets/widget-magazine-grid.php:216
+msgid "Two Columns Grid"
+msgstr "Cuadrícula de dos columnas"
+
+#: inc/widgets/widget-magazine-grid.php:214
+msgid "Grid Layout:"
+msgstr "Diseño de cuadrícula:"
+
+#: inc/widgets/widget-magazine-grid.php:199
+msgid "Category:"
+msgstr "Categoría:"
+
+#: inc/widgets/widget-magazine-grid.php:193
+msgid "Title:"
+msgstr "Título:"
+
+#: inc/widgets/widget-magazine-grid.php:24
+#: inc/widgets/widget-magazine-grid.php:39
+msgid "Magazine (Grid)"
+msgstr "Revista (Cuadrícula)"
+
+#: inc/widgets/widget-magazine-columns.php:298
+msgid "Highlight first post (big image + excerpt)"
+msgstr "Resaltar la primera entrada (imagen grande + extracto)"
+
+#: inc/widgets/widget-magazine-grid.php:222
+#: inc/widgets/widget-magazine-columns.php:290
+msgid "Number of posts:"
+msgstr "Número de entradas:"
+
+#: inc/widgets/widget-magazine-columns.php:275
+msgid "Right Category:"
+msgstr "Categoría derecha:"
+
+#: inc/widgets/widget-magazine-columns.php:269
+msgid "Right Category Title:"
+msgstr "Título de la categoría derecha:"
+
+#: inc/widgets/widget-magazine-columns.php:254
+msgid "Left Category:"
+msgstr "Categoría izquierda:"
+
+#: inc/widgets/widget-magazine-columns.php:248
+msgid "Left Category Title:"
+msgstr "Título de la categoría izquierda:"
+
+#: inc/widgets/widget-magazine-columns.php:24
+msgid "Magazine (Columns)"
+msgstr "Revista (columnas)"
+
+#: inc/theme-info.php:154
+msgid "rate it"
+msgstr "califícalo"
+
+#: inc/theme-info.php:154
+msgid "Review Treville"
+msgstr "Valorar Treville"
+
+#: inc/theme-info.php:153
+msgid "https://themezee.com/"
+msgstr "https://themezee.com/"
+
+#: inc/theme-info.php:151
+msgid "%1$s is proudly brought to you by %2$s. If you like this theme, %3$s :)"
+msgstr "%1$s está desarrollado por %2$s. Si te gusta este tema, %3$s :)"
+
+#: inc/theme-info.php:104
+msgid "Get more features"
+msgstr "Consigue más características"
+
+#: inc/theme-info.php:84
+msgid "Customize Theme"
+msgstr "Personalizar el tema"
+
+#: inc/theme-info.php:81
+msgid "%s makes use of the Customizer for all theme settings. Click on \"Customize Theme\" to open the Customizer now."
+msgstr "%s usa el personalizador para todos los ajustes del tema. Haz clic en «Personalizar tema» para abrir el personalizador."
+
+#: inc/theme-info.php:72
+msgid "View %s Documentation"
+msgstr "Ver la documentación de %s"
+
+#: inc/theme-info.php:68
+msgid "You need help to setup and configure this theme? We got you covered with an extensive theme documentation on our website."
+msgstr "¿Necesitas ayuda para instalar y configurar este tema? Disponemos de mucha documentación en nuestra web."
+
+#: inc/theme-info.php:58
+msgid "Getting Started with %s"
+msgstr "Primeros pasos con %s"
+
+#: inc/theme-info.php:20 inc/customizer/sections/customizer-info.php:19
+msgid "Theme Info"
+msgstr "Información del tema"
+
+#: inc/theme-info.php:19 inc/theme-info.php:40
+msgid "Welcome to %1$s %2$s"
+msgstr "Bienvenido a %1$s %2$s"
+
+#: inc/template-tags.php:397
+msgctxt "pagination"
+msgid "Next Posts"
+msgstr "Entradas siguientes"
+
+#: inc/template-tags.php:396
+msgctxt "pagination"
+msgid "Previous Posts"
+msgstr "Entradas anteriores"
+
+#: inc/template-tags.php:343
+msgctxt "post navigation"
+msgid "Next Post"
+msgstr "Entrada siguiente"
+
+#: inc/template-tags.php:342
+msgctxt "post navigation"
+msgid "Previous Post"
+msgstr "Entrada anterior"
+
+#: inc/template-tags.php:257
+msgid "Leave a comment"
+msgstr "Deja un comentario"
+
+#: inc/template-tags.php:233
+msgid "View all posts by %s"
+msgstr "Ver todas las entradas de %s"
+
+#: inc/magazine.php:68
+msgid "View all posts from category %s"
+msgstr "Ver todas las entradas de la categoría %s"
+
+#: inc/customizer/sections/customizer-slider.php:124
+msgid "Slider Speed (in ms)"
+msgstr "Velocidad del carrusel (en ms)"
+
+#: inc/customizer/sections/customizer-slider.php:110
+msgid "Fade Effect"
+msgstr "Efecto de fundido"
+
+#: inc/customizer/sections/customizer-slider.php:109
+msgid "Slide Effect"
+msgstr "Efecto de deslizamiento"
+
+#: inc/customizer/sections/customizer-slider.php:102
+msgid "Slider Animation"
+msgstr "Animación del carrusel"
+
+#: inc/customizer/sections/customizer-slider.php:84
+msgid "Number of Posts"
+msgstr "Número de entradas"
+
+#: inc/customizer/sections/customizer-slider.php:67
+msgid "Slider Category"
+msgstr "Categoría del carrusel"
+
+#: inc/customizer/sections/customizer-slider.php:49
+msgid "Show Slider on home page"
+msgstr "Muestra el carrusel en la página de inicio"
+
+#: inc/customizer/sections/customizer-slider.php:35
+msgid "Activate Post Slider"
+msgstr "Activar el carrusel de entradas"
+
+#: inc/customizer/sections/customizer-slider.php:19
+msgid "Post Slider"
+msgstr "Carrusel de entradas"
+
+#: inc/customizer/sections/customizer-blog.php:97
+msgid "Excerpt Length"
+msgstr "Longitud del extracto"
+
+#: inc/customizer/sections/customizer-post.php:19
+msgid "Post Settings"
+msgstr "Ajustes de las entradas"
+
+#: inc/customizer/sections/customizer-blog.php:55
+msgid "Blog Description"
+msgstr "Descripción del blog"
+
+#: inc/customizer/sections/customizer-blog.php:33
+msgid "Blog Title"
+msgstr "Título del blog"
+
+#: inc/customizer/sections/customizer-general.php:40
+msgid "Right Sidebar"
+msgstr "Barra lateral derecha"
+
+#: inc/customizer/sections/customizer-general.php:39
+msgid "Left Sidebar"
+msgstr "Barra lateral izquierda"
+
+#: inc/customizer/sections/customizer-general.php:33
+msgid "Theme Layout"
+msgstr "Diseño del tema"
+
+#: inc/customizer/sections/customizer-general.php:19
+msgid "General Settings"
+msgstr "Cambios generales"
+
+#: inc/theme-info.php:135
+msgid "Install Plugins"
+msgstr "Instalar los plugins"
+
+#: inc/theme-info.php:131
+msgid "Extend the functionality of your WordPress website with our free and easy to use plugins."
+msgstr "Amplía la funcionalidad de tu web WordPress con nuestros plugins gratuitos y fáciles de usar."
+
+#: inc/theme-info.php:128
+msgid "Recommended Plugins"
+msgstr "Plugins recomendados"
+
+#: inc/theme-info.php:118 inc/customizer/controls/upgrade-control.php:33
+msgid "Learn more about %s Pro"
+msgstr "Más información acerca de %s Pro"
+
+#: inc/theme-info.php:117 inc/customizer/controls/upgrade-control.php:32
+msgid "https://themezee.com/addons/treville-pro/"
+msgstr "https://themezee.com/addons/treville-pro/"
+
+#: inc/theme-info.php:114
+msgid "Purchase the %s Pro Add-on and get additional features and advanced customization options."
+msgstr "Compra la extensión %s Pro y consigue características adicionales y opciones de personalización avanzadas."
+
+#: inc/theme-info.php:111 inc/customizer/controls/upgrade-control.php:25
+msgid "Pro Version Add-on"
+msgstr "Extensión de la versión Pro"
+
+#: inc/customizer/controls/category-dropdown-control.php:31
+#: inc/widgets/widget-magazine-grid.php:202
+#: inc/widgets/widget-magazine-columns.php:257
+#: inc/widgets/widget-magazine-columns.php:278
+msgid "All Categories"
+msgstr "Todas las categorías"
+
+#: inc/theme-info.php:51 inc/customizer/controls/links-control.php:53
+msgid "Rate this theme"
+msgstr "Valora este tema"
+
+#: inc/theme-info.php:51 inc/theme-info.php:154
+#: inc/customizer/controls/links-control.php:52
+msgid "https://wordpress.org/support/theme/treville/reviews/"
+msgstr "https://wordpress.org/support/theme/treville/reviews/"
+
+#: inc/theme-info.php:49 inc/theme-info.php:65
+#: inc/customizer/controls/links-control.php:41
+msgid "Theme Documentation"
+msgstr "Documentación del tema"
+
+#: inc/theme-info.php:49 inc/theme-info.php:71
+#: inc/customizer/controls/links-control.php:40
+msgid "https://themezee.com/docs/treville-documentation/"
+msgstr "https://themezee.com/docs/treville-documentation/"
+
+#: inc/theme-info.php:48 inc/customizer/controls/links-control.php:35
+msgid "Theme Demo"
+msgstr "Demostración del tema"
+
+#: inc/theme-info.php:47 inc/customizer/controls/links-control.php:29
+msgid "Theme Page"
+msgstr "Página del tema"
+
+#: inc/theme-info.php:46 inc/customizer/controls/links-control.php:25
+msgid "Theme Links"
+msgstr "Enlaces del tema"
+
+#: inc/customizer/sections/customizer-website.php:80
+msgid "Display Tagline"
+msgstr "Mostrar la descripción corta"
+
+#: inc/customizer/sections/customizer-website.php:65
+msgid "Display Site Title"
+msgstr "Mostrar el título del sitio"
+
+#: inc/customizer/customizer.php:46
+msgid "Background"
+msgstr "Fondo"
+
+#: inc/theme-info.php:78 inc/customizer/customizer.php:41
+msgid "Theme Options"
+msgstr "Opciones del tema"
+
+#: inc/back-compat.php:42 inc/back-compat.php:52 inc/back-compat.php:65
+msgid "%1$s requires at least WordPress version %2$s. You are running version %3$s. Please upgrade and try again."
+msgstr "%1$s necesita al menos la versión %2$s de WordPress. Estás usando la versión %3$s. Por favor, actualiza e inténtalo de nuevo."
+
+#: header.php:27
+msgid "Skip to content"
+msgstr "Saltar al contenido"
+
+#. Template Name of the theme
+#: functions.php:147
+msgid "Magazine Homepage"
+msgstr "Página de inicio de la revista"
+
+#: functions.php:139
+msgid "Appears on posts and pages except the full width template."
+msgstr "Aparece en las entradas y las páginas excepto en la plantilla de ancho completo."
+
+#: functions.php:137
+msgid "Sidebar"
+msgstr "Barra lateral"
+
+#: functions.php:45
+msgid "Main Navigation"
+msgstr "Navegación principal"
+
+#: functions.php:44
+msgid "Top Navigation"
+msgstr "Navegación superior"
+
+#: comments.php:54
+msgid "Comments are closed."
+msgstr "Los comentarios están cerrados."
+
+#: inc/template-tags.php:257 comments.php:29
+msgid "% comments"
+msgstr "% comentarios"
+
+#: inc/template-tags.php:257 comments.php:29
+msgid "One comment"
+msgstr "Un comentario"
+
+#: 404.php:24
+msgid "It looks like nothing was found at this location. Maybe try a search or one of the links below?"
+msgstr "Parece que no hay nada aquí. ¿Por qué no intentas usar el buscador o uno de los enlaces de abajo?"
+
+#: 404.php:17
+msgid "404: Page not found"
+msgstr "404: Página no encontrada"
+
+#. Author URI of the theme
+msgid "https://themezee.com"
+msgstr "https://themezee.com"
+
+#. Author of the theme
+msgid "ThemeZee"
+msgstr "ThemeZee"
+
+#. Theme URI of the theme
+#: inc/theme-info.php:47 inc/customizer/controls/links-control.php:28
+msgid "https://themezee.com/themes/treville/"
+msgstr "https://themezee.com/themes/treville/"

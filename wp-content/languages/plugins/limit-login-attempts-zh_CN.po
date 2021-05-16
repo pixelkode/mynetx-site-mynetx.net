@@ -1,0 +1,252 @@
+# Translation of Plugins - Limit Login Attempts - Stable (latest release) in Chinese (China)
+# This file is distributed under the same license as the Plugins - Limit Login Attempts - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2021-03-19 08:42:41+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
+"Language: zh_CN\n"
+"Project-Id-Version: Plugins - Limit Login Attempts - Stable (latest release)\n"
+
+#. Author URI of the plugin/theme
+msgid "http://devel.kostdoktorn.se"
+msgstr "http://devel.kostdoktorn.se"
+
+#. Author of the plugin/theme
+msgid "Johan Eenfeldt"
+msgstr "Johan Eenfeldt"
+
+#. Description of the plugin/theme
+msgid "Limit rate of login attempts, including by way of cookies, for each IP."
+msgstr "为每一个 IP 限制登录尝试次数，包括根据 Cookie 识别登录。"
+
+#. Plugin URI of the plugin/theme
+msgid "http://devel.kostdoktorn.se/limit-login-attempts"
+msgstr "http://devel.kostdoktorn.se/limit-login-attempts"
+
+#. Plugin Name of the plugin/theme
+msgid "Limit Login Attempts"
+msgstr "Limit Login Attempts"
+
+#: limit-login-attempts.php:1094
+msgid "Clear Log"
+msgstr "清除日志"
+
+#: limit-login-attempts.php:1089
+msgid "Lockout log"
+msgstr "登录锁定记录"
+
+#: limit-login-attempts.php:1081
+msgid "Change Options"
+msgstr "更改选项"
+
+#: limit-login-attempts.php:1076
+msgid "lockouts"
+msgstr "次登录锁定后"
+
+#: limit-login-attempts.php:1076
+msgid "Email to admin after"
+msgstr "电子邮件通知管理员，当发生"
+
+#: limit-login-attempts.php:1075
+msgid "Log IP"
+msgstr "记录 IP"
+
+#: limit-login-attempts.php:1073
+msgid "Notify on lockout"
+msgstr "登录锁定通知"
+
+#: limit-login-attempts.php:1069
+msgid "No"
+msgstr "否"
+
+#: limit-login-attempts.php:1069
+msgid "Yes"
+msgstr "是"
+
+#: limit-login-attempts.php:1067
+msgid "Handle cookie login"
+msgstr "处理Cookie登录"
+
+#: limit-login-attempts.php:1061
+msgid "From behind a reversy proxy"
+msgstr "位于反向代理背后"
+
+#: limit-login-attempts.php:1056
+msgid "Direct connection"
+msgstr "直接连接"
+
+#: limit-login-attempts.php:1050
+msgid "Site connection"
+msgstr "网站连接方式"
+
+#: limit-login-attempts.php:1046
+msgid "hours until retries are reset"
+msgstr "个小时后重设登录尝试次数"
+
+#: limit-login-attempts.php:1045
+msgid "hours"
+msgstr "小时"
+
+#: limit-login-attempts.php:1045
+msgid "lockouts increase lockout time to"
+msgstr "次登录锁定发生后，将登录锁定时间增长至"
+
+#: limit-login-attempts.php:1044
+msgid "minutes lockout"
+msgstr "分钟每次登录锁定时间"
+
+#: limit-login-attempts.php:1043
+msgid "allowed retries"
+msgstr "次登录尝试后予以锁定"
+
+#: limit-login-attempts.php:1041
+msgid "Lockout"
+msgstr "登录锁定条件"
+
+#: limit-login-attempts.php:1036
+msgid "Options"
+msgstr "选项"
+
+#: limit-login-attempts.php:1030
+msgid "%d IP is currently blocked from trying to log in"
+msgstr "目前已阻止 %d 个尝试登录的IP"
+
+#: limit-login-attempts.php:1029
+msgid "Restore Lockouts"
+msgstr "解除登录锁定"
+
+#: limit-login-attempts.php:1027
+msgid "Active lockouts"
+msgstr "当前登录锁定"
+
+#: limit-login-attempts.php:1022
+msgid "No lockouts yet"
+msgstr "尚未有登录锁定"
+
+#: limit-login-attempts.php:1021
+msgid "%d lockout since last reset"
+msgid_plural "%d lockouts since last reset"
+msgstr[0] "自上次重置锁定计数以来，共发生了 %d 次登录锁定"
+
+#: limit-login-attempts.php:1020
+msgid "Reset Counter"
+msgstr "重置计数器"
+
+#: limit-login-attempts.php:1017
+msgid "Total lockouts"
+msgstr "登录锁定次数总计"
+
+#: limit-login-attempts.php:1012
+msgid "Statistics"
+msgstr "统计"
+
+#: limit-login-attempts.php:1011
+msgid "Limit Login Attempts Settings"
+msgstr "Limit Login Attempts 设置"
+
+#: limit-login-attempts.php:1003
+msgid "<strong>Current setting appears to be invalid</strong>. Please make sure it is correct. Further information can be found <a href=\"%s\" title=\"FAQ\">here</a>"
+msgstr "<strong>当前设置似乎无效</strong>，请确保其正确。您可以在<a href=\"%s\" title=\"FAQ\">此处</a>找到更多信息。"
+
+#: limit-login-attempts.php:995
+msgid "It appears the site is reached through a proxy server (proxy IP: %s, your IP: %s)"
+msgstr "你目前通过代理服务器连接本网站（代理 IP：%s；您的 IP：%s）"
+
+#: limit-login-attempts.php:993
+msgid "It appears the site is reached directly (from your IP: %s)"
+msgstr "您目前直接连接本网站（您的IP：%s）"
+
+#: limit-login-attempts.php:975
+msgid "Options changed"
+msgstr "选项已更改"
+
+#: limit-login-attempts.php:946
+msgid "Cleared current lockouts"
+msgstr "清除当前登录锁定"
+
+#: limit-login-attempts.php:938
+msgid "Reset lockout count"
+msgstr "重置登录锁定计数"
+
+#: limit-login-attempts.php:930
+msgid "Cleared IP log"
+msgstr "清除 IP 日志"
+
+#: limit-login-attempts.php:901
+msgid "%d lockout"
+msgid_plural "%d lockouts"
+msgstr[0] "已锁定 %d 次"
+
+#: limit-login-attempts.php:896
+msgid "Tried to log in as"
+msgstr "试图登录用户"
+
+#: limit-login-attempts.php:896
+msgctxt "Internet address"
+msgid "IP"
+msgstr "IP"
+
+#: limit-login-attempts.php:728
+msgid "<strong>ERROR</strong>: Incorrect username or password."
+msgstr "<strong>错误</strong>：错误的用户名或密码。"
+
+#: limit-login-attempts.php:657
+msgid "<strong>%d</strong> attempt remaining."
+msgid_plural "<strong>%d</strong> attempts remaining."
+msgstr[0] "剩余 <strong>%d</strong> 次尝试。"
+
+#: limit-login-attempts.php:628
+msgid "Please try again in %d minute."
+msgid_plural "Please try again in %d minutes."
+msgstr[0] "请在 %d 分钟后重试。"
+
+#: limit-login-attempts.php:626
+msgid "Please try again in %d hour."
+msgid_plural "Please try again in %d hours."
+msgstr[0] "请在 %d 小时后重试"
+
+#: limit-login-attempts.php:619
+msgid "Please try again later."
+msgstr "请稍后再试。"
+
+#: limit-login-attempts.php:615
+msgid "<strong>ERROR</strong>: Too many failed login attempts."
+msgstr "<strong>错误</strong>：登录尝试失败的次数过多。"
+
+#: limit-login-attempts.php:553
+msgid "IP was blocked for %s"
+msgstr "IP 已被阻止 %s"
+
+#: limit-login-attempts.php:551
+msgid "IP was NOT blocked because of external whitelist."
+msgstr "由于 IP 已列入外部白名单，故未被阻止。"
+
+#: limit-login-attempts.php:547
+msgid "Last user attempted: %s"
+msgstr "最后一次尝试登录的用户：%s"
+
+#: limit-login-attempts.php:543
+msgid "%d failed login attempts (%d lockout(s)) from IP: %s"
+msgstr "%d 次登录失败尝试（累计锁定 %d 次），来源 IP：%s"
+
+#: limit-login-attempts.php:538
+msgid "[%s] Too many failed login attempts"
+msgstr "[%s] 太多的失败登录尝试"
+
+#: limit-login-attempts.php:534
+msgid "[%s] Failed login attempts from whitelisted IP"
+msgstr "[%s] 来自白名单 IP 的失败登录尝试"
+
+#: limit-login-attempts.php:528
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "%d 分钟"
+
+#: limit-login-attempts.php:522
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d 小时"

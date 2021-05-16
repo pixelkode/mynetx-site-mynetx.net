@@ -1,0 +1,619 @@
+# Translation of Themes - Treville in Dutch
+# This file is distributed under the same license as the Themes - Treville package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2020-09-09 13:22:08+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
+"Language: nl\n"
+"Project-Id-Version: Themes - Treville\n"
+
+#. Description of the theme
+msgid "An elegant Blogging & Magazine WordPress Theme with subtle colors and great typography. Treville supports two navigation menus, advanced post settings and a post slider with fullscreen images!"
+msgstr "Een elegant bloggen & Magazine WordPress thema met subtiele kleuren en geweldige typografie. Treville ondersteunt twee navigatiemenu's, geavanceerde bericht instellingen en een bericht slider met afbeeldingen op volledig scherm!"
+
+#: template-parts/header/top-navigation.php:28
+msgid "Secondary Menu"
+msgstr "Secundair menu"
+
+#: template-parts/header/top-navigation.php:17
+msgid "Menu"
+msgstr "Menu"
+
+#: template-parts/header/main-navigation.php:16
+msgid "Primary Menu"
+msgstr "Primair menu"
+
+#: functions.php:185 inc/addons.php:219 inc/addons.php:220
+msgid "Collapse child menu"
+msgstr "Sub-menu invouwen"
+
+#: functions.php:184 inc/addons.php:219 inc/addons.php:220
+msgid "Expand child menu"
+msgstr "Vouw het submenu uit"
+
+#: inc/customizer/sections/customizer-website.php:50
+msgid "Scale down logo image for retina displays"
+msgstr "Schaal de logo afbeelding naar beneden voor retina-displays"
+
+#: inc/customizer/sections/customizer-website.php:34
+msgid "Retina Logo"
+msgstr "Retina logo "
+
+#: inc/theme-info.php:50
+msgid "https://themezee.com/changelogs/?action=themezee-changelog&type=theme&slug=treville"
+msgstr "https://themezee.com/changelogs/?action=themezee-changelog&type=theme&slug=treville"
+
+#: inc/customizer/controls/plugin-control.php:33
+msgid "Install Plugin"
+msgstr "Installeer plugin"
+
+#: inc/customizer/controls/upgrade-control.php:28
+msgid "Purchase the %s Pro Add-on to get additional features and advanced customization options."
+msgstr "Koop de %s Pro add-on  voor extra functies en geavanceerde aanpassingsopties."
+
+#: inc/theme-info.php:50 inc/customizer/controls/links-control.php:47
+msgid "Theme Changelog"
+msgstr "Thema changelog"
+
+#: inc/customizer/controls/links-control.php:46
+msgid "https://themezee.com/changelogs/?action=themezee-changelog&type=theme&slug=treville/"
+msgstr "https://themezee.com/changelogs/?action=themezee-changelog&type=theme&slug=treville/"
+
+#: inc/customizer/sections/customizer-info.php:49
+msgid "Install our free Magazine Blocks to create a magazine-styled homepage in the Editor with just a few clicks."
+msgstr "Installeer onze gratis Magazine Blocks om met een paar klikken een homepage in tijdschriftstijl te maken in de Editor."
+
+#: inc/customizer/sections/customizer-info.php:48
+msgid "Magazine Blocks"
+msgstr "Tijdschrift blokken"
+
+#. translators: Theme Name and Link to ThemeZee.
+#: inc/template-tags.php:413
+msgid "WordPress Theme: %1$s by %2$s."
+msgstr "WordPress thema: %1$s door %2$s."
+
+#: functions.php:246
+msgid "Treville Thumbnail"
+msgstr "Treville thumbnail"
+
+#: functions.php:245
+msgid "Treville Magazine Post"
+msgstr "Treville tijdschrift Bericht"
+
+#: functions.php:244
+msgid "Treville Single Post"
+msgstr "Treville enkel bericht"
+
+#: functions.php:104
+msgctxt "Gutenberg Color Palette"
+msgid "Black"
+msgstr "Zwart"
+
+#: functions.php:99
+msgctxt "Gutenberg Color Palette"
+msgid "Dark Gray"
+msgstr "Donkergrijs"
+
+#: functions.php:94
+msgctxt "Gutenberg Color Palette"
+msgid "Light Gray"
+msgstr "Lichtgrijs"
+
+#: functions.php:89
+msgctxt "Gutenberg Color Palette"
+msgid "White"
+msgstr "Wit"
+
+#: functions.php:84
+msgctxt "Gutenberg Color Palette"
+msgid "Primary"
+msgstr "Primair"
+
+#: inc/customizer/sections/customizer-post.php:181
+msgid "Display image on single posts"
+msgstr "Toon afbeelding op enkele berichten"
+
+#: inc/customizer/sections/customizer-post.php:159
+msgid "Display images on blog and archives"
+msgstr "Geef afbeeldingen weer op blog en archieven"
+
+#: inc/customizer/sections/customizer-post.php:133
+msgid "Display previous/next post navigation"
+msgstr "Toon vorige/volgende bericht navigatie"
+
+#: inc/customizer/sections/customizer-post.php:117
+msgid "Display tags"
+msgstr "Toon tags"
+
+#: inc/customizer/sections/customizer-post.php:101
+msgid "Display categories"
+msgstr "Categorieën weergeven"
+
+#: inc/customizer/sections/customizer-post.php:75
+msgid "Display comments"
+msgstr "Reacties weergeven"
+
+#: inc/customizer/sections/customizer-post.php:59
+msgid "Display author"
+msgstr "Toon auteur"
+
+#: inc/customizer/sections/customizer-post.php:43
+msgid "Display date"
+msgstr "Datum weergeven"
+
+#: inc/customizer/sections/customizer-post.php:27
+msgid "Post Details"
+msgstr "Bericht Details"
+
+#: inc/customizer/sections/customizer-blog.php:124
+msgid "Read More Text"
+msgstr "Lees meer tekst"
+
+#: inc/customizer/sections/customizer-blog.php:84
+msgid "Display post excerpts"
+msgstr "Bericht samenvattingen weergeven"
+
+#: inc/customizer/sections/customizer-blog.php:83
+msgid "Display full posts"
+msgstr "Toon volledige berichten"
+
+#: inc/customizer/sections/customizer-blog.php:77
+msgid "Blog Layout"
+msgstr "Blog lay-out"
+
+#: inc/customizer/sections/customizer-blog.php:117
+#: inc/customizer/default-options.php:60
+msgid "Continue reading"
+msgstr "Lees verder"
+
+#: inc/customizer/sections/customizer-post.php:143
+msgid "Featured Images"
+msgstr "Uitgelichte afbeeldingen"
+
+#: inc/customizer/sections/customizer-post.php:85
+msgid "Single Posts"
+msgstr "Enkele berichten"
+
+#: inc/customizer/sections/customizer-blog.php:150
+msgid "Display Magazine widgets on blog index"
+msgstr "Tijdschrift widgets weergeven op blogindex"
+
+#: inc/customizer/sections/customizer-blog.php:134
+msgid "Magazine Widgets"
+msgstr "Tijdschrift widgets"
+
+#: inc/customizer/sections/customizer-blog.php:19
+msgid "Blog Settings"
+msgstr "Blog instellingen"
+
+#: inc/widgets/widget-magazine-grid.php:27
+msgid "Displays your posts from a selected category in a grid layout."
+msgstr "Geeft je berichten uit een geselecteerde categorie weer in een raster lay-out."
+
+#: inc/widgets/widget-magazine-columns.php:42
+msgid "Right Category"
+msgstr "Rechter categorie"
+
+#: inc/widgets/widget-magazine-columns.php:41
+msgid "Left Category"
+msgstr "Linker categorie"
+
+#: inc/widgets/widget-magazine-columns.php:27
+msgid "Displays your posts from two selected categories."
+msgstr "Geeft je berichten weer uit twee geselecteerde categorieën."
+
+#: inc/magazine.php:47
+msgid "Please go to Customize &#8594; Widgets and add at least one widget to the Magazine Homepage widget area."
+msgstr "Ga naar Aanpassen &#8594; Widgets en voeg minimaal één widget toe aan het widgetgebied van de homepage van het tijdschrift."
+
+#: inc/customizer/sections/customizer-magazine.php:51
+#: inc/customizer/controls/magazine-widget-area-control.php:33
+msgid "Add Magazine Widget"
+msgstr "Tijdschrift widget toevoegen"
+
+#: functions.php:149
+msgid "Appears on blog index and Magazine Homepage template. You can use the Magazine widgets here."
+msgstr "Wordt weergegeven op de blogindex en de homepage van een tijdschrift. Je  kunt hier de Tijdschrift widgets gebruiken."
+
+#. Template Name of the theme
+msgid "Full-width Layout"
+msgstr "Lay-out over de volledige breedte"
+
+#. Template Name of the theme
+msgid "Centered Layout"
+msgstr "Gecentreerde lay-out"
+
+#. Theme Name of the theme
+#. translators: Theme Name and Link to ThemeZee.
+#: inc/template-tags.php:414
+msgid "Treville"
+msgstr "Treville"
+
+#: template-parts/content-page.php:27 template-parts/content-single.php:29
+msgid "Pages:"
+msgstr "Pagina's:"
+
+#: template-parts/content-none.php:35
+msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
+msgstr "Het lijkt erop dat we niet kunnen vinden wat je zoekt. Misschien kan zoeken helpen."
+
+#: template-parts/content-none.php:29
+msgid "Sorry, but nothing matched your search terms. Please try again with some different keywords."
+msgstr "Er kwam niets overeen met je zoektermen. Probeer het opnieuw met een aantal andere trefwoorden."
+
+#: template-parts/content-none.php:25
+msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgstr "Klaar om je eerste bericht te publiceren? <a href=\"%1$s\">Ga hier aan de slag</a>."
+
+#: template-parts/content-none.php:14
+msgid "Nothing Found"
+msgstr "Niets gevonden"
+
+#: searchform.php:20
+msgctxt "submit button"
+msgid "Search"
+msgstr "Zoeken"
+
+#: searchform.php:14
+msgctxt "placeholder"
+msgid "Search &hellip;"
+msgstr "Zoeken &hellip;"
+
+#: searchform.php:12 searchform.php:16
+msgctxt "label"
+msgid "Search for:"
+msgstr "Zoeken naar:"
+
+#: search.php:20
+msgid "Search Results for: %s"
+msgstr "Zoekresultaten voor: %s"
+
+#: inc/widgets/widget-magazine-grid.php:217
+msgid "Three Columns Grid"
+msgstr "Raster met drie kolommen"
+
+#: inc/widgets/widget-magazine-grid.php:216
+msgid "Two Columns Grid"
+msgstr "Raster met twee kolommen"
+
+#: inc/widgets/widget-magazine-grid.php:214
+msgid "Grid Layout:"
+msgstr "Raster lay-out:"
+
+#: inc/widgets/widget-magazine-grid.php:199
+msgid "Category:"
+msgstr "Categorie:"
+
+#: inc/widgets/widget-magazine-grid.php:193
+msgid "Title:"
+msgstr "Titel:"
+
+#: inc/widgets/widget-magazine-grid.php:24
+#: inc/widgets/widget-magazine-grid.php:39
+msgid "Magazine (Grid)"
+msgstr "Magazijn (raster)"
+
+#: inc/widgets/widget-magazine-columns.php:298
+msgid "Highlight first post (big image + excerpt)"
+msgstr "Markeer eerste bericht (grote afbeelding + samenvatting)"
+
+#: inc/widgets/widget-magazine-grid.php:222
+#: inc/widgets/widget-magazine-columns.php:290
+msgid "Number of posts:"
+msgstr "Aantal berichten:"
+
+#: inc/widgets/widget-magazine-columns.php:275
+msgid "Right Category:"
+msgstr "Rechts categorie:"
+
+#: inc/widgets/widget-magazine-columns.php:269
+msgid "Right Category Title:"
+msgstr "Titel categorie rechts:"
+
+#: inc/widgets/widget-magazine-columns.php:254
+msgid "Left Category:"
+msgstr "Linker categorie:"
+
+#: inc/widgets/widget-magazine-columns.php:248
+msgid "Left Category Title:"
+msgstr "Titel categorie links:"
+
+#: inc/widgets/widget-magazine-columns.php:24
+msgid "Magazine (Columns)"
+msgstr "Tijdschrift (Columns)"
+
+#: inc/theme-info.php:154
+msgid "rate it"
+msgstr "waardeer het"
+
+#: inc/theme-info.php:154
+msgid "Review Treville"
+msgstr "Beoordeel Treville"
+
+#: inc/theme-info.php:153
+msgid "https://themezee.com/"
+msgstr "https://themezee.com/"
+
+#: inc/theme-info.php:151
+msgid "%1$s is proudly brought to you by %2$s. If you like this theme, %3$s :)"
+msgstr "%1$s wordt je met trots aangeboden door %2$s. Als je van dit thema houdt, %3$s :)"
+
+#: inc/theme-info.php:104
+msgid "Get more features"
+msgstr "Krijg meer functies"
+
+#: inc/theme-info.php:84
+msgid "Customize Theme"
+msgstr "Thema aanpassen"
+
+#: inc/theme-info.php:81
+msgid "%s makes use of the Customizer for all theme settings. Click on \"Customize Theme\" to open the Customizer now."
+msgstr "%s maakt gebruik van de Customizer voor alle thema-instellingen. Klik op \"Aanpassen Theme\" om de Customizer nu te openen."
+
+#: inc/theme-info.php:72
+msgid "View %s Documentation"
+msgstr "Bekijk %s documentatie"
+
+#: inc/theme-info.php:68
+msgid "You need help to setup and configure this theme? We got you covered with an extensive theme documentation on our website."
+msgstr "Heb je hulp nodig bij het instellen en configureren van dit thema? We hebben je gedekt met een uitgebreide thema documentatie op onze site."
+
+#: inc/theme-info.php:58
+msgid "Getting Started with %s"
+msgstr "Aan de slag met %s"
+
+#: inc/theme-info.php:20 inc/customizer/sections/customizer-info.php:19
+msgid "Theme Info"
+msgstr "Thema informatie"
+
+#: inc/theme-info.php:19 inc/theme-info.php:40
+msgid "Welcome to %1$s %2$s"
+msgstr "Welkom bij %1$s %2$s"
+
+#: inc/template-tags.php:397
+msgctxt "pagination"
+msgid "Next Posts"
+msgstr "Volgende berichten"
+
+#: inc/template-tags.php:396
+msgctxt "pagination"
+msgid "Previous Posts"
+msgstr "Eerdere berichten"
+
+#: inc/template-tags.php:343
+msgctxt "post navigation"
+msgid "Next Post"
+msgstr "Volgend bericht"
+
+#: inc/template-tags.php:342
+msgctxt "post navigation"
+msgid "Previous Post"
+msgstr "Vorig bericht"
+
+#: inc/template-tags.php:257
+msgid "Leave a comment"
+msgstr "Laat een reactie achter"
+
+#: inc/template-tags.php:233
+msgid "View all posts by %s"
+msgstr "Bekijk alle berichten van %s"
+
+#: inc/magazine.php:68
+msgid "View all posts from category %s"
+msgstr "Bekijk alle berichten van categorie %s"
+
+#: inc/customizer/sections/customizer-slider.php:124
+msgid "Slider Speed (in ms)"
+msgstr "Slider snelheid (in ms)"
+
+#: inc/customizer/sections/customizer-slider.php:110
+msgid "Fade Effect"
+msgstr "Vervaging effect"
+
+#: inc/customizer/sections/customizer-slider.php:109
+msgid "Slide Effect"
+msgstr "Slider effect"
+
+#: inc/customizer/sections/customizer-slider.php:102
+msgid "Slider Animation"
+msgstr "Slider animatie"
+
+#: inc/customizer/sections/customizer-slider.php:84
+msgid "Number of Posts"
+msgstr "Aantal berichten"
+
+#: inc/customizer/sections/customizer-slider.php:67
+msgid "Slider Category"
+msgstr "Slider categorie"
+
+#: inc/customizer/sections/customizer-slider.php:49
+msgid "Show Slider on home page"
+msgstr "Slider op homepage weergeven"
+
+#: inc/customizer/sections/customizer-slider.php:35
+msgid "Activate Post Slider"
+msgstr "Activeer bericht slider"
+
+#: inc/customizer/sections/customizer-slider.php:19
+msgid "Post Slider"
+msgstr "Bericht slider"
+
+#: inc/customizer/sections/customizer-blog.php:97
+msgid "Excerpt Length"
+msgstr "Samenvatting lengte"
+
+#: inc/customizer/sections/customizer-post.php:19
+msgid "Post Settings"
+msgstr "Bericht instellingen"
+
+#: inc/customizer/sections/customizer-blog.php:55
+msgid "Blog Description"
+msgstr "Blog Beschrijving"
+
+#: inc/customizer/sections/customizer-blog.php:33
+msgid "Blog Title"
+msgstr "Blog Titel"
+
+#: inc/customizer/sections/customizer-general.php:40
+msgid "Right Sidebar"
+msgstr "Rechter zijbalk"
+
+#: inc/customizer/sections/customizer-general.php:39
+msgid "Left Sidebar"
+msgstr "Linker zijbalk"
+
+#: inc/customizer/sections/customizer-general.php:33
+msgid "Theme Layout"
+msgstr "Thema lay-out"
+
+#: inc/customizer/sections/customizer-general.php:19
+msgid "General Settings"
+msgstr "Algemene instellingen"
+
+#: inc/theme-info.php:135
+msgid "Install Plugins"
+msgstr "Installeer plugins"
+
+#: inc/theme-info.php:131
+msgid "Extend the functionality of your WordPress website with our free and easy to use plugins."
+msgstr "Breid de functionaliteit van je WordPress site uit met onze gratis en gebruiksvriendelijke plugins."
+
+#: inc/theme-info.php:128
+msgid "Recommended Plugins"
+msgstr "Aanbevolen plugins"
+
+#: inc/theme-info.php:118 inc/customizer/controls/upgrade-control.php:33
+msgid "Learn more about %s Pro"
+msgstr "Meer informatie over %s Pro"
+
+#: inc/theme-info.php:117 inc/customizer/controls/upgrade-control.php:32
+msgid "https://themezee.com/addons/treville-pro/"
+msgstr "https://themezee.com/addons/treville-pro/"
+
+#: inc/theme-info.php:114
+msgid "Purchase the %s Pro Add-on and get additional features and advanced customization options."
+msgstr "Koop de %s Pro add-on  en ontvang extra functies en geavanceerde aanpassingsopties."
+
+#: inc/theme-info.php:111 inc/customizer/controls/upgrade-control.php:25
+msgid "Pro Version Add-on"
+msgstr "Add-on voor Pro versie"
+
+#: inc/customizer/controls/category-dropdown-control.php:31
+#: inc/widgets/widget-magazine-grid.php:202
+#: inc/widgets/widget-magazine-columns.php:257
+#: inc/widgets/widget-magazine-columns.php:278
+msgid "All Categories"
+msgstr "Alle categorieën"
+
+#: inc/theme-info.php:51 inc/customizer/controls/links-control.php:53
+msgid "Rate this theme"
+msgstr "Waardeer dit thema"
+
+#: inc/theme-info.php:51 inc/theme-info.php:154
+#: inc/customizer/controls/links-control.php:52
+msgid "https://wordpress.org/support/theme/treville/reviews/"
+msgstr "https://wordpress.org/support/theme/treville/reviews/"
+
+#: inc/theme-info.php:49 inc/theme-info.php:65
+#: inc/customizer/controls/links-control.php:41
+msgid "Theme Documentation"
+msgstr "Thema documentatie"
+
+#: inc/theme-info.php:49 inc/theme-info.php:71
+#: inc/customizer/controls/links-control.php:40
+msgid "https://themezee.com/docs/treville-documentation/"
+msgstr "https://themezee.com/docs/treville-documentation/"
+
+#: inc/theme-info.php:48 inc/customizer/controls/links-control.php:35
+msgid "Theme Demo"
+msgstr "Thema demo"
+
+#: inc/theme-info.php:47 inc/customizer/controls/links-control.php:29
+msgid "Theme Page"
+msgstr "Themapagina"
+
+#: inc/theme-info.php:46 inc/customizer/controls/links-control.php:25
+msgid "Theme Links"
+msgstr "Thema links"
+
+#: inc/customizer/sections/customizer-website.php:80
+msgid "Display Tagline"
+msgstr "Tagline weergeven"
+
+#: inc/customizer/sections/customizer-website.php:65
+msgid "Display Site Title"
+msgstr "Sitetitel weergeven"
+
+#: inc/customizer/customizer.php:46
+msgid "Background"
+msgstr "Achtergrond"
+
+#: inc/theme-info.php:78 inc/customizer/customizer.php:41
+msgid "Theme Options"
+msgstr "Thema opties"
+
+#: inc/back-compat.php:42 inc/back-compat.php:52 inc/back-compat.php:65
+msgid "%1$s requires at least WordPress version %2$s. You are running version %3$s. Please upgrade and try again."
+msgstr "%1$s vereist minimaal WordPress versie %2$s. Je gebruikt versie %3$s. Voer een upgrade uit en probeer het opnieuw."
+
+#: header.php:27
+msgid "Skip to content"
+msgstr "Doorgaan naar inhoud"
+
+#. Template Name of the theme
+#: functions.php:147
+msgid "Magazine Homepage"
+msgstr "Tijdschrift homepage"
+
+#: functions.php:139
+msgid "Appears on posts and pages except the full width template."
+msgstr "Verschijnt op berichten en pagina's behalve de template met volledige breedte."
+
+#: functions.php:137
+msgid "Sidebar"
+msgstr "Zijbalk"
+
+#: functions.php:45
+msgid "Main Navigation"
+msgstr "Hoofdnavigatie"
+
+#: functions.php:44
+msgid "Top Navigation"
+msgstr "Top navigatie"
+
+#: comments.php:54
+msgid "Comments are closed."
+msgstr "Reacties zijn gesloten."
+
+#: inc/template-tags.php:257 comments.php:29
+msgid "% comments"
+msgstr "% reacties"
+
+#: inc/template-tags.php:257 comments.php:29
+msgid "One comment"
+msgstr "Een reactie"
+
+#: 404.php:24
+msgid "It looks like nothing was found at this location. Maybe try a search or one of the links below?"
+msgstr "Het lijkt erop dat er op deze locatie niets is gevonden. Probeer misschien een zoekopdracht of een van de onderstaande links?"
+
+#: 404.php:17
+msgid "404: Page not found"
+msgstr "404: pagina niet gevonden"
+
+#. Author URI of the theme
+msgid "https://themezee.com"
+msgstr "https://themezee.com"
+
+#. Author of the theme
+msgid "ThemeZee"
+msgstr "ThemeZee"
+
+#. Theme URI of the theme
+#: inc/theme-info.php:47 inc/customizer/controls/links-control.php:28
+msgid "https://themezee.com/themes/treville/"
+msgstr "https://themezee.com/themes/treville/"

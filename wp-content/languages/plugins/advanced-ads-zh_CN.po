@@ -1,0 +1,3710 @@
+# Translation of Plugins - Advanced Ads – Ad Manager &amp; AdSense - Stable (latest release) in Chinese (China)
+# This file is distributed under the same license as the Plugins - Advanced Ads – Ad Manager &amp; AdSense - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2020-11-21 15:15:36+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
+"Language: zh_CN\n"
+"Project-Id-Version: Plugins - Advanced Ads – Ad Manager &amp; AdSense - Stable (latest release)\n"
+
+#: modules/ads-txt/admin/views/setting-additional-content.php:31
+msgid "Preview"
+msgstr "预览"
+
+#: admin/views/placements-content-index.php:47
+msgid "select position"
+msgstr "选择位置"
+
+#. Translators: %1$s opening a tag, %2$s closing a tag.
+#: admin/includes/class-admin-upgrades.php:102
+msgid "This looks like a Google Ad Manager ad. Use the %1$sGAM Integration%2$s."
+msgstr "这看起来像是Google广告管理系统的广告。 使用%1$sGAM Integration%2$s。"
+
+#: admin/includes/class-admin-upgrades.php:60
+msgid "Upgrade"
+msgstr "升级"
+
+#: admin/views/upgrades/adsense-amp.php:3
+msgid "Automatically convert AdSense ads into their AMP format"
+msgstr "自动转换AdSense广告到他们的AMP格式"
+
+#: modules/gadsense/includes/class-network-adsense.php:255
+msgid "Enable AMP Auto ads"
+msgstr "启用AMP Auto ads"
+
+#: admin/views/settings/general/disable-post-types.php:15
+msgid "The free version provides the post type display condition on the ad edit page."
+msgstr "免费版本提供了广告编辑页面上的文章类型显示条件。"
+
+#: admin/views/ad-output-metabox.php:80
+msgid "Place your own code below the ad"
+msgstr "将自己的代码放在广告下方"
+
+#: admin/views/ad-output-metabox.php:77
+msgid "Custom Code"
+msgstr "自定义代码"
+
+#: admin/views/ad-output-metabox.php:69
+msgid "Display the ad only once per page"
+msgstr "每页仅显示一次广告"
+
+#: admin/views/ad-output-metabox.php:66
+msgid "Display only once"
+msgstr "只显示一次"
+
+#: admin/views/upgrades/pro-placements.php:30
+msgid "Post Lists"
+msgstr "文章列表"
+
+#: admin/views/upgrades/pro-placements.php:57
+msgid "bbPress Content"
+msgstr "bbPress 内容"
+
+#: admin/views/upgrades/pro-placements.php:49
+msgid "BuddyPress Content"
+msgstr "BuddyPress 内容"
+
+#: admin/includes/class-admin-upgrades.php:105
+#: admin/includes/class-overview-widgets.php:559
+msgid "A quick and error-free way of implementing ad units from your Google Ad Manager account."
+msgstr "通过Google广告管理系统帐户快速，无错误地部署广告单元的方法。"
+
+#: admin/views/upgrades/pro-placements.php:19
+msgid "In the middle of the main content based on the number of paragraphs."
+msgstr "主内容的中间基于段落数。"
+
+#: admin/views/upgrades/pro-placements.php:6
+msgid "Random Paragraph"
+msgstr "随机段落"
+
+#: admin/views/upgrades/pro-placements.php:18
+msgid "Content Middle"
+msgstr "内容中间"
+
+#: admin/views/upgrades/pro-placements.php:31
+msgid "Display the ad between posts on post lists, e.g. home, archives, search etc."
+msgstr "在文章列表中的文章之间显示广告，例如 主页，存档，搜索等。"
+
+#: admin/views/upgrades/pro-placements.php:50
+msgid "Display ads on BuddyPress related pages."
+msgstr "在BuddyPress相关页面上显示广告。"
+
+#: admin/views/upgrades/pro-placements.php:58
+msgid "Display ads in content created with bbPress."
+msgstr "在bbPress创建的内容中展示广告。"
+
+#: classes/display-conditions.php:768
+msgid "REST API"
+msgstr "REST API"
+
+#: admin/views/settings/general/advanced-js.php:4
+msgid "The file is currently enabled by an add-on that needs it."
+msgstr "该文件当前由需要它的加载项启用。"
+
+#: modules/gadsense/admin/views/external-ads-list.php:99
+msgid "Load"
+msgstr "加载"
+
+#: classes/frontend_checks.php:907 classes/frontend_checks.php:915
+msgid "Just click on your problem to learn more from our knowledge base."
+msgstr "只需单击您的问题即可从我们的知识库中了解更多信息。"
+
+#: modules/gadsense/admin/views/external-ads-list.php:144
+msgid "Choose a different ad from your AdSense account above."
+msgstr "从上方的AdSense帐户中选择其他广告。"
+
+#: modules/gadsense/admin/views/external-ads-list.php:103
+msgid "Ad can't be imported, click for details"
+msgstr "无法导入广告，请单击以获取详细信息"
+
+#: modules/gadsense/admin/views/external-ads-list.php:125
+msgid "You can proceed with one of the following solutions"
+msgstr "您可以继续执行以下解决方案之一"
+
+#: modules/gadsense/includes/class-mapi.php:758
+msgid "This ad code is from a different AdSense Account"
+msgstr "此广告代码来自其他AdSense帐户"
+
+#: modules/gadsense/admin/views/external-ads-list.php:63
+msgid "Show all ad units"
+msgstr "显示所有广告单元"
+
+#: classes/frontend_checks.php:908
+msgid "I want to disable AdSense Auto ads"
+msgstr "我想禁用AdSense自动广告"
+
+#: classes/frontend_checks.php:911
+msgid "I want to change the position of the ads"
+msgstr "我想更改广告的位置"
+
+#: classes/frontend_checks.php:918
+msgid "I have another question or problem"
+msgstr "我还有一个问题"
+
+#: classes/frontend_checks.php:902
+msgid "I expected something else"
+msgstr "我期待的是别的"
+
+#: classes/frontend_checks.php:909 classes/frontend_checks.php:916
+msgid "I don’t see any Auto ads"
+msgstr "我没有看到任何自动广告"
+
+#: classes/frontend_checks.php:917
+msgid "How to look for the Auto ads code"
+msgstr "如何查找自动广告代码"
+
+#: modules/gadsense/admin/views/auto-ads-video.php:4
+msgid "How to enable Auto ads in 30 seconds (video tutorial)"
+msgstr "如何在30秒内启用自动广告(视频教程)"
+
+#: modules/gadsense/admin/views/adsense-account.php:169
+msgid "How to choose specific positions for AdSense ad units"
+msgstr "如何为AdSense广告单元选择具体的位置"
+
+#: classes/frontend_checks.php:884 classes/frontend_checks.php:899
+msgid "Hi %s"
+msgstr "%s，您好"
+
+#: modules/gadsense/includes/class-network-adsense.php:512
+#: modules/gadsense/includes/class-mapi.php:1466
+msgctxt "AdSense ad type"
+msgid "Display"
+msgstr "显示"
+
+#: classes/frontend_checks.php:337
+msgid "Debug Google Ad Manager"
+msgstr "调试谷歌广告管理"
+
+#: modules/gadsense/includes/class-network-adsense.php:513
+#: modules/gadsense/includes/class-mapi.php:1468
+msgctxt "AdSense ad type"
+msgid "Link"
+msgstr "链接"
+
+#: classes/frontend_checks.php:910
+msgid "I only see blank space"
+msgstr "我只看到空白"
+
+#. Author of the plugin
+msgid "Thomas Maier, Advanced Ads GmbH"
+msgstr "Thomas Maier, Advanced Ads GmbH"
+
+#: admin/views/notices/info.php:15
+msgid "Dismiss this notice."
+msgstr "忽略此通知。"
+
+#: classes/ad_type_image.php:73
+msgid "Link to target site including http(s)"
+msgstr "链接到目标网站，包括 http(s)"
+
+#: admin/views/notices/welcome-panel.php:23
+msgid "One-Click Setup"
+msgstr "一键设置"
+
+#: admin/views/notices/welcome-panel.php:31
+msgid "Click to place two ads in the content of your site which are visible to you only."
+msgstr "单击以在您的网站内容中放置两个广告，这些广告仅对您可见。"
+
+#: admin/views/notices/starter-setup-success.php:2
+msgid "2 Test Ads successfully added!"
+msgstr "2个测试广告已成功添加！"
+
+#: modules/ads-txt/admin/class-advanced-ads-ads-txt-admin.php:355
+msgid "The ads.txt is now managed with Advanced Ads."
+msgstr "ads.txt现在通过高级广告进行管理。"
+
+#: modules/ads-txt/admin/class-advanced-ads-ads-txt-admin.php:215
+msgid "Import & Replace"
+msgstr "导入& 替换"
+
+#: admin/views/notices/welcome-panel.php:30
+msgid "Create 2 test ads"
+msgstr "创建2个测试广告"
+
+#: modules/ads-txt/admin/class-advanced-ads-ads-txt-admin.php:432
+msgid "Could not find the existing ads.txt file"
+msgstr "找不到现有的ads.txt文件"
+
+#: modules/ads-txt/admin/class-advanced-ads-ads-txt-admin.php:429
+msgid "Could not delete the existing ads.txt file"
+msgstr "无法删除现有的ads.txt文件"
+
+#: admin/views/notices/starter-setup-success.php:3
+msgid "Look below for the list of created ads."
+msgstr "在下面查看创建的广告列表。"
+
+#: admin/includes/class-meta-box.php:256
+#: admin/includes/class-overview-widgets.php:60
+msgid "Disable"
+msgstr "禁用"
+
+#: modules/gadsense/includes/class-network-adsense.php:84
+msgid "Disable stats"
+msgstr "禁用统计"
+
+#: admin/includes/ad-health-notices.php:281
+msgid "You might be able to <strong>remove %1$s</strong>."
+msgstr "您也可以尝试<strong>去掉 %1$s</strong>。"
+
+#: admin/includes/ad-health-notices.php:284
+msgid "Learn how."
+msgstr "了解更多。"
+
+#: admin/includes/ad-health-notices.php:280
+msgid "Advanced Ads handles header and footer codes."
+msgstr "高级广告处理“头部”和“底部”代码。"
+
+#: admin/class-advanced-ads-admin.php:221
+msgid "Yesterday"
+msgstr "昨天"
+
+#. Translators: %s is a URL.
+#: modules/gadsense/includes/class-network-adsense.php:327
+msgid "Whether your responsive ad unit may expand to <a href='%s' target='blank'>use the full width</a> of your visitor's mobile device screen"
+msgstr "无论您的自动广告代码是否拓展至访问者的移动设备屏幕<a href='%s' target='blank'>使用全部宽度</a>"
+
+#: admin/class-advanced-ads-admin.php:220
+msgid "Today"
+msgstr "今天"
+
+#: admin/class-advanced-ads-admin.php:222
+msgid "This Month"
+msgstr "本月"
+
+#: admin/class-advanced-ads-admin.php:228
+msgid "There were no results returned for this ad. Please make sure it is active, generating impressions and double check your ad parameters."
+msgstr "关于这个广告无任何返回结果。请查询并确保该插件已经激活，并再次检查您的广告设置参数信息。"
+
+#: admin/views/gadsense-dashboard.php:34
+msgid "There is an error in your AdSense setup."
+msgstr "关于您的广告设置存在一个错误。"
+
+#. translators: 1: The name of an ad network.
+#: modules/gadsense/admin/views/external-ads-links.php:24
+msgid "Set up %1$s code manually"
+msgstr "手动设置%1$s"
+
+#: modules/gadsense/includes/class-mapi.php:445
+msgid "Reason:"
+msgstr "原因："
+
+#: modules/gadsense/includes/class-adsense-report.php:499
+#: modules/gadsense/includes/class-adsense-report.php:525
+msgid "Never"
+msgstr "从不"
+
+#: modules/gadsense/includes/class-mapi.php:446
+msgid "Message:"
+msgstr "信息："
+
+#: modules/gadsense/includes/class-adsense-report.php:311
+#: modules/gadsense/includes/class-adsense-report.php:336
+msgid "Invalid response from AdSense."
+msgstr "来自AdSense的无效响应。"
+
+#. translators: 1: The name of an ad network.
+#: modules/gadsense/admin/views/external-ads-links.php:12
+msgid "Insert new %1$s code"
+msgstr "插入新的%1$s 代码"
+
+#: modules/gadsense/includes/class-network-adsense.php:319
+msgid "enable"
+msgstr "启用"
+
+#: modules/gadsense/includes/class-network-adsense.php:122
+msgid "Full width responsive ads on mobile"
+msgstr "移动设备上的全宽自适应广告"
+
+#: modules/gadsense/admin/dummy.php:61
+msgid "Dummy Account Id"
+msgstr "虚拟帐户ID"
+
+#: modules/gadsense/includes/class-network-adsense.php:320
+msgid "disable"
+msgstr "停用"
+
+#. translators: 1: The name of an ad network.
+#: modules/gadsense/admin/views/external-ads-links.php:31
+msgid "Connect to %1$s"
+msgstr "连接至 %1$s"
+
+#. translators: 1: An error message.
+#: admin/class-advanced-ads-admin.php:226
+msgid "An error occurred: %1$s"
+msgstr "出现了一个错误：%1$s"
+
+#: admin/class-advanced-ads-admin.php:227
+msgid "All"
+msgstr "全部"
+
+#: admin/includes/ad-health-notices.php:269
+msgid "Advanced Ads handles your ads.txt file automatically. You might be able to <strong>remove %1$s</strong>."
+msgstr "高级广告插件会自动处理您的ads.txt文件。您可以<strong>删掉 %1$s</strong>."
+
+#: admin/includes/class-meta-box.php:74
+#: admin/includes/class-overview-widgets.php:64
+msgid "AdSense Earnings"
+msgstr "谷歌广告收益"
+
+#. translators: 1:A link to the settings page translators: 2:The name of an ad
+#. network
+#: modules/gadsense/includes/class-mapi.php:1742
+msgid "Please try to <a href=\"%1$s\" target=\"_blank\">reconnect to your %2$s account</a>."
+msgstr "请尝试<a href=\"%1$s\" target=\"_blank\">重新连接到您的%2$s帐户</a>。"
+
+#. translators: 1: The number of days.
+#: admin/class-advanced-ads-admin.php:224
+msgid "Last %1$d days"
+msgstr "最近%1$d 天"
+
+#: classes/visitor-conditions.php:279
+msgid "user role"
+msgstr "用户角色"
+
+#. translators: %s is the number of hidden notices.
+#. translators: %s includes a number and markup like <span
+#. class="count">6</span>.
+#: admin/includes/class-overview-widgets.php:218
+#: admin/views/overview-notices.php:33
+msgid "Show %s hidden notices"
+msgstr "展示%s 隐藏的通知"
+
+#. translators: %1$s is a plugin name, %2$s is the opening a tag and %3$s the
+#. closing one.
+#: admin/includes/ad-health-notices.php:208
+#: admin/includes/ad-health-notices.php:219
+#: admin/includes/ad-health-notices.php:230
+#: admin/includes/ad-health-notices.php:243
+msgid "Learn how to integrate %1$s with Advanced Ads %2$shere%3$s."
+msgstr "了解如何结合%1$s 通过高级广告插件 %2$shere%3$s."
+
+#. translators: %s is a service or plugin name.
+#: admin/includes/ad-health-notices.php:258
+msgid "Learn how this might impact your ad setup."
+msgstr "了解这些信息如何影响你的广告设置。"
+
+#: admin/includes/ad-health-notices.php:199
+msgid "Advanced Ads uses the outermost of them."
+msgstr "高级广告使用其中的最外层。"
+
+#: admin/views/feedback-disable.php:23
+msgid "Ads are not showing up"
+msgstr "广告没有展示"
+
+#. translators: %s is a filter hook, here `the_content`.
+#: admin/includes/ad-health-notices.php:197
+msgid "<strong>%s</strong> filter found multiple times."
+msgstr "<strong>%s</strong> 过滤器发现多次。"
+
+#. translators: %s is a service or plugin name.
+#: admin/includes/ad-health-notices.php:257
+msgid "%s detected."
+msgstr "检测到%s。"
+
+#: admin/includes/class-admin-upgrades.php:80
+msgid "Pro Feature"
+msgstr "专业版特点："
+
+#: admin/includes/class-settings.php:139
+msgid "Hide ads for user roles"
+msgstr "为用户角色隐藏广告"
+
+#: admin/includes/class-settings.php:180
+msgid "Disable ads for post types"
+msgstr "关闭文章类型广告"
+
+#: admin/includes/ad-health-notices.php:169
+#: admin/includes/ad-health-notices.php:179
+#: admin/includes/ad-health-notices.php:189
+msgctxt "related to ads.txt file"
+msgid "Create one now."
+msgstr "现在创建一个。"
+
+#. translators: %1$s opening button tag, %2$s closing button tag.
+#: admin/includes/class-meta-box.php:337
+msgid "This looks like an AdSense ad. Switch the ad type to “AdSense ad” to make use of more features. %1$sSwitch to AdSense ad%2$s."
+msgstr "这看似一个谷歌广告。切换广告至“谷歌广告”以使用更多特性。%s切换至谷歌广告%s."
+
+#. translators: %1$s is the AdSense publisher ID; %2$s a starting a tag to the
+#. AdSense ad unit list and %3$s the closing link.
+#: modules/gadsense/includes/class-mapi.php:468
+msgid "The account \"%1$s\" does not seem to have any ad units. Please create some %2$shere%3$s."
+msgstr "该账号\"%1$s\"似乎没有任何广告单元。请通过%2$s这里%3$s创建。"
+
+#: modules/gadsense/includes/class-mapi.php:1167
+msgid "No token provided. Token data needed to get account details."
+msgstr "没有提供令牌。 获取帐户详细信息所需的令牌数据。"
+
+#. translators: %s is the publisher ID.
+#: modules/gadsense/includes/class-mapi.php:437
+msgid "Invalid response while retrieving adUnits list for \"%s\"."
+msgstr "检索\"%s\"的广告单元时无效响应。"
+
+#: modules/gadsense/includes/class-mapi.php:371
+msgid "Invalid response while retrieving ad code for \"%s\"."
+msgstr "获取\"%s\"广告代码时出现无效回应。"
+
+#. translators: %s AdSense account ID
+#: modules/gadsense/includes/class-mapi.php:687
+msgid "invalid response received while renewing access token for \"%s\""
+msgstr "更新访问令牌\"%s\"时收到无效回应"
+
+#: modules/gadsense/includes/class-mapi.php:660
+msgid "error while renewing access token for \"%s\""
+msgstr "更新访问令牌\"%s\"时出现错误"
+
+#. translators: the publisher ID.
+#: modules/gadsense/includes/class-mapi.php:426
+#: modules/gadsense/includes/class-mapi.php:518
+msgid "Error while retrieving adUnits list for \"%s\"."
+msgstr "获取\"%s\"广告清单时出现错误。"
+
+#: modules/gadsense/includes/class-mapi.php:344
+msgid "Error while retrieving ad code for \"%s\"."
+msgstr "获取\"%s\"广告代码时出现错误。"
+
+#: modules/gadsense/includes/class-mapi.php:996
+msgid "error while retrieving account alerts"
+msgstr "在获取账号警告时出现错误"
+
+#: modules/ads-txt/admin/views/setting-additional-content.php:30
+msgid "Check for problems"
+msgstr "检查问题"
+
+#: modules/ads-txt/admin/class-advanced-ads-ads-txt-admin.php:224
+#: modules/ads-txt/admin/views/setting-additional-content.php:29
+msgid "An error occured: %s."
+msgstr "一个错误发生%s"
+
+#: modules/ads-txt/admin/class-advanced-ads-ads-txt-admin.php:212
+msgid "A third-party file exists: %s"
+msgstr "一个第三方文件存在%s"
+
+#: modules/ads-txt/admin/class-advanced-ads-ads-txt-admin.php:208
+msgid "The file was not created."
+msgstr "文件并未创建。"
+
+#: modules/ads-txt/admin/class-advanced-ads-ads-txt-admin.php:204
+msgid "The file is available on %s."
+msgstr "文件可用于%s。"
+
+#: admin/includes/notices.php:49
+msgid "Do you find the plugin useful and would like to thank us for updates, fixing bugs and improving your ad setup?"
+msgstr "你觉得这个插件有用吗?感谢我们的更新、修复bug和改进你的广告设置?"
+
+#: admin/includes/notices.php:48
+msgid "… ads created using <strong>Advanced Ads</strong>."
+msgstr "...广告创建使用<strong>Advanced Ads</strong>。"
+
+#: admin/includes/notices.php:55
+msgid "Yes, but help me first to solve a problem, please"
+msgstr "是，但请先帮我解决一个问题"
+
+#. translators: this belongs to our message asking the user for a review. You
+#. can find a nice equivalent in your own language.
+#: admin/includes/notices.php:52
+msgid "When you give 5-stars, an actual person does a little happy dance!"
+msgstr "当你给五星好评有一个真人跳起小舞"
+
+#: admin/includes/notices.php:54
+msgid "Sure, I appreciate your work"
+msgstr "当然，我欣赏你的工作"
+
+#. translators: %s the line that may need to be added manually
+#: modules/ads-txt/admin/class-advanced-ads-ads-txt-admin.php:238
+msgid "If your site is located on a subdomain, you need to add the following line to the ads.txt file of the root domain: %s"
+msgstr "如果您的站点位于子域，则需要将以下行添加到根域的ads.txt文件中:%s"
+
+#: admin/includes/class-overview-widgets.php:455
+msgid "How to install and activate an add-on."
+msgstr "如何安装并激活插件"
+
+#: modules/ads-txt/admin/views/setting-create.php:19
+msgid "Generate a single ads.txt file for all sites in the multisite network."
+msgstr "为多站点网络中的所有站点生成一个ads.txt文件。"
+
+#: modules/gadsense/includes/class-network-adsense.php:193
+msgid "Enable this box if you don’t want Google Auto ads to place anchor ads at the top of your page."
+msgstr "如果不希望谷歌自动广告将锚定广告放置在页面顶部，请启用此框。"
+
+#: modules/gadsense/includes/class-network-adsense.php:74
+msgid "Disable top anchor ad"
+msgstr "禁用顶锚广告"
+
+#: modules/gadsense/includes/class-network-adsense.php:63
+#: modules/gadsense/includes/class-network-adsense.php:74
+msgid "Auto ads"
+msgstr "自动广告"
+
+#: modules/ads-txt/admin/views/setting-additional-content.php:22
+msgid "Additional records to add to the file, one record per line. AdSense is added automatically."
+msgstr "要添加到文件中的其他记录，每行一条记录。自动添加AdSense。"
+
+#: modules/ads-txt/admin/views/setting-create.php:27
+msgid "Usually, this should be enabled on the main site of the network - often the one without a subdomain or subdirectory."
+msgstr "通常，这应该在网络的主站点上启用—通常是没有子域或子目录的站点。"
+
+#: modules/ads-txt/admin/class-advanced-ads-ads-txt-admin.php:192
+msgid "The ads.txt file cannot be placed because the URL contains a subdirectory. You need to make the file available at %s"
+msgstr "不能放置ads.txt文件，因为URL包含一个子目录。您需要使文件在%s处可用"
+
+#: admin/includes/class-settings.php:189
+msgid "Disable Ad Health and other notices"
+msgstr "关闭广告健康和其他通知"
+
+#. translators: %1$s is a starting <a> tag and %2$s a closing one.
+#: admin/views/settings/general/disable-notices.php:6
+msgid "Disable %1$sAd Health%2$s in frontend and backend, warnings and internal notices like tips, tutorials, email newsletters and update notices."
+msgstr "在前台和后台中禁用 %1$sAd Health%2$s 给出的警告，或类似小提示，教程，email信息，升级通知之类的内部通知 "
+
+#: admin/includes/class-settings.php:77
+msgid "Content injection"
+msgstr "内容注入"
+
+#: admin/views/support-callout.php:4
+msgid "Ask your question!"
+msgstr "我有疑问。"
+
+#. translators: %1$s is a starting link tag, %2$s is closing the link tag.
+#: admin/views/checks.php:13
+msgid "Advanced Ads detected potential problems with your ad setup. %1$sShow me these errors%2$s"
+msgstr "Advanced Ads 在你的广告设置中检测到潜在的问题 %1$s查看这些错误%2$s "
+
+#: classes/frontend_checks.php:481
+msgid "Show %d more notifications"
+msgstr "展示%d更多的通知"
+
+#: admin/views/support-callout.php:4
+msgid "Save time and get personal support."
+msgstr "节省时间并寻求个人帮助"
+
+#: admin/includes/class-meta-box.php:647
+msgid "RSS Error:"
+msgstr "RSS错误："
+
+#: admin/views/support-callout.php:3
+msgid "Problems or questions?"
+msgstr "有困难或疑问？"
+
+#: admin/views/overview-notices.php:12
+msgid "Problems"
+msgstr "问题"
+
+#: admin/views/overview-notices.php:21
+msgid "Notifications"
+msgstr "通知"
+
+#: admin/includes/ad-health-notices.php:143
+msgid "AdSense issue"
+msgstr "AdSense问题"
+
+#: admin/includes/ad-health-notices.php:101
+msgid "Ad expired"
+msgstr "广告过期"
+
+#: classes/display-conditions.php:764
+msgid "allow ads in RSS Feed"
+msgstr "允许 RSS 源中的广告"
+
+#: classes/display-conditions.php:763
+msgid "RSS Feed"
+msgstr "RSS 源"
+
+#. translators: %s is our URL.
+#: admin/includes/class-meta-box.php:626
+msgid "Latest posts on wpadvancedads.com"
+msgstr "wpadvancedads. com 上的最新帖子"
+
+#: admin/views/post-ad-settings-metabox.php:1
+msgid "How to disable ads on specific pages"
+msgstr "如何禁用特定网页上的广告"
+
+#: admin/class-advanced-ads-admin.php:230
+msgid "Hide inactive ads"
+msgstr "隐藏非活动广告"
+
+#: admin/includes/class-ad-type.php:921 classes/frontend_checks.php:509
+#: classes/ad-health-notices.php:886
+msgid "Get help"
+msgstr "获取帮助"
+
+#: modules/gadsense/admin/views/adsense-account.php:30
+#: modules/gadsense/admin/views/adsense-account.php:62
+msgid "dismiss"
+msgstr "忽略"
+
+#. translators: %1$s is the opening a tag and %2$s the closing one.
+#: admin/includes/ad-health-notices.php:157
+msgid "Create a new AdSense account %1$shere%2$s."
+msgstr "%1$s在这里%2$s创建一个新的 AdSense 帐户。"
+
+#: modules/gadsense/admin/views/connect-adsense.php:57
+msgid "Cannot access your account information."
+msgstr "无法访问您的帐户信息。"
+
+#: modules/gadsense/admin/views/adsense-ad-parameters.php:65
+msgid "cancel"
+msgstr "取消"
+
+#: modules/gadsense/includes/class-mapi.php:1231
+msgid "An error occurred while requesting account details."
+msgstr "请求帐户详细信息时出错。"
+
+#: modules/gadsense/includes/class-mapi.php:616
+msgid "Advanced Ads does not have access to your account (<code>%s</code>) anymore."
+msgstr "Advanced Ads不再访问您的帐户 (<code>%s</code>)。"
+
+#: modules/gadsense/admin/views/adsense-account.php:29
+msgid "AdSense warnings"
+msgstr "AdSense 警告"
+
+#: modules/gadsense/admin/views/adsense-account.php:80
+msgid "Account holder name"
+msgstr "账户持有人姓名"
+
+#. translators: %s is a list of server information like IP address. Just keep
+#. it as is.
+#: admin/includes/class-licenses.php:256
+msgid "Your request was blocked by our firewall. Please send us the following information to unblock you: %s."
+msgstr "您的请求被我们的防火墙阻止。请向我们发送以下信息以取消阻止:%s."
+
+#: admin/includes/ad-health-notices.php:148
+msgid "Your account was not approved by AdSense."
+msgstr "您的帐户未被 AdSense 批准。"
+
+#: modules/gadsense/admin/views/adsense-ad-parameters.php:54
+msgid "Warning: The AdSense account from this code does not match the one set in the Advanced Ads options."
+msgstr "警告: 此代码中的 AdSense 帐户与Advanced Ads选项中的帐户不匹配。"
+
+#: admin/includes/class-meta-box.php:572
+msgid "Visit our blog for more articles about ad optimization"
+msgstr "访问我们的博客, 了解更多有关广告优化的文章"
+
+#: modules/gadsense/admin/views/connect-adsense.php:68
+msgid "Use this account"
+msgstr "使用此帐户"
+
+#: modules/gadsense/admin/views/external-ads-list.php:29
+#: admin/class-advanced-ads-admin.php:229
+msgid "Show inactive ads"
+msgstr "展示非活动广告"
+
+#. translators: %1$s is the opening link tag to our manual; %2$s is the
+#. appropriate closing link tag; %3$s is the opening link tag to our help
+#. forum; %4$s is the appropriate closing link tag
+#: modules/gadsense/admin/views/adsense-account.php:177
+msgid "Problems with AdSense? Check out the %1$smanual%2$s or %3$sask here%4$s."
+msgstr "AdSense 有问题？查阅%1$s手册%2$s 或%3$s在这里询问%4$s。"
+
+#: modules/gadsense/admin/views/connect-adsense.php:63
+msgid "Please select an account"
+msgstr "请选择一个帐户"
+
+#: admin/includes/ad-health-notices.php:167
+#: admin/includes/ad-health-notices.php:177
+#: admin/includes/ad-health-notices.php:187
+msgid "One of your sites is missing the AdSense publisher ID in the ads.txt file."
+msgstr "您的一个网站在 ads. txt 文件中缺少 AdSense 发布者 ID。"
+
+#: modules/gadsense/includes/class-mapi.php:95
+#: admin/includes/ad-health-notices.php:148
+#: admin/includes/ad-health-notices.php:155
+msgid "Last AdSense account connection attempt failed."
+msgstr "上次 AdSense 帐户连接尝试失败。"
+
+#: modules/gadsense/includes/class-mapi.php:609
+msgid "It seems that some changes have been made in the Advanced Ads settings. Please refresh this page."
+msgstr "似乎在Advanced Ads设置中进行了一些更改。请刷新此页。"
+
+#: modules/gadsense/includes/class-mapi.php:1655
+msgid "There are one or more warnings about the currently linked AdSense account. You can view them <a href=\"%s\">here</a>"
+msgstr "当前链接的AdSense帐户有一个或多个警告。 您可以在<a href=\"%s\">此处</a>查看它们"
+
+#: classes/ad_type_plain.php:105 classes/ad_type_plain.php:133
+msgid "Uncheck this checkbox for improved performance."
+msgstr "取消选中此复选框以提高性能。"
+
+#: classes/ad_type_plain.php:133
+msgid "No shortcode detected in your code."
+msgstr "在代码中没有检测到短代码。"
+
+#: classes/ad_type_plain.php:105
+msgid "No PHP tag detected in your code."
+msgstr "在您的代码中没有检测到 PHP 标记。"
+
+#: classes/frontend_checks.php:348
+msgid "Auto ads code found"
+msgstr "找到自动广告代码"
+
+#: modules/gadsense/admin/views/external-ads-list.php:98
+msgid "Get the code for this ad"
+msgstr "获取此广告的代码"
+
+#: modules/gadsense/admin/views/external-ads-list.php:43
+#: modules/gadsense/admin/views/external-ads-list.php:53
+msgctxt "AdSense ad"
+msgid "Type"
+msgstr "类型"
+
+#: modules/gadsense/includes/class-network-adsense.php:228
+#: classes/frontend_checks.php:912
+msgid "Display Auto ads only on specific pages"
+msgstr "仅在特定页面上显示自动广告"
+
+#: modules/gadsense/includes/class-network-adsense.php:238
+msgid "Adjust Auto ads options"
+msgstr "调整自动广告选项"
+
+#: classes/frontend_checks.php:294
+msgid "The following responsive AdSense ads are not showing up: %s"
+msgstr "以下响应式 AdSense 广告未显示:%s"
+
+#: modules/gadsense/admin/views/external-ads-list.php:42
+#: modules/gadsense/admin/views/external-ads-list.php:52
+msgctxt "AdSense ad"
+msgid "Slot ID"
+msgstr "跟踪 ID"
+
+#: modules/gadsense/admin/views/external-ads-list.php:44
+#: modules/gadsense/admin/views/external-ads-list.php:54
+msgid "Size"
+msgstr "大小"
+
+#: admin/views/placement-injection-top.php:72
+msgid "inject Auto ads"
+msgstr "注入自动广告"
+
+#: admin/views/upgrades/all-access.php:14
+msgid "Get All Access"
+msgstr "解锁全部功能"
+
+#: admin/views/feedback-disable.php:46
+msgid "Disabling the plugin now…"
+msgstr "正在禁用插件..."
+
+#: admin/views/placement-injection-top.php:61
+msgid "Click on the button below to add the Auto ads code to the header of your site."
+msgstr "点击下面的按钮, 将自动广告代码添加到您网站的标题。"
+
+#. translators: %s is the title of the website.
+#: admin/views/feedback-disable.php:43
+msgid "All the best to you and %s."
+msgstr "祝你和 %s 一切顺利。"
+
+#: admin/includes/ad-health-notices.php:72 admin/views/support.php:58
+msgid "Advanced Ads related constants enabled"
+msgstr "已启用Advanced Ads相关常量"
+
+#: admin/includes/class-ad-type.php:272 admin/includes/class-ad-type.php:278
+msgid "Ad Shortcode"
+msgstr "广告快捷代码"
+
+#: admin/views/feedback-disable.php:39
+msgid "Thanks for submitting your feedback. I will reply within 24 hours on working days."
+msgstr "感谢您提交您的反馈。我会在24小时内回复。"
+
+#: admin/views/feedback-disable.php:33
+msgid "Send feedback & deactivate"
+msgstr "发送反馈并关闭"
+
+#: admin/views/feedback-disable.php:34
+msgid "Send feedback"
+msgstr "发送反馈"
+
+#. translators: $s is a size string like "728 x 90".
+#: classes/ad_type_image.php:243
+msgid "Original size: %s"
+msgstr "原始大小:%s"
+
+#: modules/gadsense/admin/admin.php:240
+#: admin/views/placement-injection-top.php:58
+msgid "No need to add the code manually here, unless you want to include it into certain pages only."
+msgstr "无需在此处手动添加代码, 除非您只希望将其包含到某些页面中。"
+
+#. Translators: %s is a URL.
+#. translators: %s is a URL.
+#: modules/gadsense/admin/admin.php:237
+#: admin/views/placement-injection-top.php:46
+msgid "The AdSense verification and Auto ads code is already activated in the <a href=\"%s\">AdSense settings</a>."
+msgstr "AdSense验证和自动广告代码已经在<a href=\"%s\">AdSense设置</a>中激活。"
+
+#: modules/gadsense/admin/views/external-ads-links.php:38
+#: modules/gadsense/admin/views/adsense-account.php:209
+msgid "Can not connect AdSense account. PHP version is too low."
+msgstr "无法连接 AdSense 帐户。PHP 版本太低。"
+
+#: admin/views/notices/welcome-panel.php:36
+msgid "Import ads from AdSense"
+msgstr "从 AdSense 导入广告"
+
+#: admin/views/feedback-disable.php:7
+msgid "I have a problem, a question or need help."
+msgstr "我遇到了一个问题或者需要其他帮助。"
+
+#: admin/views/notices/welcome-panel.php:13
+msgid "Get Started"
+msgstr "开始使用"
+
+#: modules/gadsense/admin/views/external-ads-links.php:18
+msgid "Get ad code from your linked account"
+msgstr "从您的链接帐户获取广告代码"
+
+#: admin/views/notices/welcome-panel.php:19
+msgid "First ad tutorial"
+msgstr "第一个广告教程"
+
+#: modules/gadsense/admin/views/adsense-ad-parameters.php:141
+msgid "Enable this box if responsive ads cover something on your site"
+msgstr "如果响应式广告覆盖了您网站上的内容, 则启用此框"
+
+#: modules/gadsense/admin/views/adsense-ad-parameters.php:67
+msgid "connect to your AdSense account"
+msgstr "连接到您的 AdSense 帐户"
+
+#: modules/gadsense/admin/views/adsense-account.php:71
+#: modules/gadsense/admin/views/adsense-account.php:93
+#: admin/includes/class-overview-widgets.php:121
+msgid "Connect to AdSense"
+msgstr "连接到 AdSense"
+
+#: modules/gadsense/admin/views/adsense-account.php:94
+msgid "Configure everything manually"
+msgstr "手动配置所有内容"
+
+#: modules/gadsense/admin/views/adsense-ad-parameters.php:138
+msgid "Clearfix"
+msgstr "清除修复"
+
+#: admin/views/notices/welcome-panel.php:34
+msgid "AdSense Options"
+msgstr "AdSense 选项"
+
+#: modules/gadsense/includes/class-network-adsense.php:54
+msgid "AdSense account"
+msgstr "AdSense 帐户"
+
+#: modules/privacy/admin/views/setting-general.php:67
+msgid "Your users’ consent might get cached and show ads to users who didn’t give their consent yet. "
+msgstr "您的用户的同意可能会被缓存, 并向尚未同意的用户展示广告。 "
+
+#: modules/gadsense/admin/views/adsense-account.php:92
+msgid "Yes, I have an AdSense account"
+msgstr "是, 我有一个 AdSense 帐户"
+
+#: admin/views/notices/welcome-panel.php:10
+msgid "Welcome to Advanced Ads!"
+msgstr "欢迎来到Advanced Ads！"
+
+#: modules/gadsense/admin/views/external-ads-list.php:30
+#: modules/gadsense/admin/views/external-ads-list.php:74
+msgid "Update the ad units list"
+msgstr "更新广告单元列表"
+
+#: modules/gadsense/admin/views/external-ads-list.php:116
+msgid "Unrecognized ad code"
+msgstr "无法识别的广告代码"
+
+#: modules/gadsense/admin/views/external-ads-list.php:122
+msgid "This ad type can currently not be imported from AdSense."
+msgstr "此广告类型当前无法从 AdSense 导入。"
+
+#: modules/gadsense/admin/views/adsense-ad-parameters.php:91
+msgid "The ad slot ID is either a number or empty and not the same as the publisher ID."
+msgstr "广告跟踪 ID 是数字或空, 与发布者 ID 不同。"
+
+#: admin/views/notices/welcome-panel.php:40
+msgid "Setting up Auto ads"
+msgstr "设置自动广告"
+
+#: admin/views/notices/welcome-panel.php:43
+msgid "Setting up AdSense ads manually"
+msgstr "手动设置 AdSense 广告"
+
+#: modules/gadsense/admin/views/adsense-account.php:74
+msgid "Revoke API acccess"
+msgstr "撤销 API 访问"
+
+#: modules/gadsense/admin/views/adsense-account.php:97
+msgid "No, I still don't have an AdSense account"
+msgstr "不, 我仍然没有 AdSense 帐户"
+
+#: modules/gadsense/admin/views/external-ads-list.php:72
+msgid "No ad units found"
+msgstr "未找到广告单元"
+
+#: modules/privacy/admin/admin.php:108
+msgid "Cookie"
+msgstr "Cookie"
+
+#: modules/privacy/admin/admin.php:75
+msgid "Enable Privacy module"
+msgstr "启用隐私模块"
+
+#: classes/frontend_checks.php:308
+msgid "Consent not given"
+msgstr "未给予同意"
+
+#: modules/privacy/admin/views/setting-general.php:20
+msgid "Consent method"
+msgstr "同意方法"
+
+#: modules/privacy/admin/views/setting-general.php:49
+msgid "Value"
+msgstr "价值"
+
+#: modules/privacy/admin/views/setting-general.php:53
+msgid "Show non-personalized AdSense ads until consent is given."
+msgstr "在征得同意之前, 展示非个性化的 AdSense 广告。"
+
+#: modules/privacy/admin/views/setting-ad-ignore-consent.php:10
+msgid "privacy"
+msgstr "隐私"
+
+#: modules/privacy/admin/admin.php:54
+msgid "Privacy"
+msgstr "隐私"
+
+#. translators: %s is empty here, but the string will be followed by a name of
+#. an ad unit.
+#: admin/includes/ad-health-notices.php:111 classes/frontend_checks.php:265
+msgid "Visible ads should not use the Header placement: %s"
+msgstr "可见广告不应使用标头位置:%s"
+
+#: admin/includes/class-overview-widgets.php:800
+msgid "Manage ad positions with WPBakery Page Builder (formerly Visual Composer)."
+msgstr "使用 WPBakery 页面生成器 (以前的Visual Composer) 管理广告位置。"
+
+#. translators: %s is a URL.
+#: admin/views/support.php:44
+msgid "Upgrade to any premium add-on and get <strong>priority email support</strong> or reach out through the <a href=\"%s\" target=\"_blank\">support forum</a> for individual help."
+msgstr "升级到任何高级插件, 并获得 <strong>优先电邮支持</strong> 或通过 <a href=\"%s\" target=\"_blank\">支持论坛</a> 联系个人帮助。"
+
+#: modules/gadsense/admin/views/adsense-account.php:98
+msgid "Get a free AdSense account"
+msgstr "获取免费的 AdSense 帐户"
+
+#: classes/ad_type_plain.php:130
+msgid "Execute shortcodes"
+msgstr "执行短代码"
+
+#: classes/ad_type_plain.php:121
+msgid "Allow shortcodes"
+msgstr "允许短代码"
+
+#: admin/views/settings/general/block-bots.php:10
+msgid "Hide ads from crawlers, bots and empty user agents."
+msgstr "隐藏爬网程序、机器人和空用户代理中的广告。"
+
+#: modules/gadsense/admin/admin.php:248
+msgid "Activate"
+msgstr "激活"
+
+#: classes/frontend_checks.php:566
+msgid "the following code is used for automatic error detection and only visible to admins"
+msgstr "下面的代码用于自动错误检测, 并且仅对管理员可见"
+
+#: admin/views/settings/general/block-bots.php:9
+msgid "Read this first"
+msgstr "先阅读此内容"
+
+#. translators: %s is a list of PHP extensions.
+#. translators: %s is a name of a module.
+#: admin/includes/ad-health-notices.php:54 admin/views/placements.php:233
+msgid "Missing PHP extensions could cause issues. Please ask your hosting provider to enable them: %s"
+msgstr "缺少 PHP 扩展可能会导致问题。请向您的托管提供商咨询以启用它们:%s"
+
+#: admin/includes/class-overview-widgets.php:170
+msgid "Get the All Access pass"
+msgstr "获取\"完全访问\" 通行证"
+
+#: admin/includes/class-overview-widgets.php:818
+msgid "Get full access"
+msgstr "解锁所有功能"
+
+#: classes/ad_type_plain.php:30
+msgid "Any ad network, Amazon, customized AdSense codes, shortcodes, and code like JavaScript, HTML or PHP."
+msgstr "任何广告网络、亚马逊、自定义的 AdSense 代码、短代码以及 JavaScript、HTML 或 PHP 等代码。"
+
+#: admin/views/upgrades/all-access.php:1
+msgid "All Access – with all available add-ons"
+msgstr "完全访问–包含所有可用的插件"
+
+#: admin/includes/class-overview-widgets.php:816
+msgid "Our best deal with all add-ons included."
+msgstr "我们最好的处理包括所有附加组件。"
+
+#: admin/includes/class-overview-widgets.php:153
+msgid "Do you find Advanced Ads useful and would like to keep us motivated? Please help us with a review."
+msgstr "你觉得Advanced Ads有用, 并想让我们保持动力吗？请给我们好评。"
+
+#: admin/includes/class-overview-widgets.php:157
+msgid "I already did"
+msgstr "已经给你们赞啦"
+
+#: admin/includes/class-overview-widgets.php:155
+msgid "Sure, I’ll rate the plugin"
+msgstr "当然, 我将会给这个插件打分"
+
+#. translators: %s: plugin name.
+#: lib/yoast/i18n-module/src/i18n-v3.php:295
+msgid "Translation of %s"
+msgstr "%s的翻译"
+
+#: lib/yoast/i18n-module/src/i18n-v3.php:259
+msgid "Register now &raquo;"
+msgstr "立即注册"
+
+#. translators: %1$s is the notification dismissal link start tag, %2$s is the
+#. link closing tag.
+#: lib/yoast/i18n-module/src/i18n-v3.php:275
+msgid "%1$sPlease don't show me this notification anymore%2$s"
+msgstr "%1$s请不要再显示此通知%2$s"
+
+#: admin/views/upgrades/tracking.php:5
+msgid "compare ads and periods"
+msgstr "比较广告和时段"
+
+#: admin/views/upgrades/pro-tab.php:5
+msgid "Click Fraud Protection"
+msgstr "点击欺诈保护"
+
+#: admin/views/upgrades/pro-tab.php:2
+msgid "Advanced Ads Pro – test and optimize your ad performance"
+msgstr "Advanced Ads Pro–测试并优化您的广告性能"
+
+#: admin/views/placement-injection-top.php:97
+msgid "AdSense In-feed"
+msgstr "AdSense In-feed"
+
+#: admin/views/upgrades/pro-tab.php:4
+msgid "Ads for Ad Blockers"
+msgstr "用于广告拦截器的广告"
+
+#: admin/views/upgrades/tracking.php:4
+msgid "track impressions and click on your ads"
+msgstr "跟踪展示次数并点击您的广告"
+
+#: admin/views/upgrades/tracking.php:8
+msgid "spread impressions or clicks equally over a given period"
+msgstr "在给定的时间内平均传播展示次数或点击次数"
+
+#: admin/views/upgrades/tracking.php:6
+msgid "share reports via link or email"
+msgstr "通过链接或电子邮件共享报告"
+
+#: admin/views/upgrades/pro-tab.php:13 admin/views/upgrades/tracking.php:10
+msgid "See all features and pricing"
+msgstr "查看所有功能和定价"
+
+#: admin/views/upgrades/all-access.php:13
+msgid "Risk free with 30-day Money-Back guarantee"
+msgstr "30天退款保证, 无风险"
+
+#: admin/views/upgrades/tracking.php:7
+msgid "limit ads views by overall number of impressions or clicks"
+msgstr "按展示次数或点击次数限制广告浏览次数"
+
+#: admin/views/upgrades/pro-tab.php:6
+msgid "Lazy Loading"
+msgstr "延迟加载"
+
+#: admin/includes/class-meta-box.php:121
+msgid "Increase your ad revenue"
+msgstr "增加您的广告收入"
+
+#: classes/visitor-conditions.php:282
+msgid "geo location"
+msgstr "地理位置"
+
+#: classes/visitor-conditions.php:271
+msgid "cookie"
+msgstr "cookie"
+
+#: admin/includes/class-overview-widgets.php:528
+msgid "click fraud protection, lazy load, ad-block ads"
+msgstr "点击欺诈保护, 延迟加载, 广告拦截器广告"
+
+#: classes/visitor-conditions.php:285
+msgid "browser width"
+msgstr "浏览器宽度"
+
+#: classes/visitor-conditions.php:270
+msgid "browser language"
+msgstr "浏览器语言"
+
+#: admin/includes/class-settings.php:346
+msgid "Are you missing something?"
+msgstr "你错过什么了吗？"
+
+#: admin/views/conditions/conditions-form.php:24
+msgid "Add-On features"
+msgstr "插件功能"
+
+#: classes/display-conditions.php:266
+msgid "accelerated mobile pages"
+msgstr "加速移动页面"
+
+#: classes/visitor-conditions.php:278
+msgid "user can (capabilities)"
+msgstr "用户容器 (功能)"
+
+#: classes/visitor-conditions.php:277
+msgid "user agent"
+msgstr "用户代理"
+
+#: classes/display-conditions.php:263
+msgid "url parameters"
+msgstr "url 参数"
+
+#: admin/includes/class-settings.php:300 admin/views/upgrades/tracking.php:2
+msgid "Tracking"
+msgstr "跟踪"
+
+#: classes/visitor-conditions.php:276
+msgid "referrer url"
+msgstr "推荐网址"
+
+#: admin/includes/class-settings.php:282
+msgid "Pro"
+msgstr "专业版"
+
+#: classes/display-conditions.php:261
+msgid "post meta"
+msgstr "帖元"
+
+#: admin/includes/class-overview-widgets.php:595
+msgid "Place AdSense In-feed ads between posts on homepage, category, and archive pages."
+msgstr "在主页、类别和存档页面上的帖子之间放置 AdSense In-feed广告。"
+
+#: classes/display-conditions.php:260
+msgid "parent page"
+msgstr "父页面"
+
+#: classes/display-conditions.php:262
+msgid "page template"
+msgstr "页面模板"
+
+#: classes/visitor-conditions.php:275
+msgid "page impressions"
+msgstr "页面展示"
+
+#: classes/visitor-conditions.php:274
+msgid "new visitor"
+msgstr "新访客"
+
+#: classes/visitor-conditions.php:273
+msgid "max. ad impressions"
+msgstr "最大广告展示次数"
+
+#: classes/visitor-conditions.php:272
+msgid "max. ad clicks"
+msgstr "最大广告点击次数"
+
+#: modules/gadsense/includes/class-network-adsense.php:306
+msgid "Enable this option in case your theme adds an unfortunate background color to AdSense ads."
+msgstr "如果您的主题不幸为 AdSense 广告添加了背景颜色, 请启用此选项。"
+
+#: admin/views/settings/general/block-bots.php:5
+#: classes/frontend_checks.php:123
+msgid "You look like a bot"
+msgstr "你看起来像个机器人"
+
+#: modules/gadsense/includes/class-network-adsense.php:114
+msgid "Transparent background"
+msgstr "透明背景"
+
+#: classes/frontend_checks.php:210
+msgid "Ads are disabled on all pages"
+msgstr "在所有页面上禁用广告"
+
+#. translators: %s is the name of another plugin.
+#: admin/includes/class-overview-widgets.php:487
+#: admin/includes/class-overview-widgets.php:499
+#: admin/includes/class-overview-widgets.php:511
+#: admin/includes/class-overview-widgets.php:523
+msgid "integrates with <strong>%s</strong>"
+msgstr "与 <strong>%s</strong> 集成"
+
+#: classes/frontend_checks.php:281
+msgid "IDs: %s"
+msgstr "ID:%s"
+
+#: modules/gadsense/includes/class-network-adsense.php:276
+msgid "Disable warnings about potential violations of the AdSense terms."
+msgstr "禁用有关可能违反 AdSense 条款的警告。"
+
+#: modules/gadsense/includes/class-network-adsense.php:106
+msgid "Disable violation warnings"
+msgstr "禁用冲突警告"
+
+#: admin/includes/ad-health-notices.php:125 classes/frontend_checks.php:279
+msgid "AdSense violation"
+msgstr "AdSense 违规"
+
+#: admin/includes/ad-health-notices.php:126 classes/frontend_checks.php:280
+msgid "Ad is hidden"
+msgstr "广告是隐藏的"
+
+#: admin/includes/class-menu.php:122
+msgid "Groups & Rotation"
+msgstr "组和循环"
+
+#: classes/frontend_checks.php:253
+msgid "Ad IDs: %s"
+msgstr "广告 Id:%s"
+
+#: public/class-advanced-ads.php:751
+msgctxt "ad group general name"
+msgid "Ad Groups & Rotations"
+msgstr "广告组和循环"
+
+#: admin/includes/class-menu.php:121
+msgid "Ad Groups & Rotations"
+msgstr "广告组和循环"
+
+#: modules/adblock-finder/admin/admin.php:23
+msgid "Ad blocker counter"
+msgstr "广告拦截器计数器"
+
+#: modules/adblock-finder/admin/admin.php:16
+msgid "Ad Blocker"
+msgstr "广告拦截器"
+
+#: modules/adblock-finder/admin/views/setting-ga.php:2
+msgid "Want to know how many of your visitors are using an ad blocker? Enter your Google Analytics property ID above to count them."
+msgstr "想知道有多少访问者正在使用广告拦截器？在上面输入您的 Google 分析属性 ID 以对其进行计数。"
+
+#: admin/views/placement-injection-top.php:84
+msgid "Header (Manual)"
+msgstr "标头 (手动)"
+
+#: admin/views/upgrades/pro-placements.php:24
+#: admin/views/placement-injection-top.php:88
+#: admin/views/placement-injection-top.php:92
+msgid "Custom Position"
+msgstr "自定义位置"
+
+#: admin/views/placement-injection-top.php:13
+msgid "Congratulations! Your ad is now visible in the frontend."
+msgstr "祝贺！您的广告现在可以在正面看到。"
+
+#: admin/views/placement-injection-top.php:14
+msgid "Adjust the placement options"
+msgstr "调整放置选项"
+
+#: classes/ad_type_image.php:69 classes/ad_type_dummy.php:45
+msgid "URL"
+msgstr "URL"
+
+#: admin/views/placement-injection-top.php:118
+msgid "see all…"
+msgstr "查看全部..."
+
+#: admin/views/placement-injection-top.php:113
+msgid "PopUp & Layer"
+msgstr "弹出窗口和层"
+
+#: admin/views/placement-injection-top.php:82
+msgid "PHP or Shortcode"
+msgstr "PHP 或快捷代码"
+
+#: admin/includes/class-overview-widgets.php:598
+#: admin/includes/class-overview-widgets.php:788
+#: admin/includes/class-overview-widgets.php:804
+msgid "Install now"
+msgstr "立即安装"
+
+#: admin/includes/class-overview-widgets.php:571
+msgid "Increase click rates on your ads by placing them in sticky positions above, next or below your site."
+msgstr "通过将广告放置在您网站上方、旁边或下方的粘性位置, 提高广告的点击率。"
+
+#: admin/includes/class-overview-widgets.php:837
+msgid "Get this add-on"
+msgstr "获取此插件"
+
+#: admin/includes/class-overview-widgets.php:583
+msgid "Earn more money and let advertisers pay for ad space directly on the frontend of your site."
+msgstr "赚取更多的钱, 让广告商直接在您网站的正面支付广告空间费用。"
+
+#: classes/display-conditions.php:123
+msgid "Display ads based on the taxonomy of an archive page."
+msgstr "根据存档页面的分类显示广告。"
+
+#: admin/includes/class-overview-widgets.php:553
+msgid "Display ads based on the device or the size of your visitor’s browser, and control ads on AMP pages."
+msgstr "根据设备或访问者浏览器的大小展示广告, 并在 AMP 页面上控制广告。"
+
+#: admin/includes/class-overview-widgets.php:589
+msgid "Create a beautiful and simple slider from your ads to show more information on less space."
+msgstr "从您的广告中创建一个美丽而简单的滑块, 以再更小空间里显示更多信息。"
+
+#: admin/includes/class-overview-widgets.php:616
+#: admin/includes/class-overview-widgets.php:634
+#: admin/includes/class-overview-widgets.php:659
+#: admin/includes/class-overview-widgets.php:677
+#: admin/includes/class-overview-widgets.php:695
+#: admin/includes/class-overview-widgets.php:713
+#: admin/includes/class-overview-widgets.php:731
+#: admin/includes/class-overview-widgets.php:749
+#: admin/includes/class-overview-widgets.php:767
+msgid "Activate now"
+msgstr "立即激活"
+
+#: admin/includes/class-overview-widgets.php:577
+msgid "Users will never miss an ad or other information in a PopUp. Choose when it shows up and for how long a user can close it."
+msgstr "用户永远不会错过弹出窗口中的广告或其他信息。选择它的显示时间以及用户可以关闭它的时间。"
+
+#: admin/includes/class-overview-widgets.php:784
+msgid "Use Genesis specific ad positions."
+msgstr "使用创世纪特定的广告位置。"
+
+#: classes/display-conditions.php:122
+msgid "taxonomy"
+msgstr "分类"
+
+#: admin/includes/class-overview-widgets.php:565
+msgid "Target visitors with ads that match their geo location and make more money with regional campaigns."
+msgstr "通过与地理位置相匹配的广告定位访问者和区域广告系列赚更多的钱。"
+
+#: admin/includes/class-settings.php:222
+msgid "Open links in a new window"
+msgstr "在新窗口中打开链接"
+
+#: admin/includes/class-overview-widgets.php:663
+msgid "List of responsive ads by browser width"
+msgstr "按浏览器宽度列出响应式广告"
+
+#: admin/includes/class-overview-widgets.php:136
+msgid "How to earn more with AdSense"
+msgstr "如何通过 AdSense 赚取更多收入"
+
+#: admin/includes/class-overview-widgets.php:547
+msgid "Analyze clicks and impressions of your ads locally or in Google Analytics, share reports, and limit ads to a specific number of impressions or clicks."
+msgstr "在本地或 Google 分析中分析您的广告的点击次数和展示次数, 共享报告, 并将广告限制在特定次数或点击次数。"
+
+#: admin/includes/class-overview-widgets.php:532
+#: admin/views/upgrades/pro-tab.php:11
+msgid "ad grids and many more advanced features"
+msgstr "广告网格和更多更高级的功能"
+
+#: admin/includes/class-overview-widgets.php:530
+#: admin/views/upgrades/pro-tab.php:9
+msgid "6 more placements"
+msgstr "6个更多展示位置"
+
+#: admin/includes/class-overview-widgets.php:529
+#: admin/views/upgrades/pro-tab.php:8
+msgid "11 more display and visitor conditions"
+msgstr "11个更多的显示和访客条件"
+
+#: admin/includes/class-ad-type.php:920
+msgid "You don’t have access to ads. Please deactivate and re-enable Advanced Ads again to fix this."
+msgstr "您无法访问广告。请再次停用并重新启用Advanced Ads以解决此问题。"
+
+#: admin/includes/class-overview-widgets.php:462
+msgid "The solution for professional websites."
+msgstr "专业网站的解决方案。"
+
+#: admin/includes/class-overview-widgets.php:471
+#: admin/views/upgrades/pro-tab.php:7
+msgid "support for cached sites"
+msgstr "对缓存网站的支持"
+
+#: admin/includes/class-overview-widgets.php:531
+#: admin/views/upgrades/pro-tab.php:10
+msgid "placement tests for ad optimization"
+msgstr "广告优化的展示测试"
+
+#: admin/includes/class-overview-widgets.php:164
+msgid "Manage your ads"
+msgstr "管理您的广告"
+
+#: admin/includes/class-overview-widgets.php:132
+msgid "Join the newsletter for more benefits"
+msgstr "加入时事通讯以获得更多好处"
+
+#: admin/views/ad-group.php:72
+msgid "Group title"
+msgstr "组标题"
+
+#: admin/views/placements.php:262
+msgid "ad label"
+msgstr "广告标签"
+
+#: admin/views/ad-group.php:24
+msgid "Ad Group successfully created"
+msgstr "广告组已成功创建"
+
+#: admin/views/setting-license.php:23
+msgid "Update expiry date"
+msgstr "更新到期日期"
+
+#: admin/views/ad-group.php:73
+msgid "save"
+msgstr "保存"
+
+#: admin/views/placements.php:223
+msgid "position"
+msgstr "位置"
+
+#: admin/includes/class-ad-groups-list.php:410
+msgid "No ad group created"
+msgstr "未创建广告组"
+
+#: modules/gadsense/admin/views/adsense-ad-parameters.php:133
+msgid "Layout-Key"
+msgstr "布局键"
+
+#: modules/gadsense/admin/views/adsense-ad-parameters.php:128
+msgid "Layout"
+msgstr "布局"
+
+#. translators: %s is a URL.
+#: admin/views/placements.php:332
+msgid "Tutorial: <a href=\"%s\" target=\"_blank\">How to place visible ads in the header of your website</a>."
+msgstr "教程: <a href=\"%s\" target=\"_blank\">如何在您的网站标题(header)处放置可见的广告</a>。"
+
+#: admin/views/conditions/ad-display-metabox.php:18
+msgid "Hide the ad on some pages"
+msgstr "在某些页面上隐藏广告"
+
+#: admin/views/conditions/ad-visitor-metabox.php:18
+msgid "Hide the ad from some users"
+msgstr "向某些用户隐藏广告"
+
+#: modules/ads-txt/admin/views/setting-create.php:2
+#: modules/ads-txt/admin/views/setting-create.php:4
+#: admin/views/placements-ad-label.php:13
+#: admin/views/placements-ad-label.php:15
+msgid "enabled"
+msgstr "启用"
+
+#: classes/ad_type_dummy.php:26
+msgid "Dummy"
+msgstr "虚拟"
+
+#: classes/display-conditions.php:116
+msgid "Display ads based on age of the page."
+msgstr "根据页面的年龄展示广告。"
+
+#: modules/ads-txt/admin/views/setting-create.php:6
+#: modules/ads-txt/admin/views/setting-create.php:8
+#: admin/views/placements-ad-label.php:17
+#: admin/views/placements-ad-label.php:19
+msgid "disabled"
+msgstr "禁用"
+
+#: classes/display-conditions.php:807
+msgid "days"
+msgstr "天"
+
+#: modules/gadsense/admin/views/adsense-ad-parameters.php:62
+msgid "Copy the ad code from your AdSense account, paste it into the area below and click on <em>Get details</em>."
+msgstr "从您的 AdSense 帐户复制广告代码, 将其粘贴到下面的区域, 然后点击 <em>获取详情</em>。"
+
+#: classes/display-conditions.php:115
+msgid "content age"
+msgstr "内容年龄"
+
+#: admin/views/conditions/ad-display-metabox.php:16
+msgid "Click on the button below if the ad should NOT show up on all pages when included automatically."
+msgstr "如果广告在自动包含时不应显示在所有网页上, 请单击下面的按钮。"
+
+#: admin/views/conditions/ad-visitor-metabox.php:16
+msgid "Click on the button below if the ad should NOT be visible to all visitors"
+msgstr "如果并非所有访问者都能看到广告, 请单击下面的按钮"
+
+#: admin/views/placements-ad-label-position.php:27
+msgid "Check this if you don’t want the following elements to float around the ad. (adds a placement_clearfix)"
+msgstr "如果您不希望以下元素在广告中浮动, 请检查此信息。(添加placement_clearfix)"
+
+#: admin/includes/class-ad-groups-list.php:237
+msgid "Add some"
+msgstr "添加一些"
+
+#: classes/display-conditions.php:805
+msgid "younger than"
+msgstr "更年轻，相对于"
+
+#: admin/views/feedback-disable.php:26
+msgid "Which one?"
+msgstr "哪一个？"
+
+#: admin/views/ad-group-list-form-row.php:79
+msgid "Visible ads"
+msgstr "可见广告"
+
+#: classes/ad_type_dummy.php:27
+msgid "Uses a simple placeholder ad for quick testing."
+msgstr "使用简单的占位符广告进行快速测试。"
+
+#: admin/views/placements.php:171
+msgid "template (PHP)"
+msgstr "模板 (PHP)"
+
+#: admin/views/placements.php:311
+msgid "show all options"
+msgstr "显示所有选项"
+
+#. translators: %d is a number.
+#: admin/includes/class-ad-groups-list.php:225
+msgid "show %d more ads"
+msgstr "显示%d 更多的广告"
+
+#: classes/frontend_checks.php:109
+msgid "Random AdSense ads"
+msgstr "随机 AdSense 广告"
+
+#: classes/display-conditions.php:804
+msgid "older than"
+msgstr "更陈旧，相对于"
+
+#. translators: %s is a URL.
+#: admin/views/ad-group.php:81
+msgid "Find more information about ad groups in the <a href=\"%s\" target=\"_blank\">manual</a>."
+msgstr "在<a href=\"%s\" target=\"_blank\">手册</a>中找到关于广告组的更多信息。"
+
+#. translators: %s is the email address of the current user
+#: admin/views/feedback-disable.php:15
+msgid "Send me free help to %s"
+msgstr "向我发送免费帮助到 %s."
+
+#: admin/views/feedback-disable.php:8
+msgid "Please let us know how we can help"
+msgstr "请让我们知道如何提供帮助"
+
+#: modules/gadsense/admin/views/adsense-ad-parameters.php:112
+msgid "Link ads (Responsive)"
+msgstr "链接广告 (响应式)"
+
+#: modules/gadsense/admin/views/adsense-ad-parameters.php:111
+msgid "Link ads"
+msgstr "链接广告"
+
+#: admin/includes/class-settings.php:163 classes/ad_placements.php:1018
+msgid "Disable level limitation"
+msgstr "禁用级别限制"
+
+#: admin/views/settings/general/content-injection-level-limitation.php:2
+msgid "Advanced Ads ignores paragraphs and other elements in containers when injecting ads into the post content. Check this option to ignore this limitation and ads might show up again."
+msgstr "Advanced Ads在向帖子内容中注入广告时忽略容器中的段落和其他元素。选中此选项以忽略此限制, 广告可能会再次出现。"
+
+#. translators: %s stands for the name of the "Disable level limitation" option
+#. and automatically translated as well
+#: classes/ad_placements.php:1017
+msgid "Set <em>%s</em> to show more ads"
+msgstr "设置 <em>%s</em> 以显示更多广告"
+
+#: modules/ad-blocker/admin/views/setting-use-adblocker.php:4
+msgid "The ad block disguise can only be set by the super admin on the main site in the network."
+msgstr "广告块伪装只能由网络中主站点上的超级管理员设置。"
+
+#: modules/gadsense/admin/views/adsense-ad-parameters.php:110
+msgid "Responsive (Matched Content)"
+msgstr "响应式 (匹配的内容)"
+
+#: classes/filesystem.php:65
+msgid "Filesystem error."
+msgstr "文件系统错误。"
+
+#: classes/filesystem.php:61
+msgid "Could not access filesystem."
+msgstr "无法访问文件系统。"
+
+#: classes/filesystem.php:72
+msgid "Unable to locate WordPress root directory."
+msgstr "找不到 WordPress 根目录。"
+
+#: classes/filesystem.php:76
+msgid "Unable to locate WordPress content directory (wp-content)."
+msgstr "找不到 WordPress 内容目录 (wp-content)。"
+
+#: classes/filesystem.php:80
+msgid "Unable to locate needed folder (%s)."
+msgstr "找不到所需的文件夹 (%s)。"
+
+#: modules/ad-blocker/admin/admin.php:150
+#: modules/ads-txt/admin/class-advanced-ads-ads-txt-admin.php:382
+msgid "Unable to connect to the filesystem. Please confirm your credentials."
+msgstr "无法连接到文件系统。请确认您的凭据。"
+
+#: admin/includes/class-licenses.php:607
+msgid "Download failed. <a href=\"%s\">Click here to try another method</a>."
+msgstr "下载失败。 <a href=\"%s\">单击此处尝试另一种方法</a>。"
+
+#: admin/includes/class-licenses.php:609
+msgid "Download failed. <a href=\"%s\" target=\"_blank\">Click here to learn why</a>."
+msgstr "下载失败。 <a href=\"%s\" target=\"_blank\">点击此处了解原因</a>。"
+
+#: admin/views/feedback-disable.php:28
+msgid "I switched to another plugin"
+msgstr "我切换到另一个插件"
+
+#: admin/views/feedback-disable.php:25
+msgid "I miss a feature"
+msgstr "我错过了一个功能"
+
+#: admin/views/settings/general/content-injection-everywhere.php:2
+msgid "Some plugins and themes trigger ad injections where it shouldn’t happen. Therefore, Advanced Ads ignores injected placements on non-singular pages and outside the loop. However, this can cause problems with some themes. Set this option to -1 in order to enable unlimited ad injection at your own risk, set it to 0 to keep it disabled or choose a positive number to enable the injection only in the first x posts on your archive pages."
+msgstr "一些插件和主题会触发不应该发生的广告注入。因此，本程序忽略了非奇异页面和循环之外的注入位置。然而，这可能会导致一些主题出现问题。将此选项设置为-1，以便在您自己承担风险的情况下启用无限的广告注入，将其设置为0以禁用它，或者选择一个正数以仅在存档页面上的前x篇文章中启用注入。"
+
+#: admin/views/feedback-disable.php:36
+msgid "Only Deactivate"
+msgstr "仅停用"
+
+#: admin/views/feedback-disable.php:24
+msgid "It is only temporary"
+msgstr "这只是暂时的"
+
+#: classes/visitor-conditions.php:40
+msgid "device"
+msgstr "装置"
+
+#: admin/views/conditions/condition-device.php:15
+msgid "Desktop"
+msgstr "桌面"
+
+#: admin/views/conditions/ad-display-metabox.php:43
+msgid "A page with this ad on it must match all of the following conditions."
+msgstr "带有此广告的页面必须符合以下所有条件。"
+
+#: admin/includes/ad-health-notices.php:135 classes/frontend_checks.php:252
+#: classes/ad-debug.php:272
+msgid "Your website is using HTTPS, but the ad code contains HTTP and might not work."
+msgstr "您的网站正在使用 HTTPS, 但广告代码包含 HTTP, 可能无法正常工作。"
+
+#: admin/views/conditions/ad-display-metabox.php:33
+msgid "Watch video"
+msgstr "观看视频"
+
+#: admin/includes/class-overview-widgets.php:834
+#: admin/views/conditions/ad-display-metabox.php:37
+#: admin/views/conditions/ad-visitor-metabox.php:37
+msgid "Visit the manual"
+msgstr "访问手册"
+
+#: admin/views/conditions/condition-device.php:13
+msgid "Mobile (including tablets)"
+msgstr "手机 (包括平板电脑)"
+
+#: modules/privacy/admin/views/setting-general.php:64
+#: admin/views/conditions/visitor-conditions-form-top.php:9
+msgid "It seems that a caching plugin is activated."
+msgstr "似乎一个缓存插件被激活。"
+
+#. Translators: 1: add-on name 2: admin URL to license page
+#: admin/includes/class-licenses.php:95
+msgid "There might be a new version of %1$s. Please <strong>provide a valid license key</strong> in order to receive updates and support <a href=\"%2$s\">on this page</a>."
+msgstr "可能有%1$s的新版本。 请<strong>提供有效的许可证密钥</strong>，以便<a href=\"%2$s\">在此页面上</a>接收更新并支持。"
+
+#: classes/frontend_checks.php:360
+msgid "highlight ads"
+msgstr "突出显示广告"
+
+#: public/views/ad-debug.php:8
+msgid "Find solutions in the manual"
+msgstr "在手册中查找解决方案"
+
+#: classes/ad-debug.php:39
+msgid "Current query is not identical to main query."
+msgstr "当前查询与主查询不相同。"
+
+#: classes/ad-debug.php:98
+msgid "current query"
+msgstr "当前查询"
+
+#: classes/ad-debug.php:49
+msgid "Current post is not identical to main post."
+msgstr "目前的帖子与主要帖子不相同。"
+
+#: classes/ad-debug.php:45
+msgid "current post"
+msgstr "当前帖子"
+
+#: public/views/ad-debug.php:6
+msgid "Ad debug output"
+msgstr "广告调试输出"
+
+#: classes/ad-debug.php:34
+msgid "The ad is not displayed on the page"
+msgstr "广告未显示在页面上"
+
+#: classes/ad-debug.php:32
+msgid "The ad is displayed on the page"
+msgstr "广告将显示在页面上"
+
+#: classes/ad-debug.php:128
+msgid "Placement"
+msgstr "位置"
+
+#: classes/ad-debug.php:98
+msgid "main query"
+msgstr "主查询"
+
+#: classes/ad-debug.php:51
+msgid "main post"
+msgstr "主帖子"
+
+#. translators: %s is a URL.
+#: admin/views/support.php:26
+msgid "Take a look at more common issues or contact us directly through the <a href=\"%s\" target=\"_blank\">support page</a>."
+msgstr "查看更多常见问题，或直接通过<a href=\"%s\" target=\"_blank\">支持页面</a>与我们联系。"
+
+#: admin/views/support.php:12
+msgid "General Issues"
+msgstr "常规问题"
+
+#: admin/views/support.php:9
+msgid "Ads not showing up"
+msgstr "广告未显示"
+
+#: admin/views/setting-license.php:82
+msgid "Update License"
+msgstr "更新许可证"
+
+#: admin/views/support.php:10
+msgid "Purchase & Licenses"
+msgstr "购买和许可"
+
+#: admin/views/support.php:13
+msgid "Issues with Add-Ons"
+msgstr "与插件有关的问题"
+
+#: classes/frontend_checks.php:498
+msgid "Everything is fine"
+msgstr "一切都很好"
+
+#: classes/frontend_checks.php:196
+msgid "Ads are disabled on this page"
+msgstr "此页面上的广告已禁用"
+
+#: classes/frontend_checks.php:239
+msgid "Ads are disabled on non singular pages"
+msgstr "广告在非奇异页面上被禁用"
+
+#: classes/frontend_checks.php:225
+msgid "Ads are disabled on 404 pages"
+msgstr "404页上的广告被禁用"
+
+#: classes/frontend_checks.php:165
+msgid "Ads are disabled in the content of this page"
+msgstr "此页面内容中的广告被禁用"
+
+#: classes/frontend_checks.php:467
+msgid "Ad Health"
+msgstr "广告健康"
+
+#: classes/frontend_checks.php:137
+msgid "Ad blocker enabled"
+msgstr "已启用广告阻止程序"
+
+#: classes/frontend_checks.php:149
+msgid "<em>%s</em> filter does not exist"
+msgstr "<em>%s</em> 筛选器不存在"
+
+#: classes/frontend_checks.php:177
+msgid "the current post ID is 0 "
+msgstr "当前的帖子 ID 为0 "
+
+#: admin/views/placement-injection-top.php:155
+msgid "Existing placement"
+msgstr "现有位置"
+
+#: modules/gadsense/includes/class-network-adsense.php:172
+msgid "There is no explicit limit for AdSense ads anymore, but you can still use this setting to prevent too many AdSense ads to show accidentally on your site."
+msgstr "AdSense 广告没有明确的限制, 但您仍然可以使用此设置来防止过多的 AdSense 广告意外地在您的网站上展示。"
+
+#: admin/views/placement-injection-top.php:78
+msgid "New placement"
+msgstr "新的位置"
+
+#: admin/includes/class-settings.php:240
+msgid "Delete data on uninstall"
+msgstr "删除卸载时的数据"
+
+#: admin/views/settings/general/uninstall-delete-data.php:3
+msgid "Clean up all data related to Advanced Ads when removing the plugin."
+msgstr "删除插件时, 清理与Advanced Ads相关的所有数据。"
+
+#: public/class-advanced-ads.php:969
+msgctxt "label above ads"
+msgid "Advertisements"
+msgstr "广告"
+
+#: classes/EDD_SL_Plugin_Updater.php:250
+msgid "There is a new version of %1$s available. %2$sView version %3$s details%4$s."
+msgstr "新版本 %1$s 可用. %2$s查看版本 %3$s 详情%4$s 。"
+
+#: classes/EDD_SL_Plugin_Updater.php:258
+msgid "There is a new version of %1$s available. %2$sView version %3$s details%4$s or %5$supdate now%6$s."
+msgstr "新版本 %1$s 可用. %2$s查看版本 %3$s 详情%4$s 或 %5$s现在更新%6$s."
+
+#: admin/views/ad-list-no-ads.php:4
+msgid "Watch the “First Ad” Tutorial (Video)"
+msgstr "观看\"第一个广告\" 教程 (视频)"
+
+#: admin/views/ad-info-after-textarea.php:17
+msgid "The code of this ad might not work properly with the Content placement."
+msgstr "此广告的代码可能无法正常使用 <em>内容</em> 展示位置。"
+
+#. translators: %s is a URL.
+#: admin/views/ad-info-after-textarea.php:24
+msgid "Reach out to <a href=\"%s\">support</a> to get help."
+msgstr "通过<a href=\"%s\">支持</a>获取帮助。"
+
+#: admin/views/conditions/display-conditions-list.php:45
+msgid "Forced to OR."
+msgstr "强制OR。"
+
+#: modules/import-export/classes/XmlEncoder.php:201
+msgctxt "import_export"
+msgid "Invalid XML data, it can not be empty"
+msgstr "XML 数据无效, 不能为空"
+
+#: modules/import-export/classes/import.php:622
+msgid "Invalid filetype <em>%s</em>"
+msgstr "无效的文件类型 <em>%s</em>"
+
+#: modules/import-export/classes/import.php:521
+msgid "Import directory is not writable: <em>%s</em>"
+msgstr "导入目录不可写: <em>%s</em>"
+
+#: modules/import-export/views/page.php:33
+msgid "Import"
+msgstr "导入"
+
+#: modules/import-export/classes/import.php:544
+msgid "File is empty."
+msgstr "文件为空。"
+
+#: modules/import-export/classes/import.php:529
+msgid "File is empty, uploads are disabled or post_max_size is smaller than upload_max_filesize in php.ini"
+msgstr "文件为空, 上传被禁用或发布最大大小小于在 php. ini中的upload_max_filesize大小"
+
+#: modules/import-export/classes/import.php:539
+msgid "Failed to upload file, error: <em>%s</em>"
+msgstr "上载文件失败, 错误: <em>%s</em>"
+
+#: modules/import-export/classes/import.php:298
+msgid "Failed to import taxonomy: <em>%s</em>, term: <em>%s</em>"
+msgstr "导入分类失败: <em>%s</em>, 条目: <em>%s</em>"
+
+#: modules/import-export/classes/import.php:183
+msgid "Failed to import <em>%s</em>"
+msgstr "导入失败 <em>%s</em>"
+
+#: modules/import-export/classes/import.php:516
+msgid "Failed to create import directory <em>%s</em>"
+msgstr "创建导入目录失败 <em>%s</em>"
+
+#: modules/import-export/views/page.php:16
+msgid "Export"
+msgstr "导出"
+
+#: modules/import-export/classes/import.php:627
+#: modules/import-export/classes/import.php:634
+#: modules/import-export/classes/import.php:642
+#: modules/import-export/classes/import.php:657
+msgid "Error getting remote image <em>%s</em>"
+msgstr "获取远程图像时出错 <em>%s</em>"
+
+#: modules/import-export/views/page.php:28
+msgid "Download Export File"
+msgstr "下载导出文件"
+
+#: modules/import-export/views/page.php:45
+msgid "Copy an XML content"
+msgstr "复制 XML 内容"
+
+#: modules/import-export/views/page.php:44
+msgid "Choose an XML file"
+msgstr "选择 XML 文件"
+
+#: modules/import-export/views/page.php:52
+msgid "Before you can upload your import file, you will need to fix the following error:"
+msgstr "在上传导入文件之前, 您需要修复以下错误:"
+
+#: modules/import-export/classes/import.php:234
+msgid "Assigned terms: <em>%s</em>, to post: <em>%s</em>"
+msgstr "分配的条目: <em>%s</em>, 给帖子: <em>%s</em>"
+
+#: modules/import-export/classes/XmlEncoder.php:149
+msgctxt "import_export"
+msgid "An unexpected value could not be serialized: %s"
+msgstr "无法序列化意外值:%s"
+
+#: modules/import-export/classes/import.php:651
+msgid "Zero size file downloaded <em>%s</em>"
+msgstr "零大小文件被下载 <em>%s</em>"
+
+#: modules/import-export/classes/XmlEncoder.php:223
+msgctxt "import_export"
+msgid "XML error: %s"
+msgstr "XML 错误:%s"
+
+#: modules/import-export/views/page.php:17
+msgid "When you click the button below Advanced Ads will create an XML file for you to save to your computer."
+msgstr "当您单击\"Advanced Ads\" 下方的按钮时, 将创建一个 XML 文件, 以保存到计算机中。"
+
+#: modules/import-export/classes/import.php:549
+msgid "The file could not be created: <em>%s</em>. This is probably a permissions problem"
+msgstr "无法创建该文件: <em>%s</em>。这可能是权限问题"
+
+#: modules/import-export/views/page.php:65
+msgid "Start import"
+msgstr "开始导入"
+
+#: modules/import-export/classes/import.php:70
+msgid "Please enter XML content"
+msgstr "请输入 XML 内容"
+
+#: modules/import-export/classes/import.php:363
+msgid "Placement <em>%s</em> created"
+msgstr "已创建位置 <em>%s</em>"
+
+#: modules/import-export/classes/import.php:491
+msgid "Option was updated: <em>%s</em>"
+msgstr "更新选项: <em>%s</em>"
+
+#: modules/import-export/classes/import.php:494
+msgid "Option already exists: <em>%s</em>"
+msgstr "选项已存在: <em>%s</em>"
+
+#: modules/import-export/classes/import.php:296
+msgid "New group created, id: <em>%s</em>, name: <em>%s</em>"
+msgstr "已创建的新组, id: <em>%s</em>, 名称: <em>%s</em>"
+
+#: modules/import-export/classes/import.php:151
+#: modules/import-export/classes/import.php:580
+msgid "New attachment created <em>%s</em> %s"
+msgstr "已创建的新附件 <em>%s</em> %s"
+
+#: modules/import-export/classes/import.php:191
+msgid "New ad created: <em>%s</em> %s"
+msgstr "已创建的新广告: <em>%s</em> %s"
+
+#: modules/import-export/views/page.php:57
+msgid "Maximum size: %s"
+msgstr "最大大小:%s"
+
+#: modules/import-export/main.php:17 admin/views/settings.php:50
+msgid "Import &amp; Export"
+msgstr "导入和导出(&A)"
+
+#: classes/ad_type_plain.php:91
+msgid "Allow PHP"
+msgstr "允许 PHP"
+
+#: modules/import-export/classes/XmlEncoder.php:103
+msgctxt "import_export"
+msgid "The key %s is not valid"
+msgstr "键%s 无效"
+
+#: modules/import-export/classes/XmlEncoder.php:75
+msgctxt "import_export"
+msgid "The data must be an array"
+msgstr "数据必须是一个数组"
+
+#: modules/import-export/classes/XmlEncoder.php:61
+#: modules/import-export/classes/XmlEncoder.php:64
+#: modules/import-export/classes/XmlEncoder.php:193
+#: modules/import-export/classes/XmlEncoder.php:196
+msgid "The %s extension(s) is not loaded"
+msgstr "未加载%s 扩展名"
+
+#: admin/views/ad-info-bottom.php:21 admin/views/ad-info-top.php:27
+msgid "Stop Wizard and show all options"
+msgstr "停止向导并显示所有选项"
+
+#: admin/views/ad-info-top.php:3
+msgid "Stop Wizard"
+msgstr "停止向导"
+
+#: admin/views/ad-info-top.php:2
+msgid "Start Wizard"
+msgstr "启动向导"
+
+#: admin/views/ad-parameters-size.php:9
+msgid "size"
+msgstr "大小"
+
+#: admin/views/ad-info-bottom.php:17
+msgctxt "wizard navigation"
+msgid "save"
+msgstr "保存"
+
+#: admin/views/ad-info-bottom.php:13
+msgctxt "wizard navigation"
+msgid "previous"
+msgstr "上一个"
+
+#: admin/views/ad-info-bottom.php:17 admin/views/ad-info-bottom.php:20
+msgctxt "wizard navigation"
+msgid "next"
+msgstr "下一个"
+
+#: modules/gadsense/admin/views/adsense-ad-parameters.php:116
+#: admin/views/conditions/display-conditions-list.php:46
+msgid "manual"
+msgstr "手动"
+
+#: admin/views/placement-injection-top.php:80 classes/ad_placements.php:94
+msgid "Content"
+msgstr "内容"
+
+#: admin/class-advanced-ads-admin.php:218
+msgid "After which paragraph?"
+msgstr "在哪一段之后？"
+
+#: admin/views/placement-injection-top.php:35
+msgid "Where do you want to display the ad?"
+msgstr "您想在哪里展示广告？"
+
+#: admin/views/placement-injection-top.php:103
+msgid "Show Sticky Places"
+msgstr "显示粘滞位置"
+
+#: admin/views/placement-injection-top.php:88
+msgid "Show Pro Places"
+msgstr "显示专业位置"
+
+#: admin/views/placement-injection-top.php:109
+msgid "Show PopUp"
+msgstr "显示弹出窗口"
+
+#. translators: %s is some HTML.
+#: admin/views/placement-injection-top.php:168
+msgid "Or use the shortcode %s to insert the ad into the content manually."
+msgstr "或者使用短代码%s 手动将广告插入内容。"
+
+#: admin/views/placement-injection-top.php:83
+msgid "Manage Sidebar"
+msgstr "管理边栏"
+
+#: classes/ad_type_group.php:31
+msgid "Choose an existing ad group. Use this type when you want to assign the same display and visitor conditions to all ads in that group."
+msgstr "选择现有广告组。如果要为该组中的所有广告分配相同的显示和访问者条件, 请使用此类型。"
+
+#: classes/ad_type_group.php:89
+msgid "ad group"
+msgstr "广告组"
+
+#: admin/views/setting-license.php:15
+msgid "Your license expired."
+msgstr "你的许可证过期了。"
+
+#: admin/includes/class-licenses.php:355 admin/includes/class-licenses.php:378
+msgid "License couldn’t be deactivated. Please try again later."
+msgstr "许可证无法停用。请稍后再试。"
+
+#: admin/views/settings/general/custom-label.php:7
+msgid "Displayed above ads."
+msgstr "在广告上显示。"
+
+#: admin/includes/class-settings.php:522
+msgctxt "label before ads"
+msgid "Advertisements"
+msgstr "广告"
+
+#: admin/includes/class-settings.php:213
+msgid "Ad label"
+msgstr "广告标签"
+
+#: admin/includes/class-meta-box.php:219
+msgid "Video"
+msgstr "视频"
+
+#: admin/includes/class-licenses.php:199
+msgid "There are no activations left."
+msgstr "没有剩余的激活。"
+
+#: admin/includes/class-licenses.php:180
+msgid "License couldn’t be activated. Please try again later."
+msgstr "许可证无法激活。请稍后再试。"
+
+#: classes/display-conditions.php:674
+msgid "title or id"
+msgstr "标题或 id"
+
+#. translators: %s is an html tag.
+#: classes/ad_placements.php:302
+msgid "paragraph without image (%s)"
+msgstr "没有图像的段落 (%s)"
+
+#: admin/views/settings/general/disable-ads.php:31
+msgid "Disable ads in RSS Feed"
+msgstr "禁用 RSS 源中的广告"
+
+#: admin/views/ad-parameters-size.php:22
+msgid "reserve this space"
+msgstr "保留此空间"
+
+#: modules/ad-blocker/admin/views/rebuild_form.php:31
+msgid "Rename assets"
+msgstr "重命名前端资源"
+
+#: admin/class-advanced-ads-admin.php:217 classes/visitor-conditions.php:311
+#: classes/display-conditions.php:290
+msgid "and"
+msgstr "和"
+
+#: modules/gadsense/admin/views/external-ads-links.php:17
+#: modules/gadsense/admin/views/external-ads-links.php:22
+#: modules/gadsense/admin/views/external-ads-links.php:29
+#: admin/class-advanced-ads-admin.php:216 classes/visitor-conditions.php:311
+#: classes/display-conditions.php:290
+msgid "or"
+msgstr "或"
+
+#: admin/views/ad-output-metabox.php:58
+msgid "Enable debug mode"
+msgstr "启用调试模式"
+
+#: admin/views/conditions/not-selected.php:2
+msgctxt "Error message shown when no display condition term is selected"
+msgid "Please select some items."
+msgstr "请选择一些项目。"
+
+#. translators: %s is a label of an archive page.
+#: classes/display-conditions.php:171
+msgid "archive: %s"
+msgstr "存档:%s"
+
+#: classes/display-conditions.php:109
+msgid "author"
+msgstr "作者"
+
+#: classes/display-conditions.php:103
+msgid "general conditions"
+msgstr "常规条件"
+
+#: classes/display-conditions.php:96
+msgid "specific pages"
+msgstr "特定页面"
+
+#: classes/display-conditions.php:89
+msgid "post type"
+msgstr "帖子类型"
+
+#. translators: time zone name.
+#: classes/utils.php:275
+msgid "time of %s"
+msgstr "%s 的时间"
+
+#: admin/includes/class-licenses.php:197
+msgid "This is the bundle license key."
+msgstr "这是捆绑许可证密钥。"
+
+#: admin/includes/class-licenses.php:198
+msgid "This is not the correct key for this add-on."
+msgstr "这不是此插件的正确密钥。"
+
+#: modules/privacy/admin/views/setting-general.php:34
+#: modules/ads-txt/admin/views/setting-create.php:11
+#: admin/includes/class-meta-box.php:201 admin/includes/class-meta-box.php:220
+#: admin/includes/class-meta-box.php:225
+#: admin/includes/class-overview-widgets.php:182
+#: admin/views/ad-main-metabox.php:25
+#: admin/views/settings/general/custom-label.php:10
+#: admin/views/ad-output-metabox.php:61
+msgid "Manual"
+msgstr "手册"
+
+#: admin/views/feedback-disable.php:27
+msgid "I stopped using ads on my site."
+msgstr "我不再在我的网站上使用广告。"
+
+#: admin/includes/class-overview-widgets.php:71
+#: admin/class-advanced-ads-admin.php:394
+msgid "Add-Ons"
+msgstr "附加组件"
+
+#: admin/views/feedback-disable.php:5
+msgid "Why did you decide to disable Advanced Ads?"
+msgstr "为什么您决定禁用Advanced Ads？"
+
+#: admin/views/conditions/condition-is-or-not.php:21
+#: admin/views/conditions/condition-device.php:23
+msgid "Manual and Troubleshooting"
+msgstr "手册和故障排除"
+
+#. translators: %s is a URL.
+#: admin/views/settings/general/editors-manage-ads.php:7
+msgid "You can assign different ad-related roles on a user basis with <a href=\"%s\" target=\"_blank\">Advanced Ads Pro</a>."
+msgstr "通过<a href=\"%s\" target=\"_blank\">Advanced Ads Pro</a>，您可以根据用户分配不同的与广告相关的角色。"
+
+#: modules/ad-blocker/admin/views/rebuild_form.php:34
+msgid "Check if you want to change the names of the assets"
+msgstr "检查是否要更改前端资源的名称"
+
+#: modules/ad-blocker/admin/views/rebuild_form.php:27
+msgid "Asset URL"
+msgstr "前端资源网址"
+
+#: modules/ad-blocker/admin/views/rebuild_form.php:23
+msgid "Asset path"
+msgstr "前端资源路径"
+
+#: modules/ad-blocker/admin/admin.php:96
+msgid "Ad blocker fix"
+msgstr "广告拦截器修复"
+
+#: modules/ad-blocker/admin/views/rebuild_form.php:1
+msgid "Ad blocker file folder"
+msgstr "广告阻止程序文件夹"
+
+#: modules/ad-blocker/admin/admin.php:334
+#: modules/ad-blocker/admin/admin.php:419
+msgid "We do not have direct write access to the \"%s\" directory"
+msgstr "我们没有直接写入访问\"%s\" 目录"
+
+#: modules/ad-blocker/admin/views/rebuild_form.php:10
+msgid "Upload folder is not writable"
+msgstr "上载文件夹不可写"
+
+#: modules/ad-blocker/admin/admin.php:255
+msgid "Unable to rename \"%s\" directory"
+msgstr "无法重命名\"%s\" 目录"
+
+#: modules/ad-blocker/admin/admin.php:430
+msgid "Unable to copy files to %s"
+msgstr "无法将文件复制到%s"
+
+#: modules/ad-blocker/admin/admin.php:271
+#: modules/ad-blocker/admin/admin.php:284
+#: modules/ad-blocker/admin/admin.php:301
+msgid "Unable to copy assets to the \"%s\" directory"
+msgstr "无法将前端资源复制到\"%s\" 目录"
+
+#: modules/ad-blocker/admin/admin.php:226
+msgid "There is no writable upload folder"
+msgstr "没有可写上载文件夹"
+
+#: modules/ad-blocker/admin/admin.php:165
+msgid "The asset folder was rebuilt successfully"
+msgstr "已成功重建前端资源文件夹"
+
+#: modules/ad-blocker/admin/views/rebuild_form.php:46
+msgid "Rebuild asset folder"
+msgstr "重建前端资源文件夹"
+
+#: modules/ad-blocker/admin/views/setting-use-adblocker.php:6
+msgid "Prevents ad block software from breaking your website when blocking asset files (.js, .css)."
+msgstr "防止广告阻止软件在阻止前端资源文件 (. js,. css) 时破坏您的网站。"
+
+#: modules/ad-blocker/admin/views/rebuild_form.php:43
+msgid "Please, rebuild the asset folder. All assets will be located in <strong>%s</strong>"
+msgstr "请重建前端资源文件夹。所有前端资源将位于 <strong>%s</strong>"
+
+#: admin/views/support.php:6
+msgid "Please fix the red highlighted issues on this page or try to understand their consequences before contacting support."
+msgstr "请修复此页面上突出显示的红色问题, 或尝试了解其后果, 然后再联系支持人员。"
+
+#: admin/includes/notices.php:38 admin/includes/ad-health-notices.php:89
+msgid "One or more license keys for <strong>Advanced Ads add-ons are invalid or missing</strong>."
+msgstr "<strong>Advanced Ads插件的一个或多个许可证密钥无效或丢失</strong>。"
+
+#. translators: %s is a URL.
+#. translators: %s is a target URL.
+#: admin/includes/notices.php:40 admin/includes/ad-health-notices.php:92
+msgid "Please add valid license keys <a href=\"%s\">here</a>."
+msgstr "请在<a href=\"%s\">此处</a>添加有效的许可证密钥。"
+
+#: admin/includes/class-settings.php:205
+msgid "Allow editors to manage ads"
+msgstr "允许编辑人员管理广告"
+
+#: admin/views/settings/general/editors-manage-ads.php:2
+msgid "Allow editors to also manage and publish ads."
+msgstr "允许编辑人员也管理和发布广告。"
+
+#: admin/includes/class-list-filters.php:156
+msgid "any expiry date"
+msgstr "任何到期日期"
+
+#: admin/views/ad-list-filters.php:18
+msgid "all ad types"
+msgstr "所有广告类型"
+
+#: admin/views/ad-list-filters.php:26
+msgid "all ad sizes"
+msgstr "所有广告尺寸"
+
+#: admin/views/ad-list-filters.php:42
+msgid "all ad groups"
+msgstr "所有广告组"
+
+#: admin/views/ad-list-filters.php:34
+msgid "all ad dates"
+msgstr "所有广告日期"
+
+#. translators: %s is a date.
+#. translators: %s is a time and date string.
+#: admin/includes/class-ad-groups-list.php:208
+#: admin/views/ad-list-timing-column.php:70
+msgid "<strong>expired</strong> %s"
+msgstr "<strong>过期的</strong> %s"
+
+#. translators: %s is a date.
+#. translators: %s is a time and date string.
+#: admin/includes/class-ad-groups-list.php:205
+#: admin/views/ad-list-timing-column.php:59
+msgid "expires %s"
+msgstr "过期%s"
+
+#: admin/includes/class-licenses.php:320
+msgid "Error while trying to disable the license. Please contact support."
+msgstr "试图禁用许可证时出错。请联系支持人员。"
+
+#: modules/gadsense/includes/class-network-adsense.php:179
+msgid "Due to technical restrictions, the limit does not work on placements with cache-busting enabled."
+msgstr "由于技术限制, 该限制不适用于启用了缓存破坏的放置。"
+
+#: admin/views/setting-license.php:73
+msgid "Deactivate License"
+msgstr "停用许可证"
+
+#: classes/ad_placements.php:107
+msgid "Create a sidebar widget with an ad. Can be placed and used like any other widget."
+msgstr "使用广告创建边栏小部件。可以像任何其他小部件一样放置和使用。"
+
+#: admin/includes/shortcode-creator-l10n.php:19
+msgctxt "shortcode creator"
+msgid "Cancel"
+msgstr "取消"
+
+#: admin/includes/shortcode-creator-l10n.php:18
+msgctxt "shortcode creator"
+msgid "Add shortcode"
+msgstr "添加短代码"
+
+#: admin/includes/shortcode-creator-l10n.php:17
+msgctxt "shortcode creator"
+msgid "Add an ad"
+msgstr "添加广告"
+
+#: admin/includes/class-ad-type.php:271 admin/includes/class-ad-type.php:277
+msgid "Ad Planning"
+msgstr "广告计划"
+
+#. translators: %s is a date.
+#: admin/includes/class-ad-groups-list.php:184
+#: admin/views/ad-list-timing-column.php:21
+msgid "starts %s"
+msgstr "启动%s"
+
+#: classes/ad_placements.php:106
+msgid "Sidebar Widget"
+msgstr "边栏小工具"
+
+#: admin/includes/class-licenses.php:123 admin/views/setting-license.php:85
+msgid "Please enter a valid license key"
+msgstr "请输入有效的许可证密钥"
+
+#: admin/views/settings/general/content-injection-priority.php:6
+msgid "Please check your post content. A priority of 10 and below might cause issues (wpautop function might run twice)."
+msgstr "请检查您的帖子内容。优先级为10及以下可能会导致问题 (wpautop 函数可能会运行两次)。"
+
+#: classes/ad_type_image.php:50
+msgid "Insert File"
+msgstr "插入文件"
+
+#: classes/ad_type_image.php:52
+msgid "Insert"
+msgstr "插入"
+
+#: classes/ad_type_image.php:29
+msgid "Image Ad"
+msgstr "图片广告"
+
+#: classes/ad_type_image.php:59
+msgid "edit"
+msgstr "编辑"
+
+#: admin/views/ad-output-metabox.php:45
+msgid "container ID"
+msgstr "容器 ID"
+
+#: admin/views/ad-output-metabox.php:52
+msgid "container classes"
+msgstr "容器类"
+
+#: classes/ad_type_image.php:30
+msgid "Ads in various image formats."
+msgstr "各种图像格式的广告。"
+
+#: admin/views/ad-output-metabox.php:48
+msgid "Specify the id of the ad container. Leave blank for random or no id."
+msgstr "指定广告容器的 id。对于随机或无 id, 留空。"
+
+#: admin/views/ad-output-metabox.php:55
+msgid "Specify one or more classes for the container. Separate multiple classes with a space"
+msgstr "为容器指定一个或多个类。用空格分隔多个类"
+
+#: classes/ad_type_image.php:52
+msgid "select image"
+msgstr "选择图像"
+
+#. translators: %1$s is a list of plugin names; %2$s a target URL.
+#: admin/includes/ad-health-notices.php:43
+msgid "Plugins that are known to cause (partial) problems: <strong>%1$s</strong>. <a href=\"%2$s\" target=\"_blank\">Learn more</a>."
+msgstr "已知会导致（部分）问题的插件：<strong>%1$s </strong>。 <a href=\"%2$s\" target=\"_blank\">了解详情</a>。"
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+msgid "https://wpadvancedads.com"
+msgstr "https://wpadvancedads.com"
+
+#: public/class-advanced-ads.php:757
+msgid "Edit Ad Group"
+msgstr "编辑广告组"
+
+#: public/class-advanced-ads.php:792
+msgid "Edit Ad"
+msgstr "编辑广告"
+
+#: modules/gadsense/includes/class-gadsense-data.php:40
+msgid "Auto"
+msgstr "自动"
+
+#: public/class-advanced-ads.php:754
+msgid "All Ad Groups"
+msgstr "所有广告组"
+
+#. translators: %s is an error message generated by the plugin.
+#: public/class-advanced-ads.php:421
+msgid "Advanced Ads Error: %s"
+msgstr "Advanced Ads错误:%s"
+
+#: public/class-advanced-ads.php:417
+msgid "Advanced Ads Error following:"
+msgstr "Advanced Ads错误如下:"
+
+#. Plugin Name of the plugin
+#: modules/gutenberg/includes/class-gutenberg.php:78
+msgid "Advanced Ads"
+msgstr "Advanced Ads"
+
+#: modules/gadsense/includes/class-ad-type-adsense.php:34
+msgid "AdSense ad"
+msgstr "AdSense 广告"
+
+#: public/class-advanced-ads.php:759
+msgid "Add New Ad Group"
+msgstr "添加新广告组"
+
+#: admin/includes/class-menu.php:112 public/class-advanced-ads.php:790
+msgid "Add New Ad"
+msgstr "添加新广告"
+
+#: classes/ad-debug.php:121 public/class-advanced-ads.php:752
+msgctxt "ad group singular name"
+msgid "Ad Group"
+msgstr "广告组"
+
+#: modules/gadsense/includes/class-ad-type-adsense.php:132
+msgid "Your AdSense Publisher ID is missing."
+msgstr "您的 AdSense 发布服务器 ID 丢失。"
+
+#: public/class-advanced-ads.php:795
+msgid "View the Ad"
+msgstr "查看广告"
+
+#: public/class-advanced-ads.php:794
+msgid "View"
+msgstr "视图"
+
+#: modules/gadsense/includes/class-ad-type-adsense.php:35
+msgid "Use ads from your Google AdSense account"
+msgstr "使用您的 Google AdSense 帐户中的广告"
+
+#: public/class-advanced-ads.php:758
+msgid "Update Ad Group"
+msgstr "更新广告组"
+
+#: public/class-advanced-ads.php:796
+msgid "Search Ads"
+msgstr "搜索广告"
+
+#: public/class-advanced-ads.php:753
+msgid "Search Ad Groups"
+msgstr "搜索广告组"
+
+#: public/class-advanced-ads.php:756
+msgid "Parent Ad Groups:"
+msgstr "家长广告组:"
+
+#: public/class-advanced-ads.php:755
+msgid "Parent Ad Groups"
+msgstr "家长广告组"
+
+#: public/class-advanced-ads.php:799
+msgid "Parent Ad"
+msgstr "父广告"
+
+#: public/class-advanced-ads.php:798
+msgid "No Ads found in Trash"
+msgstr "在废纸篓中未找到广告"
+
+#: public/class-advanced-ads.php:797
+msgid "No Ads found"
+msgstr "未找到广告"
+
+#: public/class-advanced-ads.php:762
+msgid "No Ad Group found"
+msgstr "找不到广告组"
+
+#: public/class-advanced-ads.php:760
+msgid "New Ad Groups Name"
+msgstr "新广告组名称"
+
+#: admin/includes/class-menu.php:113 admin/views/ad-group-list-ads.php:36
+#: public/class-advanced-ads.php:789 public/class-advanced-ads.php:793
+msgid "New Ad"
+msgstr "新广告"
+
+#. Description of the plugin
+msgid "Manage and optimize your ads in WordPress"
+msgstr "在 WordPress 中管理和优化您的广告"
+
+#: modules/gutenberg/includes/class-gutenberg.php:77
+#: admin/includes/class-shortcode-creator.php:180 classes/widget.php:113
+msgid "--empty--"
+msgstr "--空-"
+
+#: classes/ad_type_plain.php:49
+msgid "Insert plain text or code into this field."
+msgstr "在此字段中插入纯文本或代码。"
+
+#: classes/ad_placements.php:95
+msgid "Injected into the content. You can choose the paragraph after which the ad content is displayed."
+msgstr "注入内容。您可以选择显示广告内容的段落。"
+
+#: classes/ad_placements.php:71
+msgid "Injected before the post content."
+msgstr "在发布内容之前注入。"
+
+#: classes/ad_placements.php:83
+msgid "Injected after the post content."
+msgstr "在发布内容后注入。"
+
+#: includes/array_ad_conditions.php:57
+msgid "Individual Posts, Pages and Public Post Types"
+msgstr "个别帖子、网页及公共帖子类型"
+
+#: classes/display-conditions.php:728 includes/array_ad_conditions.php:63
+msgid "Home Page"
+msgstr "网站首页"
+
+#. translators: %s is an html tag.
+#: classes/ad_placements.php:308
+msgid "headline 4 (%s)"
+msgstr "标题 4 (%s)"
+
+#. translators: %s is an html tag.
+#: classes/ad_placements.php:306
+msgid "headline 3 (%s)"
+msgstr "标题 3 (%s)"
+
+#. translators: %s is an html tag.
+#: classes/ad_placements.php:304
+msgid "headline 2 (%s)"
+msgstr "标题 2 (%s)"
+
+#: modules/gadsense/admin/views/adsense-ad-parameters.php:64
+msgid "Get details"
+msgstr "获取详细信息"
+
+#: classes/ad_type_plain.php:98
+msgid "Execute PHP code (wrapped in <code>&lt;?php ?&gt;</code>)"
+msgstr "执行 PHP 代码 (包装在 <code>&lt;?php ?&gt;</code>)"
+
+#: admin/views/conditions/condition-number.php:17
+msgid "equal or lower"
+msgstr "等于或更低"
+
+#: admin/views/conditions/condition-number.php:15
+msgid "equal or higher"
+msgstr "等于或更高"
+
+#: admin/views/conditions/condition-number.php:13
+msgid "equal"
+msgstr "等于"
+
+#: admin/views/ad-conditions-string-operators.php:17
+msgid "ends with"
+msgstr "结尾于:"
+
+#: admin/views/ad-conditions-string-operators.php:21
+msgid "does not start with"
+msgstr "不以其开头:"
+
+#: admin/views/ad-conditions-string-operators.php:24
+msgid "does not match regex"
+msgstr "不匹配正则表达式"
+
+#: admin/views/ad-conditions-string-operators.php:23
+msgid "does not match"
+msgstr "不匹配"
+
+#: admin/views/ad-conditions-string-operators.php:22
+msgid "does not end with"
+msgstr "不以其结尾:"
+
+#: admin/views/ad-conditions-string-operators.php:20
+msgid "does not contain"
+msgstr "不包含"
+
+#: classes/visitor-conditions.php:41
+msgid "Display ads only on mobile devices or hide them."
+msgstr "仅在移动设备上显示广告或隐藏广告。"
+
+#: classes/widget.php:26
+msgid "Display Ads and Ad Groups."
+msgstr "显示广告和广告组。"
+
+#: modules/privacy/admin/views/setting-general.php:47
+#: admin/views/ad-conditions-string-operators.php:15
+msgid "contains"
+msgstr "包含"
+
+#: includes/array_ad_conditions.php:52
+msgid "comma seperated IDs of category archives"
+msgstr "类别存档的逗号分隔 Id"
+
+#: includes/array_ad_conditions.php:46
+msgid "Choose terms from public category, tag and other taxonomies a post must belong to in order to have ads."
+msgstr "从公共类别、标签和其他分类分类中选择帖子必须属于的术语才能投放广告。"
+
+#: includes/array_ad_conditions.php:51
+msgid "Category Archives"
+msgstr "分类档案"
+
+#: includes/array_ad_conditions.php:45
+msgid "Categories, Tags and Taxonomies"
+msgstr "类别、标签和分类"
+
+#: admin/views/placement-injection-top.php:79 classes/ad_placements.php:70
+msgid "Before Content"
+msgstr "内容前"
+
+#: classes/display-conditions.php:753 includes/array_ad_conditions.php:88
+msgid "Attachment Pages"
+msgstr "附件页"
+
+#: classes/display-conditions.php:738 includes/array_ad_conditions.php:73
+msgid "Archive Pages"
+msgstr "存档页面"
+
+#: classes/display-conditions.php:759 includes/array_ad_conditions.php:94
+msgid "allow ads in secondary queries"
+msgstr "允许在辅助查询中使用广告"
+
+#: admin/views/placement-injection-top.php:81 classes/ad_placements.php:82
+msgid "After Content"
+msgstr "内容后"
+
+#: modules/gadsense/admin/views/adsense-ad-parameters.php:82
+msgid "Ad Slot ID"
+msgstr "广告跟踪 ID"
+
+#: classes/display-conditions.php:748 includes/array_ad_conditions.php:83
+msgid "404 Page"
+msgstr "404页"
+
+#: modules/gadsense/admin/views/adsense-account.php:85
+msgid "Your AdSense Publisher ID <em>(pub-xxxxxxxxxxxxxx)</em>"
+msgstr "您的 AdSense 发布者 ID <em>(pub-xxxxxxxxxxxxxx)</em>"
+
+#: classes/visitor-conditions.php:48
+msgid "Whether the visitor has to be logged in or not in order to see the ads."
+msgstr "访问者是否必须登录才能看到广告。"
+
+#: classes/widget.php:107
+msgid "Title:"
+msgstr "标题:"
+
+#: modules/gadsense/admin/views/adsense-account.php:83
+#: modules/gadsense/includes/class-ad-type-adsense.php:91
+msgid "The Publisher ID has an incorrect format. (must start with \"pub-\")"
+msgstr "发布服务器 ID 的格式不正确。(必须以 \"pub-\" 开头)"
+
+#: classes/ad_type_content.php:36
+msgid "The full content editor from WordPress with all features like shortcodes, image upload or styling, but also simple text/html mode for scripts and code."
+msgstr "WordPress的完整的内容编辑器涵盖所有功能, 如短代码, 图像上传或造型, 但也有简单的文本-html 模式用于脚本和代码。"
+
+#: modules/gadsense/admin/views/adsense-ad-parameters.php:53
+msgid "The ad details couldn't be retrieved from the ad code"
+msgstr "无法从广告代码中检索广告详细信息"
+
+#: admin/views/ad-conditions-string-operators.php:16
+msgid "starts with"
+msgstr "开始于"
+
+#: classes/display-conditions.php:733 includes/array_ad_conditions.php:68
+msgid "Singular Pages"
+msgstr "单页"
+
+#: classes/display-conditions.php:734 includes/array_ad_conditions.php:69
+msgid "show on singular pages/posts"
+msgstr "在单页上显示"
+
+#: classes/display-conditions.php:744 includes/array_ad_conditions.php:79
+msgid "show on search result pages"
+msgstr "显示在搜索结果页上"
+
+#: classes/display-conditions.php:729 includes/array_ad_conditions.php:64
+msgid "show on Home page"
+msgstr "在主页上显示"
+
+#: classes/display-conditions.php:754 includes/array_ad_conditions.php:89
+msgid "show on attachment pages"
+msgstr "在附件页上显示"
+
+#: classes/display-conditions.php:739 includes/array_ad_conditions.php:74
+msgid "show on any type of archive page (category, tag, author and date)"
+msgstr "显示在任何类型的存档页面 (类别、标签、作者和日期) 上"
+
+#: classes/display-conditions.php:749 includes/array_ad_conditions.php:84
+msgid "show on 404 error page"
+msgstr "显示在404错误页面上"
+
+#: classes/display-conditions.php:758 includes/array_ad_conditions.php:93
+msgid "Secondary Queries"
+msgstr "辅助查询"
+
+#: classes/display-conditions.php:743 includes/array_ad_conditions.php:78
+msgid "Search Results"
+msgstr "搜索结果"
+
+#: classes/ad_type_content.php:35
+msgid "Rich Content"
+msgstr "丰富的内容"
+
+#: modules/gadsense/admin/admin.php:73
+#: modules/gadsense/admin/views/adsense-ad-parameters.php:109
+#: admin/includes/class-list-filters.php:143
+msgid "Responsive"
+msgstr "响应"
+
+#: modules/gadsense/admin/views/adsense-ad-parameters.php:119
+msgid "Resizing"
+msgstr "调整"
+
+#: modules/gadsense/admin/views/adsense-ad-parameters.php:87
+msgid "Publisher ID: %s"
+msgstr "发布者 ID:%s"
+
+#: includes/array_ad_conditions.php:39
+msgid "Post Types"
+msgstr "帖子类型"
+
+#: classes/ad_type_plain.php:29
+msgid "Plain Text and Code"
+msgstr "纯文本和代码"
+
+#. translators: %s is an html tag.
+#: classes/ad_placements.php:300
+msgid "paragraph (%s)"
+msgstr "段落 (%s)"
+
+#: modules/gadsense/admin/views/adsense-ad-parameters.php:108
+msgid "Normal"
+msgstr "正常"
+
+#: admin/views/ad-conditions-string-operators.php:19
+msgid "matches regex"
+msgstr "匹配正则表达式"
+
+#: admin/views/ad-conditions-string-operators.php:18
+msgid "matches"
+msgstr "匹配"
+
+#: classes/visitor-conditions.php:47
+msgid "logged-in visitor"
+msgstr "登录的访问者"
+
+#: modules/gadsense/includes/class-network-adsense.php:96
+msgid "Limit to 3 ads"
+msgstr "限制为3个广告"
+
+#. Translators: $d a number of ads.
+#: modules/gadsense/includes/class-network-adsense.php:165
+msgid "Limit to %d AdSense ads"
+msgstr "将广告限制为%d"
+
+#: admin/views/conditions/condition-operator.php:12
+msgid "is not"
+msgstr "不是"
+
+#: admin/views/conditions/condition-operator.php:10
+msgid "is"
+msgstr "是"
+
+#: modules/gadsense/admin/views/adsense-ad-parameters.php:102
+msgid "Please <a href=\"%s\" target=\"_blank\">change it here</a>."
+msgstr "请<a href=\"%s\" target=\"_blank\">在此处进行更改</a>。"
+
+#: modules/import-export/views/page.php:26 admin/views/placements.php:71
+msgid "Options"
+msgstr "选项"
+
+#: admin/views/ad-submitbox-meta.php:29
+msgid "Hour"
+msgstr "小时"
+
+#: admin/views/ad-submitbox-meta.php:30
+msgid "Minute"
+msgstr "分钟"
+
+#: admin/views/conditions/conditions-form.php:15
+msgid "-- choose a condition --"
+msgstr "--选择一个条件--"
+
+#: admin/views/ad-output-metabox.php:16
+msgid "- default -"
+msgstr "-默认值 -"
+
+#. translators: %d is a number of days.
+#: admin/views/setting-license.php:50
+msgid "(%d days left)"
+msgstr "(剩余%d 天)"
+
+#. translators: %1$s is the month number, %2$s is the month shortname.
+#: admin/views/ad-submitbox-meta.php:20
+msgctxt "1: month number (01, 02, etc.), 2: month abbreviation"
+msgid "%1$s-%2$s"
+msgstr "%1$s-%2$s"
+
+#. translators: %1$s month, %2$s day, %3$s year, %4$s hour, %5$s minute.
+#: admin/views/ad-submitbox-meta.php:38
+msgctxt "order of expiry date fields 1: month, 2: day, 3: year, 4: hour, 5: minute"
+msgid "%1$s %2$s, %3$s @ %4$s %5$s"
+msgstr "%1$s %2$s, %3$s @ %4$s %5$s"
+
+#: admin/views/ad-info.php:42
+msgid "Internal description or your own notes about this ad."
+msgstr "有关此广告的内部描述或您自己的笔记。"
+
+#: classes/ad_placements.php:58
+msgid "Injected in Header (before closing &lt;/head&gt; Tag, often not visible)."
+msgstr "在标头中注入 (在关闭 &lt;/body&gt; Tag前，通常不可见)。"
+
+#: classes/ad_placements.php:64
+msgid "Injected in Footer (before closing &lt;/body&gt; Tag)."
+msgstr "在页脚中注入  (在关闭 &lt;/body&gt; Tag前).。"
+
+#: admin/views/placements.php:229
+msgid "Important Notice"
+msgstr "重要通知"
+
+#: admin/views/ad-parameters-size.php:12
+msgid "height"
+msgstr "高度"
+
+#: classes/ad_placements.php:57
+msgid "Header Code"
+msgstr "标头代码"
+
+#: admin/includes/class-overview-widgets.php:134
+msgid "Get 2 free add-ons"
+msgstr "获取2个免费插件"
+
+#: classes/ad_placements.php:63
+msgid "Footer Code"
+msgstr "页脚代码"
+
+#: admin/views/ad-output-metabox.php:12
+msgid "Everything connected to the ads layout and output."
+msgstr "所有内容都连接到广告布局和输出。"
+
+#: classes/EDD_SL_Plugin_Updater.php:502
+msgid "Error"
+msgstr "错误"
+
+#: admin/views/settings/general/disable-ads.php:19
+msgid "e.g. archive pages like categories, tags, authors, front page (if a list)"
+msgstr "例如, 存档页面, 如类别、标签、作者、首页 (如果有列表)"
+
+#: admin/views/conditions/ad-visitor-metabox.php:28
+msgid "Display conditions that are based on the user. Use with caution on cached websites."
+msgstr "显示基于用户的条件。在缓存的网站上谨慎使用。"
+
+#: admin/views/settings/general/disable-ads.php:5
+msgid "Disable all ads in frontend"
+msgstr "禁用前端的所有广告"
+
+#: admin/views/post-ad-settings-metabox.php:7
+msgid "Disable ads on this page"
+msgstr "禁用此页面上的广告"
+
+#: admin/views/settings/general/disable-ads.php:24
+msgid "Disable ads on secondary queries"
+msgstr "禁用辅助查询上的广告"
+
+#: admin/views/settings/general/disable-ads.php:18
+msgid "Disable ads on non-singular pages"
+msgstr "禁用非奇异页面上的广告"
+
+#: admin/views/settings/general/disable-ads.php:12
+msgid "Disable ads on 404 error pages"
+msgstr "禁用404错误页面上的广告"
+
+#: admin/views/placements.php:352
+msgctxt "checkbox to remove placement"
+msgid "delete"
+msgstr "删除"
+
+#: modules/gadsense/includes/class-network-adsense.php:318
+#: admin/views/placements-ad-label-position.php:11
+#: admin/views/placements-ad-label-position.php:13
+#: admin/views/placements-ad-label.php:9 admin/views/placements-ad-label.php:11
+#: admin/views/placements.php:150 admin/views/ad-output-metabox.php:18
+msgid "default"
+msgstr "标准"
+
+#: admin/views/ad-submitbox-meta.php:27
+msgid "Day"
+msgstr "天"
+
+#: admin/views/placements.php:23 admin/views/placements.php:361
+msgid "Create a new placement"
+msgstr "创建新的位置"
+
+#: admin/views/placements.php:13
+msgid "Couldn’t create the new placement. Please check your form field and whether the name is already in use."
+msgstr "无法创建新的放置。请检查您的表单字段以及名称是否已在使用中。"
+
+#: admin/views/ad-info.php:31
+msgid "click to change"
+msgstr "点击更改"
+
+#: admin/views/placement-form.php:76
+msgid "Choose the Ad or Group"
+msgstr "选择广告或组"
+
+#: admin/views/placement-form.php:15
+msgid "Choose a placement type"
+msgstr "选择放置类型"
+
+#: admin/views/placement-form.php:71
+msgid "Choose a Name"
+msgstr "选择一个名称"
+
+#: admin/views/ad-output-metabox.php:31
+msgid "Check this if you don’t want the following elements to float around the ad. (adds a clearfix)"
+msgstr "如果您不希望以下元素在广告中浮动, 请检查此信息。(添加了一个清除修复)"
+
+#: admin/views/placements-ad-label-position.php:18
+#: admin/views/placements-ad-label-position.php:20
+#: admin/views/ad-output-metabox.php:22
+msgid "center"
+msgstr "中心"
+
+#: admin/views/ad-output-metabox.php:40
+msgid "bottom:"
+msgstr "底部:"
+
+#: admin/views/placements.php:210
+msgid "before"
+msgstr "之前"
+
+#: admin/views/placements.php:209
+msgid "after"
+msgstr "之后"
+
+#: admin/views/ad-info.php:38
+msgid "Add a description"
+msgstr "添加说明"
+
+#: admin/views/conditions/conditions-form.php:37
+#: admin/views/ad-group-list-ads.php:45
+msgid "add"
+msgstr "添加"
+
+#. translators: %s is an ad ID.
+#: admin/views/ad-info.php:4
+msgid "Ad Id: %s"
+msgstr "广告 Id:%s"
+
+#: admin/views/ad-group.php:37
+msgid "Ad Groups successfully updated"
+msgstr "广告组已成功更新"
+
+#: admin/views/ad-group.php:75
+msgid "Ad Groups are a very flexible method to bundle ads. You can use them to display random ads in the frontend or run split tests, but also just for informational purposes. Not only can an Ad Groups have multiple ads, but an ad can belong to multiple ad groups."
+msgstr "广告组是一种非常灵活的捆绑广告的方法。您可以使用它们在前端显示随机广告或运行拆分测试, 但也只是为了提供信息。广告组不仅可以有多个广告, 还可以属于多个广告组。"
+
+#: admin/views/setting-license.php:91
+msgid "active"
+msgstr "激活"
+
+#: admin/views/setting-license.php:82
+msgid "Activate License"
+msgstr "激活许可证"
+
+#: admin/views/placements-item.php:12 admin/views/placement-form.php:79
+msgid "--not selected--"
+msgstr "-未选择-"
+
+#. translators: %1$s is a version number.
+#: admin/includes/ad-health-notices.php:32
+msgid "Your <strong>PHP version (%1$s) is too low</strong>. Advanced Ads is built for PHP %2$s and higher. It might work, but updating PHP is highly recommended. Please ask your hosting provider for more information."
+msgstr "您的 <strong>PHP 版本 (%1$s) 太低</strong>。Advanced Ads是为 PHP%2$s 及更高版本构建的。它可能有效, 但强烈建议更新 PHP。请向您的托管提供商咨询更多信息。"
+
+#: classes/EDD_SL_Plugin_Updater.php:502
+msgid "You do not have permission to install plugin updates"
+msgstr "您没有安装插件更新的权限"
+
+#: admin/views/ad-submitbox-meta.php:28
+msgid "Year"
+msgstr "年"
+
+#: admin/views/ad-parameters-size.php:11
+msgid "width"
+msgstr "宽度"
+
+#: admin/views/conditions/visitor-conditions-form-top.php:4
+msgid "Visitor conditions limit the number of users who can see your ad. There is no need to set visitor conditions if you want all users to see the ad."
+msgstr "访问者条件限制了可以查看您的广告的用户数量。如果您希望所有用户都能看到广告, 则无需设置访问者条件。"
+
+#: admin/views/settings/general/disable-ads.php:6
+msgid "Use this option to disable all ads in the frontend, but still be able to use the plugin."
+msgstr "使用此选项可以禁用前端的所有广告, 但仍可以使用该插件。"
+
+#: admin/views/support.php:15
+msgid "Use the following form to search for solutions in the manual on wpadvancedads.com"
+msgstr "使用以下表格在 wpadvancedads. com 上的手册中搜索解决方案"
+
+#: admin/views/ad-group.php:119
+msgid "Update Groups"
+msgstr "更新组"
+
+#: admin/views/ad-output-metabox.php:38
+msgid "top:"
+msgstr "顶部:"
+
+#: admin/views/ad-output-metabox.php:42
+msgid "tip: use this to add a margin around the ad"
+msgstr "提示: 使用此功能可以在广告周围添加边距"
+
+#: admin/views/ad-info.php:9
+msgid "theme function"
+msgstr "主题功能"
+
+#: admin/views/placement-form.php:72
+msgid "The name of the placement is only visible to you. Tip: choose a descriptive one, e.g. <em>Below Post Headline</em>."
+msgstr "放置的名称仅对您可见。提示: 选择一个描述性的, 例如 <em>在帖子时间线下</em>。"
+
+#: admin/views/placement-form.php:77
+msgid "The ad or group that should be displayed."
+msgstr "此广告或组应被显示。"
+
+#: admin/views/placements-content-index.php:55
+msgid "start counting from bottom"
+msgstr "从底部开始计数"
+
+#: admin/views/placements.php:159
+msgid "show usage"
+msgstr "显示使用情况"
+
+#: admin/views/ad-submitbox-meta.php:9
+msgid "Set expiry date"
+msgstr "设置到期日期"
+
+#: admin/views/settings/general/disable-ads.php:25
+msgid "Secondary queries are custom queries of posts outside the main query of a page. Try this option if you see ads injected on places where they shouldn’t appear."
+msgstr "辅助查询是对页面主查询之外的帖子的自定义查询。如果您在不应该显示广告的地方看到广告被注入, 请尝试此选项。"
+
+#: admin/views/ad-group.php:64
+msgid "Search results for &#8220;%s&#8221;"
+msgstr "&#8220;%s&#8221; 的搜寻结果"
+
+#: admin/views/support.php:18
+msgid "search"
+msgstr "搜索"
+
+#: admin/views/settings.php:43
+msgid "Save settings on this page"
+msgstr "保存此页上的设置"
+
+#: admin/views/placements.php:359
+msgid "Save Placements"
+msgstr "保存位置"
+
+#: admin/views/placement-form.php:96
+msgid "Save New Placement"
+msgstr "保存新放置"
+
+#: admin/views/ad-output-metabox.php:39
+msgid "right:"
+msgstr "右:"
+
+#: admin/views/placements-ad-label-position.php:21
+#: admin/views/placements-ad-label-position.php:23
+#: admin/views/ad-output-metabox.php:25
+msgid "right"
+msgstr "右"
+
+#: admin/views/support.php:7
+msgid "Possible Issues"
+msgstr "可能的问题"
+
+#: admin/views/placements-ad-label-position.php:10
+#: admin/views/ad-output-metabox.php:14
+msgid "Position"
+msgstr "位置"
+
+#: admin/views/placement-form.php:69
+msgid "Please select a placement type."
+msgstr "请选择放置类型。"
+
+#: admin/views/placement-form.php:75
+msgid "Please enter a name for your placement."
+msgstr "请输入您的帖子名称。"
+
+#: admin/views/notices/adblock.php:4
+msgid "Please disable your <strong>AdBlocker</strong> to prevent problems with your ad setup."
+msgstr "请禁用您的 <strong>AdBlocker</strong>, 以防止广告设置出现问题。"
+
+#: admin/views/placements.php:17
+msgid "Placements updated"
+msgstr "已更新的放置情况"
+
+#: admin/views/placements.php:29
+msgid "Placements are physically places in your theme and posts. You can use them if you plan to change ads and ad groups on the same place without the need to change your templates."
+msgstr "放置是在您的主题和帖子的物理上的位置。如果您计划在同一位置更改广告和广告组, 而无需更改模板, 则可以使用它们。"
+
+#. translators: %s is the name of a placement.
+#: admin/views/placements.php:129
+msgid "Placement type \"%s\" is missing and was reset to \"default\".<br/>Please check if the responsible add-on is activated."
+msgstr "放置类型\"%s\" 丢失, 并被重置为\"默认\"。<br/>请检查是否激活了响应式的插件。"
+
+#: admin/views/placement-form.php:74
+msgid "Placement Name"
+msgstr "放置名称"
+
+#: admin/views/ad-main-metabox.php:3
+msgid "No ad types defined"
+msgstr "未定义广告类型"
+
+#: admin/views/placements.php:24 admin/views/placements.php:363
+msgid "New Placement"
+msgstr "新的位置"
+
+#: admin/views/conditions/conditions-form.php:10
+msgid "New condition"
+msgstr "新情况"
+
+#: admin/views/ad-submitbox-meta.php:14
+msgid "Month"
+msgstr "月"
+
+#: classes/ad_placements.php:47
+msgid "Manual placement to use as function or shortcode."
+msgstr "手动放置用作函数或短代码。"
+
+#: classes/ad_placements.php:46
+msgid "Manual Placement"
+msgstr "手动放置"
+
+#: admin/views/setting-license.php:87
+msgid "License key invalid"
+msgstr "许可证密钥无效"
+
+#: admin/views/setting-license.php:56
+msgid "License key"
+msgstr "许可证密钥"
+
+#: admin/views/ad-output-metabox.php:41
+msgid "left:"
+msgstr "左:"
+
+#: admin/views/placements-ad-label-position.php:15
+#: admin/views/placements-ad-label-position.php:17
+#: admin/views/ad-output-metabox.php:19
+msgid "left"
+msgstr "左"
+
+#: admin/views/placements.php:192
+msgid "Item"
+msgstr "项目"
+
+#. translators: %s is a URL.
+#: admin/views/placement-form.php:21
+msgid "Placement types define where the ad is going to be displayed. Learn more about the different types from the <a href=\"%s\">manual</a>"
+msgstr "展示位置类型定义了广告的展示位置。 从<a href=\"%s\">手册</a>中了解有关不同类型的更多信息。"
+
+#. translators: %s is a URL.
+#: admin/views/placements.php:35
+msgid "See also the manual for more information on <a href=\"%s\">placements</a>."
+msgstr "更多关于<a href=\"%s\">位置</a>的信息，请参见手册。"
+
+#. translators: %s is a URL.
+#: admin/views/ad-info.php:16
+msgid "Find more display options in the <a href=\"%s\" target=\"_blank\">manual</a>."
+msgstr "在<a href=\"%s\" target=\"_blank\">手动</a>中找到显示的更多选项。"
+
+#: admin/views/ad-output-metabox.php:36
+msgid "Margin"
+msgstr "外边距"
+
+#: admin/includes/class-ad-groups-list.php:349
+msgid "Delete"
+msgstr "删除"
+
+#: admin/views/ad-group-edit.php:79
+msgid "Update"
+msgstr "更新"
+
+#. translators: %s is a URL.
+#: admin/includes/class-notices.php:427
+msgid "You don’t seem to have an email address. Please use <a href=\"%s\" target=\"_blank\">this form</a> to sign up."
+msgstr "您似乎没有电子邮件地址。请使用<a href=\"%s\" target=\"_blank\">此表单</a> 注册。"
+
+#. translators: %s is the number of ads.
+#: admin/includes/class-ad-type.php:442
+msgid "%s ad updated."
+msgid_plural "%s ads updated."
+msgstr[0] "%s 广告已更新。"
+
+#. translators: %s is the number of ads.
+#: admin/includes/class-ad-type.php:450
+msgid "%s ad restored from the Trash."
+msgid_plural "%s ads restored from the Trash."
+msgstr[0] "%s 广告从废纸篓中恢复。"
+
+#. translators: %s is the number of ads.
+#: admin/includes/class-ad-type.php:446
+msgid "%s ad permanently deleted."
+msgid_plural "%s ads permanently deleted."
+msgstr[0] "%s 广告已永久删除。"
+
+#. translators: %s is the number of ads.
+#: admin/includes/class-ad-type.php:444
+msgid "%s ad not updated, somebody is editing it."
+msgid_plural "%s ads not updated, somebody is editing them."
+msgstr[0] "%s 广告未更新, 有人正在编辑。"
+
+#. translators: %s is the number of ads.
+#: admin/includes/class-ad-type.php:448
+msgid "%s ad moved to the Trash."
+msgid_plural "%s ads moved to the Trash."
+msgstr[0] "%s 广告已移动到废纸篓。"
+
+#: admin/includes/class-ad-groups-list.php:371
+#: admin/includes/class-ad-groups-list.php:441
+msgid "Invalid Ad Group"
+msgstr "无效的广告组"
+
+#: admin/views/conditions/display-conditions-form-top.php:4
+msgid "If you want to display the ad everywhere, don't do anything here. "
+msgstr "如果你想随处展示广告, 不要在这里做任何事情。 "
+
+#: admin/views/ad-group-list-row.php:45
+msgid "ID: %s"
+msgstr "ID:%s"
+
+#: admin/includes/class-settings.php:197
+msgid "ID prefix"
+msgstr "ID 前缀"
+
+#: admin/includes/class-notices.php:448
+msgid "How embarrassing. The email server seems to be down. Please try again later."
+msgstr "太尬了。电子邮件服务器似乎已关闭。请稍后再试。"
+
+#: admin/includes/class-settings.php:171
+msgid "Hide ads from bots"
+msgstr "隐藏机器人中的广告"
+
+#: admin/includes/class-meta-box.php:554
+msgid "Get the tutorial via email"
+msgstr "通过电子邮件获取教程"
+
+#: admin/includes/class-overview-widgets.php:135
+msgid "Get the first steps and more tutorials to your inbox"
+msgstr "向您的收件箱中发送第一步和更多教程"
+
+#: admin/includes/class-meta-box.php:563
+msgid "Get AdSense tips via email"
+msgstr "通过电子邮件获取 AdSense 提示"
+
+#: admin/views/settings.php:14
+msgid "General"
+msgstr "常规"
+
+#: admin/includes/class-list-filters.php:152
+msgid "expired"
+msgstr "过期"
+
+#: admin/includes/class-licenses.php:118
+msgid "Error while trying to register the license. Please contact support."
+msgstr "试图注册许可证时出错。请联系支持人员。"
+
+#: modules/import-export/classes/import.php:150
+#: modules/import-export/classes/import.php:190
+#: modules/import-export/classes/import.php:579
+#: admin/includes/class-ad-groups-list.php:339
+#: public/class-advanced-ads.php:791
+msgid "Edit"
+msgstr "编辑"
+
+#: admin/includes/class-ad-groups-list.php:316
+msgid "Display random ads based on ad weight"
+msgstr "根据重要性显示随机广告"
+
+#: admin/includes/class-meta-box.php:104 admin/views/placements.php:273
+#: classes/ad-debug.php:152
+msgid "Display Conditions"
+msgstr "显示条件"
+
+#: admin/includes/class-ad-groups-list.php:320
+msgid "Display ads with the highest ad weight first"
+msgstr "首先展示重要性最高的广告"
+
+#: admin/includes/class-settings.php:61 admin/includes/class-settings.php:131
+msgid "Disable ads"
+msgstr "禁用广告"
+
+#: admin/views/ad-group-list-header.php:15
+msgid "Details"
+msgstr "详情"
+
+#: admin/views/ad-group-edit.php:65
+msgctxt "Taxonomy Description"
+msgid "Description"
+msgstr "描述"
+
+#: admin/includes/class-overview-widgets.php:118
+#: admin/views/notices/welcome-panel.php:15
+msgid "Create your first ad"
+msgstr "创建您的第一个广告"
+
+#: admin/views/ad-group-edit.php:77
+msgid "Create new Ad Group"
+msgstr "创建新的广告组"
+
+#: admin/views/settings/general/hide-for-user-role.php:14
+msgid "Choose the roles a user must have in order to not see any ads."
+msgstr "选择用户必须具有的最低角色, 以便看不到任何广告。"
+
+#: classes/display-conditions.php:90 includes/array_ad_conditions.php:40
+msgid "Choose the public post types on which to display the ad."
+msgstr "选择要在其上展示广告的公共帖子类型。"
+
+#: classes/display-conditions.php:97 includes/array_ad_conditions.php:58
+msgid "Choose on which individual posts, pages and public post type pages you want to display or hide ads."
+msgstr "选择要在哪些帖子、网页和公共帖子类型页面上显示或隐藏广告。"
+
+#: admin/views/ad-group-edit.php:58 admin/views/ad-output-metabox.php:49
+msgid "An id-like string with only letters in lower case, numbers, and hyphens."
+msgstr "一个类似id的字符串, 只有小写字母、数字和连字符。"
+
+#: admin/includes/class-ad-groups-list.php:229
+msgid "all published ads are displayed"
+msgstr "将显示所有已发布的广告"
+
+#: admin/views/ad-group-list-form-row.php:72
+msgctxt "option to display all ads in an ad groups"
+msgid "all"
+msgstr "所有"
+
+#: admin/includes/class-meta-box.php:525 admin/views/overview.php:8
+msgid "Ads Dashboard"
+msgstr "广告仪表板"
+
+#: admin/includes/class-settings.php:53
+msgid "Admin"
+msgstr "管理"
+
+#: classes/display-conditions.php:594
+msgctxt "display the terms search field on ad edit page"
+msgid "add more terms"
+msgstr "添加更多条款"
+
+#: admin/includes/notices.php:25
+msgid "Add me now"
+msgstr "现在添加我"
+
+#: admin/includes/class-ad-groups-list.php:172
+msgid "Ad weight"
+msgstr "广告重要性"
+
+#: admin/includes/class-ad-type.php:852 admin/includes/class-ad-type.php:853
+msgid "Ad updated."
+msgstr "广告已更新。"
+
+#: admin/includes/class-meta-box.php:60
+msgid "Ad Type"
+msgstr "广告类型"
+
+#: admin/includes/class-ad-type.php:857
+msgid "Ad submitted."
+msgstr "广告已提交。"
+
+#: admin/includes/class-meta-box.php:426
+msgid "Ad Settings"
+msgstr "广告设置"
+
+#. translators: %1$s is a date.
+#: admin/includes/class-ad-type.php:860
+msgid "Ad scheduled for: <strong>%1$s</strong>."
+msgstr "预定广告: <strong>%1$s</strong>。"
+
+#: admin/includes/class-ad-type.php:855 admin/includes/class-ad-type.php:856
+msgid "Ad saved."
+msgstr "已保存广告。"
+
+#. translators: %s: date and time of the revision
+#: admin/includes/class-ad-type.php:854
+msgid "Ad restored to revision from %s"
+msgstr "广告从%s 恢复为修订"
+
+#: admin/includes/class-meta-box.php:88
+msgid "Ad Parameters"
+msgstr "广告参数"
+
+#: admin/views/ad-group-list-header.php:14 classes/ad_type_group.php:30
+msgid "Ad Group"
+msgstr "广告组"
+
+#: admin/includes/class-ad-type.php:864
+msgid "Ad draft updated."
+msgstr "已更新广告草稿。"
+
+#: admin/includes/class-ad-type.php:270 admin/includes/class-ad-type.php:276
+msgid "Ad Details"
+msgstr "广告详情"
+
+#: admin/views/ad-group-list-ads.php:20 classes/ad-debug.php:118
+#: classes/ad-debug.php:167 classes/ad-debug.php:169
+#: public/class-advanced-ads.php:788
+msgid "Ad"
+msgstr "广告"
+
+#: admin/includes/class-ad-groups-list.php:376
+#: admin/includes/class-ad-groups-list.php:446
+msgid "You don’t have permission to change the ad groups"
+msgstr "您没有更改广告组的权限"
+
+#: admin/views/ad-group-edit.php:20
+msgid "You did not select an item for editing."
+msgstr "您没有选择要编辑的项目。"
+
+#: admin/includes/class-menu.php:295
+msgid "You attempted to edit an ad group that doesn&#8217;t exist. Perhaps it was deleted?"
+msgstr "您试图编辑不存在的广告组。也许它被删除了？"
+
+#: admin/includes/notices.php:18
+msgid "Yes, send it"
+msgstr "是, 发送它"
+
+#: admin/views/ad-group-list-ads.php:22
+msgid "weight"
+msgstr "重要性"
+
+#: admin/includes/class-settings.php:230
+msgid "Use advanced JavaScript"
+msgstr "使用高级 JavaScript"
+
+#: admin/includes/class-ad-groups-list.php:340
+msgid "Usage"
+msgstr "使用"
+
+#. translators: %d is a number.
+#: admin/includes/class-ad-groups-list.php:232
+msgid "up to %d ads displayed"
+msgstr "显示的广告最多为%d"
+
+#: admin/includes/class-settings.php:147
+msgid "Unlimited ad injection"
+msgstr "无限制的广告注射"
+
+#: admin/views/ad-group-list-row.php:37
+msgid "Type: %s"
+msgstr "类型:%s"
+
+#: modules/gadsense/admin/views/adsense-ad-parameters.php:105
+#: admin/views/placements.php:61 admin/views/ad-group-list-form-row.php:56
+msgid "Type"
+msgstr "类型"
+
+#: admin/includes/notices.php:24
+msgid "Thank you for using <strong>Advanced Ads</strong>. Stay informed and receive <strong>2 free add-ons</strong> for joining the newsletter."
+msgstr "感谢您使用 <strong>Advanced Ads</strong>。通过加入时事通讯随时了解并接收 <strong>2 免费插件</strong> 。"
+
+#: admin/includes/notices.php:17
+msgid "Thank you for activating <strong>Advanced Ads</strong>. Would you like to receive the first steps via email?"
+msgstr "谢谢你激活 <strong>Advanced Ads</strong>。您想通过电子邮件接收第一步吗？"
+
+#: classes/display-conditions.php:598
+msgid "term name or id"
+msgstr "条目名称或 id"
+
+#: admin/views/ad-group-list-row.php:25
+msgid "template"
+msgstr "模板"
+
+#: admin/includes/notices.php:32 admin/views/notices/inline.php:3
+#: admin/views/notices/subscribe.php:3
+msgid "Subscribe me now"
+msgstr "现在就订阅我"
+
+#: admin/views/ad-group-edit.php:51
+msgctxt "Taxonomy Slug"
+msgid "Slug"
+msgstr "缩略名"
+
+#: admin/views/placements.php:168 admin/views/ad-info.php:7
+#: admin/views/ad-group-list-row.php:22
+msgid "shortcode"
+msgstr "短代码"
+
+#: admin/includes/class-ad-groups-list.php:315
+msgid "Random ads"
+msgstr "随机广告"
+
+#: admin/includes/class-settings.php:155
+msgid "Priority of content injection filter"
+msgstr "内容注入过滤器的优先级"
+
+#: admin/views/settings/general/content-injection-priority.php:9
+msgid "Play with this value in order to change the priority of the injected ads compared to other auto injected elements in the post content."
+msgstr "使用此值可以更改插入广告相对于帖子内容中的其他自动插入元素的优先级。"
+
+#: admin/includes/class-ad-groups-list.php:319
+msgid "Ordered ads"
+msgstr "排序的广告"
+
+#: admin/views/ad-group-list-form-row.php:81
+msgid "Number of ads that are visible at the same time"
+msgstr "同时可见的广告数量"
+
+#: admin/includes/class-ad-groups-list.php:235
+msgid "No ads assigned"
+msgstr "未分配广告"
+
+#: admin/includes/class-overview-widgets.php:48
+msgid "Next steps"
+msgstr "后续步骤"
+
+#: modules/privacy/admin/views/setting-general.php:44
+#: modules/gadsense/admin/views/external-ads-list.php:41
+#: modules/gadsense/admin/views/external-ads-list.php:51
+#: admin/views/placements.php:66 admin/views/ad-group-list-form-row.php:31
+msgid "Name"
+msgstr "名字"
+
+#: admin/views/ad-group-edit.php:41
+msgctxt "Taxonomy Name"
+msgid "Name"
+msgstr "名字"
+
+#: admin/includes/class-overview-widgets.php:54
+msgid "Manual and Support"
+msgstr "手册和支持"
+
+#. translators: Publish box date format, see http://php.net/date.
+#: admin/includes/class-ad-type.php:862
+msgid "M j, Y @ G:i"
+msgstr "M j, Y @ G:i"
+
+#: admin/includes/class-menu.php:176 admin/includes/class-menu.php:180
+#: admin/includes/class-settings.php:263
+msgid "Licenses"
+msgstr "许可证"
+
+#. translators: %s is a string containing information about the issue.
+#: admin/includes/class-licenses.php:216
+msgid "License is invalid. Reason: %s"
+msgstr "许可证无效。原因:%s"
+
+#: admin/includes/notices.php:31
+msgid "Learn more about how and <strong>how much you can earn with AdSense</strong> and Advanced Ads from my dedicated newsletter."
+msgstr "了解更多关于如何从时事通讯中使用Advanced Ads以及 <strong>您能从AdSense中赚多少</strong>。"
+
+#: admin/includes/class-meta-box.php:96 admin/includes/class-settings.php:69
+msgid "Layout / Output"
+msgstr "布局/输出"
+
+#: admin/includes/class-overview-widgets.php:141
+msgid "Join now"
+msgstr "现在加入"
+
+#. translators: %s is a URL.
+#. translators: %s is the URL to add a new review,
+#. https://wordpress.org/support/plugin/advanced-ads/reviews/#new-post
+#: admin/includes/class-overview-widgets.php:194
+#: admin/class-advanced-ads-admin.php:665
+msgid "Thank the developer with a &#9733;&#9733;&#9733;&#9733;&#9733; review on <a href=\"%s\" target=\"_blank\">wordpress.org</a>"
+msgstr "感谢开发人员在<a href=\"%s\" target=\"_blank\">wordpress.org</a>的&#9733;&#9733;&#9733;&#9733;&#9733;评价"
+
+#. translators: %s is a URL.
+#: admin/views/settings/general/advanced-js.php:14
+msgid "Enable advanced JavaScript functions (<a href=\"%s\" target=\"_blank\">here</a>). Some features and add-ons might override this setting if they need features from this file."
+msgstr "启用高级JavaScript功能(<a href=\"%s\" target=\"_blank\">here</a>)。 如果某些功能和加载项需要此文件中的功能，则可能会覆盖此设置。"
+
+#: admin/includes/class-meta-box.php:112 admin/views/placements.php:282
+#: classes/ad-debug.php:239
+msgid "Visitor Conditions"
+msgstr "访客条件"
+
+#: modules/import-export/views/page.php:24 public/class-advanced-ads.php:761
+msgid "Groups"
+msgstr "组"
+
+#: admin/includes/class-menu.php:140
+msgid "Advanced Ads Settings"
+msgstr "Advanced Ads设置"
+
+#: modules/import-export/views/page.php:23
+#: modules/gutenberg/includes/class-gutenberg.php:79
+#: admin/includes/class-shortcode-creator.php:182
+#: admin/includes/class-menu.php:80 admin/includes/class-menu.php:81
+#: admin/views/placements-item.php:26 admin/views/placement-form.php:88
+#: admin/views/ad-group-list-form-row.php:91
+#: admin/views/ad-group-list-header.php:16 classes/widget.php:129
+#: public/class-advanced-ads.php:787
+msgid "Ads"
+msgstr "广告"
+
+#: admin/includes/class-menu.php:131
+msgid "Ad Placements"
+msgstr "广告展示"
+
+#: modules/gutenberg/includes/class-gutenberg.php:80
+#: admin/includes/class-shortcode-creator.php:189
+#: admin/views/placements-item.php:14 admin/views/placement-form.php:81
+#: classes/widget.php:122
+msgid "Ad Groups"
+msgstr "广告组"
+
+#: admin/includes/class-menu.php:156 admin/includes/class-menu.php:159
+#: admin/class-advanced-ads-admin.php:390 admin/views/settings.php:29
+msgid "Support"
+msgstr "支持"
+
+#: admin/includes/class-menu.php:283 admin/includes/class-menu.php:308
+msgid "Sorry, you are not allowed to access this feature."
+msgstr "对不起, 您不允许访问此功能。"
+
+#: admin/includes/class-menu.php:141
+msgid "Settings"
+msgstr "设置"
+
+#: modules/import-export/views/page.php:25
+#: modules/gutenberg/includes/class-gutenberg.php:81
+#: admin/includes/class-shortcode-creator.php:196
+#: admin/includes/class-menu.php:132 admin/views/placements.php:54
+#: classes/widget.php:115
+msgid "Placements"
+msgstr "配置"
+
+#: admin/includes/class-menu.php:66 admin/includes/class-menu.php:89
+#: admin/includes/class-menu.php:100 admin/includes/class-menu.php:101
+msgid "Overview"
+msgstr "概述"

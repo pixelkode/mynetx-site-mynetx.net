@@ -1,4 +1,5 @@
 <?php
+define('WP_AUTO_UPDATE_CORE', 'minor');// This setting is required to make sure that WordPress updates can be properly managed in WordPress Toolkit. Remove this line if this WordPress website is not managed by WordPress Toolkit anymore.
 // ** MySQL settings ** //
 define('DB_NAME', 'mynetxne_blog');    // The name of the database
 define('DB_USER', 'mynetxne_blog');     // Your MySQL username
@@ -11,10 +12,10 @@ define('DB_COLLATE', '');
 // Change each KEY to a different unique phrase.  You won't have to remember the phrases later,
 // so make them long and complicated.  You can visit http://api.wordpress.org/secret-key/1.1/
 // to get keys generated for you, or just make something up.  Each key should have a different phrase.
-define('AUTH_KEY',        '~j>p34p*vV+^%<j1L)DDI3,CGf4ReO==4;Yicfn8w~~<csO^40a25E:,Z4y-IJTs');
-define('SECURE_AUTH_KEY', 'Qe&j@!fVD*Qook,Cg{0-_#-<ER6D/)iz8Z#&cr:Ky/fhms,}L(VCy8?iQNe~*4-#');
-define('LOGGED_IN_KEY',   'jgD(PC2H0G]*w9?L}AXRyfdH|&9GAoUBfiSg!0z>x-K4U`Oaj|qJ-dzV%?>q&C2|');
-define('NONCE_KEY',       '3;@xUC3Ac,pO~Ubx20&u5w$uQ{D>/!;L0t$xp;8sYKvY`6A:r%3.8CHbZ}BI5B.P');
+define('AUTH_KEY', '6Vh/[zL+7/#aULdn16;i4m5xnkObt1:L@P[DR(#43WXf*/jx7m!B9868C5htCJtb');
+define('SECURE_AUTH_KEY', '7O4c13*&0SCH26Hd2];6x|BD4@h4OyW1W/0%!vC6rR4:p2oPw7mV;b05y&!yBu6d');
+define('LOGGED_IN_KEY', 'UjR9n|]:3Aj+QKA2[lHvPu4_4Tu71:NlJyQ#:9*W8tD5u_e_0-8si@GP8-9TeDo)');
+define('NONCE_KEY', '674(7e4(@d72)0zC709usus0(~B5/yh(Z5-Mxh3-w3n-dj~6TlR*#YUnHaAD_]OR');
 
 // You can have multiple installations in one database if you give each a unique prefix
 $table_prefix  = 'mx_';   // Only numbers, letters, and underscores please!
@@ -42,6 +43,10 @@ define('ICL_DONT_LOAD_LANGUAGES_JS', true);
 define ('WPLANG', 'en_US');
 
 define('WP_MEMORY_LIMIT', '128MB'); 
+define('AUTH_SALT', 'H9;au63y[6696ulhm_t93-i78630_8T47&IOZE3[:1nT;l6/;a;%I6SR2/szz:y7');
+define('SECURE_AUTH_SALT', 'cK*@99RQ9F0t:48~~5vs2aM~s3W7I:02x7hIjeX6m3e4+6xcX7J#z70Hej:W7P8G');
+define('LOGGED_IN_SALT', 'ja121W-jZ@kqrCDz~4h;_10XN|um5N5k(+y2gne1(+jGhF8pZoEN*9P75(70t00G');
+define('NONCE_SALT', '/@_~4SziWdk@xe2ug)Ea;@;Z3E(h7E8h|u3F(uj3j&oa4WLZ~x2xQ63An6JT%AZv');
 /* That's all, stop editing! Happy blogging. */
 
 if ( !defined('ABSPATH') )
